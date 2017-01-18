@@ -5,14 +5,13 @@ gemspec
 group :test, :production, :development do
 	gem 'sqlite3'
 	gem 'activerecord'
-	gem 'openssl'
 	gem 'sequel'
-	gem	'hirb'
+	gem 'hirb'
 	gem 'codeclimate-test-reporter'
 end
 
 group :development do
-	gem "faker"	
+	gem 'faker'	
 end
 
 group :test do
