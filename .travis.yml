@@ -1,0 +1,27 @@
+# We assume Ruby environments
+language: Ruby
+rvm:
+  - 2.2
+
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq libsqlite3-dev
+  - gem update
+
+install:
+  - sudo apt-get install ruby-dev
+  - gem install bundler
+  - bundler install
+
+script:
+  - rake test
+
+branches:
+  only:
+  - master
+  - production
+  - development
+
+addons:
+    code_climate:
+        repo_token: f24bde63d71bda842c859165858190a78ef0853b4d03512cc35a453da409d424

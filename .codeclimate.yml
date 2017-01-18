@@ -1,0 +1,19 @@
+engines:
+  rubocop:
+    enabled: true
+    checks:
+      Rubocop/Metrics/ParameterLists:
+        enabled: false
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - ruby
+ratings:
+  paths:
+  - "app/**""
+  - "lib/**"
+  - "**.class.rb"
+exclude_paths:
+  - "spec/**/*"
+  - "**/vendor/**/*"
