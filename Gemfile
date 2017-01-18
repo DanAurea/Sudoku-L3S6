@@ -7,7 +7,6 @@ group :test, :production, :development do
 	gem 'activerecord'
 	gem 'sequel'
 	gem 'hirb'
-	gem 'codeclimate-test-reporter'
 end
 
 group :development do
@@ -18,4 +17,6 @@ group :test do
 	gem 'test'
 	gem 'rake'
 	gem 'rspec'
+	gem "simplecov"
+	gem 'codeclimate-test-reporter'
 end

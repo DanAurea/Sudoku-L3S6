@@ -11,7 +11,7 @@ engines:
       - ruby
 ratings:
   paths:
-  - "app/**""
+  - "app/**"
   - "lib/**"
   - "**.class.rb"
 exclude_paths:
