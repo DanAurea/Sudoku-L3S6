@@ -1,12 +1,15 @@
 
 ##
-## @brief      Equivalent d'une interface
+## @brief      Classe action pour tester
 ##
 class Action
-	def faire()
+	@etiquette
+	def initialize(etiquette)
+		@etiquette=etiquette
 	end
 
-	def defaire()
+	def faire()
+		print @etiquette
 	end
 
 end
