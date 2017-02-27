@@ -32,7 +32,6 @@ class FenetrePrincipale < View
         #Creation des Boutons
         @event_box=Gtk::EventBox.new.add(@image)
         @event_box.signal_connect('button_press_event'){
-            Fenetre::fenetrePrecedente = Fenetre::fenetre
         	Core::load("Pseudo")
         }
         Fenetre::table.attach(@event_box,0,10,0,12)

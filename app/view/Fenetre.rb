@@ -27,9 +27,12 @@ module Fenetre
 		return @table
 	end
 
-    # Définis un accesseur pour la fenetre precedente de la fenetre actuelle
     def Fenetre.fenetrePrecedente()
         return @fenetrePrecedente
+    end
+
+    def Fenetre.fenetrePrecedente=(uneFenetrePrecedente)
+        return @fenetrePrecedente=uneFenetrePrecedente
     end
 
     #===Methode detruire
@@ -41,7 +44,7 @@ module Fenetre
     # * *Returns* :
     #   - /
     #
-    def detruire()
+    def Fenetre.detruire()
         puts "Fin de la fenetre #{self.class}"
         Gtk.main_quit()
     end
@@ -57,6 +60,7 @@ module Fenetre
     #
     def Fenetre.miseEnPlace()
         #Conteneur table
+        @fenetre.remove(@table)
         @table=Gtk::Table.new(10,12,false)
         @fenetre.add(@table)
         #espace
@@ -74,13 +78,9 @@ module Fenetre
     # * *Returns* :
     #   - unLabel -> Label
     #
-    def Fenetre.creerLabelType(unNomDeLabel, taillePolice, couleur,bSouligne)
+    def Fenetre.creerLabelType(unNomDeLabel, taillePolice, couleur)
         #Creation du Label
-        if bSouligne
-            texte = "<span font_desc=\"Comic sans MS " + taillePolice.to_s + "\" foreground=\"" + couleur + "\"><u> #{unNomDeLabel} </u></span>\n"
-        else
-            texte = "<span font_desc=\"Comic sans MS " + taillePolice.to_s + "\" foreground=\"" + couleur + "\"> #{unNomDeLabel} </span>\n"
-        end
+        texte = "<span font_desc=\"Comic sans MS " + taillePolice.to_s + "\" foreground=\"" + couleur + "\"> #{unNomDeLabel} </span>\n"
         label=Gtk::Label.new()
         label.set_markup(texte)
         label.set_justify(Gtk::JUSTIFY_CENTER)
@@ -136,7 +136,7 @@ module Fenetre
     # * *Returns* :
     #   - image -> une image de fond
     #
-    def creerFondEcran(x,y)
+    def Fenetre.creerFondEcran(x,y)
         begin
             tmp= GdkPixbuf::Pixbuf.new(:file => Core::ROOTPROJECT + "assets/img/fond.jpg", :width => x, :height => y)
             image = Gtk::Image.new(tmp)
