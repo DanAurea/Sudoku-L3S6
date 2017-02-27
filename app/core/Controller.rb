@@ -12,6 +12,21 @@ class Controller
 
 
 	##
+	## @brief      Invoke methods when inherited
+	##
+	## @param      subclass  The subclass
+	##
+	## @return     Itself
+	##
+	def self.inherited(subclass)
+		self.new()
+		super
+
+		return self
+	end
+
+
+	##
 	## @brief      Render view called by controller
 	##
 	## @param      name  The name
@@ -37,27 +52,27 @@ class Controller
 			exit(1) 
 		end
 
-		## Create content variable to send from controller to view called
+		## Create content variable sent from controller to view called
 		@content = Hash.new()
-
-		@window  = Gtk::Window.new()
 
 		## Will retrieve class constant name for dynamic instanciation
 		viewName = Object.const_get(name)
 
 		view = viewName.new()
+		view.window.hide_all
 
-		## Send content and window context to view called
-		view.content = @content.clone()
-		view.window  = @window
+		## Collect content from controller and send it to view
+		view.controller = self
+		view.controller.run()
+		view.content    = @content.clone()
 
-		@window.signal_connect('destroy') {
-  			Gtk.main_quit
-		}
-
-		@window.show_all
+		## Will render view with content retrieved in controller
+		view.run()
+		view.render()
+		
+		## Display content builded in view with Gtk
+		view.window.show_all
 	end
-
 
 	##
 	## @brief      Loads a model.
@@ -85,9 +100,25 @@ class Controller
 		## Will retrieve class constant name for dynamic instanciation
 		modelName = Object.const_get(name)
 
-		model = modelName.new()
+		## Make an only one instance of model (Singleton pattern)
+		## to ensure date integrity.
+		model = modelName.instance()
+
+		self.instance_variable_set("@" + name, model)
 
 		return model
 
 	end
+
+	## @brief      Invoke all method in controller for collecting
+	## 				contents to send on view. 
+	##
+	##
+	def run()
+		raise "Controller #{self.class.name} can't collect content because run method is not redefined."
+		if Core::DEBUG
+			exit(1)
+		end
+	end
+
 end

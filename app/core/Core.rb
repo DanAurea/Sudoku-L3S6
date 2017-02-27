@@ -1,10 +1,11 @@
 module Core
 
 	## Define root directory constant
-	ROOT       = File.dirname(File.dirname(__FILE__)) + "/"
-	CONTROLLER = "Controleur"
-	VIEW       = "Fenetre"
-	DEBUG      = true
+	ROOT        = File.dirname(File.dirname(__FILE__)) + "/"
+	ROOTPROJECT = File.dirname(ROOT) + "/"
+	CONTROLLER  = "Controleur"
+	VIEW        = "Fenetre"
+	DEBUG       = true
 
 	##
 	## @brief      Load a controller and render its view
@@ -17,10 +18,8 @@ module Core
 		controller = loadController(name)
 		
 		controller.render(name)
-		
 		return self
 	end
-
 
 	##
 	## @brief      Format name
@@ -44,7 +43,6 @@ module Core
 	def Core.modelPath(name)
 		return ROOT + "model/" + name + ".rb"
 	end
-
 
 	##
 	## @brief      Give view path for
@@ -102,7 +100,7 @@ module Core
 		return controller
 	end
 
-	## Define a class from module itself only for declaring private methods
+	## Define a class from module itself for declaring private methods
 	class << self
     	private :loadController
   	end
