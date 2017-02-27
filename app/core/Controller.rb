@@ -25,11 +25,33 @@ class Controller
 		return self
 	end
 
+	##
+	## @brief      Loads a file.
+	##
+	## @param      filePath   The file path
+	## @param      debugInfo  The debug information
+	##
+	## @return     Itself
+	##
+	def loadFile(filePath, debugInfo)
+		begin
+			require filePath
+		rescue LoadError
+			
+			if Core::DEBUG
+				puts debugInfo + ": " + name + " not found in " + Core::ROOT + debugInfo.downcase
+			end
+
+			exit(1) 
+		end
+
+		return self
+	end
 
 	##
 	## @brief      Render view called by controller
 	##
-	## @param      name  The name
+	## @param      name  The view to render
 	##
 	##
 	def render(name)
@@ -41,16 +63,7 @@ class Controller
 
 		filePath = Core::viewPath(name)
 
-		begin
-			require filePath
-		rescue LoadError
-			
-			if Core::DEBUG
-				puts "View: " + name + " not found in " + Core::ROOT + "view"
-			end
-
-			exit(1) 
-		end
+		self.loadFile(filePath, "View")
 
 		## Create content variable sent from controller to view called
 		@content = Hash.new()
@@ -77,7 +90,7 @@ class Controller
 	##
 	## @brief      Loads a model.
 	##
-	## @param      name  The name
+	## @param      name  The model to load
 	##
 	## @return     Model instance
 	##
@@ -86,16 +99,7 @@ class Controller
 
 		filePath = Core::modelPath(name)
 
-		begin
-			require filePath
-		rescue LoadError
-			
-			if Core::DEBUG
-				puts "Model: " + name + " not found in " + CORE::ROOT + "model"
-			end
-
-			exit(1) 
-		end
+		self.loadFile(filePath, "Model")
 
 		## Will retrieve class constant name for dynamic instanciation
 		modelName = Object.const_get(name)
@@ -115,9 +119,8 @@ class Controller
 	##
 	##
 	def run()
-		raise "Controller #{self.class.name} can't collect content because run method is not redefined."
 		if Core::DEBUG
-			exit(1)
+			raise "Controller #{self.class.name} can't collect content because run method is not redefined."
 		end
 	end
 

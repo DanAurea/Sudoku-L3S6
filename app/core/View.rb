@@ -46,9 +46,8 @@ class View
 	##
 	##
 	def run()
-		raise "View #{self.class.name} can't be build because run method is not redefined."
 		if Core::DEBUG
-			exit(1)
+			raise "View #{self.class.name} can't be build because run method is not redefined."		
 		end
 	end
 

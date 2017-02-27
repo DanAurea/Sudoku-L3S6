@@ -70,7 +70,7 @@ module Core
 	##
 	## @brief      Loads a controller.
 	##
-	## @param      name  The name
+	## @param      name  The controller to load
 	##
 	## @return     Controller instance
 	##
