@@ -1,3 +1,7 @@
+#   Author::      PAVARD Valentin
+#   Version::     0.1
+#   Copyright::   ©
+#   License::     Distributes under the same terms as Ruby
 
 ##
 ## @brief      Controleur fenêtre principale
@@ -5,12 +9,7 @@
 class PrincipaleControleur < Controller
 	
 	def initialize ()
-		## Charge la table utilisateur
-		loadModel("utilisateur")
-	end
 
-	def controllerTest()
-		@content["maDonnee"] = "maValeur"
 	end
 
 	##
@@ -20,7 +19,6 @@ class PrincipaleControleur < Controller
 	## @return     Itself
 	##
 	def run()
-		self.controllerTest()
 		return self
 	end
 
