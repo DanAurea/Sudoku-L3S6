@@ -31,8 +31,7 @@ class View
 
 	##
 	## @brief      Create instance variables from 
-	## 				@content. 
-	##
+	## 				@content provided by controller.
 	##
 	def setInstanceVars ()
 		@content.each { |name, value| instance_variable_set("@" + name, value) }

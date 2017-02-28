@@ -29,6 +29,7 @@ class FenetrePrincipale < View
 	##
 	def run
 		self.miseEnPlace
+		controllerTest 
 
 		return self
 	end

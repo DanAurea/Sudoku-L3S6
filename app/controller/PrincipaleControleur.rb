@@ -9,8 +9,8 @@ class PrincipaleControleur < Controller
 		loadModel("utilisateur")
 	end
 
-	def controllerTest()
-		@content["maDonnee"] = "maValeur"
+	def controllerTest
+		puts @content["maDonnee"] = "maValeur"
 	end
 
 	##
@@ -20,7 +20,6 @@ class PrincipaleControleur < Controller
 	## @return     Itself
 	##
 	def run()
-		self.controllerTest()
 		return self
 	end
 
