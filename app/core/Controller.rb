@@ -39,7 +39,7 @@ class Controller
 		rescue LoadError
 			
 			if Core::DEBUG
-				puts debugInfo + ": " + name + " not found in " + Core::ROOT + debugInfo.downcase
+				puts debugInfo + ": " + File.basename(filePath) + " not found in " + Core::ROOT + debugInfo.downcase
 			end
 
 			exit(1) 
@@ -80,8 +80,8 @@ class Controller
 		view.content    = @content.clone()
 
 		## Will render view with content retrieved in controller
+		view.setInstanceVars()
 		view.run()
-		view.render()
 		
 		## Display content builded in view with Gtk
 		view.window.show_all

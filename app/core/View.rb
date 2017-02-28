@@ -51,15 +51,4 @@ class View
 		end
 	end
 
-	##
-	## @brief      Render view itself
-	##
-	## @return     Itself
-	##
-	def render()
-		self.setInstanceVars()
-
-		return self		
-	end
-
 end

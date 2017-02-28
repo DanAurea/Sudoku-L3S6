@@ -17,7 +17,7 @@ class FenetrePrincipale < View
         }
 
         Fenetre::table.attach(@event_box,0,10,0,12)
-    end
+	end
 
 	##
 	## @brief     Lance la construction du modèle
