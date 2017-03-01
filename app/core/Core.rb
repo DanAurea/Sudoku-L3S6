@@ -18,6 +18,25 @@ module Core
 		controller = loadController(name)
 		
 		controller.render(name)
+
+		return self
+	end
+
+	##
+	## @brief      Change window
+	##
+	## @param      name  The name
+	##
+	## @return     Module itself
+	##
+	def Core.changeTo(name)
+			
+		Fenetre::fenetrePrecedente = Fenetre::fenetre.children.clone()
+
+		Fenetre::viderFenetre
+
+		load(name)
+
 		return self
 	end
 
@@ -102,7 +121,7 @@ module Core
 
 	## Define a class from module itself for declaring private methods
 	class << self
-    	private :loadController
+    	private :loadController, :load
   	end
 
 end

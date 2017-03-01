@@ -5,6 +5,14 @@
 class Controller
 
 	def initialize ()
+
+		@title       = "MyApp"
+		@width       = 900
+		@height      = 500
+		@borderWidth = 0
+		@resizable   = false
+		@position 	 = "POS_CENTER_ALWAYS"
+
 		if Core::DEBUG
 			puts "Main controller instanciation"
 		end
@@ -19,7 +27,6 @@ class Controller
 	## @return     Itself
 	##
 	def self.inherited(subclass)
-		self.new()
 		super
 
 		return self
@@ -72,13 +79,24 @@ class Controller
 		viewName = Object.const_get(name)
 
 		view = viewName.new()
-		view.window.hide_all
 
+		## Set window properties
+    	
+    	view.window.set_title(@title)
+    	view.window.set_default_size(@height, @width)
+    	view.window.border_width = @borderWidth
+    	view.window.set_resizable(@resizable)
+    	view.window.set_window_position(Object.const_get("Gtk::Window::" + @position))
+
+    	# view.window.set_window_position(Gtk::Window::@position)
+		
 		## Collect content from controller and send it to view
 		view.controller = self
 		view.controller.run()
 		view.content    = @content.clone()
 
+		## Refer controller methods in view for easier
+		## call.
 		self.class.instance_methods(false).each() do |method|
 			if !view.class.method_defined?(method)
 				view.define_singleton_method(method) do |*args|
@@ -90,7 +108,7 @@ class Controller
 		## Will render view with content retrieved in controller
 		view.setInstanceVars()
 		view.run()
-		
+
 		## Display content builded in view with Gtk
 		view.window.show_all
 	end

@@ -1,5 +1,6 @@
 class FenetrePrincipale < View 
 
+
 	def miseEnPlace()
 
     	begin
@@ -13,7 +14,7 @@ class FenetrePrincipale < View
         #Creation des Boutons
         @event_box=Gtk::EventBox.new.add(@image)
         @event_box.signal_connect('button_press_event'){
-        	Core::load("Pseudo")
+        	Core::changeTo("Pseudo")
         }
 
         Fenetre::table.attach(@event_box,0,10,0,12)
@@ -29,7 +30,7 @@ class FenetrePrincipale < View
 	##
 	def run
 		self.miseEnPlace
-		controllerTest 
+		controllerTest
 
 		return self
 	end

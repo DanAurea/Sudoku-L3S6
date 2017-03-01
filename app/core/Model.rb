@@ -23,9 +23,9 @@ class Model
 
 		## Set options for logging database access
 		if Core::DEBUG
-			logger = Logger.new(STDERR)
+			Logger.new(STDERR)
 		else
-			logger = Logger.new(File.open(Core::ROOT + 'log/database.log', 'w'))
+			Logger.new(File.open(Core::ROOT + 'log/database.log', 'w'))
 		end
 
 		## Try to connect with configuration set in files

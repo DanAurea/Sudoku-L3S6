@@ -2,7 +2,7 @@ module Fenetre
 
 	@fenetre = Gtk::Window.new()
 	@fenetre.signal_connect('destroy') {
-			Gtk.main_quit
+			detruire()
 	}
 
 	## Définis un accesseur pour le contexte de la fenêtre Gtk
@@ -10,9 +10,39 @@ module Fenetre
 		return @fenetre
 	end
 
+    ## Montre la fenetre précédente
+    def Fenetre.fenetrePrecedente()
+        viderFenetre()
+
+        @fenetrePrecedente.each() do |elt|
+            @fenetre.add(elt)
+        end
+
+        @fenetre.show_all
+    end
+
+    ## Définis la fenetre précédente
+    def Fenetre.fenetrePrecedente=(fenetre)
+        @fenetrePrecedente = fenetre
+    end
+
+    ## Accesseur sur le layout
 	def Fenetre.table()
 		return @table
 	end
+
+    ## Vide la fenêtre pour préparer la mise 
+    ## à jour.
+    def Fenetre.viderFenetre()
+        @fenetre.children.each() do |child|
+            @fenetre.remove(child)
+        end
+    end
+
+    ## Détruit la fenêtre
+    def Fenetre.detruire()
+        Gtk.main_quit
+    end
 
 	 #===Methode miseEnplace
     #

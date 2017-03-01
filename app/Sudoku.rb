@@ -11,6 +11,6 @@ require 'view/Fenetre.rb'
 require 'core/View.rb'
 
 ## Charge la page principale du jeu
-Core::load("Principale")
+Core::changeTo("Principale")
 
 Gtk::main()
