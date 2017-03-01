@@ -1,5 +1,7 @@
 class FenetrePrincipale < View 
 
+	def initialize()
+	end
 
 	def miseEnPlace()
 

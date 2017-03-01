@@ -86,6 +86,24 @@ module Core
 		return ROOT + "controller/" + name + ".rb"
 	end
 
+
+	##
+	## @brief      Force children overriding constructor
+	## 				inherited from parent class to run 
+	## 				parent constructor.
+	##
+	## @return     Itself
+	##
+	def Core.forceParentInit(o)
+		
+		## Force to call parent method if children override it
+		if o.method(:initialize).owner != o.class.name
+			o.method(:initialize).super_method.call
+			o.method(:initialize).call
+		end
+
+	end
+
 	##
 	## @brief      Loads a controller.
 	##

@@ -7,7 +7,6 @@ class PrincipaleControleur < Controller
 	def initialize ()
 		## Charge la table utilisateur
 		loadModel("utilisateur")
-		super()
 	end
 
 	def controllerTest

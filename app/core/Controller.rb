@@ -4,6 +4,7 @@
 ##
 class Controller
 
+
 	def initialize ()
 
 		@title       = "MyApp"
@@ -17,7 +18,6 @@ class Controller
 			puts "Main controller instanciation"
 		end
 	end
-
 
 	##
 	## @brief      Invoke methods when inherited
@@ -62,6 +62,7 @@ class Controller
 	##
 	##
 	def render(name)
+		
 		if Core::DEBUG
 			puts "Loading view..."
 		end
@@ -79,6 +80,11 @@ class Controller
 		viewName = Object.const_get(name)
 
 		view = viewName.new()
+
+		## Force children controller and view
+		## to run parent initialize if overriden.
+		Core::forceParentInit(self)
+		Core::forceParentInit(view)
 
 		## Set window properties
     	
