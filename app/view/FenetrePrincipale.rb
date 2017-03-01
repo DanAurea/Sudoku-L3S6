@@ -11,6 +11,11 @@ class FenetrePrincipale < View
     @image
     @event_box
 
+	def initialize()
+
+        
+	end
+
     #===Methode miseEnplace
     #
     # Permet de mettre en place la fenetre(taille, informations, conteneurs)
@@ -32,10 +37,10 @@ class FenetrePrincipale < View
         #Creation des Boutons
         @event_box=Gtk::EventBox.new.add(@image)
         @event_box.signal_connect('button_press_event'){
-        	Core::load("Pseudo")
+        	Core::changeTo("Pseudo")
         }
         Fenetre::table.attach(@event_box,0,10,0,12)
-    end
+	end
 
 	##
 	## @brief     Lance la construction du modèle
@@ -47,6 +52,7 @@ class FenetrePrincipale < View
 	##
 	def run
 		self.miseEnPlace
+		controllerTest
 		return self
 	end
 

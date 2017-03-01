@@ -31,8 +31,7 @@ class View
 
 	##
 	## @brief      Create instance variables from 
-	## 				@content. 
-	##
+	## 				@content provided by controller.
 	##
 	def setInstanceVars ()
 		@content.each { |name, value| instance_variable_set("@" + name, value) }
@@ -49,17 +48,6 @@ class View
 		if Core::DEBUG
 			raise "View #{self.class.name} can't be build because run method is not redefined."		
 		end
-	end
-
-	##
-	## @brief      Render view itself
-	##
-	## @return     Itself
-	##
-	def render()
-		self.setInstanceVars()
-
-		return self		
 	end
 
 end

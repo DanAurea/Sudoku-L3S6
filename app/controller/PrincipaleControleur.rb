@@ -9,8 +9,13 @@
 class PrincipaleControleur < Controller
 	
 	def initialize ()
-
+		## Charge la table utilisateur
+		loadModel("utilisateur")
 	end
+
+	def controllerTest
+		puts @content["maDonnee"] = "maValeur"
+end
 
 	##
 	## @brief      Invoke all methods from controller resulting

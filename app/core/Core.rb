@@ -18,6 +18,25 @@ module Core
 		controller = loadController(name)
 		
 		controller.render(name)
+
+		return self
+	end
+
+	##
+	## @brief      Change window
+	##
+	## @param      name  The name
+	##
+	## @return     Module itself
+	##
+	def Core.changeTo(name)
+			
+		Fenetre::fenetrePrecedente = Fenetre::fenetre.children.clone()
+
+		Fenetre::viderFenetre
+
+		load(name)
+
 		return self
 	end
 
@@ -67,6 +86,24 @@ module Core
 		return ROOT + "controller/" + name + ".rb"
 	end
 
+
+	##
+	## @brief      Force children overriding constructor
+	## 				inherited from parent class to run 
+	## 				parent constructor.
+	##
+	## @return     Itself
+	##
+	def Core.forceParentInit(o)
+		
+		## Force to call parent method if children override it
+		if o.method(:initialize).owner != o.class.name
+			o.method(:initialize).super_method.call
+			o.method(:initialize).call
+		end
+
+	end
+
 	##
 	## @brief      Loads a controller.
 	##
@@ -102,7 +139,7 @@ module Core
 
 	## Define a class from module itself for declaring private methods
 	class << self
-    	private :loadController
+    	private :loadController, :load
   	end
 
 end
