@@ -69,7 +69,7 @@ class Controller
 			puts "Loading view..."
 		end
 
-		name = Core::VIEW + Core::format(name)
+		name = Core::VIEW + name
 
 		filePath = Core::viewPath(name)
 
@@ -131,8 +131,7 @@ class Controller
 	## @return     Model instance
 	##
 	def loadModel(name)
-		name = Core::format(name)
-
+		
 		filePath = Core::modelPath(name)
 
 		self.loadFile(filePath, "Model")

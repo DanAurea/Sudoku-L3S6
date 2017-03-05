@@ -10,7 +10,7 @@ class PrincipaleControleur < Controller
 	
 	def initialize ()
 		## Charge la table utilisateur
-		loadModel("utilisateur")
+		loadModel("Utilisateur")
 		@title = "Sudoku"
 	end
 
