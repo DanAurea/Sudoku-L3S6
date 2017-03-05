@@ -4,7 +4,7 @@
 ##
 class Controller
 
-	def initialize (*args)
+	def initialize ()
 
 		@title       = "MyApp"
 		@width       = 900
@@ -92,13 +92,7 @@ class Controller
 			@content[key.to_s] = value
 		}
 
-		## Set window properties
-    	
-    	view.window.set_title(@title)
-    	view.window.set_default_size(@width, @height)
-    	view.window.border_width = @borderWidth
-    	view.window.set_resizable(@resizable)
-    	view.window.set_window_position(Object.const_get("Gtk::Window::" + @position))
+		self.set_properties(view)
 
 		## Collect content from controller and send it to view
 		view.controller = self
@@ -121,6 +115,23 @@ class Controller
 
 		## Display content builded in view with Gtk
 		view.window.show_all
+	end
+
+
+	##
+	## @brief      Sets the properties of window
+	##
+	## @return     Itself
+	##
+	def set_properties(view)
+		## Set window properties
+    	
+    	view.window.set_title(@title)
+    	view.window.set_default_size(@width, @height)
+    	view.window.border_width = @borderWidth
+    	view.window.set_resizable(@resizable)
+    	view.window.set_window_position(Object.const_get("Gtk::Window::" + @position))
+    	
 	end
 
 	##

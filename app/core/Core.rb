@@ -1,11 +1,15 @@
 module Core
 
 	## Define root directory constant
-	ROOT        = File.dirname(File.dirname(__FILE__)) + "/"
-	ROOTPROJECT = File.dirname(ROOT) + "/"
-	CONTROLLER  = "Controleur"
-	VIEW        = "Fenetre"
-	DEBUG       = true
+	ROOT                  = File.dirname(File.dirname(__FILE__)) + "/"
+	ROOTPROJECT           = File.dirname(ROOT) + "/"
+	CONTROLLER            = "Controleur"
+	VIEW                  = "Fenetre"
+	DEBUG                 = true
+	DEFAULT_DATABASE_LOG  = "log/main.log"
+	DEFAULT_ADAPTER       = "sqlite3"
+	DEFAULT_DATABASE_DIR  = "db/"
+	DEFAULT_DATABASE_NAME = "main.sqlite3"
 
 	##
 	## @brief      Load a controller and render its view
