@@ -1,5 +1,24 @@
+#   Contient la classe representant une fenetre pour l'image de depart
+#
+#   Author::      PAVARD Valentin
+#   Version::     0.1
+#   Copyright::   ©
+#   License::     Distributes under the same terms as Ruby
+
 class FenetrePrincipale < View 
 
+    @image
+    @event_box
+
+    #===Methode miseEnplace
+    #
+    # Permet de mettre en place la fenetre(taille, informations, conteneurs)
+    #
+    # * *Args*    :
+    #   - /
+    # * *Returns* :
+    #   - /
+    #
 	def miseEnPlace()
     	begin
     		@image = Gtk::Image.new(Core::ROOTPROJECT + "assets/img/sudokuIntro.jpg")
@@ -14,7 +33,6 @@ class FenetrePrincipale < View
         @event_box.signal_connect('button_press_event'){
         	Core::changeTo("Pseudo")
         }
-
         Fenetre::table.attach(@event_box,0,10,0,12)
 	end
 
@@ -28,8 +46,6 @@ class FenetrePrincipale < View
 	##
 	def run
 		self.miseEnPlace
-		controllerTest
-
 		return self
 	end
 

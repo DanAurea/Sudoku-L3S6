@@ -1,14 +1,26 @@
+#   Contient la classe abstraite Fenetre regroupant les informations de base de chaque fenetre
+#
+#   Author::      PAVARD Valentin, DanAurea
+#   Version::     0.1
+#   Copyright::   ©
+#   License::     Distributes under the same terms as Ruby
+
+
 module Fenetre
+
+    @fenetre
+    @table
+    @fenetrePrecedente
 
 	@fenetre = Gtk::Window.new()
 	@fenetre.signal_connect('destroy') {
 			detruire()
 	}
 
-	## Définis un accesseur pour le contexte de la fenêtre Gtk
+	# Définis un accesseur pour le contexte de la fenêtre Gtk
 	def Fenetre.fenetre()
 		return @fenetre
-	end
+	end   
 
     ## Montre la fenetre précédente
     def Fenetre.fenetrePrecedente()
@@ -31,20 +43,30 @@ module Fenetre
 		return @table
 	end
 
-    ## Vide la fenêtre pour préparer la mise 
-    ## à jour.
+    #=== Vide la fenêtre pour préparer la mise à jour.
+    #
+    #
     def Fenetre.viderFenetre()
         @fenetre.children.each() do |child|
             @fenetre.remove(child)
         end
     end
 
-    ## Détruit la fenêtre
+    #===Methode detruire
+    #
+    # Permet de quitter l'application et de detruire la fenetre
+    #
+    # * *Args*    :
+    #   - /
+    # * *Returns* :
+    #   - /
+    #
     def Fenetre.detruire()
-        Gtk.main_quit
+        puts "Fin de la fenetre #{self.class}"
+        Gtk.main_quit()
     end
 
-	 #===Methode miseEnplace
+	#===Methode miseEnplace
     #
     # Permet de mettre en place la fenetre(conteneurs)
     #
@@ -74,7 +96,7 @@ module Fenetre
     #
     def Fenetre.creerLabelType(unNomDeLabel, taillePolice, couleur)
         #Creation du Label
-        texte = "<span font_desc=\"Comic sans MS" + taillePolice.to_s + "\" foreground=\"" + couleur + "\"> #{unNomDeLabel} </span>\n"
+        texte = "<span font_desc=\"Comic sans MS " + taillePolice.to_s + "\" foreground=\"" + couleur + "\"> #{unNomDeLabel} </span>\n"
         label=Gtk::Label.new()
         label.set_markup(texte)
         label.set_justify(Gtk::JUSTIFY_CENTER)
@@ -121,4 +143,24 @@ module Fenetre
     	return messageErreur
     end
 
+    ##===Methode creerFondEcran
+    #
+    # Creer le fond d'ecran
+    #
+    # * *Args*    :
+    #   - /
+    # * *Returns* :
+    #   - image -> une image de fond
+    #
+    def Fenetre.creerFondEcran(x,y)
+        begin
+            tmp= GdkPixbuf::Pixbuf.new(:file => Core::ROOTPROJECT + "assets/img/fond.jpg", :width => x, :height => y)
+            image = Gtk::Image.new(tmp)
+            return image
+        rescue IOError => e
+            puts e
+            puts "Impossible de charger l'image de fond"
+            exit
+        end
+    end
 end
