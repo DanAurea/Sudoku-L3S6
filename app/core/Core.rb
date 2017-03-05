@@ -14,10 +14,11 @@ module Core
 	##
 	## @return     Module itself
 	##
-	def Core.load(name)
+	def Core.load(name, **args)
+
 		controller = loadController(name)
-		
-		controller.render(name)
+
+		controller.render(name, args)
 
 		return self
 	end
@@ -29,13 +30,13 @@ module Core
 	##
 	## @return     Module itself
 	##
-	def Core.changeTo(name)
+	def Core.changeTo(name, **args)
 			
 		Fenetre::fenetrePrecedente = Fenetre::fenetre.children.clone()
 
 		Fenetre::viderFenetre
 
-		load(name)
+		load(name, args)
 
 		return self
 	end
@@ -99,7 +100,6 @@ module Core
 		## Force to call parent method if children override it
 		if o.method(:initialize).owner != o.class.name
 			o.method(:initialize).super_method.call
-			o.method(:initialize).call
 		end
 
 	end
@@ -132,7 +132,7 @@ module Core
 		## Will retrieve class constant name for dynamic instanciation
 		controllerName = Object.const_get(name)
 
-		controller = controllerName.new()
+		controller = controllerName.new()		
 
 		return controller
 	end

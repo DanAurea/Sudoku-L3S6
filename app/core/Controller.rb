@@ -4,15 +4,17 @@
 ##
 class Controller
 
-
-	def initialize ()
+	def initialize (*args)
 
 		@title       = "MyApp"
 		@width       = 900
 		@height      = 500
 		@borderWidth = 0
-		@resizable   = false
-		@position 	 = "POS_CENTER_ALWAYS"
+		@resizable   = true
+		@position 	 = "POS_CENTER"
+
+		## Create content variable sent from controller to view called
+		@content = Hash.new()
 
 		if Core::DEBUG
 			puts "Main controller instanciation"
@@ -61,7 +63,7 @@ class Controller
 	## @param      name  The view to render
 	##
 	##
-	def render(name)
+	def render(name, **args)
 		
 		if Core::DEBUG
 			puts "Loading view..."
@@ -73,9 +75,6 @@ class Controller
 
 		self.loadFile(filePath, "View")
 
-		## Create content variable sent from controller to view called
-		@content = Hash.new()
-
 		## Will retrieve class constant name for dynamic instanciation
 		viewName = Object.const_get(name)
 
@@ -83,19 +82,24 @@ class Controller
 
 		## Force children controller and view
 		## to run parent initialize if overriden.
-		Core::forceParentInit(self)
+		Core::forceParentInit(self)	
 		Core::forceParentInit(view)
+
+		## Set values sent from previous view in
+		## content of current view.
+		args.each{
+			|key, value|
+			@content[key.to_s] = value
+		}
 
 		## Set window properties
     	
     	view.window.set_title(@title)
-    	view.window.set_default_size(@height, @width)
+    	view.window.set_default_size(@width, @height)
     	view.window.border_width = @borderWidth
     	view.window.set_resizable(@resizable)
     	view.window.set_window_position(Object.const_get("Gtk::Window::" + @position))
 
-    	# view.window.set_window_position(Gtk::Window::@position)
-		
 		## Collect content from controller and send it to view
 		view.controller = self
 		view.controller.run()
@@ -154,6 +158,7 @@ class Controller
 		if Core::DEBUG
 			raise "Controller #{self.class.name} can't collect content because run method is not redefined."
 		end
+		return self
 	end
 
 end

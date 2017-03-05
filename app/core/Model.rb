@@ -13,12 +13,25 @@ class Model
 		@app  = @conf.app
 		@db   = @conf.db
 
-		adapter = @db["development"]["adapter"]
-		dbPath  = Core::ROOT + @db["development"]["database"]
+		dbPath = Core::ROOT + "db/"
+
+		adapter  = @db["development"]["adapter"]
+		database = dbPath + @db["development"]["database"]
+
+		## Create a new database directory if not existing
+		if !Dir.exist?(dbPath)
+			if Core::DEBUG
+				puts "Database directory not found, it will be created."
+			end
+			Dir.mkdir(dbPath)
+		end
 
 		## Create a SQLite database 
-		if !File.exist?(dbPath)
-			SQLite3::Database.new(dbPath)
+		if !File.exist?(database)
+			if Core::DEBUG
+				puts "SQLite3 database not found, it will be created."
+			end
+			SQLite3::Database.new(database)
 		end
 
 		## Set options for logging database access
@@ -30,7 +43,7 @@ class Model
 
 		## Try to connect with configuration set in files
 		begin
-			self.connection(adapter, dbPath)
+			self.connection(adapter, database)
 		rescue 
 
 			if Core::DEBUG
@@ -38,18 +51,18 @@ class Model
 			end
 
 			adapter = "sqlite3"
-			dbPath  = Core::ROOT + "db/main.sqlite3"
+			database  = Core::ROOT + "db/main.sqlite3"
 
-			self.connection(adapter, dbPath)
+			self.connection(adapter, database)
 
 		end
 		
 	end
 
-	def connection(adapter, dbPath)
+	def connection(adapter, database)
 		ActiveRecord::Base.establish_connection(
 			:adapter  => adapter,
-  		 	:database => dbPath
+  		 	:database => database
 		)
 	end
 

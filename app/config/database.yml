@@ -1,3 +1,3 @@
 development:
   adapter: sqlite3
-  database: db/main.sqlite3
+  database: main.sqlite3

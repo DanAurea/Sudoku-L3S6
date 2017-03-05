@@ -1,10 +1,6 @@
 class FenetrePrincipale < View 
 
-	def initialize()
-	end
-
 	def miseEnPlace()
-
     	begin
     		@image = Gtk::Image.new(Core::ROOTPROJECT + "assets/img/sudokuIntro.jpg")
     	rescue IOError => e
