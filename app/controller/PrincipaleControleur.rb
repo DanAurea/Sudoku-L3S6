@@ -21,6 +21,7 @@ class PrincipaleControleur < Controller
 	## @return     Itself
 	##
 	def run()
+
 		return self
 	end
 
