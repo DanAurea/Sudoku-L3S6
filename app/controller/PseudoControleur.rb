@@ -7,6 +7,7 @@ class PseudoControleur < Controller
 	def initialize()
 		## Charge le modele utilisateur
 		loadModel("Utilisateur")
+		@title = "Sudoku - Pseudo"
 	end
 
 	def actionValider(message, entreePseudo)
@@ -42,10 +43,9 @@ class PseudoControleur < Controller
   		end
 
   	end
-  	
+
 	def pseudoExiste(pseudo)
-		## Pas encore implémenté
-		return true
+		return @Utilisateur.pseudoExiste(pseudo)
 	end
 
 	def run()

@@ -18,4 +18,8 @@ class Utilisateur < Model
 		puts "pseudo"
 	end
 
+	def pseudoExiste(pseudo)
+		return true
+	end	
+
 end

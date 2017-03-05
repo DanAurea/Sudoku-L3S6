@@ -7,9 +7,6 @@
 
 class FenetrePrincipale < View 
 
-    @image
-    @event_box
-
     #===Methode miseEnplace
     #
     # Permet de mettre en place la fenetre(taille, informations, conteneurs)
@@ -21,7 +18,7 @@ class FenetrePrincipale < View
     #
 	def miseEnPlace()
     	begin
-    		@image = Gtk::Image.new(Core::ROOTPROJECT + "assets/img/sudokuIntro.jpg")
+    		image = Gtk::Image.new(Core::ROOTPROJECT + "assets/img/sudokuIntro.jpg")
     	rescue IOError => e
     		puts e
     		puts "Impossible de charger l'image de depart"
@@ -29,11 +26,11 @@ class FenetrePrincipale < View
     	end
 
         #Creation des Boutons
-        @event_box=Gtk::EventBox.new.add(@image)
-        @event_box.signal_connect('button_press_event'){
+        event_box=Gtk::EventBox.new.add(image)
+        event_box.signal_connect('button_press_event'){
         	Core::changeTo("Pseudo")
         }
-        Fenetre::table.attach(@event_box,0,10,0,12)
+        Fenetre::table.attach(event_box,0,10,0,12)
 	end
 
 	##
