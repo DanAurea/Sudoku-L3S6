@@ -46,17 +46,6 @@ module Core
 	end
 
 	##
-	## @brief      Format name
-	##
-	## @param      name  The name
-	##
-	## @return     Formatted name
-	##
-	def Core.format(name)
-		return name.downcase().capitalize()
-	end
-
-	##
 	## @brief      Give model path for 
 	##				model called.
 	##
@@ -118,7 +107,7 @@ module Core
 	##
 	def Core.loadController(name)
 		
-		name = self.format(name) + CONTROLLER
+		name = name + CONTROLLER
 
 		## Define file path for controller
 		filePath = self.controllerPath(name)
