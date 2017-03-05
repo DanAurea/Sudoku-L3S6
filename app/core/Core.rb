@@ -100,6 +100,7 @@ module Core
 		## Force to call parent method if children override it
 		if o.method(:initialize).owner != o.class.name
 			o.method(:initialize).super_method.call
+			o.method(:initialize).call
 		end
 
 	end
