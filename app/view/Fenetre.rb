@@ -62,7 +62,6 @@ module Fenetre
     #   - /
     #
     def Fenetre.detruire()
-        puts "Fin de la fenetre #{self.class}"
         Gtk.main_quit()
     end
 
@@ -152,9 +151,10 @@ module Fenetre
     # * *Returns* :
     #   - image -> une image de fond
     #
-    def Fenetre.creerFondEcran(x,y)
+    def Fenetre.creerFondEcran(w,h)
+
         begin
-            tmp= GdkPixbuf::Pixbuf.new(:file => Core::ROOTPROJECT + "assets/img/fond.jpg", :width => x, :height => y)
+            tmp= GdkPixbuf::Pixbuf.new(:file => Core::ROOTPROJECT + "assets/img/fond.jpg", :width => w, :height => h)
             image = Gtk::Image.new(tmp)
             return image
         rescue IOError => e

@@ -35,13 +35,14 @@ module Core
 	## @return     Module itself
 	##
 	def Core.changeTo(name, **args)
-			
+		
+		## Create a new empty window
 		Fenetre::fenetrePrecedente = Fenetre::fenetre.children.clone()
-
 		Fenetre::viderFenetre
+		Fenetre::miseEnPlace()
 
 		load(name, args)
-
+		
 		return self
 	end
 
