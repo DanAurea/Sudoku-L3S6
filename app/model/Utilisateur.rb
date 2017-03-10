@@ -13,13 +13,25 @@ class Utilisateur < Model
 		end
 
 	end
-	
-	def rechercherUtilisateur()
-		puts "pseudo"
+
+	def CreerUtilisateur(pseudo)
+
 	end
 
-	def pseudoExiste(pseudo)
-		return true
+	def majUtilisateur(**args)
+
+	end
+
+	def supprimerUtilisateur(pseudo)
+
+	end
+	
+	def rechercherUtilisateur(pseudo)
+
+	end
+
+	def filtreUtilisateur(**args)
+
 	end	
 
 end
