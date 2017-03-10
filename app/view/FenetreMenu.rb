@@ -27,43 +27,43 @@ class FenetreMenu < View
     	Fenetre::table.attach(Fenetre::creerLabelType("<u>Menu Principal</u>", 40, "#000000"),0,10,1,2)
 
         #Creation des Boutons
-        boutonCharger=Gtk::Button.new("Reprendre une partie")
+        boutonCharger=Gtk::Button.new(:label => "Reprendre une partie")
         
         boutonCharger.signal_connect('clicked'){
            Core::changeTo("Charger", "pseudo": @pseudo)
         }
 
-        boutonNouveau=Gtk::Button.new("Nouvelle partie")
+        boutonNouveau=Gtk::Button.new(:label => "Nouvelle partie")
         boutonNouveau.signal_connect('clicked'){
             Core::changeTo("NouvellePartie", "pseudo": @pseudo)
         }
 
-        boutonStat=Gtk::Button.new("Statistiques")
+        boutonStat=Gtk::Button.new(:label => "Statistiques")
         boutonStat.signal_connect('clicked'){
             Core::changeTo("Statistiques", "pseudo": @pseudo)
         }
 
-        boutonScore=Gtk::Button.new("Meilleurs scores")
+        boutonScore=Gtk::Button.new(:label => "Meilleurs scores")
         boutonScore.signal_connect('clicked'){
             Core::changeTo("Scores", "pseudo": @pseudo)
         }
 
-        boutonReglage=Gtk::Button.new("Réglages")
+        boutonReglage=Gtk::Button.new(:label => "Réglages")
         boutonReglage.signal_connect('clicked'){
             Core::changeTo("Reglages", "pseudo": @pseudo)
         }
 
-        boutonRegle=Gtk::Button.new("Règles de base")
+        boutonRegle=Gtk::Button.new(:label => "Règles de base")
         boutonRegle.signal_connect('clicked'){
             Core::changeTo("Regles", "pseudo": @pseudo)
         }
 
-        boutonAPropos=Gtk::Button.new(Gtk::Stock::INFO)
+        boutonAPropos=Gtk::Button.new(:label => "About")
         boutonAPropos.signal_connect('clicked'){
             aPropos()
         }
 
-        boutonQuitter=Gtk::Button.new(Gtk::Stock::QUIT)
+        boutonQuitter=Gtk::Button.new(:label => "Quitter")
         boutonQuitter.signal_connect('clicked'){
         	Fenetre::detruire()
         }
@@ -85,13 +85,11 @@ class FenetreMenu < View
 
     def aPropos()
     	#popup explication du projet et des programmeurs
-        tabNom=["JEAN Marvin => Chef de projet","COUSIN Brandon => Architecte","PAVARD Valentin => Interface GUI","DURAN Alizée => Documentaliste","GUENVER Yann => Développeur","TABOT Alexandre => Développeur","BUSSEREAU Keryann => Développeur","BODINEAU Bastien => Développeur"]
-
         fenetre = Gtk::AboutDialog.new()
         fenetre.set_program_name("Projet sudoku")
         fenetre.set_version("1.0")
         fenetre.set_copyright("(c) DogeTeam - Groupe B")
-        fenetre.set_authors(tabNom.join("\n"))
+        fenetre.set_authors("JEAN Marvin => Chef de projet \n COUSIN Brandon => Architecte \n PAVARD Valentin => Interface GUI \n DURAN Alizée => Documentaliste \n GUENVER Yann => Développeur \n TABOT Alexandre => Développeur \n BUSSEREAU Keryann => Développeur \n BODINEAU Bastien => Développeur \n")
         fenetre.set_comments("Dans le cadre du module 176EN001 intitulé Génie Logiciel 2 :\n Application à la conception à l'université du Maine, nous devons réaliser une interface à aides visuelles à la réalisation d’un Sudoku. Cela permet d’aider un utilisateur à résoudre un Sudoku sans réfléchir. La grille du Sudoku sera générée sur ordinateur.")
         
         fenetre.set_window_position(Gtk::Window::POS_CENTER_ALWAYS)

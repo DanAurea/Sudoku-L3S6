@@ -26,12 +26,12 @@ class FenetrePseudo < View
 		entryPseudo=Gtk::Entry.new()
 		entryPseudo.set_max_length(15)
 
-		boutonValider=Gtk::Button.new(Gtk::Stock::APPLY)
+		boutonValider=Gtk::Button.new(:label => "Valider")
 		boutonValider.signal_connect('button_press_event'){
 		      @controller.actionBoutonValider(entryPseudo)
 		}
 
-		boutonQuitter=Gtk::Button.new(Gtk::Stock::QUIT)
+		boutonQuitter=Gtk::Button.new(:label => "Quitter")
 		boutonQuitter.signal_connect('clicked'){
 		  		Fenetre::detruire()
 		}

@@ -50,14 +50,14 @@ class FenetreRegles < View
 		label=Fenetre::creerLabelType(texte , 15, "#000000")
 
         #Creation des Boutons
-        boutonRetour=Gtk::Button.new(Gtk::Stock::GO_BACK)
+        boutonRetour=Gtk::Button.new(:label => "Retour")
         boutonRetour.signal_connect('clicked'){
-        	Fenetre::fenetrePrecedente()
+            Fenetre::fenetrePrecedente()
         }
 
-        boutonQuitter=Gtk::Button.new(Gtk::Stock::QUIT)
+        boutonQuitter=Gtk::Button.new(:label => "Quitter")
         boutonQuitter.signal_connect('clicked'){
-        	Fenetre::detruire()
+            Fenetre::detruire()
         }
 
         #attach des boutons

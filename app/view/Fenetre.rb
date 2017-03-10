@@ -99,7 +99,7 @@ module Fenetre
         texte = "<span font_desc=\"Terminus 12 " + taillePolice.to_s + "\" foreground=\"" + couleur + "\"> #{unNomDeLabel} </span>\n"
         label=Gtk::Label.new()
         label.set_markup(texte)
-        label.set_justify(Gtk::JUSTIFY_CENTER)
+        label.set_justify(Gtk::Justification::CENTER)
         return label
     end
 
@@ -114,11 +114,11 @@ module Fenetre
     #
     def Fenetre.creerPopupErreur(unTexte)
     	messageErreur = Gtk::MessageDialog.new(
-    		@fenetre,
-    		Gtk::Dialog::DESTROY_WITH_PARENT,
-    		Gtk::MessageDialog::INFO,
-    		Gtk::MessageDialog::BUTTONS_CLOSE,
-    		unTexte)
+    		:parent => @fenetre,
+    		:flags => Gtk::DialogFlags::DESTROY_WITH_PARENT,
+    		:type => Gtk::MessageType::INFO,
+    		:buttons => Gtk::ButtonsType::CLOSE,
+    		:message => unTexte)
     	messageErreur.run()
     	messageErreur.destroy()
     	return messageErreur
@@ -135,11 +135,11 @@ module Fenetre
     #
     def Fenetre.creerPopupQuestion(unTexte)
     	messageErreur = Gtk::MessageDialog.new(
-    		@fenetre,
-    		Gtk::Dialog::DESTROY_WITH_PARENT,
-    		Gtk::MessageDialog::QUESTION,
-    		Gtk::MessageDialog::BUTTONS_YES_NO,
-    		unTexte)
+    		:parent => @fenetre,
+    		:flags => Gtk::DialogFlags::DESTROY_WITH_PARENT,
+    		:type => Gtk::MessageType::QUESTION,
+    		:buttons => Gtk::ButtonsType::YES_NO,
+    		:message => unTexte)
     	return messageErreur
     end
 end

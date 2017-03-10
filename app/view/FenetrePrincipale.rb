@@ -19,7 +19,7 @@ class FenetrePrincipale < View
     #
 	def miseEnPlace()
     	begin
-    		image = Gtk::Image.new(Core::ROOTPROJECT + "assets/img/sudokuIntro.jpg")
+    		image = Gtk::Image.new(:file => Core::ROOTPROJECT + "assets/img/sudokuIntro.jpg")
     	rescue IOError => e
     		puts e
     		puts "Impossible de charger l'image de depart"
