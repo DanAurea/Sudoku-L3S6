@@ -18,10 +18,10 @@ class FenetrePseudo < View
     #   - /
 	def miseEnPlace()
 		#titre et pseudo
-		Fenetre::table.attach(Fenetre::creerLabelType("<u>Choix du pseudo</u>", 40, "#FFFFFF"),0,10,2,3)
+		Fenetre::table.attach(Fenetre::creerLabelType("<u>Choix du pseudo</u>", 40, "#000000"),0,10,2,3)
 
 		#Creation des Boutons
-		label=Fenetre::creerLabelType(" Votre pseudo : ", 20, "#FFFFFF")
+		label=Fenetre::creerLabelType(" Votre pseudo : ", 20, "#000000")
 		
 		entryPseudo=Gtk::Entry.new()
 		entryPseudo.set_max_length(15)

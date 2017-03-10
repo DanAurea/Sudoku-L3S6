@@ -29,7 +29,7 @@ class FenetreStatistiques < View
             Core::changeTo("Reglages", "pseudo": @pseudo)
         }
     	Fenetre::table.attach(event_box,7,10,0,1)
-    	Fenetre::table.attach(Fenetre::creerLabelType("<u>Statistiques</u>", 40, "#FFFFFF"),0,10,1,2)
+    	Fenetre::table.attach(Fenetre::creerLabelType("<u>Statistiques</u>", 40, "#000000"),0,10,1,2)
 
     	#niveau du user
     	Fenetre::table.attach(Fenetre::creerLabelType("Niveau #{@niveau}", 20, "#FF0000"),0,10,2,4)

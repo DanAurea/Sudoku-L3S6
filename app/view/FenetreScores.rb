@@ -29,7 +29,7 @@ class FenetreScores < View
             Core::changeTo("Reglages", "pseudo": @pseudo)
         }
     	Fenetre::table.attach(event_box,7,10,0,1)
-    	Fenetre::table.attach(Fenetre::creerLabelType("<u>Meilleurs Scores</u>", 40, "#FFFFFF"),0,10,1,2)
+    	Fenetre::table.attach(Fenetre::creerLabelType("<u>Meilleurs Scores</u>", 40, "#000000"),0,10,1,2)
 
     	tabScore=[["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"]]
         
@@ -38,11 +38,7 @@ class FenetreScores < View
 
         #Creation des Boutons
         tabScore.each_with_index{|tab,index|
-        	texte="<span font_desc=\"Comic sans MS 17\" foreground=\"#FF0000\"> #{index+1} => #{tab[0]} avec  #{tab[1]} points </span>\n"
-        	label=Gtk::Label.new()
-        	label.set_markup(texte)
-        	label.set_justify(Gtk::JUSTIFY_CENTER)
-        	tableScore.attach(label,0,10,index,index+1)
+        	tableScore.attach(Fenetre::creerLabelType("#{index+1} => #{tab[0]} avec  #{tab[1]} points", 17, "#000000"),0,10,index,index+1)
         }
 
         boutonRetour=Gtk::Button.new(Gtk::Stock::GO_BACK)

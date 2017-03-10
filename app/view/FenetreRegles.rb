@@ -29,24 +29,25 @@ class FenetreRegles < View
             Core::changeTo("Reglages", "pseudo": @pseudo)
         }
     	Fenetre::table.attach(event_box,7,10,0,1)
-    	Fenetre::table.attach(Fenetre::creerLabelType("<u>Règles</u>", 40, "#FFFFFF"),0,10,1,2)
+    	Fenetre::table.attach(Fenetre::creerLabelType("<u>Règles</u>", 40, "#000000"),0,10,1,2)
 
     	#regles enoncées
-        texte="<span font_desc=\"Comic sans MS 13\" foreground=\"#FFFFFF\">
-        - Un sudoku classique contient 9 lignes et 9 colonnes, soit 81 cases au total.\n
-        - Le but du jeu est de remplir ces cases avec des chiffres allant de 1 à 9 en veillant\n
-        toujours à ce qu'un même chiffre ne figure qu'une seule fois par colonne, une seule \n 
-        fois par ligne et une seule fois par carré de 9 cases(appelé région).\n
-        - Au début du jeu, une vingtaine de chiffres sont déjà placés et il vous reste à trouver les autres.\n
-        En effet, une grille initiale de sudoku corresctement constituée ne peut aboutir qu'à\n 
-        une et une seule solution. Pour trouver les chiffres manquants, tout est une question\n 
-        de logique et d'observation.\n
-        - Suivez le tutoriel pour vous faciliter la tache et apprendre certaines techniques...\n
-        </span>\n"
-        
-        label=Gtk::Label.new()
-        label.set_markup(texte)
-        label.set_justify(Gtk::JUSTIFY_LEFT)
+    	texte="
+    	- Un sudoku classique contient 9 lignes et 9 colonnes,\n
+    	soit 81 cases au total.\n 
+    	- Le but du jeu est de remplir ces cases avec des chiffres\n
+    	allant de 1 à 9 en veillant toujours à ce qu'un même chiffre \n 
+    	ne figure qu'une seule fois par colonne, une seule fois par\n 
+    	ligne et une seule fois par carré de 9 cases(appelé région).\n
+    	- Au début du jeu, une vingtaine de chiffres sont déjà placés\n 
+    	et il vous reste à trouver les autres. En effet, une grille\n 
+    	initiale de sudoku corresctement constituée ne peut aboutir qu'à\n
+    	une et une seule solution. Pour trouver les chiffres manquants,\n 
+    	tout est une question de logique et d'observation.\n
+    	- Suivez le tutoriel pour vous faciliter la tache et apprendre\n 
+    	certaines techniques...\n"
+		
+		label=Fenetre::creerLabelType(texte , 15, "#000000")
 
         #Creation des Boutons
         boutonRetour=Gtk::Button.new(Gtk::Stock::GO_BACK)

@@ -96,7 +96,7 @@ module Fenetre
     #
     def Fenetre.creerLabelType(unNomDeLabel, taillePolice, couleur)
         #Creation du Label
-        texte = "<span font_desc=\"Comic sans MS " + taillePolice.to_s + "\" foreground=\"" + couleur + "\"> #{unNomDeLabel} </span>\n"
+        texte = "<span font_desc=\"Terminus 12 " + taillePolice.to_s + "\" foreground=\"" + couleur + "\"> #{unNomDeLabel} </span>\n"
         label=Gtk::Label.new()
         label.set_markup(texte)
         label.set_justify(Gtk::JUSTIFY_CENTER)

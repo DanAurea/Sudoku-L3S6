@@ -28,7 +28,7 @@ class FenetreCharger < View
             Core::changeTo("Reglages", "pseudo": @pseudo)
         }
     	Fenetre::table.attach(event_box,7,10,0,1)
-    	Fenetre::table.attach(Fenetre::creerLabelType("<u>Charger une partie</u>", 40, "#FFFFFF"),0,10,1,2)
+    	Fenetre::table.attach(Fenetre::creerLabelType("<u>Charger une partie</u>", 40, "#000000"),0,10,1,2)
 
         #Creation des Boutons
         boutonRetour=Gtk::Button.new(Gtk::Stock::GO_BACK)

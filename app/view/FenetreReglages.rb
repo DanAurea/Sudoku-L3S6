@@ -29,7 +29,7 @@ class FenetreReglages < View
             Core::changeTo("Reglages", "pseudo": @pseudo)
         }
     	Fenetre::table.attach(event_box,7,10,0,1)
-    	Fenetre::table.attach(Fenetre::creerLabelType("<u>Réglages</u>", 40, "#FFFFFF"),0,10,1,2)
+    	Fenetre::table.attach(Fenetre::creerLabelType("<u>Réglages</u>", 40, "#000000"),0,10,1,2)
 
         #Creation des Boutons
         frame1 = Gtk::Frame.new(" Choix taille des chiffres ")

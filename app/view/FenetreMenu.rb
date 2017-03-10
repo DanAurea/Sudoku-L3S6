@@ -24,7 +24,7 @@ class FenetreMenu < View
             Core::changeTo("Reglages", "pseudo": @pseudo)
         }
     	Fenetre::table.attach(event_box,7,10,0,1)
-    	Fenetre::table.attach(Fenetre::creerLabelType("<u>Menu Principal</u>", 40, "#FFFFFF"),0,10,1,2)
+    	Fenetre::table.attach(Fenetre::creerLabelType("<u>Menu Principal</u>", 40, "#000000"),0,10,1,2)
 
         #Creation des Boutons
         boutonCharger=Gtk::Button.new("Reprendre une partie")
