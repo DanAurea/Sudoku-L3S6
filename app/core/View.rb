@@ -22,7 +22,6 @@ class View
 	## @return     Itself
 	##
 	def self.inherited(subclass)
-		Fenetre::miseEnPlace
 		self.new()
 		super
 
