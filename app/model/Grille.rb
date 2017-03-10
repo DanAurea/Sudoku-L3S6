@@ -3,7 +3,7 @@ require Core::ROOT+"app/generateur/Generateur.rb"
 class Grille < Model
 
   def generateurGrille(niveau)
-	gen = Generateur.new()
+    gen = Generateur.new()
     return gen.generer(niveau)
   end
 
@@ -20,3 +20,5 @@ class Grille < Model
   end
 
 end
+
+# Utilisateur.yml dans assets/save
