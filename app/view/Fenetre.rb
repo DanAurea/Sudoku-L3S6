@@ -9,7 +9,7 @@
 
 module Fenetre
 
-    @fenetre
+    @fenetre 
     @table
     @fenetrePrecedente
 
