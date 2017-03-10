@@ -1,5 +1,5 @@
 include classeScore.rb
-class Classement
+class Classement < Array.List
 	#definit par un tableau d'objet de type Score
 	#Attribut
 	#tableau de score
@@ -20,7 +20,7 @@ class Classement
 		self.scores.each{|scorep|
 
 			if (scorep.appartientA == score.appartientA)
-			scorep = score		
+			scorep0 = score		
 			end
 		}
 	end
