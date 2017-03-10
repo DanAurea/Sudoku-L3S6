@@ -19,7 +19,11 @@ class FenetreMenu < View
     #
     def miseEnPlace()
     	#titre et pseudo
-    	Fenetre::table.attach(Fenetre::creerLabelType("Pseudo : #{@pseudo.capitalize}", 15, "#FF0000"),7,10,0,1)
+        event_box=Gtk::EventBox.new.add(Fenetre::creerLabelType("Pseudo : #{@pseudo.capitalize}", 15, "#FF0000"))
+        event_box.signal_connect('button_press_event'){
+            Core::changeTo("Reglages", "pseudo": @pseudo)
+        }
+    	Fenetre::table.attach(event_box,7,10,0,1)
     	Fenetre::table.attach(Fenetre::creerLabelType("<u>Menu Principal</u>", 40, "#FFFFFF"),0,10,1,2)
 
         #Creation des Boutons
@@ -64,7 +68,7 @@ class FenetreMenu < View
         	Fenetre::detruire()
         }
 
-        #attach des boutons et du fond d'ecran
+        #attach des boutons
         Fenetre::table.attach(boutonCharger,3,7,3,4)
         Fenetre::table.attach(boutonNouveau,3,7,4,5)
         Fenetre::table.attach(boutonStat,3,7,5,6)
@@ -76,7 +80,6 @@ class FenetreMenu < View
 
         Fenetre::table.attach(boutonAPropos,1,3,10,11)
         Fenetre::table.attach(boutonQuitter,7,9,10,11)
-        Fenetre::table.attach(Fenetre::creerFondEcran(900,500),0,10,0,12)
 
     end
 

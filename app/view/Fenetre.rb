@@ -142,26 +142,4 @@ module Fenetre
     		unTexte)
     	return messageErreur
     end
-
-    ##===Methode creerFondEcran
-    #
-    # Creer le fond d'ecran
-    #
-    # * *Args*    :
-    #   - /
-    # * *Returns* :
-    #   - image -> une image de fond
-    #
-    def Fenetre.creerFondEcran(w,h)
-
-        begin
-            tmp= GdkPixbuf::Pixbuf.new(:file => Core::ROOTPROJECT + "assets/img/fond.jpg", :width => w, :height => h)
-            image = Gtk::Image.new(tmp)
-            return image
-        rescue IOError => e
-            puts e
-            puts "Impossible de charger l'image de fond"
-            exit
-        end
-    end
 end

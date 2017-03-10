@@ -24,7 +24,11 @@ class FenetreScores < View
     #
 	def miseEnPlace()
 		#titre et pseudo
-    	Fenetre::table.attach(Fenetre::creerLabelType("Pseudo : #{@pseudo.capitalize}", 15, "#FF0000"),7,10,0,1)
+        event_box=Gtk::EventBox.new.add(Fenetre::creerLabelType("Pseudo : #{@pseudo.capitalize}", 15, "#FF0000"))
+        event_box.signal_connect('button_press_event'){
+            Core::changeTo("Reglages", "pseudo": @pseudo)
+        }
+    	Fenetre::table.attach(event_box,7,10,0,1)
     	Fenetre::table.attach(Fenetre::creerLabelType("<u>Meilleurs Scores</u>", 40, "#FFFFFF"),0,10,1,2)
 
     	tabScore=[["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"]]
@@ -51,11 +55,10 @@ class FenetreScores < View
         	Fenetre::detruire()
         }
 
-        #attach des boutons et du fond d'ecran
+        #attach des boutons
         Fenetre::table.attach(tableScore,3,7,2,11)
         Fenetre::table.attach(boutonRetour,1,3,11,12)
         Fenetre::table.attach(boutonQuitter,7,9,11,12)
-        Fenetre::table.attach(Fenetre::creerFondEcran(900,500),0,10,0,12)
     end
 
     ##

@@ -24,7 +24,11 @@ class FenetreNouvellePartie < View
     #
 	def miseEnPlace()
 		#titre et pseudo
-    	Fenetre::table.attach(Fenetre::creerLabelType("Pseudo : #{@pseudo.capitalize}", 15, "#FF0000"),7,10,0,1)
+        event_box=Gtk::EventBox.new.add(Fenetre::creerLabelType("Pseudo : #{@pseudo.capitalize}", 15, "#FF0000"))
+        event_box.signal_connect('button_press_event'){
+            Core::changeTo("Reglages", "pseudo": @pseudo)
+        }
+    	Fenetre::table.attach(event_box,7,10,0,1)
     	Fenetre::table.attach(Fenetre::creerLabelType("<u>Nouvelle partie</u>", 40, "#FFFFFF"),0,10,1,2)
 
         #Creation des Boutons
@@ -48,12 +52,11 @@ class FenetreNouvellePartie < View
         	Fenetre::detruire()
         }
 
-        #attach des boutons et du fond d'ecran
+        #attach des boutons
         Fenetre::table.attach(boutonApprentissage,3,7,5,6)
         Fenetre::table.attach(boutonJeuLibre,3,7,7,8)
         Fenetre::table.attach(boutonRetour,1,3,11,12)
         Fenetre::table.attach(boutonQuitter,7,9,11,12)
-        Fenetre::table.attach(Fenetre::creerFondEcran(900,500),0,10,0,12)
     end
 
     ##

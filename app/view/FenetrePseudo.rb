@@ -36,12 +36,11 @@ class FenetrePseudo < View
 		  		Fenetre::detruire()
 		}
 
-		#attach des boutons et du fond d'ecran
-		Fenetre::table.attach(label,3,7,4,5)
+		#attach des boutons
+		Fenetre::table.attach(label,0,10,4,5)
 		Fenetre::table.attach(entryPseudo,3,7,5,6)
-		Fenetre::table.attach(boutonValider,3,7,7,8)
-		Fenetre::table.attach(boutonQuitter,7,9,11,12)
-		Fenetre::table.attach(Fenetre::creerFondEcran(900,500),0,10,0,12)
+		Fenetre::table.attach(boutonQuitter,2,4,7,8)
+		Fenetre::table.attach(boutonValider,6,8,7,8)
     end
 
 	##
