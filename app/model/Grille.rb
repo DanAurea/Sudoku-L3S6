@@ -1,7 +1,10 @@
+require Core::ROOT+"app/generateur/Generateur.rb"
+
 class Grille < Model
 
   def generateurGrille(niveau)
-    return grille
+	gen = Generateur.new()
+    return gen.generer(niveau)
   end
 
   def chargerGrille(pseudo)
