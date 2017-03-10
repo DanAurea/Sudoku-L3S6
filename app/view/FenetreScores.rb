@@ -1,21 +1,29 @@
-# 	File description
+# 	Fichier contenant l'affichage des meilleurs scores du jeu
 # 	
-# 	Author:: 		DanAurea
-# 	Developers: 	DanAurea
+# 	Author:: 		PAVARD Valentin, DanAurea
+# 	Developers: 	PAVARD Valentin, DanAurea
 # 	Version:: 		0.1
 # 	Copyright:: 	© 2016
 # 	License::   	Distributes under the same terms as Ruby
 # 	
- 	
-# 	Class description
-#
+ 
 class FenetreScores < View
 
 	def initialize()
 		
 	end
 
+	#===Methode miseEnplace
+    #
+    # Permet de mettre en place la fenetre(conteneurs)
+    #
+    # * *Args*    :
+    #   - /
+    # * *Returns* :
+    #   - /
+    #
 	def miseEnPlace()
+		#titre et pseudo
     	Fenetre::table.attach(Fenetre::creerLabelType("Pseudo : #{@pseudo.capitalize}", 15, "#FF0000"),7,10,0,1)
     	Fenetre::table.attach(Fenetre::creerLabelType("<u>Meilleurs Scores</u>", 40, "#FFFFFF"),0,10,1,2)
 
@@ -43,12 +51,21 @@ class FenetreScores < View
         	Fenetre::detruire()
         }
 
+        #attach des boutons et du fond d'ecran
         Fenetre::table.attach(tableScore,3,7,2,11)
         Fenetre::table.attach(boutonRetour,1,3,11,12)
         Fenetre::table.attach(boutonQuitter,7,9,11,12)
         Fenetre::table.attach(Fenetre::creerFondEcran(900,500),0,10,0,12)
     end
 
+    ##
+	## @brief     Lance la construction du modèle
+	## 			  de la vue.
+	## 			  Méthode à définir dans tout les cas !
+	## 			  Autrement pas de rendu de la page.
+	##
+	## @return     itself
+	##
 	def run()
 		self.miseEnPlace()
 		return self

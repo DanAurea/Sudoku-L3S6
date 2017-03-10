@@ -1,24 +1,33 @@
-# 	File description
+# 	Fichier contenant les règles de base dans le jeu
 # 	
-# 	Author:: 		DanAurea
-# 	Developers: 	DanAurea
+# 	Author:: 		PAVARD Valentin, DanAurea
+# 	Developers: 	PAVARD Valentin, DanAurea
 # 	Version:: 		0.1
 # 	Copyright:: 	© 2016
 # 	License::   	Distributes under the same terms as Ruby
 # 	
  	
-# 	Class description
-#
 class FenetreRegles < View
 
 	def initialize()
 		
 	end
 
+	#===Methode miseEnplace
+    #
+    # Permet de mettre en place la fenetre(conteneurs)
+    #
+    # * *Args*    :
+    #   - /
+    # * *Returns* :
+    #   - /
+    #
 	def miseEnPlace()
+		#titre et pseudo
     	Fenetre::table.attach(Fenetre::creerLabelType("Pseudo : #{@pseudo.capitalize}", 15, "#FF0000"),7,10,0,1)
     	Fenetre::table.attach(Fenetre::creerLabelType("<u>Règles</u>", 40, "#FFFFFF"),0,10,1,2)
 
+    	#regles enoncées
         texte="<span font_desc=\"Comic sans MS 13\" foreground=\"#FFFFFF\">
         - Un sudoku classique contient 9 lignes et 9 colonnes, soit 81 cases au total.\n
         - Le but du jeu est de remplir ces cases avec des chiffres allant de 1 à 9 en veillant\n
@@ -46,12 +55,21 @@ class FenetreRegles < View
         	Fenetre::detruire()
         }
 
+        #attach des boutons et du fond d'ecran
         Fenetre::table.attach(label,0,10,2,12)
         Fenetre::table.attach(boutonRetour,1,3,11,12)
         Fenetre::table.attach(boutonQuitter,7,9,11,12)
         Fenetre::table.attach(Fenetre::creerFondEcran(900,500),0,10,0,12)
     end
 
+    ##
+	## @brief     Lance la construction du modèle
+	## 			  de la vue.
+	## 			  Méthode à définir dans tout les cas !
+	## 			  Autrement pas de rendu de la page.
+	##
+	## @return     itself
+	##
 	def run()
 		self.miseEnPlace()
 		return self

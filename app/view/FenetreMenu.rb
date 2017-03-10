@@ -1,7 +1,11 @@
-
-##
-## @brief     Squelette du menu
-##
+# 	squelette du menu
+# 	
+# 	Author:: 		PAVARD Valentin, DanAurea
+# 	Developers: 	PAVARD Valentin, DanAurea
+# 	Version:: 		0.1
+# 	Copyright:: 	© 2016
+# 	License::   	Distributes under the same terms as Ruby
+# 
 class FenetreMenu < View
 
     #===Methode miseEnplace
@@ -14,7 +18,7 @@ class FenetreMenu < View
     #   - /
     #
     def miseEnPlace()
-
+    	#titre et pseudo
     	Fenetre::table.attach(Fenetre::creerLabelType("Pseudo : #{@pseudo.capitalize}", 15, "#FF0000"),7,10,0,1)
     	Fenetre::table.attach(Fenetre::creerLabelType("<u>Menu Principal</u>", 40, "#FFFFFF"),0,10,1,2)
 
@@ -60,6 +64,7 @@ class FenetreMenu < View
         	Fenetre::detruire()
         }
 
+        #attach des boutons et du fond d'ecran
         Fenetre::table.attach(boutonCharger,3,7,3,4)
         Fenetre::table.attach(boutonNouveau,3,7,4,5)
         Fenetre::table.attach(boutonStat,3,7,5,6)
@@ -76,6 +81,7 @@ class FenetreMenu < View
     end
 
     def aPropos()
+    	#popup explication du projet et des programmeurs
         tabNom=["JEAN Marvin => Chef de projet","COUSIN Brandon => Architecte","PAVARD Valentin => Interface GUI","DURAN Alizée => Documentaliste","GUENVER Yann => Développeur","TABOT Alexandre => Développeur","BUSSEREAU Keryann => Développeur","BODINEAU Bastien => Développeur"]
 
         fenetre = Gtk::AboutDialog.new()
@@ -108,6 +114,14 @@ class FenetreMenu < View
         fenetre.destroy()
     end
 
+    ##
+	## @brief     Lance la construction du modèle
+	## 			  de la vue.
+	## 			  Méthode à définir dans tout les cas !
+	## 			  Autrement pas de rendu de la page.
+	##
+	## @return     itself
+	##
 	def run
 		self.miseEnPlace()
 		return self

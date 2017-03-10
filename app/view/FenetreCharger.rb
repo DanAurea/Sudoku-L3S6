@@ -1,14 +1,11 @@
-# 	File description
-# 	
-# 	Author:: 		DanAurea
-# 	Developers: 	DanAurea
+#   Fenetre jeu libre
+#
+# 	Author:: 		PAVARD Valentin, DanAurea
+# 	Developers: 	PAVARD Valentin, DanAurea
 # 	Version:: 		0.1
 # 	Copyright:: 	© 2016
 # 	License::   	Distributes under the same terms as Ruby
-# 	
  	
-# 	Class description
-#
 class FenetreCharger < View
 
 	def initialize()
@@ -25,6 +22,7 @@ class FenetreCharger < View
     #   - /
     #
     def miseEnPlace()
+    	#titre et pseudo
     	Fenetre::table.attach(Fenetre::creerLabelType("Pseudo : #{@pseudo.capitalize}", 15, "#FF0000"),7,10,0,1)
     	Fenetre::table.attach(Fenetre::creerLabelType("<u>Charger une partie</u>", 40, "#FFFFFF"),0,10,1,2)
 
@@ -39,11 +37,20 @@ class FenetreCharger < View
         	Fenetre::detruire()
         }
 
+        #attach des boutons et du fond d'ecran
         Fenetre::table.attach(boutonRetour,1,3,11,12)
         Fenetre::table.attach(boutonQuitter,7,9,11,12)
         Fenetre::table.attach(Fenetre::creerFondEcran(900,500),0,10,0,12)
     end
 
+    ##
+	## @brief     Lance la construction du modèle
+	## 			  de la vue.
+	## 			  Méthode à définir dans tout les cas !
+	## 			  Autrement pas de rendu de la page.
+	##
+	## @return     itself
+	##
 	def run()
 		self.miseEnPlace()
 		return self

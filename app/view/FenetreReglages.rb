@@ -1,21 +1,29 @@
-# 	File description
+# 	Fichier contenant la gestion des reglages(taille, couleur)
 # 	
-# 	Author:: 		DanAurea
-# 	Developers: 	DanAurea
+# 	Author:: 		PAVARD Valentin, DanAurea
+# 	Developers: 	PAVARD Valentin, DanAurea
 # 	Version:: 		0.1
 # 	Copyright:: 	© 2016
 # 	License::   	Distributes under the same terms as Ruby
 # 	
  	
-# 	Class description
-#
 class FenetreReglages < View
 
 	def initialize()
 		
 	end
 
+	#===Methode miseEnplace
+    #
+    # Permet de mettre en place la fenetre(conteneurs)
+    #
+    # * *Args*    :
+    #   - /
+    # * *Returns* :
+    #   - /
+    #
 	def miseEnPlace()
+		#titre et pseudo
     	Fenetre::table.attach(Fenetre::creerLabelType("Pseudo : #{@pseudo.capitalize}", 15, "#FF0000"),7,10,0,1)
     	Fenetre::table.attach(Fenetre::creerLabelType("<u>Réglages</u>", 40, "#FFFFFF"),0,10,1,2)
 
@@ -83,6 +91,7 @@ class FenetreReglages < View
         	Fenetre::detruire()
         }
 
+        #attach des boutons et du fond d'ecran
         Fenetre::table.attach(frame1,2,8,2,4)
         Fenetre::table.attach(frame2,1,9,5,9)
         Fenetre::table.attach(boutonRetour,1,3,11,12)
@@ -90,6 +99,14 @@ class FenetreReglages < View
         Fenetre::table.attach(Fenetre::creerFondEcran(900,500),0,10,0,12)
     end
 
+    ##
+	## @brief     Lance la construction du modèle
+	## 			  de la vue.
+	## 			  Méthode à définir dans tout les cas !
+	## 			  Autrement pas de rendu de la page.
+	##
+	## @return     itself
+	##
 	def run()
 		self.miseEnPlace()
 		return self

@@ -1,8 +1,9 @@
 #   Contient la classe representant une fenetre pour le choix du pseudo
 #
-#   Author::      PAVARD Valentin
-#   Version::     0.1
-#   Copyright::   ©
+# 	Author:: 		PAVARD Valentin, DanAurea
+# 	Developers: 	PAVARD Valentin, DanAurea
+# 	Version:: 		0.1
+# 	Copyright:: 	© 2016
 #   License::     Distributes under the same terms as Ruby
 
 class FenetrePseudo < View 
@@ -16,7 +17,7 @@ class FenetrePseudo < View
     # * *Returns* :
     #   - /
 	def miseEnPlace()
-
+		#titre et pseudo
 		Fenetre::table.attach(Fenetre::creerLabelType("<u>Choix du pseudo</u>", 40, "#FFFFFF"),0,10,2,3)
 
 		#Creation des Boutons
@@ -35,6 +36,7 @@ class FenetrePseudo < View
 		  		Fenetre::detruire()
 		}
 
+		#attach des boutons et du fond d'ecran
 		Fenetre::table.attach(label,3,7,4,5)
 		Fenetre::table.attach(entryPseudo,3,7,5,6)
 		Fenetre::table.attach(boutonValider,3,7,7,8)
