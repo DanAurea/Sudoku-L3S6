@@ -15,23 +15,27 @@ class Utilisateur < Model
 	end
 
 	def CreerUtilisateur(pseudo)
-
+		return self.create(pseudo: pseudo)
 	end
 
 	def majUtilisateur(**args)
-
+		self.update(args)
 	end
 
 	def supprimerUtilisateur(pseudo)
-
+		if self.where(pseudo: pseudo).delete(1) != nil
+			return true
+		else
+			return false
+		end
 	end
 	
 	def rechercherUtilisateur(pseudo)
-
+		return self.find_by(pseudo: pseudo)
 	end
 
 	def filtreUtilisateur(**args)
-
+		return self.where(**args)
 	end	
 
 end
