@@ -15,25 +15,25 @@ class Technique{
 	end
 
 	def indice(grille)
-		grille = Array.new(9){Array.new(9){Array.new(9){nil}}}
+		grilleIndice = Array.new(9){Array.new(9){Array.new(9){false}}}
 
 		[1,2,3,4,5,6,7,8,9].each { |x|
 			[1,2,3,4,5,6,7,8,9].each { |y|
 				if grille[x,y].nil? then
 					[1,2,3,4,5,6,7,8,9].each { |numero|
-
+						unless estProtegee(grille,numero.to_s,x,y) then grilleIndice[x-1][y-1] = true end
 					}
 				end
 			}
 		}
 
-		return grille
+		return grilleIndice
 	end
 	
 	def nombreDejaPresent(grille, numero)
 		listPresent = Array.new(9) {}
-		[1,4,6].each{ |x|
-			[1,4,6].each{ |y|
+		[1,4,7].each{ |x|
+			[1,4,7].each{ |y|
 				-1.upto(1){ |xbis|
 					-1.upto(1){ |ybis|
 						if numero == grille.laCase(x+xbis,y+ybis).valeur then
@@ -69,7 +69,7 @@ class Technique{
 		return res
 	end
 
-	def estProtegee?{grille, x, y}
+	def estProtegee?{grille, case, x, y}
 
 		ligne = ligne(grille, y)
 		colonne = colonne(grille, x)
