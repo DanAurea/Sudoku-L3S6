@@ -1,4 +1,4 @@
-require Core::ROOT+"app/generateur/Generateur.rb"
+require Core::ROOT+"generateur/Generateur.rb"
 
 class Grille < Model
 
@@ -8,7 +8,7 @@ class Grille < Model
   end
 
   def chargerGrille(pseudo)
-    return grille
+    #return grille
   end
 
   def sauvegarderGrille(pseudo)
@@ -22,3 +22,6 @@ class Grille < Model
 end
 
 # Utilisateur.yml dans assets/save
+#print("hello")
+#grille = Grille.new()
+#grille.generateurGrille(1)

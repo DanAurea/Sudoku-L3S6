@@ -124,9 +124,6 @@ class Generateur
 	
 end
 	
-	0.upto(8){ |x|
-		puts gr[x].to_s.gsub('nil', ' ')
-	}
+grid = Generateur.new()	
 
-	puts gen.gridChecker(gr)
-	
+print grid.generer(1)
