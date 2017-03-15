@@ -45,7 +45,7 @@ class PseudoControleur < Controller
   	end
 
 	def pseudoExiste(pseudo)
-		return @Utilisateur.pseudoExiste(pseudo)
+		
 	end
 
 	def run()
