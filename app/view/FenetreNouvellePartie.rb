@@ -44,7 +44,7 @@ class FenetreNouvellePartie < View
 
         boutonRetour=Gtk::Button.new(Gtk::Stock::GO_BACK)
         boutonRetour.signal_connect('clicked'){
-        	Fenetre::fenetrePrecedente()
+        	Core::back()
         }
 
         boutonQuitter=Gtk::Button.new(Gtk::Stock::QUIT)

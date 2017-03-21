@@ -11,6 +11,9 @@ module Core
 	DEFAULT_DATABASE_DIR  = "db/"
 	DEFAULT_DATABASE_NAME = "main.sqlite3"
 
+	@previousWindow = nil
+	@args           = nil
+
 	##
 	## @brief      Load a controller and render its view
 	##
@@ -36,13 +39,44 @@ module Core
 	##
 	def Core.changeTo(name, **args)
 		
+		if(args.has_key?(:caller))
+			puts args[:caller]
+		end
+
+		## Retrieve class caller
+		caller = File.basename(caller_locations.first.path)
+		
+		if(caller.include?(VIEW))
+			caller.slice!(VIEW)
+		elsif(caller.include?(CONTROLLER))
+			caller.slice!(CONTROLLER)
+		end
+
+		caller.slice!(".rb")
+
+		## Save caller window
+		@previousWindow = caller
+		@args = args
+
 		## Create a new empty window
 		Fenetre::fenetrePrecedente = Fenetre::fenetre.children.clone()
 		Fenetre::viderFenetre
 		Fenetre::miseEnPlace()
 
 		load(name, args)
-		
+
+		return self
+	end
+
+
+	##
+	## @brief      Back to previous window
+	##
+	## @return     Module itself
+	##
+	def Core.back()
+		self.changeTo(@previousWindow, @args)
+
 		return self
 	end
 
