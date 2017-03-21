@@ -57,14 +57,14 @@ class FenetreStatistiques < View
 
 
         #Creation des Boutons
-        boutonRetour=Gtk::Button.new(Gtk::Stock::GO_BACK)
+        boutonRetour=Gtk::Button.new(:label => "Retour")
         boutonRetour.signal_connect('clicked'){
         	Core::back()
         }
 
-        boutonQuitter=Gtk::Button.new(Gtk::Stock::QUIT)
+        boutonQuitter=Gtk::Button.new(:label => "Quitter")
         boutonQuitter.signal_connect('clicked'){
-        	Fenetre::detruire()
+            Fenetre::detruire()
         }
 
         #attach des boutons

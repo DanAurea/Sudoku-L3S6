@@ -14,9 +14,9 @@ class PseudoControleur < Controller
 		messageQuestion=Fenetre::creerPopupQuestion(message)
         reponse=messageQuestion.run()
         
-        if(reponse == Gtk::Dialog::RESPONSE_YES)
+        if(reponse == Gtk::ResponseType::YES)
         	Core::changeTo("Menu", "pseudo": entreePseudo.text)
-        elsif(reponse == Gtk::Dialog::RESPONSE_NO)
+        elsif(reponse == Gtk::ResponseType::NO)
             entreePseudo.text=""
         end
         

@@ -3,7 +3,7 @@ $LOAD_PATH << '.'
 require 'core/Core'
 require 'core/Controller.rb'
 require 'core/Model.rb'
-require 'gtk2'
+require 'gtk3'
 
 Gtk::init()
 

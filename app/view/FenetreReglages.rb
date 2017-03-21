@@ -33,11 +33,11 @@ class FenetreReglages < View
 
         #Creation des Boutons
         frame1 = Gtk::Frame.new(" Choix taille des chiffres ")
-        frame1.shadow_type = Gtk::SHADOW_ETCHED_OUT
+        frame1.shadow_type = Gtk::ShadowType::ETCHED_OUT
 
         tableTaille=Gtk::Table.new(4,1,false)
-        boutonPetitChiffre = Gtk::RadioButton.new("Petit Chiffre")
-        boutonGrandChiffre = Gtk::RadioButton.new(boutonPetitChiffre,"Grand Chiffre")
+        boutonPetitChiffre = Gtk::RadioButton.new(:label => "Petit Chiffre")
+        boutonGrandChiffre = Gtk::RadioButton.new(:member => boutonPetitChiffre, :label => "Grand Chiffre")
         #tableTaille.attach(Gtk::Image.new(CHEMIN_IMAGE_PETIT_CHIFFRE_REGLAGE),0,1,0,1)
         tableTaille.attach(boutonPetitChiffre,1,2,0,1)
         #tableTaille.attach(Gtk::Image.new(CHEMIN_IMAGE_GRAND_CHIFFRE_REGLAGE),2,3,0,1)
@@ -45,17 +45,17 @@ class FenetreReglages < View
         frame1.add(tableTaille)
 
         frame2 = Gtk::Frame.new(" Choix de la couleur ")
-        frame2.shadow_type = Gtk::SHADOW_ETCHED_OUT
+        frame2.shadow_type = Gtk::ShadowType::ETCHED_OUT
         tableCouleur=Gtk::Table.new(8,2,false)
         
-        boutonBlanc = Gtk::RadioButton.new("Blanc")
-        boutonBleu = Gtk::RadioButton.new(boutonBlanc,"Bleu")
-        boutonJaune = Gtk::RadioButton.new(boutonBlanc,"Jaune")
-        boutonOrange = Gtk::RadioButton.new(boutonBlanc,"Orange")
-        boutonRouge = Gtk::RadioButton.new(boutonBlanc,"Rouge")
-        boutonTurquoise = Gtk::RadioButton.new(boutonBlanc,"Turquoise")
-        boutonVert = Gtk::RadioButton.new(boutonBlanc,"Vert")
-        boutonViolet = Gtk::RadioButton.new(boutonBlanc,"Violet")
+        boutonBlanc = Gtk::RadioButton.new(:label => "Blanc")
+        boutonBleu = Gtk::RadioButton.new(:member => boutonBlanc,:label => "Bleu")
+        boutonJaune = Gtk::RadioButton.new(:member => boutonBlanc,:label => "Jaune")
+        boutonOrange = Gtk::RadioButton.new(:member => boutonBlanc,:label => "Orange")
+        boutonRouge = Gtk::RadioButton.new(:member => boutonBlanc,:label => "Rouge")
+        boutonTurquoise = Gtk::RadioButton.new(:member => boutonBlanc,:label => "Turquoise")
+        boutonVert = Gtk::RadioButton.new(:member => boutonBlanc,:label => "Vert")
+        boutonViolet = Gtk::RadioButton.new(:member => boutonBlanc,:label => "Violet")
 
         # tableCouleur.attach(Gtk::Image.new(CHEMIN_IMAGE_BLANC_REGLAGE),0,1,0,1)
         tableCouleur.attach(boutonBlanc,1,2,0,1)
@@ -85,14 +85,14 @@ class FenetreReglages < View
         tableCouleur.set_row_spacing(1, 10)
         frame2.add(tableCouleur)
 
-        boutonRetour=Gtk::Button.new(Gtk::Stock::GO_BACK)
+        boutonRetour=Gtk::Button.new(:label => "Retour")
         boutonRetour.signal_connect('clicked'){
             Core::back()
         }
 
-        boutonQuitter=Gtk::Button.new(Gtk::Stock::QUIT)
+        boutonQuitter=Gtk::Button.new(:label => "Quitter")
         boutonQuitter.signal_connect('clicked'){
-        	Fenetre::detruire()
+            Fenetre::detruire()
         }
 
         #attach des boutons

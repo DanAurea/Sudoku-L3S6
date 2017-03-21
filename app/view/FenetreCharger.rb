@@ -31,12 +31,12 @@ class FenetreCharger < View
     	Fenetre::table.attach(Fenetre::creerLabelType("<u>Charger une partie</u>", 40, "#000000"),0,10,1,2)
 
         #Creation des Boutons
-        boutonRetour=Gtk::Button.new(Gtk::Stock::GO_BACK)
+        boutonRetour=Gtk::Button.new(:label => "Retour")
         boutonRetour.signal_connect('clicked'){
         	Core::back()
         }
 
-        boutonQuitter=Gtk::Button.new(Gtk::Stock::QUIT)
+        boutonQuitter=Gtk::Button.new(:label => "Quitter")
         boutonQuitter.signal_connect('clicked'){
         	Fenetre::detruire()
         }
