@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 gemspec
 
 group :test, :production, :development do
-	gem 'gtk2'
 	gem 'gtk3'
 	gem 'sqlite3'
 	gem 'activerecord'
