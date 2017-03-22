@@ -5,7 +5,8 @@
 }*/
 
 #mainWindow{
-    background: rgb(38, 50, 56);
+    /*background: rgb(38, 50, 56);*/
+    background-image: radial-gradient(ellipse at center, rgb(125,150,160) 0%, rgb(28,40,46) 90%);
     font-size: 16px;
 }
 

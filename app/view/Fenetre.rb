@@ -56,7 +56,7 @@ module Fenetre
         else
             
             if(args.has_key?(:chemin))
-                chemin = args[:chemin]
+                chemin = Core::ROOTPROJECT + args[:chemin]
             else
                 chemin = Core::ROOTPROJECT + "assets/css/Fenetre.css"
             end
@@ -78,8 +78,8 @@ module Fenetre
             priorite = Object.const_get("Gtk::StyleProvider::PRIORITY_USER")
         end
 
-        fenetreStyle = widget.style_context
-        fenetreStyle.add_provider(fournisseur, priorite)
+        widgetStyle = widget.style_context
+        widgetStyle.add_provider(fournisseur, priorite)
 
         return unless widget.respond_to?(:children)
             widget.children.each do |child|

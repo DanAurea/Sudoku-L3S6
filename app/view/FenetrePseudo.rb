@@ -8,11 +8,6 @@
 
 class FenetrePseudo < View 
 
-	def initialize()
-		@fournisseur = Gtk::CssProvider.new
-    	@fournisseur.load_from_path(Core::ROOTPROJECT + "/assets/css/FenetrePseudo.css")
-	end
-
 	#===Methode miseEnplace
     #
     # Permet de mettre en place la fenetre(taille, informations, conteneurs)
@@ -63,7 +58,7 @@ class FenetrePseudo < View
 	##
 	def run
 		self.miseEnPlace
-		Fenetre::css(:fournisseur => @fournisseur)
+		Fenetre::css(:chemin => "/assets/css/FenetrePseudo.css")
 		return self
 	end
 end
