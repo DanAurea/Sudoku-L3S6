@@ -93,17 +93,18 @@ class FenetreMenu < View
         fenetre.set_program_name("Projet sudoku")
         fenetre.set_version("1.0")
         fenetre.set_copyright("(c) DogeTeam - Groupe B")
-        fenetre.set_authors("JEAN Marvin => Chef de projet \n COUSIN Brandon => Architecte \n PAVARD Valentin => Interface GUI \n DURAN Alizée => Documentaliste \n GUENVER Yann => Développeur \n TABOT Alexandre => Développeur \n BUSSEREAU Keryann => Développeur \n BODINEAU Bastien => Développeur \n")
+        fenetre.set_authors(["JEAN Marvin => Chef de projet", "COUSIN Brandon => Architecte", "PAVARD Valentin => Interface GUI", "DURAN Alizée => Documentaliste", "GUENVER Yann => Développeur", "TABOT Alexandre => Développeur", "BUSSEREAU Keryann => Développeur", "BODINEAU Bastien => Développeur"])
         fenetre.set_comments("Dans le cadre du module 176EN001 intitulé Génie Logiciel 2 :\n Application à la conception à l'université du Maine, nous devons réaliser une interface à aides visuelles à la réalisation d’un Sudoku. Cela permet d’aider un utilisateur à résoudre un Sudoku sans réfléchir. La grille du Sudoku sera générée sur ordinateur.")
         
-        fenetre.set_window_position(Gtk::Window::POS_CENTER_ALWAYS)
+        fenetre.set_transient_for(Fenetre::fenetre)
+        fenetre.set_window_position(Gtk::WindowPosition::CENTER_ALWAYS)
         fenetre.set_title("Sudoku - A propos")
         fenetre.set_default_size(400,400)
         fenetre.border_width=0
         fenetre.set_resizable(false)
         
         fenetre.signal_connect('destroy') {
-            fenetre.hide_all()
+            fenetre.hide()
         }
 
         begin
