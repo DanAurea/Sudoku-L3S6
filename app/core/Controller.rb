@@ -19,6 +19,7 @@ class Controller
 		if Core::DEBUG
 			puts "Main controller instanciation"
 		end
+
 	end
 
 	##
@@ -112,6 +113,8 @@ class Controller
 		## Will render view with content retrieved in controller
 		view.setInstanceVars()
 		view.run()
+
+		Fenetre::css()
 
 		## Display content builded in view with Gtk
 		view.window.show_all

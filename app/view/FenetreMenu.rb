@@ -8,6 +8,11 @@
 # 
 class FenetreMenu < View
 
+    def initialize()
+        @fournisseur = Gtk::CssProvider.new
+        @fournisseur.load_from_path(Core::ROOTPROJECT + "/assets/css/FenetreMenu.css")
+    end
+
     #===Methode miseEnplace
     #
     # Permet de mettre en place la fenetre(taille, informations, conteneurs)
@@ -80,7 +85,6 @@ class FenetreMenu < View
 
         Fenetre::table.attach(boutonAPropos,1,3,10,11)
         Fenetre::table.attach(boutonQuitter,7,9,10,11)
-
     end
 
     def aPropos()
@@ -125,6 +129,8 @@ class FenetreMenu < View
 	##
 	def run
 		self.miseEnPlace()
+
+        Fenetre::css(:fournisseur => @fournisseur)
 		return self
 	end
 end

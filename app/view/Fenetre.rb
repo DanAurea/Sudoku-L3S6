@@ -5,7 +5,8 @@
 #   Version::     0.1
 #   Copyright::   ©
 #   License::     Distributes under the same terms as Ruby
-
+require "optparse"
+require "fileutils"
 
 module Fenetre
 
@@ -16,22 +17,76 @@ module Fenetre
     ## Set a basic window
 	@fenetre = Gtk::Window.new()
 
-    @fournisseur = Gtk::CssProvider.new
-    @fournisseur.load_from_resource(Core::ROOTPROJECT + "/assets/css/Fenetre.css")
-
+    @fenetre.set_name("mainWindow")
     @fenetreStyle = @fenetre.style_context
-    @fenetreStyle.add_provider(@fournisseur, Gtk::StyleProvider::PRIORITY_USER)
 
-    # appliquerStyle(@window, provider)
+    # appliquerStyle(@fenetre, @fournisseur)
 
 	@fenetre.signal_connect('destroy') {
 			detruire()
 	}
 
-	# Définis un accesseur pour le contexte de la fenêtre Gtk
-	def Fenetre.fenetre()
-		return @fenetre
-	end   
+    # Définis un accesseur pour le contexte de la fenêtre Gtk
+    def Fenetre.fenetre()
+        return @fenetre
+    end
+    
+	# Définis un accesseur pour le contexte de style de la fenêtre Gtk
+    def Fenetre.fenetreStyle()
+        return @fenetreStyle
+    end
+    
+
+    ##
+    ## @brief      Applique une feuille css sur un widget
+    ## 
+    ## @param      args  Liste des argumentss
+    ##             :widget Widget sur lequel appliquer
+    ##             :chemin  Chemin du fichier css
+    ##             :fournisseur Gtk provider pour le css
+    ##             :priorite Priorité du style par rapport au système etc...
+    ## 
+    ## @return     Style appliqués
+    ##
+    def Fenetre.css(**args)
+
+
+        if(args.has_key?(:fournisseur))
+            fournisseur = args[:fournisseur]
+        else
+            
+            if(args.has_key?(:chemin))
+                chemin = args[:chemin]
+            else
+                chemin = Core::ROOTPROJECT + "assets/css/Fenetre.css"
+            end
+
+            fournisseur = Gtk::CssProvider.new
+            fournisseur.load_from_path(chemin)
+        end
+        
+
+        if(args.has_key?(:widget))
+            widget = args[:widget]
+        else
+            widget = @fenetre
+        end
+
+        if(args.has_key?(:priorite))
+            priorite = Object.const_get("Gtk::StyleProvider::" + args[:priorite])
+        else
+            priorite = Object.const_get("Gtk::StyleProvider::PRIORITY_USER")
+        end
+
+        fenetreStyle = widget.style_context
+        fenetreStyle.add_provider(fournisseur, priorite)
+
+        return unless widget.respond_to?(:children)
+            widget.children.each do |child|
+                args[:widget] = child
+                self.css(args)
+        end
+    end
 
     ## Montre la fenetre précédente
     def Fenetre.fenetrePrecedente()
@@ -123,9 +178,8 @@ module Fenetre
     #
     def Fenetre.creerLabelType(unNomDeLabel, taillePolice, couleur)
         #Creation du Label
-        texte = "<span font_desc=\"Terminus 12 " + taillePolice.to_s + "\" foreground=\"" + couleur + "\"> #{unNomDeLabel} </span>\n"
         label=Gtk::Label.new()
-        label.set_markup(texte)
+        label.set_markup(unNomDeLabel)
         label.set_justify(Gtk::Justification::CENTER)
         return label
     end
@@ -169,4 +223,5 @@ module Fenetre
     		:message => unTexte)
     	return messageErreur
     end
+
 end

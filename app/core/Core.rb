@@ -38,10 +38,6 @@ module Core
 	## @return     Module itself
 	##
 	def Core.changeTo(name, **args)
-		
-		if(args.has_key?(:caller))
-			puts args[:caller]
-		end
 
 		## Retrieve class caller
 		caller = File.basename(caller_locations.first.path)

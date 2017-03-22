@@ -8,6 +8,11 @@
 
 class FenetrePseudo < View 
 
+	def initialize()
+		@fournisseur = Gtk::CssProvider.new
+    	@fournisseur.load_from_path(Core::ROOTPROJECT + "/assets/css/FenetrePseudo.css")
+	end
+
 	#===Methode miseEnplace
     #
     # Permet de mettre en place la fenetre(taille, informations, conteneurs)
@@ -17,11 +22,16 @@ class FenetrePseudo < View
     # * *Returns* :
     #   - /
 	def miseEnPlace()
-		#titre et pseudo
-		Fenetre::table.attach(Fenetre::creerLabelType("<u>Choix du pseudo</u>", 40, "#000000"),0,10,2,3)
+		
+		titre = Fenetre::creerLabelType("Choix du pseudo", 40, "#000000")
+		Fenetre::table.attach(titre,0,10,2,3)
 
 		#Creation des Boutons
-		label=Fenetre::creerLabelType(" Votre pseudo : ", 20, "#000000")
+		pseudo=Fenetre::creerLabelType(" Votre pseudo : ", 20, "#000000")
+
+		## Définis les classes de titres
+		titre.style_context.add_class("h1")
+		pseudo.style_context.add_class("h2")
 		
 		entryPseudo=Gtk::Entry.new()
 		entryPseudo.set_max_length(15)
@@ -37,7 +47,7 @@ class FenetrePseudo < View
 		}
 
 		#attach des boutons
-		Fenetre::table.attach(label,0,10,4,5)
+		Fenetre::table.attach(pseudo,0,10,4,5)
 		Fenetre::table.attach(entryPseudo,3,7,5,6)
 		Fenetre::table.attach(boutonQuitter,2,4,7,8)
 		Fenetre::table.attach(boutonValider,6,8,7,8)
@@ -53,6 +63,7 @@ class FenetrePseudo < View
 	##
 	def run
 		self.miseEnPlace
+		Fenetre::css(:fournisseur => @fournisseur)
 		return self
 	end
 end
