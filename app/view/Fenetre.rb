@@ -13,7 +13,17 @@ module Fenetre
     @table
     @fenetrePrecedente
 
+    ## Set a basic window
 	@fenetre = Gtk::Window.new()
+
+    @fournisseur = Gtk::CssProvider.new
+    @fournisseur.load_from_resource(Core::ROOTPROJECT + "/assets/css/Fenetre.css")
+
+    @fenetreStyle = @fenetre.style_context
+    @fenetreStyle.add_provider(@fournisseur, Gtk::StyleProvider::PRIORITY_USER)
+
+    # appliquerStyle(@window, provider)
+
 	@fenetre.signal_connect('destroy') {
 			detruire()
 	}
@@ -64,6 +74,23 @@ module Fenetre
     #
     def Fenetre.detruire()
         Gtk.main_quit()
+    end
+
+
+    ##
+    ## @brief      Applique un style css sur le widget
+    ##
+    ## @param      widget    Widget sur lequel appliquer un style
+    ## @param      provider  
+    ##
+    ##
+    def Fenetre.appliquerStyle(widget, provider)
+        style_context = widget.style_context
+        style_context.add_provider(provider, Gtk::StyleProvider::PRIORITY_USER)
+        return unless widget.respond_to?(:children)
+        widget.children.each do |child|
+          apply_style(child, provider)
+        end
     end
 
 	#===Methode miseEnplace

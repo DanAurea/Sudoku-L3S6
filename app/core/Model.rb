@@ -1,7 +1,7 @@
 require 'active_record'
 require 'sqlite3'
 require 'singleton'
-require 'core/Conf.rb'
+require_relative 'Conf.rb'
 
 class Model
 	include Singleton

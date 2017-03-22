@@ -1,7 +1,7 @@
 module Core
 
 	## Define root directory constant
-	ROOT                  = File.dirname(File.dirname(__FILE__)) + "/"
+	ROOT                  = File.expand_path(File.dirname(File.dirname(__FILE__))) + "/"
 	ROOTPROJECT           = File.dirname(ROOT) + "/"
 	CONTROLLER            = "Controleur"
 	VIEW                  = "Fenetre"
