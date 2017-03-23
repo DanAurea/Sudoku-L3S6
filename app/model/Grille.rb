@@ -13,11 +13,17 @@ class Grille < Model
     end
 
     def charger(pseudo)
-        #return grille
+        donnees = YAML.load_file(Core::ROOTPROJECT + "assets/save/" + pseudo.to_s + ".yml")
+        @grille=donnees["grille"]
     end
 
     def sauvegarder(pseudo)
-        YAML.save_file(@grille)
+        donnees=Hash.new()
+        File.open(Core::ROOTPROJECT + "assets/save/" + pseudo.to_s + ".yml", "w") do |fichier|
+            donnees["grille"] = @grille
+            fichier.write(donnees.to_yaml)
+        end
+
         return true
     end
 
