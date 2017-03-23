@@ -24,7 +24,7 @@ class FenetrePseudo < View
 		titre.style_context.add_class("titre_menu")
 		#pseudo
 		pseudo=Fenetre::creerLabelType(" Votre pseudo : ")
-		pseudo.style_context.add_class("label_menu")
+		pseudo.style_context.add_class("label_field_pseudo")
 		
 		#Creation des Boutons
 		entryPseudo=Gtk::Entry.new()
