@@ -15,6 +15,7 @@ class Grille < Model
     end
 
     def sauvegarder(pseudo)
+        YAML.save_file(@grille)
         return true
     end
 
@@ -23,3 +24,4 @@ class Grille < Model
     end
 
 end
+#assets/save/pseudo.yml
