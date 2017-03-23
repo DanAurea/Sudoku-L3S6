@@ -11,7 +11,7 @@
 }
 
 label{
-    color:white;
+    color:black;
 }
 
 button{
@@ -40,12 +40,48 @@ button:active{
 button:active label{
     color: white;
 }
-.h1{
+
+
+
+
+
+
+.titre_menu{
     color: white;
     font-size: 40px;
 }
 
-.h2{
+.label_menu{
     color: white;
     font-size: 20px;
+}
+
+.pseudo_menu{
+    color: white;
+    font-size: 15px;
+}
+
+.ligne_score{
+    color: black;
+    font-size: 17px;
+}
+
+.label_regles{
+    color: white;
+    font-size: 15px;
+}
+
+.label_niveau{
+    color: red;
+    font-size: 20px;
+}
+
+.label_titre_stat{
+    color: white;
+    font-size: 18px;
+}
+
+.label_contenu_stat{
+    color: black;
+    font-size: 15px;
 }

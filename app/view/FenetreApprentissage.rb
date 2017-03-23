@@ -22,6 +22,7 @@ class FenetreApprentissage < View
 	## @return     itself
 	##
 	def run()
+		Fenetre::css(:chemin => "/assets/css/FenetreApprentissage.css")
 		return self
 	end
 

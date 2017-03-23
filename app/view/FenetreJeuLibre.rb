@@ -27,6 +27,7 @@ class FenetreJeuLibre < View
 		grilleDessin = GrilleDessin.new(@grille)
 
 		Fenetre::table.attach(grilleDessin,0,10,0,12)
+		Fenetre::css(:chemin => "/assets/css/FenetreJeuLibre.css")
 		return self
 	end
 

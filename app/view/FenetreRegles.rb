@@ -23,15 +23,14 @@ class FenetreRegles < View
     #   - /
     #
 	def miseEnPlace()
-		#titre et pseudo
-        event_box=Gtk::EventBox.new.add(Fenetre::creerLabelType("Pseudo : #{@pseudo.capitalize}", 15, "#FF0000"))
-        event_box.signal_connect('button_press_event'){
-            Core::changeTo("Reglages", "pseudo": @pseudo)
-        }
-    	Fenetre::table.attach(event_box,7,10,0,1)
-    	Fenetre::table.attach(Fenetre::creerLabelType("<u>Règles</u>", 40, "#000000"),0,10,1,2)
-
-    	#regles enoncées
+		## Définis les classes de titres
+		#titre
+		titre = Fenetre::creerLabelType("<u>Règles</u>")
+		titre.style_context.add_class("titre_menu")
+		#pseudo
+		pseudo = Fenetre::creerLabelType("Pseudo : #{@pseudo.capitalize}")
+		pseudo.style_context.add_class("pseudo_menu")
+		#regles enoncées
     	texte="
     	- Un sudoku classique contient 9 lignes et 9 colonnes,\n
     	soit 81 cases au total.\n 
@@ -46,10 +45,15 @@ class FenetreRegles < View
     	tout est une question de logique et d'observation.\n
     	- Suivez le tutoriel pour vous faciliter la tache et apprendre\n 
     	certaines techniques...\n"
-		
-		label=Fenetre::creerLabelType(texte , 15, "#000000")
+		label=Fenetre::creerLabelType(texte)
+		label.style_context.add_class("label_regles")
 
-        #Creation des Boutons
+		#Creation des Boutons
+        event_box=Gtk::EventBox.new.add(pseudo)
+        event_box.signal_connect('button_press_event'){
+            Core::changeTo("Reglages", "pseudo": @pseudo)
+        }
+   
         boutonRetour=Gtk::Button.new(:label => "Retour")
         boutonRetour.signal_connect('clicked'){
         	Core::back()
@@ -61,6 +65,8 @@ class FenetreRegles < View
         }
 
         #attach des boutons
+        Fenetre::table.attach(titre,0,10,1,2)
+        Fenetre::table.attach(event_box,7,10,0,1)
         Fenetre::table.attach(label,0,10,2,12)
         Fenetre::table.attach(boutonRetour,1,3,11,12)
         Fenetre::table.attach(boutonQuitter,7,9,11,12)
@@ -76,6 +82,7 @@ class FenetreRegles < View
 	##
 	def run()
 		self.miseEnPlace()
+		Fenetre::css(:chemin => "/assets/css/FenetreRegles.css")
 		return self
 	end
 
