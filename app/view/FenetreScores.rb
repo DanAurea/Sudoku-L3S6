@@ -1,7 +1,7 @@
 # 	Fichier contenant l'affichage des meilleurs scores du jeu
 # 	
-# 	Author:: 		PAVARD Valentin, DanAurea
-# 	Developers: 	PAVARD Valentin, DanAurea
+#   Author::        Valentin, DanAurea
+#   Developers:     Valentin, DanAurea
 # 	Version:: 		0.1
 # 	Copyright:: 	© 2016
 # 	License::   	Distributes under the same terms as Ruby
@@ -23,22 +23,27 @@ class FenetreScores < View
     #   - /
     #
 	def miseEnPlace()
-		#titre et pseudo
-        event_box=Gtk::EventBox.new.add(Fenetre::creerLabelType("Pseudo : #{@pseudo.capitalize}", 15, "#FF0000"))
+		## Définis les classes de titres
+		#titre
+		titre = Fenetre::creerLabelType("<u>Meilleurs Scores</u>")
+		titre.style_context.add_class("titre_menu")
+		#pseudo
+		pseudo = Fenetre::creerLabelType("Pseudo : #{@pseudo.capitalize}")
+		pseudo.style_context.add_class("pseudo_menu")
+
+		#Creation des Boutons
+        event_box=Gtk::EventBox.new.add(pseudo)
         event_box.signal_connect('button_press_event'){
             Core::changeTo("Reglages", "pseudo": @pseudo)
         }
-    	Fenetre::table.attach(event_box,7,10,0,1)
-    	Fenetre::table.attach(Fenetre::creerLabelType("<u>Meilleurs Scores</u>", 40, "#000000"),0,10,1,2)
 
-    	tabScore=[["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"]]
-        
         #Conteneur table
+        tabScore=[["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"]]
         tableScore=Gtk::Table.new(10,10,false)
-
-        #Creation des Boutons
         tabScore.each_with_index{|tab,index|
-        	tableScore.attach(Fenetre::creerLabelType("#{index+1} => #{tab[0]} avec  #{tab[1]} points", 17, "#000000"),0,10,index,index+1)
+       		ligneScore = Fenetre::creerLabelType("#{index+1} => #{tab[0]} avec  #{tab[1]} points")
+			ligneScore.style_context.add_class("ligne_score")
+        	tableScore.attach(ligneScore,0,10,index,index+1)
         }
 
         boutonRetour=Gtk::Button.new(:label => "Retour")
@@ -52,6 +57,8 @@ class FenetreScores < View
         }
 
         #attach des boutons
+        Fenetre::table.attach(titre,0,10,1,2)
+        Fenetre::table.attach(event_box,7,10,0,1)
         Fenetre::table.attach(tableScore,3,7,2,11)
         Fenetre::table.attach(boutonRetour,1,3,11,12)
         Fenetre::table.attach(boutonQuitter,7,9,11,12)
@@ -67,6 +74,7 @@ class FenetreScores < View
 	##
 	def run()
 		self.miseEnPlace()
+		Fenetre::css(:chemin => "/assets/css/FenetreScores.css")
 		return self
 	end
 

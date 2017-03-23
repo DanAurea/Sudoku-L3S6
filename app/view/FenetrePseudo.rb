@@ -1,7 +1,7 @@
 #   Contient la classe representant une fenetre pour le choix du pseudo
 #
-# 	Author:: 		PAVARD Valentin, DanAurea
-# 	Developers: 	PAVARD Valentin, DanAurea
+# 	Author:: 		Valentin, DanAurea
+# 	Developers: 	Valentin, DanAurea
 # 	Version:: 		0.1
 # 	Copyright:: 	© 2016
 #   License::     Distributes under the same terms as Ruby
@@ -18,16 +18,15 @@ class FenetrePseudo < View
     #   - /
 	def miseEnPlace()
 		
-		titre = Fenetre::creerLabelType("Choix du pseudo", 40, "#000000")
-		Fenetre::table.attach(titre,0,10,2,3)
-
-		#Creation des Boutons
-		pseudo=Fenetre::creerLabelType(" Votre pseudo : ", 20, "#000000")
-
 		## Définis les classes de titres
-		titre.style_context.add_class("h1")
-		pseudo.style_context.add_class("h2")
+		#titre
+		titre = Fenetre::creerLabelType("<u>Choix du pseudo</u>")
+		titre.style_context.add_class("titre_menu")
+		#pseudo
+		pseudo=Fenetre::creerLabelType(" Votre pseudo : ")
+		pseudo.style_context.add_class("label_field_pseudo")
 		
+		#Creation des Boutons
 		entryPseudo=Gtk::Entry.new()
 		entryPseudo.set_max_length(15)
 
@@ -42,6 +41,7 @@ class FenetrePseudo < View
 		}
 
 		#attach des boutons
+		Fenetre::table.attach(titre,0,10,2,3)
 		Fenetre::table.attach(pseudo,0,10,4,5)
 		Fenetre::table.attach(entryPseudo,3,7,5,6)
 		Fenetre::table.attach(boutonQuitter,2,4,7,8)

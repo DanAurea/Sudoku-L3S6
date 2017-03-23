@@ -12,7 +12,7 @@
 class NouvellePartieControleur < Controller
 
 	def initialize()
-		
+		@title = "Sudoku - Nouvelle Partie"
 	end
 
 	def run()
