@@ -1,0 +1,51 @@
+
+/* Reset all default settings */
+/** {
+  all: unset;
+}*/
+
+#mainWindow{
+    /*background: rgb(38, 50, 56);*/
+    background-image: radial-gradient(ellipse at center, rgb(105,150,170) 0%, rgb(25,35,66) 90%);
+    font-size: 16px;
+}
+
+label{
+    color:white;
+}
+
+button{
+    border:none;
+    background: rgb(60,140,155);
+    box-shadow: 1px 1px  shade(@theme_bg_color, 1.4);
+}
+
+button label{
+    color: white;
+}
+
+button:hover{
+    background: rgb(90,170,185);
+}
+
+button:hover label{
+    color: black;
+}
+
+button:active{
+    background: rgb(40,120,135);
+    box-shadow: inset 1px 1px shade(rgb(20,20,50), 1.4);
+}
+
+button:active label{
+    color: white;
+}
+.h1{
+    color: white;
+    font-size: 40px;
+}
+
+.h2{
+    color: white;
+    font-size: 20px;
+}

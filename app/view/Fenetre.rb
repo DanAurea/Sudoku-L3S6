@@ -58,7 +58,7 @@ module Fenetre
             if(args.has_key?(:chemin))
                 chemin = Core::ROOTPROJECT + args[:chemin]
             else
-                chemin = Core::ROOTPROJECT + "assets/css/Fenetre.css"
+                chemin = Core::ROOTPROJECT + "assets/css/style.css"
             end
 
             fournisseur = Gtk::CssProvider.new

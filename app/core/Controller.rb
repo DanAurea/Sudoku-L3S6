@@ -114,7 +114,7 @@ class Controller
 		view.setInstanceVars()
 		view.run()
 
-		Fenetre::css()
+		Fenetre::css(:priorite => "PRIORITY_APPLICATION")
 
 		## Display content builded in view with Gtk
 		view.window.show_all

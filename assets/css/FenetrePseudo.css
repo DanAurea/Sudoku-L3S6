@@ -1,0 +1,5 @@
+/* Override global css (higher priority) */
+/*button{
+	background: rgb(140,90,135);
+	box-shadow: 1px 1px  shade(@theme_bg_color, 1.4);
+}*/
