@@ -1,4 +1,3 @@
-#Class Technique
 
 
 class Technique{
