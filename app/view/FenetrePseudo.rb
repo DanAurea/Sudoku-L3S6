@@ -1,7 +1,7 @@
 #   Contient la classe representant une fenetre pour le choix du pseudo
 #
-# 	Author:: 		PAVARD Valentin, DanAurea
-# 	Developers: 	PAVARD Valentin, DanAurea
+# 	Author:: 		Valentin, DanAurea
+# 	Developers: 	Valentin, DanAurea
 # 	Version:: 		0.1
 # 	Copyright:: 	© 2016
 #   License::     Distributes under the same terms as Ruby
@@ -20,7 +20,7 @@ class FenetrePseudo < View
 		
 		## Définis les classes de titres
 		#titre
-		titre = Fenetre::creerLabelType("Choix du pseudo")
+		titre = Fenetre::creerLabelType("<u>Choix du pseudo</u>")
 		titre.style_context.add_class("titre_menu")
 		#pseudo
 		pseudo=Fenetre::creerLabelType(" Votre pseudo : ")

@@ -1,12 +1,11 @@
 /* Reset all default settings */
 /*
-*  Author::      PAVARD Valentin
-*  Developers:   PAVARD Valentin
+*  Author::      Valentin
+*  Developers:   Valentin
 *  Version::     0.1
 *  Copyright::   ©
 *  License::     Distributes under the same terms as Ruby
 */
-
 #mainWindow{
     /*background: rgb(38, 50, 56);*/
     background-image: radial-gradient(ellipse at center, rgb(105,150,170) 0%, rgb(25,35,66) 90%);
@@ -14,13 +13,14 @@
 }
 
 label{
-    color:black;
+    font-family: Monospace;
 }
 
 button{
-    border:none;
-    background: rgb(60,140,155);
-    box-shadow: 1px 1px  shade(@theme_bg_color, 1.4);
+    border: 1px solid black;
+    background: rgb(46,134,193);
+    box-shadow: none;
+    border-radius: 10px;
 }
 
 button label{
@@ -28,7 +28,8 @@ button label{
 }
 
 button:hover{
-    background: rgb(90,170,185);
+    background: rgb(52,152,219);
+    box-shadow: none;
 }
 
 button:hover label{
@@ -36,12 +37,12 @@ button:hover label{
 }
 
 button:active{
-    background: rgb(40,120,135);
-    box-shadow: inset 1px 1px shade(rgb(20,20,50), 1.4);
+    background: rgb(40,116,166);
+    box-shadow: none;
 }
 
 button:active label{
-    color: white;
+    color: black;
 }
 
 .titre_menu{
@@ -52,6 +53,11 @@ button:active label{
 .pseudo_menu{
     color: white;
     font-size: 15px;
+}
+
+GtkMessageDialog{
+    background-image: radial-gradient(ellipse at center, rgb(105,150,170) 0%, rgb(25,35,66) 90%);
+    font-size: 30px;
 }
 
 

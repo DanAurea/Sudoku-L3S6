@@ -12,7 +12,7 @@
 class ApprentissageControleur < Controller
 
 	def initialize()
-		
+		@title = "Sudoku - Apprentissage"
 	end
 
 	def run()
