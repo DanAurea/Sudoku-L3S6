@@ -10,9 +10,9 @@ class SCandidate << Technique{
 		grilleIndice = indice(grille)
 
 		[1,2,3,4,5,6,7,8,9].sort_by{rand}.each { |numero|
-			[1,2,3,4,5,6,7,8,9].each { |x|
+			grilleIndice.each { |col,x|
 				cpt=0
-				[1,2,3,4,5,6,7,8,9].each { |y|
+				col.each { |case,y|
 					if grilleIndice[x][y] then
 						cpt +=1
 					end
@@ -20,9 +20,9 @@ class SCandidate << Technique{
 				if cpt == 1 then return [x,y,numero] end
 			}
 
-			[1,2,3,4,5,6,7,8,9].each { |y|
+			[0,1,2,3,4,5,6,7,8].each { |y|
 				cpt=0
-				[1,2,3,4,5,6,7,8,9].each { |x|
+				[0,1,2,3,4,5,6,7,8].each { |x|
 					if grilleIndice[x][y] then
 						cpt +=1
 					end

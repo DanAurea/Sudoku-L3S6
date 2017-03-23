@@ -10,7 +10,7 @@ class TechniqueUsine{
 
 	def initialize(tech)
 
-		return new Object.const_get(tech)
+		return Object.const_get(tech).new()
 	end
 
 }

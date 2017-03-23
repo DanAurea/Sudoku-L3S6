@@ -14,13 +14,17 @@ class Technique{
 	end
 
 	def indice(grille)
-		grilleIndice = Array.new(9){Array.new(9){Array.new(9){false}}}
+		grilleIndice = Array.new(9){Array.new(9){Hash.new()}}
 
-		[1,2,3,4,5,6,7,8,9].each { |x|
-			[1,2,3,4,5,6,7,8,9].each { |y|
-				if grille[x,y].nil? then
+		grille.each { |col,x|
+			col.each { |case,y|
+				if case.nil? then
 					[1,2,3,4,5,6,7,8,9].each { |numero|
-						unless estProtegee(grille,numero.to_s,x,y) then grilleIndice[x-1][y-1] = true end
+						unless estProtegee(grille,numero.to_s,x,y) then
+							grilleIndice[x][y][(numero-1).to_s] = true
+						else
+							grilleIndice[x][y][(numero-1).to_s] = false
+						end
 					}
 				end
 			}
