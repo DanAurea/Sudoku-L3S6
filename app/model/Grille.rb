@@ -29,7 +29,8 @@ class Grille < Model
         ## Le compte rendu de l'inspection
         cr = true
 
-        for i in 0..9
+        ## Parcours dans [0,8]
+        for i in 0..8
 
             ## Verification horizontale
             if(@grille[x][i] == @grille[x][y])
