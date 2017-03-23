@@ -14,7 +14,7 @@ class Controller
 		@position 	 = "CENTER"
 
 		## Create content variable sent from controller to view called
-		@content = Hash.new()
+		@content = Hash.new(0)
 
 		if Core::DEBUG
 			puts "Main controller instanciation"

@@ -7,10 +7,11 @@
 # 	License::   	Distributes under the same terms as Ruby
 # 	
 
+
 class FenetreJeuLibre < View
 
 	def initialize()
-		
+		require Core::ROOT + "components/GrilleDessin.rb"
 	end
 
 	##
@@ -22,6 +23,10 @@ class FenetreJeuLibre < View
 	## @return     itself
 	##
 	def run()
+
+		grilleDessin = GrilleDessin.new(@grille)
+
+		Fenetre::table.attach(grilleDessin,0,10,0,12)
 		return self
 	end
 

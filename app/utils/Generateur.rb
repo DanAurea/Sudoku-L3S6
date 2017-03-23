@@ -123,7 +123,3 @@ class Generateur
 
 	
 end
-	
-grid = Generateur.new()	
-
-print grid.generer(1)
