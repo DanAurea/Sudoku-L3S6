@@ -29,6 +29,7 @@ class FenetrePseudo < View
 		#Creation des Boutons
 		entryPseudo=Gtk::Entry.new()
 		entryPseudo.set_max_length(15)
+		entryPseudo.style_context.add_class("field_pseudo")
 
 		boutonValider=Gtk::Button.new(:label => "Valider")
 		boutonValider.signal_connect('button_press_event'){

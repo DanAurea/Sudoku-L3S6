@@ -9,7 +9,7 @@
 #mainWindow{
     /*background: rgb(38, 50, 56);*/
     background-image: radial-gradient(ellipse at center, rgb(105,150,170) 0%, rgb(25,35,66) 90%);
-    font-size: 16px;
+	font-size: 16px;
 }
 
 label{
@@ -17,8 +17,8 @@ label{
 }
 
 button{
-    border: 1px solid black;
-    background: rgb(46,134,193);
+    border: 1px solid white;
+	background: rgb(46,134,193);
     box-shadow: none;
     border-radius: 10px;
 }
@@ -33,7 +33,7 @@ button:hover{
 }
 
 button:hover label{
-    color: black;
+    color: white;
 }
 
 button:active{
@@ -42,7 +42,7 @@ button:active{
 }
 
 button:active label{
-    color: black;
+    color: #2B2A29;
 }
 
 .titre_menu{
@@ -55,10 +55,6 @@ button:active label{
     font-size: 15px;
 }
 
-GtkMessageDialog{
-    background-image: radial-gradient(ellipse at center, rgb(105,150,170) 0%, rgb(25,35,66) 90%);
-    font-size: 30px;
-}
 
 
 
