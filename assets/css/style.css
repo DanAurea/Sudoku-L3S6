@@ -25,6 +25,7 @@ button{
 
 button label{
     color: white;
+    font-size: 20px;
 }
 
 button:hover{
@@ -48,6 +49,7 @@ button:active label{
 .titre_menu{
     color: white;
     font-size: 40px;
+    margin-top: 30px;
 }
 
 .pseudo_menu{
@@ -55,6 +57,12 @@ button:active label{
     font-size: 15px;
 }
 
+.bouton_bottom{
+    margin:50px;
+    padding:20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
 
 
 

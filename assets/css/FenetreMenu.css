@@ -6,3 +6,9 @@
 *  Copyright::   ©
 *  License::     Distributes under the same terms as Ruby
 */
+
+.bouton_menu{
+	margin:10px;
+	margin-left: 100px;
+	margin-right: 100px;
+}

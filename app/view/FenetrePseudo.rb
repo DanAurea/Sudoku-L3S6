@@ -18,13 +18,13 @@ class FenetrePseudo < View
     #   - /
 	def miseEnPlace()
 		
-		## Définis les classes de titres
+		## Définis les classes des labels
 		#titre
 		titre = Fenetre::creerLabelType("<u>Choix du pseudo</u>")
 		titre.style_context.add_class("titre_menu")
 		#pseudo
 		pseudo=Fenetre::creerLabelType(" Votre pseudo : ")
-		pseudo.style_context.add_class("label_field_pseudo")
+		pseudo.set_name("label_field_pseudo")
 		
 		#Creation des Boutons
 		entryPseudo=Gtk::Entry.new()
@@ -32,22 +32,30 @@ class FenetrePseudo < View
 		entryPseudo.style_context.add_class("field_pseudo")
 
 		boutonValider=Gtk::Button.new(:label => "Valider")
+		boutonValider.style_context.add_class("bouton_bottom")
 		boutonValider.signal_connect('button_press_event'){
 		      @controller.actionBoutonValider(entryPseudo)
 		}
 
 		boutonQuitter=Gtk::Button.new(:label => "Quitter")
+		boutonQuitter.style_context.add_class("bouton_bottom")
 		boutonQuitter.signal_connect('clicked'){
 		  		Fenetre::detruire()
 		}
 
-		#attach des boutons
-		Fenetre::box.add(titre)
-		Fenetre::box.add(pseudo)
-		Fenetre::box.add(entryPseudo)
-		Fenetre::box.add(Fenetre::creerLabelType(" "))
-		Fenetre::box.add(boutonQuitter)
-		Fenetre::box.add(boutonValider)
+		#add des boutons
+		boxTop=Gtk::Box.new(:vertical,0)
+		boxTop.add(titre)
+		boxTop.add(pseudo)
+		boxTop.add(entryPseudo)
+
+		boxBottom=Gtk::Box.new(:horizontal, 0)
+		boxBottom.halign = :center
+		boxBottom.add(boutonQuitter)
+		boxBottom.add(boutonValider)
+		
+		Fenetre::box.add(boxTop)
+		Fenetre::box.add(boxBottom)
     end
 
 	##

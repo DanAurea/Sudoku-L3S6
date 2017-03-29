@@ -8,6 +8,8 @@ class PseudoControleur < Controller
 		## Charge le modele utilisateur
 		loadModel("Utilisateur")
 		@title = "Sudoku - Pseudo"
+		@width= 600
+		@height= 400
 	end
 
 	def actionValider(message, entreePseudo)

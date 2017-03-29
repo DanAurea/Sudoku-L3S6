@@ -18,76 +18,90 @@ class FenetreMenu < View
     #   - /
     #
     def miseEnPlace()
-    	## Définis les classes de titres
+    	## Définis les classes des labels
 		#titre
 		titre = Fenetre::creerLabelType("<u>Menu Principal</u>")
 		titre.style_context.add_class("titre_menu")
 		#pseudo
 		pseudo = Fenetre::creerLabelType("Pseudo : #{@pseudo.capitalize}")
 		pseudo.style_context.add_class("pseudo_menu")
-        
+
+        #Creation des Boutons
         event_box=Gtk::EventBox.new.add(pseudo)
         event_box.signal_connect('button_press_event'){
             Core::changeTo("Reglages", "pseudo": @pseudo)
         }
 
-        #Creation des Boutons
         boutonCharger=Gtk::ToggleButton.new(:label => "Reprendre une partie")
+        boutonCharger.style_context.add_class("bouton_menu")
         boutonCharger.signal_connect('clicked'){
             Core::changeTo("Charger", "pseudo": @pseudo)
         }
 
         boutonNouveau=Gtk::Button.new(:label => "Nouvelle partie")
+        boutonNouveau.style_context.add_class("bouton_menu")
         boutonNouveau.signal_connect('clicked'){
             Core::changeTo("NouvellePartie", "pseudo": @pseudo)
         }
 
         boutonStat=Gtk::Button.new(:label => "Statistiques")
+        boutonStat.style_context.add_class("bouton_menu")
         boutonStat.signal_connect('clicked'){
             Core::changeTo("Statistiques", "pseudo": @pseudo)
         }
 
         boutonScore=Gtk::Button.new(:label => "Meilleurs scores")
+        boutonScore.style_context.add_class("bouton_menu")
         boutonScore.signal_connect('clicked'){
             Core::changeTo("Scores", "pseudo": @pseudo)
         }
 
         boutonReglage=Gtk::Button.new(:label => "Réglages")
+        boutonReglage.style_context.add_class("bouton_menu")
         boutonReglage.signal_connect('clicked'){
             Core::changeTo("Reglages", "pseudo": @pseudo)
         }
 
         boutonRegle=Gtk::Button.new(:label => "Règles de base")
+        boutonRegle.style_context.add_class("bouton_menu")
         boutonRegle.signal_connect('clicked'){
             Core::changeTo("Regles", "pseudo": @pseudo)
         }
 
-        boutonAPropos=Gtk::Button.new(:label => "About")
+        boutonAPropos=Gtk::Button.new(:label => " About ")
+        boutonAPropos.style_context.add_class("bouton_bottom")
         boutonAPropos.signal_connect('clicked'){
             aPropos()
         }
 
         boutonQuitter=Gtk::Button.new(:label => "Quitter")
+        boutonQuitter.style_context.add_class("bouton_bottom")
         boutonQuitter.signal_connect('clicked'){
         	Fenetre::detruire()
         }
 
+        #add des boutons
+        boxTop=Gtk::Box.new(:vertical,0)
+        boxTop.add(titre)
+        boxTop.add(event_box)
         if(partieExiste(@pseudo))
-            Fenetre::box.add(boutonCharger)
+            boxTop.add(boutonCharger)
         else
-            Fenetre::box.add(Fenetre::creerLabelType(" "))
+            boxTop.add(Fenetre::creerLabelType(" "))
         end
+        boxTop.add(boutonNouveau)
+        boxTop.add(boutonStat)
+        boxTop.add(boutonScore)
+        boxTop.add(boutonReglage)
+        boxTop.add(boutonRegle)
 
-        #attach des boutons
-        Fenetre::box.add(titre)
-        Fenetre::box.add(event_box)
-        Fenetre::box.add(boutonNouveau)
-        Fenetre::box.add(boutonStat)
-        Fenetre::box.add(boutonScore)
-        Fenetre::box.add(boutonReglage)
-        Fenetre::box.add(boutonRegle)
-        Fenetre::box.add(boutonAPropos)
-        Fenetre::box.add(boutonQuitter)
+        boxBottom=Gtk::Box.new(:horizontal, 0)
+        boxBottom.halign = :center
+        boxBottom.add(boutonQuitter)
+        boxBottom.add(boutonAPropos)
+        
+        Fenetre::box.add(boxTop)
+        Fenetre::box.add(boxBottom)
     end
 
     def aPropos()

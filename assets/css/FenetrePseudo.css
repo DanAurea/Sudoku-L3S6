@@ -7,13 +7,17 @@
 *  License::     Distributes under the same terms as Ruby
 */
 
-.label_field_pseudo{
+#label_field_pseudo{
     color: white;
     font-size: 20px;
+    margin-top: 60px;
+    margin-bottom: 30px;
 }
 
 .field_pseudo{
 	font-size: 20px;
 	padding-top: 0;
 	padding-bottom: 0;
+	margin-left: 100px;
+	margin-right: 100px;
 }
