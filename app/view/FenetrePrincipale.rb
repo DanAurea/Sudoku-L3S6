@@ -1,7 +1,7 @@
 #   Contient la classe representant une fenetre pour l'image de depart
 #
-#   Author:: 	  PAVARD Valentin, DanAurea
-# 	Developers:   PAVARD Valentin, DanAurea
+#   Author::        Valentin, DanAurea
+#   Developers:     Valentin, DanAurea
 #   Version::     0.1
 #   Copyright::   ©
 #   License::     Distributes under the same terms as Ruby

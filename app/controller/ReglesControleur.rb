@@ -12,7 +12,7 @@
 class ReglesControleur < Controller
 
 	def initialize()
-		
+		@title = "Sudoku - Règles"
 	end
 
 	def run()

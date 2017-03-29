@@ -1,7 +1,7 @@
 # 	File description
 # 	
-# 	Author:: 		PAVARD Valentin, DanAurea
-# 	Developers: 	PAVARD Valentin, DanAurea
+# 	Author:: 		Valentin, DanAurea
+# 	Developers: 	Valentin, DanAurea
 # 	Version:: 		0.1
 # 	Copyright:: 	© 2016
 # 	License::   	Distributes under the same terms as Ruby
@@ -22,6 +22,7 @@ class FenetreApprentissage < View
 	## @return     itself
 	##
 	def run()
+		Fenetre::css(:chemin => "/assets/css/FenetreApprentissage.css")
 		return self
 	end
 
