@@ -12,7 +12,11 @@
 class ReglagesControleur < Controller
 
 	def initialize()
+		loadModel("Utilisateur")
 		@title = "Sudoku - Réglages"
+		@width = 600
+		@height = 550
+		@resizable = false
 	end
 
 	def run()

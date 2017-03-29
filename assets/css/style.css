@@ -56,10 +56,11 @@ button:active label{
     color: white;
     font-size: 15px;
     margin-top: 10px;
+    margin-right: 10px;
 }
 
 .bouton_bottom{
-    margin: 50px;
+    margin: 40px;
     padding: 20px;
     padding-top: 10px;
     padding-bottom: 10px;

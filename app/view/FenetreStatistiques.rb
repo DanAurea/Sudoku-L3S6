@@ -30,6 +30,7 @@ class FenetreStatistiques < View
 		#pseudo
 		pseudo = Fenetre::creerLabelType("<u>Pseudo:</u> #{@pseudo.capitalize}")
 		pseudo.style_context.add_class("pseudo_menu")
+		pseudo.halign = :end
 		#niveau
     	labelNiveau = Fenetre::creerLabelType("<u>Niveau:</u> 0")
 		labelNiveau.style_context.add_class("label_niveau")

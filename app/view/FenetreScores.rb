@@ -32,6 +32,7 @@ class FenetreScores < View
 		#pseudo
 		pseudo = Fenetre::creerLabelType("<u>Pseudo:</u> #{@pseudo.capitalize}")
 		pseudo.style_context.add_class("pseudo_menu")
+        pseudo.halign = :end
         #position
         labelPosition = Fenetre::creerLabelType("<u>Position</u>")
         labelPosition.style_context.add_class("label_titre_score")

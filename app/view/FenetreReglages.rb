@@ -23,13 +23,38 @@ class FenetreReglages < View
     #   - /
     #
     def miseEnPlace()
-        ## Définis les classes de titres
+        ## Définis les classes des labels
         #titre
         titre = Fenetre::creerLabelType("<u>Réglages</u>")
         titre.style_context.add_class("titre_menu")
         #pseudo
         pseudo = Fenetre::creerLabelType("<u>Pseudo:</u> #{@pseudo.capitalize}")
         pseudo.style_context.add_class("pseudo_menu")
+        pseudo.halign = :end
+        #tmp
+        tmp = Fenetre::creerLabelType("  ")
+        tmp.style_context.add_class("label_reglage_f")
+        #couleur case base
+        labelCouleurCaseBase = Fenetre::creerLabelType("Couleur des cases de base:")
+        labelCouleurCaseBase.style_context.add_class("label_reglage")
+        labelCouleurCaseBase.halign = :start
+        #couleur case surlignée
+        labelCouleurCaseSelectionne = Fenetre::creerLabelType("Couleur des cases sélectionnées:")
+        labelCouleurCaseSelectionne.style_context.add_class("label_reglage")
+        labelCouleurCaseSelectionne.halign = :start
+        #couleur texte
+        labelCouleurTexte = Fenetre::creerLabelType("Couleur du texte:")
+        labelCouleurTexte.style_context.add_class("label_reglage")
+        labelCouleurTexte.halign = :start
+        #couleur indice
+        labelCouleurIndices = Fenetre::creerLabelType("Couleur des indices:")
+        labelCouleurIndices.style_context.add_class("label_reglage")
+        labelCouleurIndices.halign = :start
+        #police de texte
+        labelPolice = Fenetre::creerLabelType("Police de texte:")
+        labelPolice.style_context.add_class("label_reglage")
+        labelPolice.halign = :start
+
 
         #Creation des Boutons
         event_box=Gtk::EventBox.new.add(pseudo)
@@ -37,61 +62,60 @@ class FenetreReglages < View
             Core::changeTo("Reglages", "pseudo": @pseudo)
         }
 
-        # Couleur case base, couleur case surlignée, couleur texte, couleur indice, police de texte
-        labelCouleurCaseBase = generate_label("Couleur des cases de base :")
-        boutonCouleurCaseBase = Gtk::ColorButton.new
-
-        labelCouleurCaseSelectionne = generate_label("Couleur des cases selctionnées :")
-        boutonCouleurCaseSelectionne = Gtk::ColorButton.new
-
-        labelCouleurTexte = generate_label("Couleur du texte :")
-        boutonCouleurTexte = Gtk::ColorButton.new
-
-        labelCouleurIndices = generate_label("Couleur des indices :")
-        boutonCouleurIndices = Gtk::ColorButton.new
-
-        labelPolice = generate_label("Police de texte :")
-        boutonPolice = Gtk::FontButton.new
+        boutonCouleurCaseBase = Gtk::ColorButton.new()
+        boutonCouleurCaseBase.style_context.add_class("bouton_reglage")
+        boutonCouleurCaseSelectionne = Gtk::ColorButton.new()
+        boutonCouleurCaseSelectionne.style_context.add_class("bouton_reglage")
+        boutonCouleurTexte = Gtk::ColorButton.new()
+        boutonCouleurTexte.style_context.add_class("bouton_reglage")
+        boutonCouleurIndices = Gtk::ColorButton.new()
+        boutonCouleurIndices.style_context.add_class("bouton_reglage")
+        boutonPolice = Gtk::FontButton.new()
+        boutonPolice.style_context.add_class("bouton_reglage")
 
         boutonRetour=Gtk::Button.new(:label => "Retour")
+        boutonRetour.style_context.add_class("bouton_bottom")
         boutonRetour.signal_connect('clicked'){
             Core::back()
         }
 
         boutonQuitter=Gtk::Button.new(:label => "Quitter")
+        boutonQuitter.style_context.add_class("bouton_bottom")
         boutonQuitter.signal_connect('clicked'){
             Fenetre::detruire()
         }
 
-        #attach des boutons
-        Fenetre::box.add(titre)
-        Fenetre::box.add(event_box)
+        #tableau reglages
+        table=Gtk::Table.new(2,5,false)
+        table.attach(labelCouleurCaseBase,0,1,0,1)
+        table.attach(boutonCouleurCaseBase,1,2,0,1)
 
-        Fenetre::box.add(labelCouleurCaseBase)
-        Fenetre::box.add(boutonCouleurCaseBase)
+        table.attach(labelCouleurCaseSelectionne,0,1,1,2)
+        table.attach(boutonCouleurCaseSelectionne,1,2,1,2)
 
-        Fenetre::box.add(labelCouleurCaseSelectionne)
-        Fenetre::box.add(boutonCouleurCaseSelectionne)
+        table.attach(labelCouleurTexte,0,1,2,3)
+        table.attach(boutonCouleurTexte,1,2,2,3)
 
-        Fenetre::box.add(labelCouleurTexte)
-        Fenetre::box.add(boutonCouleurTexte)
+        table.attach(labelCouleurIndices,0,1,3,4)
+        table.attach(boutonCouleurIndices,1,2,3,4)
 
-        Fenetre::box.add(labelCouleurIndices)
-        Fenetre::box.add(boutonCouleurIndices)
+        table.attach(labelPolice,0,1,4,5)
+        table.attach(boutonPolice,1,2,4,5)
 
-        Fenetre::box.add(labelPolice)
-        Fenetre::box.add(boutonPolice)
+        #add des boutons
+        boxTop=Gtk::Box.new(:vertical,0)
+        boxTop.add(event_box)
+        boxTop.add(titre)
+        boxTop.add(tmp)
+        boxTop.add(table)
 
-        Fenetre::box.add(boutonRetour)
-        Fenetre::box.add(boutonQuitter)
-    end
-
-    def generate_label(label)
-      label = Gtk::Label.new(label)
-      label.halign = :start
-      label.valign = :center
-      label.hexpand = :true
-      label
+        boxBottom=Gtk::Box.new(:horizontal, 0)
+        boxBottom.halign = :center
+        boxBottom.add(boutonRetour)
+        boxBottom.add(boutonQuitter)
+        
+        Fenetre::box.add(boxTop)
+        Fenetre::box.add(boxBottom)
     end
 
     ##

@@ -6,3 +6,47 @@
 *  Copyright::   ©
 *  License::     Distributes under the same terms as Ruby
 */
+
+
+.label_reglage_f{
+    margin-top: 30px;
+}
+
+.label_reglage{
+    color: white;
+    font-size: 15px;
+    margin: 10px;
+    margin-bottom: 0;
+}
+
+.bouton_reglage{
+    border: 1px solid white;
+	background: rgb(46,134,193);
+    box-shadow: none;
+    border-radius: 10px;
+    margin: 10px;
+    margin-bottom: 0;
+}
+
+.bouton_reglage label{
+    color: white;
+    font-size: 20px;
+}
+
+.bouton_reglage:hover{
+    background: rgb(52,152,219);
+    box-shadow: none;
+}
+
+.bouton_reglage:hover label{
+    color: white;
+}
+
+.bouton_reglage:active{
+    background: rgb(40,116,166);
+    box-shadow: none;
+}
+
+.bouton_reglage:active label{
+    color: #2B2A29;
+}

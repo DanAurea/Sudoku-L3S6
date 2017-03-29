@@ -30,6 +30,7 @@ class FenetreNouvellePartie < View
 		#pseudo
 		pseudo = Fenetre::creerLabelType("<u>Pseudo:</u> #{@pseudo.capitalize}")
 		pseudo.style_context.add_class("pseudo_menu")
+        pseudo.halign = :end
 
 		#Creation des Boutons
         event_box=Gtk::EventBox.new.add(pseudo)
@@ -38,7 +39,7 @@ class FenetreNouvellePartie < View
         }
 
         boutonApprentissage=Gtk::Button.new(:label => "Apprentissage avec aides")
-        boutonApprentissage.style_context.add_class("bouton_nouvelle_partie")
+        boutonApprentissage.style_context.add_class("bouton_nouvelle_partie_f")
         boutonApprentissage.signal_connect('clicked'){
             Core::changeTo("Apprentissage", "pseudo": @pseudo)
         }

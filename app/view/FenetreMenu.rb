@@ -25,6 +25,7 @@ class FenetreMenu < View
 		#pseudo
 		pseudo = Fenetre::creerLabelType("<u>Pseudo:</u> #{@pseudo.capitalize}")
 		pseudo.style_context.add_class("pseudo_menu")
+        pseudo.halign = :end
 
         #Creation des Boutons
         event_box=Gtk::EventBox.new.add(pseudo)
@@ -33,7 +34,7 @@ class FenetreMenu < View
         }
 
         boutonCharger=Gtk::ToggleButton.new(:label => "Reprendre une partie")
-        boutonCharger.style_context.add_class("bouton_menu")
+        boutonCharger.style_context.add_class("bouton_menu_f")
         boutonCharger.signal_connect('clicked'){
             Core::changeTo("Charger", "pseudo": @pseudo)
         }
