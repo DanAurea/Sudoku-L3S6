@@ -40,7 +40,7 @@ class Grille < Model
         block = Array.new()
         x = ((num-1)*3)%9
         y = num/3*3
-        block << grille[x..x+2][y..y+2]
+        block << grille[x..x+2][y..y+2]["value"]
 
         ## Parcours dans [0,8]
         for i in 0..8
