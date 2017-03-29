@@ -12,7 +12,7 @@ class Jeu < Model
     ##Parcours la grille pour verifier les valeurs
     for i in 0..8
         for j in 0..8
-            if(!@grille[i][j]["value"]==nil && !Grille.valeurUnique(i,j))
+            if(@grille[i][j]["value"]==nil || !Grille.valeurUnique(i,j))
                 return false
             end
         end
