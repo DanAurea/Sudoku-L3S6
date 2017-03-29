@@ -32,10 +32,9 @@ class FenetreMenu < View
         }
 
         #Creation des Boutons
-        boutonCharger=Gtk::Button.new(:label => "Reprendre une partie")
-        
+        boutonCharger=Gtk::ToggleButton.new(:label => "Reprendre une partie")
         boutonCharger.signal_connect('clicked'){
-           Core::changeTo("Charger", "pseudo": @pseudo)
+            Core::changeTo("Charger", "pseudo": @pseudo)
         }
 
         boutonNouveau=Gtk::Button.new(:label => "Nouvelle partie")
@@ -73,10 +72,15 @@ class FenetreMenu < View
         	Fenetre::detruire()
         }
 
+        if(partieExiste(@pseudo))
+            Fenetre::table.attach(boutonCharger,3,7,3,4)
+        else
+            Fenetre::table.attach(Fenetre::creerLabelType(" "),3,7,3,4)
+        end
+
         #attach des boutons
         Fenetre::table.attach(titre,0,10,1,2)
-    	Fenetre::table.attach(event_box,7,10,0,1)
-        Fenetre::table.attach(boutonCharger,3,7,3,4)
+        Fenetre::table.attach(event_box,7,10,0,1)
         Fenetre::table.attach(boutonNouveau,3,7,4,5)
         Fenetre::table.attach(boutonStat,3,7,5,6)
         Fenetre::table.attach(boutonScore,3,7,6,7)

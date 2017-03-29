@@ -45,6 +45,7 @@ class FenetrePseudo < View
 		Fenetre::table.attach(titre,0,10,2,3)
 		Fenetre::table.attach(pseudo,0,10,4,5)
 		Fenetre::table.attach(entryPseudo,3,7,5,6)
+		Fenetre::table.attach(Fenetre::creerLabelType(" "),0,10,6,7)
 		Fenetre::table.attach(boutonQuitter,2,4,7,8)
 		Fenetre::table.attach(boutonValider,6,8,7,8)
     end
