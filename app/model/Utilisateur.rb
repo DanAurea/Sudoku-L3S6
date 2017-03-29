@@ -39,6 +39,6 @@ class Utilisateur < Model
 	end	
 
 	def partieUtilisateur?(pseudo)
-		return File.exist("assets/save"+pseudo)
+		return File.exist?("assets/save"+pseudo)
 	end
 end
