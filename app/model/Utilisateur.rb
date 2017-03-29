@@ -38,4 +38,7 @@ class Utilisateur < Model
 		return self.where(**args)
 	end	
 
+	def partieUtilisateur?(pseudo)
+		return File.exist("assets/save"+pseudo)
+	end
 end
