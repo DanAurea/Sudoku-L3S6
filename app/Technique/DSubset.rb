@@ -6,35 +6,39 @@ class DSubset << Technique{
 		new()
 	end
 
-	def cherche(grille)
+	def solution(grille)
 		grilleIndice = indice(grille)
 
-		[1,2,3,4,5,6,7,8,9].each { |x|
+		[0,1,2,3,4,5,6,7,8].each { |x|
 			col = colonne(grilleIndice,x)
 			col.each{ |case,y|
-				i = case.count(true)
-				cpt = Array.new()
+				i = 0
+				case.each_value(|v| if value then i+=1 end)
 
-				col[y..-1].each{|casebis|
-					if casebis == case then cpt << [x-1,y] end
+				res = Array.new()
+
+				col[(y+1)..-1].each{ |casebis|
+					if casebis == case then res << [x,y] end
 				}
-				if cpt.length == i then
-					return cpt
+				if res.length == i then
+					return res
 				end
-			}			
+			}
 		}
 
-		[1,2,3,4,5,6,7,8,9].each { |y|
+		[0,1,2,3,4,5,6,7,8].each { |y|
 			lig = ligne(grilleIndice,y)
 			lig.each{ |case,x|
-				i = case.count(true)
-				cpt = Array.new()
+				i = 0
+				case.each_value(|v| if value then i+=1 end)
 
-				lig[y..-1].each{|casebis|
-					if casebis == case then cpt << [x,y-1] end
+				res = Array.new()
+
+				lig[(x+1)..-1].each{|casebis|
+					if casebis == case then res << [x,y] end
 				}
-				if cpt.length == i then
-					return cpt
+				if res.length == i then
+					return res
 				end
 			}			
 		}
