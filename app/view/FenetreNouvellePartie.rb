@@ -58,12 +58,12 @@ class FenetreNouvellePartie < View
         }
 
         #attach des boutons
-        Fenetre::table.attach(titre,0,10,1,2)
-        Fenetre::table.attach(event_box,7,10,0,1)
-        Fenetre::table.attach(boutonApprentissage,3,7,5,6)
-        Fenetre::table.attach(boutonJeuLibre,3,7,7,8)
-        Fenetre::table.attach(boutonRetour,1,3,11,12)
-        Fenetre::table.attach(boutonQuitter,7,9,11,12)
+        Fenetre::box.add(titre)
+        Fenetre::box.add(event_box)
+        Fenetre::box.add(boutonApprentissage)
+        Fenetre::box.add(boutonJeuLibre)
+        Fenetre::box.add(boutonRetour)
+        Fenetre::box.add(boutonQuitter)
     end
 
     ##

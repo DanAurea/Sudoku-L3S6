@@ -73,22 +73,21 @@ class FenetreMenu < View
         }
 
         if(partieExiste(@pseudo))
-            Fenetre::table.attach(boutonCharger,3,7,3,4)
+            Fenetre::box.add(boutonCharger)
         else
-            Fenetre::table.attach(Fenetre::creerLabelType(" "),3,7,3,4)
+            Fenetre::box.add(Fenetre::creerLabelType(" "))
         end
 
         #attach des boutons
-        Fenetre::table.attach(titre,0,10,1,2)
-        Fenetre::table.attach(event_box,7,10,0,1)
-        Fenetre::table.attach(boutonNouveau,3,7,4,5)
-        Fenetre::table.attach(boutonStat,3,7,5,6)
-        Fenetre::table.attach(boutonScore,3,7,6,7)
-        Fenetre::table.attach(boutonReglage,3,7,7,8)
-        Fenetre::table.attach(boutonRegle,3,7,8,9)
-        3.upto(8){|i| Fenetre::table.set_row_spacing(i, 5)}
-        Fenetre::table.attach(boutonAPropos,1,3,10,11)
-        Fenetre::table.attach(boutonQuitter,7,9,10,11)
+        Fenetre::box.add(titre)
+        Fenetre::box.add(event_box)
+        Fenetre::box.add(boutonNouveau)
+        Fenetre::box.add(boutonStat)
+        Fenetre::box.add(boutonScore)
+        Fenetre::box.add(boutonReglage)
+        Fenetre::box.add(boutonRegle)
+        Fenetre::box.add(boutonAPropos)
+        Fenetre::box.add(boutonQuitter)
     end
 
     def aPropos()

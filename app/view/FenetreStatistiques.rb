@@ -89,27 +89,27 @@ class FenetreStatistiques < View
             Core::changeTo("Reglages", "pseudo": @pseudo)
         }
     	   
-    	#tableau statistique
-    	Fenetre::table.attach(labelNiveau,0,10,2,4)
-    	Fenetre::table.attach(labelDifficulte,0,3,4,6)
-    	Fenetre::table.attach(labelRecord,3,5,4,6)
-    	Fenetre::table.attach(labelMoyenne,5,7,4,6)
-    	Fenetre::table.attach(labelNbPartie,7,10,4,6)
+    	#boxau statistique
+    	Fenetre::box.add(labelNiveau)
+    	Fenetre::box.add(labelDifficulte)
+    	Fenetre::box.add(labelRecord)
+    	Fenetre::box.add(labelMoyenne)
+    	Fenetre::box.add(labelNbPartie)
 
-    	Fenetre::table.attach(labelFacile,0,3,6,7)
-    	Fenetre::table.attach(labelScore1,3,5,6,7)
-    	Fenetre::table.attach(labelScore1_1,5,7,6,7)
-    	Fenetre::table.attach(labelScore1_2,7,10,6,7)
+    	Fenetre::box.add(labelFacile)
+    	Fenetre::box.add(labelScore1)
+    	Fenetre::box.add(labelScore1_1)
+    	Fenetre::box.add(labelScore1_2)
 
-    	Fenetre::table.attach(labelMoyen,0,3,7,8)
-    	Fenetre::table.attach(labelScore2,3,5,7,8)
-    	Fenetre::table.attach(labelScore2_1,5,7,7,8)
-    	Fenetre::table.attach(labelScore2_2,7,10,7,8)
+    	Fenetre::box.add(labelMoyen)
+    	Fenetre::box.add(labelScore2)
+    	Fenetre::box.add(labelScore2_1)
+    	Fenetre::box.add(labelScore2_2)
 
-    	Fenetre::table.attach(labelDifficile,0,3,8,9)
-    	Fenetre::table.attach(labelScore3,3,5,8,9)
-    	Fenetre::table.attach(labelScore3_1,5,7,8,9)
-    	Fenetre::table.attach(labelScore3_2,7,10,8,9)
+    	Fenetre::box.add(labelDifficile)
+    	Fenetre::box.add(labelScore3)
+    	Fenetre::box.add(labelScore3_1)
+    	Fenetre::box.add(labelScore3_2)
 
 
         #Creation des Boutons
@@ -124,10 +124,10 @@ class FenetreStatistiques < View
         }
 
         #attach des boutons
-        Fenetre::table.attach(titre,0,10,1,2)
-        Fenetre::table.attach(event_box,7,10,0,1)
-        Fenetre::table.attach(boutonRetour,1,3,11,12)
-        Fenetre::table.attach(boutonQuitter,7,9,11,12)
+        Fenetre::box.add(titre)
+        Fenetre::box.add(event_box)
+        Fenetre::box.add(boutonRetour)
+        Fenetre::box.add(boutonQuitter)
     end
 
     ##

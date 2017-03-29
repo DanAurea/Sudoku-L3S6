@@ -65,11 +65,11 @@ class FenetreRegles < View
         }
 
         #attach des boutons
-        Fenetre::table.attach(titre,0,10,1,2)
-        Fenetre::table.attach(event_box,7,10,0,1)
-        Fenetre::table.attach(label,0,10,2,12)
-        Fenetre::table.attach(boutonRetour,1,3,11,12)
-        Fenetre::table.attach(boutonQuitter,7,9,11,12)
+        Fenetre::box.add(titre)
+        Fenetre::box.add(event_box)
+        Fenetre::box.add(label)
+        Fenetre::box.add(boutonRetour)
+        Fenetre::box.add(boutonQuitter)
     end
 
     ##

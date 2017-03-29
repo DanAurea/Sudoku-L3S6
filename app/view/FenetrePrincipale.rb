@@ -31,7 +31,7 @@ class FenetrePrincipale < View
         event_box.signal_connect('button_press_event'){
         	Core::changeTo("Pseudo")
         }
-        Fenetre::table.attach(event_box,0,10,0,12)
+        Fenetre::box.add(event_box)
 	end
 
 	##

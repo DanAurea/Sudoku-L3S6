@@ -1,16 +1,16 @@
 # 	Fichier contenant la gestion des reglages(taille, couleur)
-#
+# 	
 #   Author::        Valentin, DanAurea
 #   Developers:     Valentin, DanAurea
 # 	Version:: 		0.1
 # 	Copyright:: 	© 2016
 # 	License::   	Distributes under the same terms as Ruby
-#
-
+# 	
+ 	
 class FenetreReglages < View
 
 	def initialize()
-
+		
 	end
 
 	#===Methode miseEnplace
@@ -36,23 +36,7 @@ class FenetreReglages < View
         event_box.signal_connect('button_press_event'){
             Core::changeTo("Reglages", "pseudo": @pseudo)
         }
-
-        # Couleur case base, couleur case surlignée, couleur texte, couleur indice, police de texte
-        labelCouleurCaseBase = generate_label("Couleur des cases de base :")
-        boutonCouleurCaseBase = Gtk::ColorButton.new
-
-        labelCouleurCaseSelectionne = generate_label("Couleur des cases selctionnées :")
-        boutonCouleurCaseSelectionne = Gtk::ColorButton.new
-
-        labelCouleurTexte = generate_label("Couleur du texte :")
-        boutonCouleurTexte = Gtk::ColorButton.new
-
-        labelCouleurIndices = generate_label("Couleur des indices :")
-        boutonCouleurIndices = Gtk::ColorButton.new
-
-        labelPolice = generate_label("Police de texte :")
-        boutonPolice = Gtk::FontButton.new
-
+    	
         boutonRetour=Gtk::Button.new(:label => "Retour")
         boutonRetour.signal_connect('clicked'){
             Core::back()
@@ -64,34 +48,10 @@ class FenetreReglages < View
         }
 
         #attach des boutons
-        Fenetre::table.attach(titre,0,10,1,2)
-        Fenetre::table.attach(event_box,7,10,0,1)
-
-        Fenetre::table.attach(labelCouleurCaseBase,3,5,3,4)
-        Fenetre::table.attach(boutonCouleurCaseBase,5,8,3,4)
-
-        Fenetre::table.attach(labelCouleurCaseSelectionne,3,5,4,5)
-        Fenetre::table.attach(boutonCouleurCaseSelectionne,5,8,4,5)
-
-        Fenetre::table.attach(labelCouleurTexte,3,5,5,6)
-        Fenetre::table.attach(boutonCouleurTexte,5,8,5,6)
-
-        Fenetre::table.attach(labelCouleurIndices,3,5,6,7)
-        Fenetre::table.attach(boutonCouleurIndices,5,8,6,7)
-
-        Fenetre::table.attach(labelPolice,3,5,7,8)
-        Fenetre::table.attach(boutonPolice,5,8,7,8)
-
-        Fenetre::table.attach(boutonRetour,1,3,11,12)
-        Fenetre::table.attach(boutonQuitter,7,9,11,12)
-    end
-
-    def generate_label(label)
-      label = Gtk::Label.new(label)
-      label.halign = :start
-      label.valign = :center
-      label.hexpand = :true
-      label
+        Fenetre::box.add(titre)
+        Fenetre::box.add(event_box)
+        Fenetre::box.add(boutonRetour)
+        Fenetre::box.add(boutonQuitter)
     end
 
     ##

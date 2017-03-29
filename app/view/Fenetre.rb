@@ -11,7 +11,7 @@ require "fileutils"
 module Fenetre
 
     @fenetre 
-    @table
+    @box
     @fenetrePrecedente
 
     ## Set a basic window
@@ -105,8 +105,8 @@ module Fenetre
     end
 
     ## Accesseur sur le layout
-	def Fenetre.table()
-		return @table
+	def Fenetre.box()
+		return @box
 	end
 
     #=== Vide la fenêtre pour préparer la mise à jour.
@@ -158,13 +158,9 @@ module Fenetre
     #   - /
     #
     def Fenetre.miseEnPlace()
-        #Conteneur table
-        @table=Gtk::Table.new(10,12,false)
-        @fenetre.add(@table)
-        #espace
-        1.upto(10){|i|
-        	@table.attach(self.creerLabelType(" "),0,10,i,i+1)
-        }
+        #Conteneur box
+        @box=Gtk::Box.new(:vertical, 0)
+        @fenetre.add(@box)
     end
 
     #===Methode creerLabelType
