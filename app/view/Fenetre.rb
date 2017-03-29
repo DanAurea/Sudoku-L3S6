@@ -1,7 +1,7 @@
 #   Contient la classe abstraite Fenetre regroupant les informations de base de chaque fenetre
 #
-#   Author::      PAVARD Valentin, DanAurea
-#   Developers:   PAVARD Valentin, DanAurea
+#   Author::        Valentin, DanAurea
+#   Developers:     Valentin, DanAurea
 #   Version::     0.1
 #   Copyright::   ©
 #   License::     Distributes under the same terms as Ruby
@@ -163,7 +163,7 @@ module Fenetre
         @fenetre.add(@table)
         #espace
         1.upto(10){|i|
-        	@table.attach(self.creerLabelType(" ", 20, "#FF0000"),0,10,i,i+1)
+        	@table.attach(self.creerLabelType(" "),0,10,i,i+1)
         }
     end
 
@@ -176,7 +176,7 @@ module Fenetre
     # * *Returns* :
     #   - unLabel -> Label
     #
-    def Fenetre.creerLabelType(unNomDeLabel, taillePolice, couleur)
+    def Fenetre.creerLabelType(unNomDeLabel)
         #Creation du Label
         label=Gtk::Label.new()
         label.set_markup(unNomDeLabel)

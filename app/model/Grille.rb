@@ -40,13 +40,16 @@ class Grille < Model
         block = Array.new()
         x = ((num-1)*3)%9
         y = num/3*3
-        block << grille[x..x+2][y..y+2]
+        grille[x..x+2].each{ |col|
+            block << col[y..y+2]
+        }
+        
 
         ## Parcours dans [0,8]
         for i in 0..8
 
             ## Verification horizontale
-            if(@grille[x][i] == @grille[x][y])
+            if(@grille[x][i]["value"] == @grille[x][y]["value"])
                 ## La valeur unique s'errone
                 @grille[x][i]["unique"] = false
                 ## La case verifié aussi
@@ -55,7 +58,7 @@ class Grille < Model
             end
 
             ## Verification verticale
-            if(@grille[i][y] == @grille[x][y])
+            if(@grille[i][y]["value"] == @grille[x][y]["value"])
                 ## La valeur unique s'errone
                 @grille[i][y]["unique"] = false
                 ## La case verifié aussi
@@ -67,7 +70,7 @@ class Grille < Model
             if(i<3)
                 # Verification du block
                 for j in 0..2
-                    if(block[i][j] == @grille[x][y])
+                    if(block[i][j]["value"] == @grille[x][y]["value"])
                         ## La valeur unique s'errone
                         @grille[i][j]["unique"] = false
                         ## La case verifié aussi

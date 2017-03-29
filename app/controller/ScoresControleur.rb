@@ -12,7 +12,7 @@
 class ScoresControleur < Controller
 
 	def initialize()
-		
+		@title = "Sudoku - Scores"
 	end
 
 	def run()
