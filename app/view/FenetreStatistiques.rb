@@ -23,64 +23,64 @@ class FenetreStatistiques < View
     #   - /
     #
 	def miseEnPlace()
-		## Définis les classes de titres
+		## Définis les classes des labels
 		#titre
 		titre = Fenetre::creerLabelType("<u>Statistiques</u>")
 		titre.style_context.add_class("titre_menu")
 		#pseudo
-		pseudo = Fenetre::creerLabelType("Pseudo : #{@pseudo.capitalize}")
+		pseudo = Fenetre::creerLabelType("<u>Pseudo:</u> #{@pseudo.capitalize}")
 		pseudo.style_context.add_class("pseudo_menu")
 		#niveau
-    	labelNiveau = Fenetre::creerLabelType("Niveau #{@niveau}")
+    	labelNiveau = Fenetre::creerLabelType("<u>Niveau:</u> 0")
 		labelNiveau.style_context.add_class("label_niveau")
 		#difficulte
-		labelDifficulte = Fenetre::creerLabelType("Difficulté")
+		labelDifficulte = Fenetre::creerLabelType("<u>Difficulté</u>")
 		labelDifficulte.style_context.add_class("label_titre_stat")
 		#record
-		labelRecord = Fenetre::creerLabelType("Record")
+		labelRecord = Fenetre::creerLabelType("<u>Record</u>")
 		labelRecord.style_context.add_class("label_titre_stat")
 		#moyenne
-		labelMoyenne = Fenetre::creerLabelType("Moyenne")
+		labelMoyenne = Fenetre::creerLabelType("<u>Moyenne</u>")
 		labelMoyenne.style_context.add_class("label_titre_stat")
 		#nb partie
-		labelNbPartie = Fenetre::creerLabelType("Nb Parties")
+		labelNbPartie = Fenetre::creerLabelType("<u>Nb Parties</u>")
 		labelNbPartie.style_context.add_class("label_titre_stat")
 		#Facile
 		labelFacile = Fenetre::creerLabelType("Facile")
-		labelFacile.style_context.add_class("label_contenu_stat")
+		labelFacile.style_context.add_class("label_contenu_stat_f")
 		#score1
 		labelScore1 = Fenetre::creerLabelType("---")
-		labelScore1.style_context.add_class("label_contenu_stat")
+		labelScore1.style_context.add_class("label_contenu_stat_f")
 		#score1_1
 		labelScore1_1 = Fenetre::creerLabelType("---")
-		labelScore1_1.style_context.add_class("label_contenu_stat")
+		labelScore1_1.style_context.add_class("label_contenu_stat_f")
 		#score1_2
 		labelScore1_2 = Fenetre::creerLabelType("0")
-		labelScore1_2.style_context.add_class("label_contenu_stat")
+		labelScore1_2.style_context.add_class("label_contenu_stat_f")
 		#moyen
 		labelMoyen = Fenetre::creerLabelType("Moyen")
-		labelMoyen.style_context.add_class("label_contenu_stat")
+		labelMoyen.style_context.add_class("label_contenu_stat_m")
 		#score2
 		labelScore2 = Fenetre::creerLabelType("---")
-		labelScore2.style_context.add_class("label_contenu_stat")
+		labelScore2.style_context.add_class("label_contenu_stat_m")
 		#score2_1
 		labelScore2_1 = Fenetre::creerLabelType("---")
-		labelScore2_1.style_context.add_class("label_contenu_stat")
+		labelScore2_1.style_context.add_class("label_contenu_stat_m")
 		#score2_2
 		labelScore2_2 = Fenetre::creerLabelType("0")
-		labelScore2_2.style_context.add_class("label_contenu_stat")
+		labelScore2_2.style_context.add_class("label_contenu_stat_m")
 		#difficile
 		labelDifficile = Fenetre::creerLabelType("Difficile")
-		labelDifficile.style_context.add_class("label_contenu_stat")
+		labelDifficile.style_context.add_class("label_contenu_stat_d")
 		#score3
 		labelScore3 = Fenetre::creerLabelType("---")
-		labelScore3.style_context.add_class("label_contenu_stat")
+		labelScore3.style_context.add_class("label_contenu_stat_d")
 		#score-3_1
 		labelScore3_1 = Fenetre::creerLabelType("---")
-		labelScore3_1.style_context.add_class("label_contenu_stat")
+		labelScore3_1.style_context.add_class("label_contenu_stat_d")
 		#score3_2
 		labelScore3_2 = Fenetre::creerLabelType("0")
-		labelScore3_2.style_context.add_class("label_contenu_stat")
+		labelScore3_2.style_context.add_class("label_contenu_stat_d")
 
 
 		#Creation des Boutons
@@ -88,46 +88,55 @@ class FenetreStatistiques < View
         event_box.signal_connect('button_press_event'){
             Core::changeTo("Reglages", "pseudo": @pseudo)
         }
-    	   
-    	#boxau statistique
-    	Fenetre::box.add(labelNiveau)
-    	Fenetre::box.add(labelDifficulte)
-    	Fenetre::box.add(labelRecord)
-    	Fenetre::box.add(labelMoyenne)
-    	Fenetre::box.add(labelNbPartie)
 
-    	Fenetre::box.add(labelFacile)
-    	Fenetre::box.add(labelScore1)
-    	Fenetre::box.add(labelScore1_1)
-    	Fenetre::box.add(labelScore1_2)
-
-    	Fenetre::box.add(labelMoyen)
-    	Fenetre::box.add(labelScore2)
-    	Fenetre::box.add(labelScore2_1)
-    	Fenetre::box.add(labelScore2_2)
-
-    	Fenetre::box.add(labelDifficile)
-    	Fenetre::box.add(labelScore3)
-    	Fenetre::box.add(labelScore3_1)
-    	Fenetre::box.add(labelScore3_2)
-
-
-        #Creation des Boutons
         boutonRetour=Gtk::Button.new(:label => "Retour")
+        boutonRetour.style_context.add_class("bouton_bottom")
         boutonRetour.signal_connect('clicked'){
         	Core::back()
         }
 
         boutonQuitter=Gtk::Button.new(:label => "Quitter")
+        boutonQuitter.style_context.add_class("bouton_bottom")
         boutonQuitter.signal_connect('clicked'){
             Fenetre::detruire()
         }
+    	   
+    	#tableau statistique
+    	table=Gtk::Table.new(4,4,false)
+    	table.attach(labelDifficulte,0,1,0,1)
+    	table.attach(labelRecord,1,2,0,1)
+    	table.attach(labelMoyenne,2,3,0,1)
+    	table.attach(labelNbPartie,3,4,0,1)
 
-        #attach des boutons
-        Fenetre::box.add(titre)
-        Fenetre::box.add(event_box)
-        Fenetre::box.add(boutonRetour)
-        Fenetre::box.add(boutonQuitter)
+    	table.attach(labelFacile,0,1,1,2)
+    	table.attach(labelScore1,1,2,1,2)
+    	table.attach(labelScore1_1,2,3,1,2)
+    	table.attach(labelScore1_2,3,4,1,2)
+
+    	table.attach(labelMoyen,0,1,2,3)
+    	table.attach(labelScore2,1,2,2,3)
+    	table.attach(labelScore2_1,2,3,2,3)
+    	table.attach(labelScore2_2,3,4,2,3)
+
+    	table.attach(labelDifficile,0,1,3,4)
+    	table.attach(labelScore3,1,2,3,4)
+    	table.attach(labelScore3_1,2,3,3,4)
+		table.attach(labelScore3_2,3,4,3,4)
+
+        #add des boutons
+        boxTop=Gtk::Box.new(:vertical,0)
+        boxTop.add(event_box)
+        boxTop.add(titre)
+        boxTop.add(labelNiveau)
+        boxTop.add(table)
+
+        boxBottom=Gtk::Box.new(:horizontal, 0)
+        boxBottom.halign = :center
+        boxBottom.add(boutonRetour)
+        boxBottom.add(boutonQuitter)
+        
+        Fenetre::box.add(boxTop)
+        Fenetre::box.add(boxBottom)
     end
 
     ##

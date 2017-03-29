@@ -28,7 +28,7 @@ class FenetreReglages < View
         titre = Fenetre::creerLabelType("<u>Réglages</u>")
         titre.style_context.add_class("titre_menu")
         #pseudo
-        pseudo = Fenetre::creerLabelType("Pseudo : #{@pseudo.capitalize}")
+        pseudo = Fenetre::creerLabelType("<u>Pseudo:</u> #{@pseudo.capitalize}")
         pseudo.style_context.add_class("pseudo_menu")
 
         #Creation des Boutons

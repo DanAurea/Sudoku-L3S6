@@ -12,10 +12,21 @@
 class ChargerControleur < Controller
 
 	def initialize()
-		@title = "Sudoku - Chargement d'une partie"
+		loadModel("Grille")
+		@title  = "Sudoku - Partie chargée"
+		@content = {"grille" => nil}
 	end
 
 	def run()
+
+		if(@content.has_key?(:niveau))
+			niveau = @content[:niveau]
+		else
+			niveau = 1
+		end
+
+		@content["grille"] = @Grille.generer(niveau)
+		
 		return self
 	end
 

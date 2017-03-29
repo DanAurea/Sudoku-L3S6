@@ -6,3 +6,17 @@
 *  Copyright::   ©
 *  License::     Distributes under the same terms as Ruby
 */
+
+.titre_menu{
+    color: white;
+    font-size: 40px;
+    margin-top: 30px;
+    margin-bottom: 100px;
+}
+
+.bouton_nouvelle_partie{
+	margin-bottom: 50px;
+	margin-left: 100px;
+	margin-right: 100px;
+	padding: 5px;
+}

@@ -23,28 +23,24 @@ class FenetreRegles < View
     #   - /
     #
 	def miseEnPlace()
-		## Définis les classes de titres
+		## Définis les classes des labels
 		#titre
 		titre = Fenetre::creerLabelType("<u>Règles</u>")
 		titre.style_context.add_class("titre_menu")
 		#pseudo
-		pseudo = Fenetre::creerLabelType("Pseudo : #{@pseudo.capitalize}")
+		pseudo = Fenetre::creerLabelType("<u>Pseudo:</u> #{@pseudo.capitalize}")
 		pseudo.style_context.add_class("pseudo_menu")
 		#regles enoncées
     	texte="
-    	- Un sudoku classique contient 9 lignes et 9 colonnes,\n
-    	soit 81 cases au total.\n 
-    	- Le but du jeu est de remplir ces cases avec des chiffres\n
-    	allant de 1 à 9 en veillant toujours à ce qu'un même chiffre \n 
-    	ne figure qu'une seule fois par colonne, une seule fois par\n 
-    	ligne et une seule fois par carré de 9 cases(appelé région).\n
-    	- Au début du jeu, une vingtaine de chiffres sont déjà placés\n 
-    	et il vous reste à trouver les autres. En effet, une grille\n 
-    	initiale de sudoku corresctement constituée ne peut aboutir qu'à\n
-    	une et une seule solution. Pour trouver les chiffres manquants,\n 
-    	tout est une question de logique et d'observation.\n
-    	- Suivez le tutoriel pour vous faciliter la tache et apprendre\n 
-    	certaines techniques...\n"
+    	- Un sudoku classique contient 9 lignes et 9 colonnes, soit 81 cases au total.\n 
+    	- Le but du jeu est de remplir ces cases avec des chiffres allant de 1 à 9 en\n 
+        veillant toujours à ce qu'un même chiffre ne figure qu'une seule fois par colonne,\n 
+        une seule fois par ligne et une seule fois par carré de 9 cases(appelé région).\n
+    	- Au début du jeu, une vingtaine de chiffres sont déjà placés et il vous reste à \n 
+        trouver les autres. En effet, une grille initiale de sudoku corresctement constituée\n 
+        ne peut aboutir qu'à une et une seule solution. Pour trouver les chiffres manquants, \n
+        tout est une question de logique et d'observation.\n
+    	- Suivez le tutoriel pour vous faciliter la tache et apprendre certaines techniques...\n"
 		label=Fenetre::creerLabelType(texte)
 		label.style_context.add_class("label_regles")
 
@@ -55,21 +51,30 @@ class FenetreRegles < View
         }
    
         boutonRetour=Gtk::Button.new(:label => "Retour")
+        boutonRetour.style_context.add_class("bouton_bottom")
         boutonRetour.signal_connect('clicked'){
         	Core::back()
         }
 
         boutonQuitter=Gtk::Button.new(:label => "Quitter")
+        boutonQuitter.style_context.add_class("bouton_bottom")
         boutonQuitter.signal_connect('clicked'){
             Fenetre::detruire()
         }
 
-        #attach des boutons
-        Fenetre::box.add(titre)
-        Fenetre::box.add(event_box)
-        Fenetre::box.add(label)
-        Fenetre::box.add(boutonRetour)
-        Fenetre::box.add(boutonQuitter)
+        #add des boutons
+        boxTop=Gtk::Box.new(:vertical,0)
+        boxTop.add(event_box)
+        boxTop.add(titre)
+        boxTop.add(label)
+
+        boxBottom=Gtk::Box.new(:horizontal, 0)
+        boxBottom.halign = :center
+        boxBottom.add(boutonRetour)
+        boxBottom.add(boutonQuitter)
+        
+        Fenetre::box.add(boxTop)
+        Fenetre::box.add(boxBottom)
     end
 
     ##

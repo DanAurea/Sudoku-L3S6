@@ -10,10 +10,12 @@
 class FenetreApprentissage < View
 
 	def initialize()
-		
+		require Core::ROOT + "components/GrilleDessin.rb"
 	end
 
-	##
+	
+
+    ##
 	## @brief     Lance la construction du modèle
 	## 			  de la vue.
 	## 			  Méthode à définir dans tout les cas !
@@ -22,8 +24,12 @@ class FenetreApprentissage < View
 	## @return     itself
 	##
 	def run()
-		Fenetre::css(:chemin => "/assets/css/FenetreApprentissage.css")
-		return self
-	end
+
+        grilleDessin = GrilleDessin.new(@grille)
+
+        Fenetre::box.add(grilleDessin)
+        Fenetre::css(:chemin => "/assets/css/FenetreApprentissage.css")
+        return self
+    end
 
 end

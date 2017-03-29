@@ -10,7 +10,7 @@ class Controller
 		@width       = 900
 		@height      = 500
 		@borderWidth = 0
-		@resizable   = false
+		@resizable   = true
 		@position 	 = "CENTER"
 
 		## Create content variable sent from controller to view called

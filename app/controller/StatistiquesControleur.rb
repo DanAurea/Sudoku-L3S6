@@ -12,7 +12,11 @@
 class StatistiquesControleur < Controller
 
 	def initialize()
+		loadModel("Utilisateur")
 		@title = "Sudoku - Statistiques"
+		@width = 600
+		@height = 550
+		@resizable = false
 	end
 
 	def run()

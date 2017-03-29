@@ -23,12 +23,12 @@ class FenetreNouvellePartie < View
     #   - /
     #
 	def miseEnPlace()
-		## Définis les classes de titres
+		## Définis les classes des labels
 		#titre
 		titre = Fenetre::creerLabelType("<u>Nouvelle partie</u>")
 		titre.style_context.add_class("titre_menu")
 		#pseudo
-		pseudo = Fenetre::creerLabelType("Pseudo : #{@pseudo.capitalize}")
+		pseudo = Fenetre::creerLabelType("<u>Pseudo:</u> #{@pseudo.capitalize}")
 		pseudo.style_context.add_class("pseudo_menu")
 
 		#Creation des Boutons
@@ -38,32 +38,43 @@ class FenetreNouvellePartie < View
         }
 
         boutonApprentissage=Gtk::Button.new(:label => "Apprentissage avec aides")
+        boutonApprentissage.style_context.add_class("bouton_nouvelle_partie")
         boutonApprentissage.signal_connect('clicked'){
             Core::changeTo("Apprentissage", "pseudo": @pseudo)
         }
 
         boutonJeuLibre=Gtk::Button.new(:label => "Jeu libre")
+        boutonJeuLibre.style_context.add_class("bouton_nouvelle_partie")
         boutonJeuLibre.signal_connect('clicked'){
-            Core::changeTo("JeuLibre", "pseudo": @pseudo)
+            Core::changeTo("Niveau", "pseudo": @pseudo)
         }
 
         boutonRetour=Gtk::Button.new(:label => "Retour")
+        boutonRetour.style_context.add_class("bouton_bottom")
         boutonRetour.signal_connect('clicked'){
         	Core::back()
         }
 
         boutonQuitter=Gtk::Button.new(:label => "Quitter")
+        boutonQuitter.style_context.add_class("bouton_bottom")
         boutonQuitter.signal_connect('clicked'){
             Fenetre::detruire()
         }
 
-        #attach des boutons
-        Fenetre::box.add(titre)
-        Fenetre::box.add(event_box)
-        Fenetre::box.add(boutonApprentissage)
-        Fenetre::box.add(boutonJeuLibre)
-        Fenetre::box.add(boutonRetour)
-        Fenetre::box.add(boutonQuitter)
+        #add des boutons
+        boxTop=Gtk::Box.new(:vertical,0)
+        boxTop.add(event_box)
+        boxTop.add(titre)
+        boxTop.add(boutonApprentissage)
+        boxTop.add(boutonJeuLibre)
+
+        boxBottom=Gtk::Box.new(:horizontal, 0)
+        boxBottom.halign = :center
+        boxBottom.add(boutonRetour)
+        boxBottom.add(boutonQuitter)
+        
+        Fenetre::box.add(boxTop)
+        Fenetre::box.add(boxBottom)
     end
 
     ##
@@ -76,6 +87,7 @@ class FenetreNouvellePartie < View
 	##
 	def run()
 		self.miseEnPlace
+        Fenetre::css(:chemin => "/assets/css/FenetreNouvellePartie.css")
 		return self
 	end
 

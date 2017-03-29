@@ -55,11 +55,12 @@ button:active label{
 .pseudo_menu{
     color: white;
     font-size: 15px;
+    margin-top: 10px;
 }
 
 .bouton_bottom{
-    margin:50px;
-    padding:20px;
+    margin: 50px;
+    padding: 20px;
     padding-top: 10px;
     padding-bottom: 10px;
 }

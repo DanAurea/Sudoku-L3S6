@@ -23,7 +23,7 @@ class FenetreMenu < View
 		titre = Fenetre::creerLabelType("<u>Menu Principal</u>")
 		titre.style_context.add_class("titre_menu")
 		#pseudo
-		pseudo = Fenetre::creerLabelType("Pseudo : #{@pseudo.capitalize}")
+		pseudo = Fenetre::creerLabelType("<u>Pseudo:</u> #{@pseudo.capitalize}")
 		pseudo.style_context.add_class("pseudo_menu")
 
         #Creation des Boutons
@@ -82,8 +82,8 @@ class FenetreMenu < View
 
         #add des boutons
         boxTop=Gtk::Box.new(:vertical,0)
-        boxTop.add(titre)
         boxTop.add(event_box)
+        boxTop.add(titre)
         if(partieExiste(@pseudo))
             boxTop.add(boutonCharger)
         else
@@ -97,8 +97,8 @@ class FenetreMenu < View
 
         boxBottom=Gtk::Box.new(:horizontal, 0)
         boxBottom.halign = :center
-        boxBottom.add(boutonQuitter)
         boxBottom.add(boutonAPropos)
+        boxBottom.add(boutonQuitter)
         
         Fenetre::box.add(boxTop)
         Fenetre::box.add(boxBottom)

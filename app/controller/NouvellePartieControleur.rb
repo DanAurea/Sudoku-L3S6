@@ -12,7 +12,11 @@
 class NouvellePartieControleur < Controller
 
 	def initialize()
+		loadModel("Utilisateur")
 		@title = "Sudoku - Nouvelle Partie"
+		@width = 600
+		@height = 550
+		@resizable = false
 	end
 
 	def run()

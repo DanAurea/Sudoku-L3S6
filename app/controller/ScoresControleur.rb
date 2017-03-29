@@ -12,7 +12,11 @@
 class ScoresControleur < Controller
 
 	def initialize()
+		loadModel("Utilisateur")
 		@title = "Sudoku - Scores"
+		@width = 600
+		@height = 550
+		@resizable = false
 	end
 
 	def run()

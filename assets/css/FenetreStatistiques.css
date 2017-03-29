@@ -8,16 +8,31 @@
 */
 
 .label_niveau{
-    color: red;
+    color: #FF9900;
     font-size: 20px;
+    margin-top: 50px;
 }
 
 .label_titre_stat{
     color: white;
     font-size: 18px;
+    margin: 30px;
 }
 
-.label_contenu_stat{
-    color: black;
+.label_contenu_stat_f{
+	color: #00FF00;
     font-size: 15px;
+    margin: 15px;
+}
+
+.label_contenu_stat_m{
+	color: #FFFF00;
+    font-size: 15px;
+    margin: 15px;
+}
+
+.label_contenu_stat_d{
+	color: #FF0000;
+    font-size: 15px;
+    margin: 15px;
 }

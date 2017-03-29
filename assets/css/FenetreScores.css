@@ -6,7 +6,17 @@
 *  Copyright::   ©
 *  License::     Distributes under the same terms as Ruby
 */
+
 .ligne_score{
-    color: black;
-    font-size: 17px;
+    color: white;
+    font-size: 15px;
+    margin-top: 10px;
 }
+
+.label_titre_score{
+    color: #FF9900;
+    font-size: 18px;
+    margin: 30px;
+    margin-bottom: 10px;
+}
+
