@@ -10,7 +10,7 @@ class Controller
 		@width       = 900
 		@height      = 500
 		@borderWidth = 0
-		@resizable   = true
+		@resizable   = false
 		@position 	 = "CENTER"
 
 		## Create content variable sent from controller to view called
@@ -130,7 +130,7 @@ class Controller
 		## Set window properties
     	
     	view.window.set_title(@title)
-    	view.window.set_default_size(@width, @height)
+    	view.window.set_size_request(@width, @height)
     	view.window.border_width = @borderWidth
     	view.window.set_resizable(@resizable)
     	view.window.set_window_position(Object.const_get("Gtk::WindowPosition::" + @position))
