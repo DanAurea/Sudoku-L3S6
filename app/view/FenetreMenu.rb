@@ -1,7 +1,7 @@
 # 	squelette du menu
 # 	
-# 	Author:: 		PAVARD Valentin, DanAurea
-# 	Developers: 	PAVARD Valentin, DanAurea
+#   Author::        Valentin, DanAurea
+#   Developers:     Valentin, DanAurea
 # 	Version:: 		0.1
 # 	Copyright:: 	© 2016
 # 	License::   	Distributes under the same terms as Ruby
@@ -18,19 +18,23 @@ class FenetreMenu < View
     #   - /
     #
     def miseEnPlace()
-    	#titre et pseudo
-        event_box=Gtk::EventBox.new.add(Fenetre::creerLabelType("Pseudo : #{@pseudo.capitalize}", 15, "#FF0000"))
+    	## Définis les classes de titres
+		#titre
+		titre = Fenetre::creerLabelType("<u>Menu Principal</u>")
+		titre.style_context.add_class("titre_menu")
+		#pseudo
+		pseudo = Fenetre::creerLabelType("Pseudo : #{@pseudo.capitalize}")
+		pseudo.style_context.add_class("pseudo_menu")
+        
+        event_box=Gtk::EventBox.new.add(pseudo)
         event_box.signal_connect('button_press_event'){
             Core::changeTo("Reglages", "pseudo": @pseudo)
         }
-    	Fenetre::table.attach(event_box,7,10,0,1)
-    	Fenetre::table.attach(Fenetre::creerLabelType("<u>Menu Principal</u>", 40, "#000000"),0,10,1,2)
 
         #Creation des Boutons
-        boutonCharger=Gtk::Button.new(:label => "Reprendre une partie")
-        
+        boutonCharger=Gtk::ToggleButton.new(:label => "Reprendre une partie")
         boutonCharger.signal_connect('clicked'){
-           Core::changeTo("Charger", "pseudo": @pseudo)
+            Core::changeTo("Charger", "pseudo": @pseudo)
         }
 
         boutonNouveau=Gtk::Button.new(:label => "Nouvelle partie")
@@ -68,18 +72,22 @@ class FenetreMenu < View
         	Fenetre::detruire()
         }
 
+        if(partieExiste(@pseudo))
+            Fenetre::box.add(boutonCharger)
+        else
+            Fenetre::box.add(Fenetre::creerLabelType(" "))
+        end
+
         #attach des boutons
-        Fenetre::table.attach(boutonCharger,3,7,3,4)
-        Fenetre::table.attach(boutonNouveau,3,7,4,5)
-        Fenetre::table.attach(boutonStat,3,7,5,6)
-        Fenetre::table.attach(boutonScore,3,7,6,7)
-        Fenetre::table.attach(boutonReglage,3,7,7,8)
-        Fenetre::table.attach(boutonRegle,3,7,8,9)
-
-        3.upto(8){|i| Fenetre::table.set_row_spacing(i, 5)}
-
-        Fenetre::table.attach(boutonAPropos,1,3,10,11)
-        Fenetre::table.attach(boutonQuitter,7,9,10,11)
+        Fenetre::box.add(titre)
+        Fenetre::box.add(event_box)
+        Fenetre::box.add(boutonNouveau)
+        Fenetre::box.add(boutonStat)
+        Fenetre::box.add(boutonScore)
+        Fenetre::box.add(boutonReglage)
+        Fenetre::box.add(boutonRegle)
+        Fenetre::box.add(boutonAPropos)
+        Fenetre::box.add(boutonQuitter)
     end
 
     def aPropos()

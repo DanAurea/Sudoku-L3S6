@@ -1,7 +1,7 @@
 #   Fenetre jeu libre
 #
-# 	Author:: 		PAVARD Valentin, DanAurea
-# 	Developers: 	PAVARD Valentin, DanAurea
+#   Author::        Valentin, DanAurea
+#   Developers:     Valentin, DanAurea
 # 	Version:: 		0.1
 # 	Copyright:: 	© 2016
 # 	License::   	Distributes under the same terms as Ruby
@@ -22,15 +22,21 @@ class FenetreCharger < View
     #   - /
     #
     def miseEnPlace()
-    	#titre et pseudo
-        event_box=Gtk::EventBox.new.add(Fenetre::creerLabelType("Pseudo : #{@pseudo.capitalize}", 15, "#FF0000"))
+
+    	## Définis les classes de titres
+    	#titre
+		titre = Fenetre::creerLabelType("<u>Charger une partie</u>")
+		titre.style_context.add_class("titre_menu")
+		#pseudo
+		pseudo = Fenetre::creerLabelType("Pseudo : #{@pseudo.capitalize}")
+		pseudo.style_context.add_class("pseudo_menu")
+
+		#Creation des Boutons
+        event_box=Gtk::EventBox.new.add(pseudo)
         event_box.signal_connect('button_press_event'){
             Core::changeTo("Reglages", "pseudo": @pseudo)
         }
-    	Fenetre::table.attach(event_box,7,10,0,1)
-    	Fenetre::table.attach(Fenetre::creerLabelType("<u>Charger une partie</u>", 40, "#000000"),0,10,1,2)
-
-        #Creation des Boutons
+       
         boutonRetour=Gtk::Button.new(:label => "Retour")
         boutonRetour.signal_connect('clicked'){
         	Core::back()
@@ -42,8 +48,10 @@ class FenetreCharger < View
         }
 
         #attach des boutons
-        Fenetre::table.attach(boutonRetour,1,3,11,12)
-        Fenetre::table.attach(boutonQuitter,7,9,11,12)
+        Fenetre::box.add(titre)
+        Fenetre::box.add(event_box)
+        Fenetre::box.add(boutonRetour)
+        Fenetre::box.add(boutonQuitter)
     end
 
     ##
@@ -56,6 +64,7 @@ class FenetreCharger < View
 	##
 	def run()
 		self.miseEnPlace()
+		Fenetre::css(:chemin => "/assets/css/FenetreCharger.css")
 		return self
 	end
 

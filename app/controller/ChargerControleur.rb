@@ -12,7 +12,7 @@
 class ChargerControleur < Controller
 
 	def initialize()
-		
+		@title = "Sudoku - Chargement d'une partie"
 	end
 
 	def run()

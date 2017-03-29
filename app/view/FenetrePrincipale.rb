@@ -1,7 +1,7 @@
 #   Contient la classe representant une fenetre pour l'image de depart
 #
-#   Author:: 	  PAVARD Valentin, DanAurea
-# 	Developers:   PAVARD Valentin, DanAurea
+#   Author::        Valentin, DanAurea
+#   Developers:     Valentin, DanAurea
 #   Version::     0.1
 #   Copyright::   ©
 #   License::     Distributes under the same terms as Ruby
@@ -31,7 +31,7 @@ class FenetrePrincipale < View
         event_box.signal_connect('button_press_event'){
         	Core::changeTo("Pseudo")
         }
-        Fenetre::table.attach(event_box,0,10,0,12)
+        Fenetre::box.add(event_box)
 	end
 
 	##

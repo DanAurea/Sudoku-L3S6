@@ -1,5 +1,19 @@
 /* Override global css (higher priority) */
-/*button{
-	background: rgb(140,90,135);
-	box-shadow: 1px 1px  shade(@theme_bg_color, 1.4);
-}*/
+/*
+*  Author::      Valentin
+*  Developers:   Valentin
+*  Version::     0.1
+*  Copyright::   ©
+*  License::     Distributes under the same terms as Ruby
+*/
+
+.label_field_pseudo{
+    color: white;
+    font-size: 20px;
+}
+
+.field_pseudo{
+	font-size: 20px;
+	padding-top: 0;
+	padding-bottom: 0;
+}

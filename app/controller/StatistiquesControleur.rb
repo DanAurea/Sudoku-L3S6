@@ -12,7 +12,7 @@
 class StatistiquesControleur < Controller
 
 	def initialize()
-		
+		@title = "Sudoku - Statistiques"
 	end
 
 	def run()
