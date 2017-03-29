@@ -9,7 +9,7 @@ class Technique{
 	end
 
 
-	def cherche(grille)
+	def solution(grille)
 		return false
 	end
 
@@ -21,9 +21,9 @@ class Technique{
 				if case.nil? then
 					[1,2,3,4,5,6,7,8,9].each { |numero|
 						unless estProtegee(grille,numero.to_s,x,y) then
-							grilleIndice[x][y][(numero-1).to_s] = true
+							grilleIndice[x][y][numero.to_s] = true
 						else
-							grilleIndice[x][y][(numero-1).to_s] = false
+							grilleIndice[x][y][numero.to_s] = false
 						end
 					}
 				end
@@ -50,33 +50,35 @@ class Technique{
 	end
 
 	def block(grille, num)
-		block = Array.new()
+		res = Array.new()
 		
 		x = ((num-1)*3)%9
 		y = num/3*3
 
-		block << grille[x..x+2][y..y+2]
-	
-		return block
+		grille[x..x+2].each{ |col|
+			res << col[y..y+2]
+		}
+
+		return res
 	end
 
-	def colonne(grille, num)
-		return grille[num-1]
+	def colonne(grille, x)
+		return grille[x]
 	end
 
-	def ligne(grille, num)
+	def ligne(grille, y)
 		res = Array.new()
-		grille.each{|c|
-			res << c[num-1]
+		grille.each{ |col|
+			res << col[y]
 		}
 		return res
 	end
 
-	def estProtegee?{grille, case, x, y}
+	def estProtegee?(grille, case, x, y)
 
 		ligne = ligne(grille, y)
 		colonne = colonne(grille, x)
-		block = block(grille, )
+		block = block(grille, aQuelBloc(x,y))
 
 
 		ligne.each{ |c|
@@ -89,14 +91,21 @@ class Technique{
 				return true
 			end
 		}
-		block.each{ |c|
-			if case == c then
-				return true
-			end
+		block.each{ |col|
+		 	col.each{ |c|
+				if case == c then
+					return true
+				end
+			}
 		}
 
 		return false
 	end
+
+	def aQuelBloc(x,y)
+		return ((x/3)+1)+(y/3*3)
+	end
+
 }
 
 

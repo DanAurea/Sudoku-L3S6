@@ -6,20 +6,18 @@ class SCell << Technique{
 		new()
 	end
 
-	def cherche(grille)
+	def solution(grille)
 		grilleIndice = indice(grille)
 		
-		[1,2,3,4,5,6,7,8,9].sort_by{rand}.each { |b|
-			blockIndice = block(grilleIndice,b)
-			
-			(-1).upto(1){ |x|
-				(-1).upto(1){ |y|
-					if blockIndice[x][y].count(true) == 1 then	
-						blockIndice[x][y].each{ |bool,numero|
-							if bool then return [(((b-1)*3)%9)+x,(b/3*3)+y,numero+1] end
-						}
-					end
-				}
+		[0,1,2,3,4,5,6,7,8].sort_by{rand}.each { |x|
+			[0,1,2,3,4,5,6,7,8].sort_by{rand}.each { |y|
+				cpt = 0
+				grilleIndice[x][y].each_value(|v| if value then cpt+=1 end)
+				if cpt == 1 then
+					grilleIndice[x][y].each{ |key,value|
+						if value then return [x,y,key] end
+					}
+				end
 			}
 		}
 		return false
