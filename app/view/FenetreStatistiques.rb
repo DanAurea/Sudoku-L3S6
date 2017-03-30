@@ -21,6 +21,7 @@ class FenetreStatistiques < View
     # * *Returns* :
     #   - /
     #
+	#
 	def miseEnPlace()        
         creerBoxTop()
         @boxBottom=Fenetre::creerBoxBottom()
