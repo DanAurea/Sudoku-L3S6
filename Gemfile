@@ -2,27 +2,15 @@ source 'https://rubygems.org'
  
 gemspec
 
-group :test, :production, :development do
-	gem 'gtk3'
-	gem 'sqlite3'
-	gem 'activerecord'
-	gem 'sequel'
-	gem 'hirb'
-end
+# group :production, :development do
+# 	gem 'gtk3'
+# end
 
-group :development do
-	gem 'faker'	
-end
+# group :development do
+# 	gem 'faker'	
+# end
 
-group :test do
-	gem 'test'
-	gem 'rake'
-	gem 'rspec'
-	gem "simplecov"
-	gem 'codeclimate-test-reporter'
-end
-
-group :travis  do
+group :test, :travis do
 	gem 'sqlite3'
 	gem 'activerecord'
 	gem 'sequel'
