@@ -1,14 +1,10 @@
-
 class Generateur
 
         @grid
 
-
         attr_reader :grid
 
-
-
-        def initialize(d)
+        def initialize()
                 @grid = Array.new()
                 ligne = Array.new()
 
@@ -45,8 +41,9 @@ class Generateur
                 end
         end
 
-
-
+        def generer(d)
+        	complexifier(d)
+        end
 
         def switchrow(a, b)
                 @grid[a], @grid[b] = @grid[b], @grid[a]
@@ -56,10 +53,6 @@ class Generateur
 
                 @grid.map {|e| e[a], e[b] = e[b], e[a]}
         end
-
-
-
-
 
         def complexifier(d)
 
@@ -101,7 +94,6 @@ class Generateur
                         end
                 return @grid
         end
-
 
         def convert()
 
