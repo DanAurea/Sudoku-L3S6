@@ -1,12 +1,13 @@
-# 	Fichier contenant la fenetre exposant les statistiques
-# 	
-# 	Author:: 		Valentin, DanAurea
-# 	Developers: 	Valentin, DanAurea
-# 	Version:: 		0.1
-# 	Copyright:: 	© 2016
-# 	License::   	Distributes under the same terms as Ruby
-# 	
- 	
+# => Contient la classe FenetreStatistiques exposant les statistiques
+#
+# => Author::       Valentin, DanAurea
+# => Version::      0.1
+# => Copyright::    © 2016
+# => License::      Distributes under the same terms as Ruby
+
+##
+## classe FenetreStatistiques
+##
 class FenetreStatistiques < View
 	# VI
 	@boxTop

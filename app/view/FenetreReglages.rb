@@ -1,12 +1,13 @@
-#   Fichier contenant la gestion des reglages(taille, couleur)
+# => Contient la classe FenetreReglages  contenant la gestion des reglages(taille, couleur)
 #
-#   Author::        Valentin, DanAurea
-#   Developers:     Valentin, DanAurea
-#   Version::       0.1
-#   Copyright::     © 2016
-#   License::       Distributes under the same terms as Ruby
-#
+# => Author::       Valentin, DanAurea
+# => Version::      0.1
+# => Copyright::    © 2016
+# => License::      Distributes under the same terms as Ruby
 
+##
+## classe FenetreReglages
+##
 class FenetreReglages < View
     # VI
     @boutonCouleurCaseBase

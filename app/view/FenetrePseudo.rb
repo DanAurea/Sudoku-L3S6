@@ -1,11 +1,13 @@
-#   Contient la classe representant une fenetre pour le choix du pseudo
+# => Contient la classe FenetrePseudo representant une fenetre pour le choix du pseudo
 #
-# 	Author:: 		Valentin, DanAurea
-# 	Developers: 	Valentin, DanAurea
-# 	Version:: 		0.1
-# 	Copyright:: 	© 2016
-#   License::     Distributes under the same terms as Ruby
+# => Author::       Valentin, DanAurea
+# => Version::      0.1
+# => Copyright::    © 2016
+# => License::      Distributes under the same terms as Ruby
 
+##
+## classe FenetrePseudo
+##
 class FenetrePseudo < View 
 	# VI
 	@boxTop

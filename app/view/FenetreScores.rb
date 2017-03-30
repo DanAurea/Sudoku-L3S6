@@ -1,12 +1,13 @@
-# 	Fichier contenant l'affichage des meilleurs scores du jeu
-# 	
-#   Author::        Valentin, DanAurea
-#   Developers:     Valentin, DanAurea
-# 	Version:: 		0.1
-# 	Copyright:: 	© 2016
-# 	License::   	Distributes under the same terms as Ruby
-# 	
+# => Contient la classe FenetreScores contenant l'affichage des meilleurs scores du jeu
+#
+# => Author::       Valentin, DanAurea
+# => Version::      0.1
+# => Copyright::    © 2016
+# => License::      Distributes under the same terms as Ruby
 
+##
+## classe FenetreScores
+##
 class FenetreScores < View
     # VI
 	@boxTop
