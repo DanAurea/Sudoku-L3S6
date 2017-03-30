@@ -32,7 +32,7 @@ class Grille < Model
 
     ## TODO
     ## Supprime la partie d'un joueur
-    def supprimer(pseudo)
+    def supprimer(_pseudo)
         return true
     end
 
@@ -54,23 +54,9 @@ class Grille < Model
         ## Parcours dans [0,8]
         for i in 0..8
 
-            ## Verification horizontale
-            if(@grille[x][i]["value"] == @grille[x][y]["value"])
-                ## La valeur unique s'errone
-                @grille[x][i]["unique"] = false
-                ## La case verifié aussi
-                @grille[x][y]["unique"] = false
-                cr = false
-            end
+            cr = VerificationLineaire(x,i,x,y)
 
-            ## Verification verticale
-            if(@grille[i][y]["value"] == @grille[x][y]["value"])
-                ## La valeur unique s'errone
-                @grille[i][y]["unique"] = false
-                ## La case verifié aussi
-                @grille[x][y]["unique"] = false
-                cr = false
-            end
+            cr = VerificationLineaire(i,y,x,y)
 
             ## le bloc est plus petit que la grille
             if(i<3)
@@ -92,4 +78,16 @@ class Grille < Model
     end
 
     #assets/save/pseudo.yml
+end
+
+def VerificationLineaire(x,y,xBase,yBase)
+    ## Verification horizontale
+    if(@grille[x][y]["value"] == @grille[xBase][yBase]["value"])
+        ## La valeur unique s'errone
+        @grille[x][y]["unique"] = false
+        ## La case verifié aussi
+        @grille[xBase][yBase]["unique"] = false
+        return false
+    end
+    return true
 end

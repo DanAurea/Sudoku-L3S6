@@ -1,11 +1,25 @@
-#Class SCell
 
-class SCell << Technique{
+##
+## @brief      Classe pour single cell.
+##
+class SCell < Technique{
 
+	##
+	## @brief      Constructeur de la classe SCell
+	##
+	## @return     Une instance de la classe SCell
+	##
 	def SCell.creer()
 		new()
 	end
 
+	##
+	## @brief      Recherche une solution pour la technique utilisée
+	##
+	## @param      grille  La grille
+	##
+	## @return     Les informations pour aider l'utilisateur, ou nul si la méthode ne trouve rien
+	##
 	def solution(grille)
 		grilleIndice = indice(grille)
 		
@@ -20,7 +34,7 @@ class SCell << Technique{
 				end
 			}
 		}
-		return false
+		return nil
 	end
 }
 

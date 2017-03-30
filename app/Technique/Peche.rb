@@ -1,13 +1,21 @@
-#Class Peche
 
-class Peche << Technique{
+##
+## @brief      Classe pour peche à la ligne.
+##
+class Peche < Technique{
 
+	##
+	## @brief      Constructeur de la classe Peche
+	##
+	## @return     Une instance de la classe Peche
+	##
 	def Peche.creer()
 		new()
 	end
 	
 
-	def cherche(grille)
+	def solution(grille)
+=begin
 		res = Array.new()
 
 		[1,2,3,4,5,6,7,8,9].sort_by{rand}.each { |numero|
@@ -16,16 +24,15 @@ class Peche << Technique{
 			x = 1
 			y = 1
 			
-
 			listPresent.each{ |case,index|
 				if case.nil? then
-					list = block(grille,index+1).select{|c| c.nil? && !estProtegee?(grille,c)}
-					if list.length == 1 then
-						return [,,]
-					end
+					
 				end
 			}
 		}
-		return false
+=end
+		return nil
 	end
 }
+
+

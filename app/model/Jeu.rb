@@ -32,3 +32,4 @@ class Jeu < Model
   def supprimerPartie(pseudo)
 
   end
+end
