@@ -1,3 +1,14 @@
+# 	File description
+# 	
+# 	Author:: 		BastienMor
+# 	Developers: 	BastienMor
+# 	Version:: 		0.1
+# 	Copyright:: 	© 2017
+# 	License::   	Distributes under the same terms as Ruby
+# 	
+ 	
+# 	Class description
+# 	Generation de grille de sudoku (création de difficulté).
 
 class Generateur
 
@@ -11,10 +22,8 @@ class Generateur
 	##
 	## @brief initialise grid une list de list de nombres.
 	##
-	## @param d la difficulté de la grille (de 1 à 3).
-	##
 
-	def initialize(d)
+	def initialize()
 		@grid = Array.new()
 		ligne = Array.new()
 
