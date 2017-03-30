@@ -39,7 +39,7 @@ class FenetreReglages < View
         labelCouleurCaseBase.style_context.add_class("label_reglage")
         labelCouleurCaseBase.halign = :start
         #couleur case surlignée
-        labelCouleurCaseSelectionne = Fenetre::creerLabelType("Couleur des cases sélectionnées:")
+        labelCouleurCaseSelectionne = Fenetre::creerLabelType("Couleur des cases surlignées:")
         labelCouleurCaseSelectionne.style_context.add_class("label_reglage")
         labelCouleurCaseSelectionne.halign = :start
         #couleur texte

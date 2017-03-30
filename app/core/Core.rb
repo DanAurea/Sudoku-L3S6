@@ -50,6 +50,9 @@ module Core
 
 		caller.slice!(".rb")
 
+		## Prevent some issue with back option
+		## no more loop possible when caller is 
+		## identical as destination.
 		if(name != caller)
 			## Save caller window
 			@previousWindow = caller

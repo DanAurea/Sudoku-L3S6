@@ -1,6 +1,6 @@
 class CaseDessin < Gtk::DrawingArea
 
-    attr_accessor :x, :y, :largeur, :hauteur, :taillePolice
+    attr_accessor :x, :y, :largeur, :hauteur, :taillePolice, :nombre
 
     def initialize nombre
 
@@ -14,19 +14,43 @@ class CaseDessin < Gtk::DrawingArea
 
         @taillePolice = @largeur / 3
 
-        @nombre = nombre
-        
+        @couleurCase       = Gdk::Color.new(65535, 65535, 65535)
+        @couleurCaseFixe   = Gdk::Color.new(61500, 61500, 61500)
+        @couleurIndices    = Gdk::Color.new(0, 0, 0)
+        @couleurPolice     = Gdk::Color.new(0, 0, 0)
+        @couleurSurlignees = Gdk::Color.new(0, 50000, 50000)
+
+        @nombre   = nombre
+
+        ## Correspond à une case déjà remplie par le générateur
+        ## donc non éditable
+        if(@nombre != "")
+            @editable = false
+        else
+            @editable = true
+            @focus    = false
+        end
+
         ## Crée la zone de dessin au signal draw
         signal_connect "draw" do  |widget, cr|
             dessiner cr
         end
 
-        ## Ajoute un évènement (signal) à saisir ici c'est l'appui sur un bouton de la souris
-        add_events(Gdk::EventMask::BUTTON_PRESS_MASK)
+        if(@editable == true)
+            ## Ajoute les évènement de survol et de clics
+            add_events(Gdk::EventMask::ENTER_NOTIFY_MASK)
+            add_events(Gdk::EventMask::BUTTON_PRESS_MASK)
 
-        ## Lie un callback sur la souris
-        signal_connect "button_press_event" do |widget, evenement|
-            clicSouris evenement
+            ## Lie un callback sur la souris
+            signal_connect "button_press_event" do |widget, evenement|
+                @focus = true
+                clicSouris widget, evenement
+            end
+
+            ## Lie un callback sur le survol de la souris
+            signal_connect "enter_notify_event" do |widget, evenement|
+                # puts "test"
+            end
         end
 
     end
@@ -36,10 +60,10 @@ class CaseDessin < Gtk::DrawingArea
     ##
     ## @return
     ##
-    def clicSouris evenement
+    def clicSouris widget, evenement
 
         if evenement.button == 1
-            puts "left click pressed"
+            self.afficherChiffres widget
         elsif evenement.button == 2
             puts "middle click pressed"
         elsif evenement.button == 3
@@ -47,6 +71,99 @@ class CaseDessin < Gtk::DrawingArea
         end
 
         return self
+    end
+
+
+    ##
+    ## @brief      Affiche les chiffres au dessus de la case
+    ##              pour changer la valeur de la case.
+    ##
+    ## @param      parent  The parent
+    ##
+    ## @return     
+    ##
+    def afficherChiffres(parent)
+        popover = Gtk::Popover.new(self)
+
+        popover.position = :bottom
+        
+
+
+        ## Ajoute le contenu du popover
+        child = Gtk::Grid.new()
+
+        ## Ajoute les chiffres à la grille du popover
+        self.ajouterChiffres(child)
+        
+        ## Définis les espaces entre les chiffres
+        child.row_spacing = 5
+        child.column_spacing = 5
+
+        popover.add(child)
+        
+        popover.show_all
+
+
+        ## Cache le popover quand un clic est détecté 
+        ## A corriger: ne cacher que si clic en dehors de la zone
+        popover.signal_connect "button_press_event" do |widget, evenement|
+            popover.hide()
+            @focus = false
+        end
+
+        return self  
+    end
+
+    def ajouterChiffres(grillePopover)
+
+        chiffres = Hash.new()
+        
+        (1..9).each do |value|
+            chiffres[value.to_s] = Gtk::Button.new(:label => value.to_s)
+        end
+
+        row = 0
+        col = 0
+        parLigne = 2
+
+        ## Place les chiffres dans le layout grille
+        chiffres.each do |index, bouton|
+            grillePopover.attach bouton, col, row , 1, 1
+
+            col += 1
+            if(col > parLigne)
+                row += 1
+                col  = 0
+            end
+
+            ## Change la valeur de la case si appui détecté
+            bouton.signal_connect "button_press_event" do |widget|
+                mettreAJour(widget.label)
+                redessiner()
+            end
+        end 
+    end
+
+    def couleurCase cr
+        if(@editable && !@focus)
+            cr.set_source_color @couleurCase
+        elsif(@focus)
+            cr.set_source_color @couleurSurlignees
+        else
+            cr.set_source_color @couleurCaseFixe
+        end
+    end
+
+    def couleurPolice cr
+        cr.set_source_color @couleurPolice
+    end
+
+    def mettreAJour(valeur)
+        @nombre = valeur
+    end
+
+    def redessiner()
+        self.queue_draw
     end
 
     ##
@@ -58,14 +175,14 @@ class CaseDessin < Gtk::DrawingArea
         set_size_request(@largeur, @hauteur)
 
         ## Définis la couleur pour le dessin (ici blanc)
-        cr.set_source_rgb 1.0, 1.0, 1.0
+        self.couleurCase cr
 
         ## Dessine un rectangle
         cr.rectangle @x, @y, @largeur, @hauteur
         cr.fill
 
         ## Définis une nouvelle couleur (ici noire)
-        cr.set_source_rgb 0.0, 0.0, 0.0
+        cr.set_source_color @couleurPolice
 
         ## Définis les caractéristiques du texte
         cr.select_font_face "Arial", 
