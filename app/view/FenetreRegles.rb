@@ -23,7 +23,7 @@ class FenetreRegles < View
     #
     def miseEnPlace()        
         creerBoxTop()
-        creerBoxBottom()
+        @boxBottom=Fenetre::creerBoxBottom()
         Fenetre::box.add(@boxTop)
         Fenetre::box.add(@boxBottom)
     end
@@ -115,29 +115,6 @@ class FenetreRegles < View
         @boxTop.add(event_box)
         @boxTop.add(titre)
         @boxTop.add(table)
-    end
-
-    ##
-    #Creer la box horizontal contenant les boutons retour et quitter
-    def creerBoxBottom()
-        #Creation des Boutons
-        boutonRetour=Gtk::Button.new(:label => "Retour")
-        boutonRetour.style_context.add_class("bouton_bottom")
-        boutonRetour.signal_connect('clicked'){
-            Core::back()
-        }
-
-        boutonQuitter=Gtk::Button.new(:label => "Quitter")
-        boutonQuitter.style_context.add_class("bouton_bottom")
-        boutonQuitter.signal_connect('clicked'){
-            Fenetre::detruire()
-        }
-
-        #add des boutons
-        @boxBottom=Gtk::Box.new(:horizontal, 0)
-        @boxBottom.halign = :center
-        @boxBottom.add(boutonRetour)
-        @boxBottom.add(boutonQuitter)
     end
 
     ##
