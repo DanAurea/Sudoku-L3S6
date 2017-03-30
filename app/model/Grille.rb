@@ -7,16 +7,19 @@ class Grille < Model
         @grille = nil
     end
 
+    ## Genere une grille avec une difficulté donnée
     def generer(niveau)
         @grille = @gen.generer(niveau)
         return @grille
     end
 
+    ## Charge la partie du pseudo donnée
     def charger(pseudo)
         donnees = YAML.load_file(Core::ROOTPROJECT + "assets/save/" + pseudo.to_s + ".yml")
         @grille=donnees["grille"]
     end
 
+    ## Sauvegarde la partie du joueur
     def sauvegarder(pseudo)
         donnees=Hash.new()
         File.open(Core::ROOTPROJECT + "assets/save/" + pseudo.to_s + ".yml", "w") do |fichier|
@@ -27,11 +30,14 @@ class Grille < Model
         return true
     end
 
+    ## TODO
+    ## Supprime la partie d'un joueur
     def supprimer(pseudo)
         return true
     end
 
-    ## Retourne vrai si la cellule est bien unique
+    ## Vérifie a partir de coordonné que la valeur est valide
+    ## @return vrai si la cellule est bien unique
     def valeurUnique(x ,y)
         ## Le compte rendu de l'inspection
         cr = true
