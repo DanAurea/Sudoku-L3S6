@@ -8,7 +8,7 @@
 #   
     
 #   Methodes permettant de manager la grille et de faire des verification
-#   de la validité d'une valeur
+#   de la validité d'une valeurs
 require Core::ROOT + "utils/Generateur.rb"
 
 class Grille < Model
@@ -18,19 +18,38 @@ class Grille < Model
         @grille = nil
     end
 
-    ## Genere une grille avec une difficulté donnée
+    
+    ##
+    ## @brief      Genere une grille avec un niveau donnée
+    ##
+    ## @param      niveau  Le niveau souhaité
+    ##
+    ## @return     La grille generé
+    ##
     def generer(niveau)
         @grille = @gen.generer(niveau)
         return @grille
     end
 
-    ## Charge la partie du pseudo donnée
+    ##
+    ## @brief      Charge la partie du pseudo donnée
+    ##
+    ## @param      pseudo  Le pseudo du joueur qui charge
+    ##
+    ## @return     La grille chargé
+    ##
     def charger(pseudo)
         donnees = YAML.load_file(Core::ROOTPROJECT + "assets/save/" + pseudo.to_s + ".yml")
         @grille=donnees["grille"]
     end
 
-    ## Sauvegarde la partie du joueur
+    ##
+    ## @brief      Sauvegarde la partie du joueur
+    ##
+    ## @param      pseudo  Le pseudo du joueur qui sauvegarde
+    ##
+    ## @return     Retourne vrai quand la sauvegarde s'est fait
+    ##
     def sauvegarder(pseudo)
         donnees=Hash.new()
         File.open(Core::ROOTPROJECT + "assets/save/" + pseudo.to_s + ".yml", "w") do |fichier|
@@ -47,8 +66,14 @@ class Grille < Model
         return true
     end
 
+    #---------------------------------------------------------------------------
     ## Vérifie a partir de coordonné que la valeur est valide
-    ## @return vrai si la cellule est bien unique
+    ##
+    ## @param      x     Abscisse de la case
+    ## @param      y     Ordonnée de la case
+    ##
+    ## @return     true si la cellule est bien unique false sinon
+    ##
     def valeurUnique(x ,y)
         ## Le compte rendu de l'inspection
         cr = true
@@ -91,8 +116,16 @@ class Grille < Model
     #assets/save/pseudo.yml
 end
 
+#-------------------------------------------------------------------------------
 ## Vérifie les valeur d'une ligne en se basant sur des coordonées initial
-## @return boolean
+##
+## @param      x      Ordonnée de la case verifié
+## @param      y      Abscisse de la case verifié
+## @param      xBase  Ordonnée de reference
+## @param      yBase  Abscisse de reference
+##
+## @return     true si la verification reussi, false si les case sont egale
+##
 def VerificationLineaire(x,y,xBase,yBase)
     ## Verification horizontale
     if(@grille[x][y]["value"] == @grille[xBase][yBase]["value"])
