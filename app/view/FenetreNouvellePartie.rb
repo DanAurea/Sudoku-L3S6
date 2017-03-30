@@ -9,11 +9,10 @@
  	
 class FenetreNouvellePartie < View
 
-	def initialize()
-		
-	end
+    @boxTop
+    @boxBottom
 
-	#===Methode miseEnplace
+    #===Methode miseEnplace
     #
     # Permet de mettre en place la fenetre(conteneurs)
     #
@@ -22,7 +21,16 @@ class FenetreNouvellePartie < View
     # * *Returns* :
     #   - /
     #
-	def miseEnPlace()
+    def miseEnPlace()        
+        creerBoxTop()
+        @boxBottom=Fenetre::creerBoxBottom()
+        Fenetre::box.add(@boxTop)
+        Fenetre::box.add(@boxBottom)
+    end
+
+	##
+    #Creer la box vertical contenant les boutons des niveaux et le titre
+    def creerBoxTop()
 		## Définis les classes des labels
 		#titre
 		titre = Fenetre::creerLabelType("<u>Nouvelle partie</u>")
@@ -50,32 +58,12 @@ class FenetreNouvellePartie < View
             Core::changeTo("Niveau", "pseudo": @pseudo)
         }
 
-        boutonRetour=Gtk::Button.new(:label => "Retour")
-        boutonRetour.style_context.add_class("bouton_bottom")
-        boutonRetour.signal_connect('clicked'){
-        	Core::back()
-        }
-
-        boutonQuitter=Gtk::Button.new(:label => "Quitter")
-        boutonQuitter.style_context.add_class("bouton_bottom")
-        boutonQuitter.signal_connect('clicked'){
-            Fenetre::detruire()
-        }
-
         #add des boutons
-        boxTop=Gtk::Box.new(:vertical,0)
-        boxTop.add(event_box)
-        boxTop.add(titre)
-        boxTop.add(boutonApprentissage)
-        boxTop.add(boutonJeuLibre)
-
-        boxBottom=Gtk::Box.new(:horizontal, 0)
-        boxBottom.halign = :center
-        boxBottom.add(boutonRetour)
-        boxBottom.add(boutonQuitter)
-        
-        Fenetre::box.add(boxTop)
-        Fenetre::box.add(boxBottom)
+        @boxTop=Gtk::Box.new(:vertical,0)
+        @boxTop.add(event_box)
+        @boxTop.add(titre)
+        @boxTop.add(boutonApprentissage)
+        @boxTop.add(boutonJeuLibre)
     end
 
     ##

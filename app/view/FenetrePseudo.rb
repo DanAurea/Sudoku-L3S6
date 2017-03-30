@@ -8,16 +8,29 @@
 
 class FenetrePseudo < View 
 
+	@boxTop
+    @boxBottom
+    @entryPseudo
+
 	#===Methode miseEnplace
     #
-    # Permet de mettre en place la fenetre(taille, informations, conteneurs)
+    # Permet de mettre en place la fenetre(conteneurs)
     #
     # * *Args*    :
     #   - /
     # * *Returns* :
     #   - /
-	def miseEnPlace()
-		
+    #
+	def miseEnPlace()        
+        creerBoxTop()
+        creerBoxBottom()
+        Fenetre::box.add(@boxTop)
+        Fenetre::box.add(@boxBottom)
+    end
+
+	##
+    #Creer la box vertical contenant les boutons des niveaux et le titre
+    def creerBoxTop()
 		## Définis les classes des labels
 		#titre
 		titre = Fenetre::creerLabelType("<u>Choix du pseudo</u>")
@@ -27,39 +40,42 @@ class FenetrePseudo < View
 		pseudo.set_name("label_field_pseudo")
 		
 		#Creation des Boutons
-		entryPseudo=Gtk::Entry.new()
-		entryPseudo.set_max_length(15)
-		entryPseudo.style_context.add_class("field_pseudo")
+		@entryPseudo=Gtk::Entry.new()
+		@entryPseudo.set_max_length(15)
+		@entryPseudo.style_context.add_class("field_pseudo")
 
-		entryPseudo.signal_connect("activate"){
-			@controller.actionBoutonValider(entryPseudo)
-		}
-
-		boutonValider=Gtk::Button.new(:label => "Valider")
-		boutonValider.style_context.add_class("bouton_bottom")
-		boutonValider.signal_connect('button_press_event'){
-		      @controller.actionBoutonValider(entryPseudo)
-		}
-
-		boutonQuitter=Gtk::Button.new(:label => "Quitter")
-		boutonQuitter.style_context.add_class("bouton_bottom")
-		boutonQuitter.signal_connect('clicked'){
-		  		Fenetre::detruire()
+		@entryPseudo.signal_connect("activate"){
+			@controller.actionBoutonValider(@entryPseudo)
 		}
 
 		#add des boutons
-		boxTop=Gtk::Box.new(:vertical,0)
-		boxTop.add(titre)
-		boxTop.add(pseudo)
-		boxTop.add(entryPseudo)
+		@boxTop=Gtk::Box.new(:vertical,0)
+		@boxTop.add(titre)
+		@boxTop.add(pseudo)
+		@boxTop.add(@entryPseudo)
+    end
 
-		boxBottom=Gtk::Box.new(:horizontal, 0)
-		boxBottom.halign = :center
-		boxBottom.add(boutonQuitter)
-		boxBottom.add(boutonValider)
-		
-		Fenetre::box.add(boxTop)
-		Fenetre::box.add(boxBottom)
+    ##
+    #Creer la box horizontal contenant les boutons retour et quitter
+    def creerBoxBottom()
+        #Creation des Boutons
+        boutonValider=Gtk::Button.new(:label => "Valider")
+		boutonValider.style_context.add_class("bouton_bottom")
+		boutonValider.signal_connect('button_press_event'){
+		      @controller.actionBoutonValider(@entryPseudo)
+		}
+
+        boutonQuitter=Gtk::Button.new(:label => "Quitter")
+        boutonQuitter.style_context.add_class("bouton_bottom")
+        boutonQuitter.signal_connect('clicked'){
+            Fenetre::detruire()
+        }
+
+        #add des boutons
+        @boxBottom=Gtk::Box.new(:horizontal, 0)
+        @boxBottom.halign = :center
+        @boxBottom.add(boutonQuitter)
+        @boxBottom.add(boutonValider)
     end
 
 	##

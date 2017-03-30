@@ -7,7 +7,7 @@
 #   License::     Distributes under the same terms as Ruby
 
 class FenetrePrincipale < View 
-
+    
     #===Methode miseEnplace
     #
     # Permet de mettre en place la fenetre(taille, informations, conteneurs)

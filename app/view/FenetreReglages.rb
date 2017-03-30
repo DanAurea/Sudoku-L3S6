@@ -15,9 +15,8 @@ class FenetreReglages < View
     @boutonPolice
     @config
 
-    def initialize()
-      @config = Hash.new()
-    end
+    @boxTop
+    @boxBottom
 
     #===Methode miseEnplace
     #
@@ -28,7 +27,16 @@ class FenetreReglages < View
     # * *Returns* :
     #   - /
     #
-    def miseEnPlace()
+    def miseEnPlace()        
+        creerBoxTop()
+        @boxBottom=Fenetre::creerBoxBottom()
+        Fenetre::box.add(@boxTop)
+        Fenetre::box.add(@boxBottom)
+    end
+
+    ##
+    #Creer la box vertical contenant les boutons des niveaux et le titre
+    def creerBoxTop()
         ## Définis les classes des labels
         #titre
         titre = Fenetre::creerLabelType("<u>Réglages</u>")
@@ -79,17 +87,6 @@ class FenetreReglages < View
         @boutonPolice = Gtk::FontButton.new()
         @boutonPolice.style_context.add_class("bouton_reglage")
 
-        boutonRetour=Gtk::Button.new(:label => "Retour")
-        boutonRetour.style_context.add_class("bouton_bottom")
-        boutonRetour.signal_connect('clicked'){
-            Core::back()
-        }
-
-        boutonQuitter=Gtk::Button.new(:label => "Quitter")
-        boutonQuitter.style_context.add_class("bouton_bottom")
-        boutonQuitter.signal_connect('clicked'){
-            Fenetre::detruire()
-        }
 
         #tableau reglages
         table=Gtk::Table.new(2,5,false)
@@ -109,22 +106,15 @@ class FenetreReglages < View
         table.attach(@boutonPolice,1,2,4,5)
 
         #add des boutons
-        boxTop=Gtk::Box.new(:vertical,0)
-        boxTop.add(event_box)
-        boxTop.add(titre)
-        boxTop.add(tmp)
-        boxTop.add(table)
-
-        boxBottom=Gtk::Box.new(:horizontal, 0)
-        boxBottom.halign = :center
-        boxBottom.add(boutonRetour)
-        boxBottom.add(boutonQuitter)
-
-        Fenetre::box.add(boxTop)
-        Fenetre::box.add(boxBottom)
+        @boxTop=Gtk::Box.new(:vertical,0)
+        @boxTop.add(event_box)
+        @boxTop.add(titre)
+        @boxTop.add(tmp)
+        @boxTop.add(table)
 
         self.paramCouleurPolice
     end
+
 
     def paramCouleurPolice()
         @boutonCouleurCaseBase.signal_connect "color-set" do
