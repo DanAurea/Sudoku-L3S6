@@ -1,11 +1,11 @@
 
 ##
-## @brief      Classe pour disjoint subset.
+## Classe pour disjoint subset.
 ##
 class DSubset < Technique{
 
 	##
-	## @brief      Constructeur de la classe DSubset
+	## Constructeur de la classe DSubset
 	##
 	## @return     Une instance de la classe DSubset
 	##
@@ -14,7 +14,7 @@ class DSubset < Technique{
 	end
 
 	##
-	## @brief      Recherche une solution pour la technique utilisée
+	## Recherche une solution pour la technique utilisée
 	##
 	## @param      grille  La grille
 	##

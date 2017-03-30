@@ -1,11 +1,11 @@
 
 ##
-## @brief      Classe pour peche à la ligne.
+## Classe pour peche à la ligne.
 ##
 class Peche < Technique{
 
 	##
-	## @brief      Constructeur de la classe Peche
+	## Constructeur de la classe Peche
 	##
 	## @return     Une instance de la classe Peche
 	##

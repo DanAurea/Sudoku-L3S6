@@ -1,11 +1,11 @@
 
 ##
-## @brief      Classe pour single candidate.
+## Classe pour single candidate.
 ##
 class SCandidate < Technique{
 
 	##
-	## @brief      Constructeur de la classe SCandidate
+	## Constructeur de la classe SCandidate
 	##
 	## @return     Une instance de la classe SCandidate
 	##
@@ -14,7 +14,7 @@ class SCandidate < Technique{
 	end
 
 	##
-	## @brief      Recherche une solution pour la technique utilisée
+	## Recherche une solution pour la technique utilisée
 	##
 	## @param      grille  La grille
 	##
