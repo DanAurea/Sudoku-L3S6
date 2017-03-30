@@ -77,4 +77,3 @@ def grilleCorrecte()
 	return true
 end
 
-grilleCorrecte()

@@ -7,16 +7,19 @@ class Grille < Model
         @grille = nil
     end
 
+    ## Genere une grille avec une difficulté donnée
     def generer(niveau)
         @grille = @gen.generer(niveau)
         return @grille
     end
 
+    ## Charge la partie du pseudo donnée
     def charger(pseudo)
         donnees = YAML.load_file(Core::ROOTPROJECT + "assets/save/" + pseudo.to_s + ".yml")
         @grille=donnees["grille"]
     end
 
+    ## Sauvegarde la partie du joueur
     def sauvegarder(pseudo)
         donnees=Hash.new()
         File.open(Core::ROOTPROJECT + "assets/save/" + pseudo.to_s + ".yml", "w") do |fichier|
@@ -27,11 +30,14 @@ class Grille < Model
         return true
     end
 
-    def supprimer(pseudo)
+    ## TODO
+    ## Supprime la partie d'un joueur
+    def supprimer(_pseudo)
         return true
     end
 
-    ## Retourne vrai si la cellule est bien unique
+    ## Vérifie a partir de coordonné que la valeur est valide
+    ## @return vrai si la cellule est bien unique
     def valeurUnique(x ,y)
         ## Le compte rendu de l'inspection
         cr = true
@@ -48,23 +54,9 @@ class Grille < Model
         ## Parcours dans [0,8]
         for i in 0..8
 
-            ## Verification horizontale
-            if(@grille[x][i]["value"] == @grille[x][y]["value"])
-                ## La valeur unique s'errone
-                @grille[x][i]["unique"] = false
-                ## La case verifié aussi
-                @grille[x][y]["unique"] = false
-                cr = false
-            end
+            cr = VerificationLineaire(x,i,x,y)
 
-            ## Verification verticale
-            if(@grille[i][y]["value"] == @grille[x][y]["value"])
-                ## La valeur unique s'errone
-                @grille[i][y]["unique"] = false
-                ## La case verifié aussi
-                @grille[x][y]["unique"] = false
-                cr = false
-            end
+            cr = VerificationLineaire(i,y,x,y)
 
             ## le bloc est plus petit que la grille
             if(i<3)
@@ -86,4 +78,16 @@ class Grille < Model
     end
 
     #assets/save/pseudo.yml
+end
+
+def VerificationLineaire(x,y,xBase,yBase)
+    ## Verification horizontale
+    if(@grille[x][y]["value"] == @grille[xBase][yBase]["value"])
+        ## La valeur unique s'errone
+        @grille[x][y]["unique"] = false
+        ## La case verifié aussi
+        @grille[xBase][yBase]["unique"] = false
+        return false
+    end
+    return true
 end
