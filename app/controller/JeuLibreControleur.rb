@@ -19,8 +19,8 @@ class JeuLibreControleur < Controller
 
 	def run()
 
-		if(@content.has_key?(:niveau))
-			niveau = @content[:niveau]
+		if(@content.has_key?("difficulte"))
+			niveau = @content["difficulte"]
 		else
 			niveau = 1
 		end

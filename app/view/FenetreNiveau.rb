@@ -49,19 +49,19 @@ class FenetreNiveau < View
         boutonFacile=Gtk::Button.new(:label => "Facile")
         boutonFacile.style_context.add_class("bouton_niveau_f")
         boutonFacile.signal_connect('clicked'){
-            Core::changeTo("JeuLibre", "pseudo": @pseudo,:difficulte=>0)
+            Core::changeTo("JeuLibre", "pseudo": @pseudo, :difficulte=>1)
         }
 
         boutonMoyen=Gtk::Button.new(:label => "Moyen")
         boutonMoyen.style_context.add_class("bouton_niveau")
         boutonMoyen.signal_connect('clicked'){
-            Core::changeTo("JeuLibre", "pseudo": @pseudo,:difficulte=>1)
+            Core::changeTo("JeuLibre", "pseudo": @pseudo, :difficulte=>2)
         }
 
         boutonDifficile=Gtk::Button.new(:label => "Difficile")
         boutonDifficile.style_context.add_class("bouton_niveau")
         boutonDifficile.signal_connect('clicked'){
-            Core::changeTo("JeuLibre", "pseudo": @pseudo,:difficulte=>2)
+            Core::changeTo("JeuLibre", "pseudo": @pseudo, :difficulte=>3)
         }
 
         #add des boutons
