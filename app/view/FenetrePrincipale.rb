@@ -1,22 +1,19 @@
-#   Contient la classe representant une fenetre pour l'image de depart
+# => Contient la classe FenetrePrincipale qui affiche l'image d'intro
 #
-#   Author::        Valentin, DanAurea
-#   Developers:     Valentin, DanAurea
-#   Version::     0.1
-#   Copyright::   ©
-#   License::     Distributes under the same terms as Ruby
+# => Author::       Valentin, DanAurea
+# => Version::      0.1
+# => Copyright::    © 2016
+# => License::      Distributes under the same terms as Ruby
 
+##
+## classe FenetrePrincipale
+##
 class FenetrePrincipale < View 
     
-    #===Methode miseEnplace
-    #
-    # Permet de mettre en place la fenetre(taille, informations, conteneurs)
-    #
-    # * *Args*    :
-    #   - /
-    # * *Returns* :
-    #   - /
-    #
+    ##
+    ## Permet de créer et d'ajouter les box au conteneur principal
+    ##
+    ##
 	def miseEnPlace()
     	begin
     		image = Gtk::Image.new(:file => Core::ROOTPROJECT + "assets/img/sudokuIntro.jpg")
@@ -31,20 +28,18 @@ class FenetrePrincipale < View
         event_box.signal_connect('button_press_event'){
         	Core::changeTo("Pseudo")
         }
+
+        #add des boutons à la box
         Fenetre::box.add(event_box)
 	end
 
 	##
-	## @brief     Lance la construction du modèle
-	## 			  de la vue.
-	## 			  Méthode à définir dans tout les cas !
-	## 			  Autrement pas de rendu de la page.
-	##
-	## @return     itself
-	##
+    ## Lance la construction du modèle de la vue. Méthode à définir dans tout les cas ! Autrement pas de rendu de la page.
+    ##
+    ## @return self
+    ##
 	def run
 		self.miseEnPlace
 		return self
 	end
-
 end

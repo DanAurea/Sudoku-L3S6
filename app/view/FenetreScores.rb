@@ -8,19 +8,14 @@
 # 	
 
 class FenetreScores < View
-
+    # VI
 	@boxTop
     @boxBottom
 
-    #===Methode miseEnplace
-    #
-    # Permet de mettre en place la fenetre(conteneurs)
-    #
-    # * *Args*    :
-    #   - /
-    # * *Returns* :
-    #   - /
-    #
+    ##
+    ## Permet de créer et d'ajouter les box au conteneur principal
+    ##
+    ##
     def miseEnPlace()        
         creerBoxTop()
         @boxBottom=Fenetre::creerBoxBottom()
@@ -29,7 +24,9 @@ class FenetreScores < View
     end
 
     ##
-    #Creer la box vertical contenant les boutons des niveaux et le titre
+    ## Créer la box verticale contenant le listing des scores et le titre
+    ##
+    ##
     def creerBoxTop()
         tabScore=[["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"]]
 
@@ -76,7 +73,7 @@ class FenetreScores < View
             tableScore.attach(pts,2,3,id,id+1)
         }
 
-        #add des boutons
+        #add des boutons à la box
         @boxTop=Gtk::Box.new(:vertical,0)
         @boxTop.add(event_box)
         @boxTop.add(titre)
@@ -84,17 +81,13 @@ class FenetreScores < View
     end
 
     ##
-	## @brief     Lance la construction du modèle
-	## 			  de la vue.
-	## 			  Méthode à définir dans tout les cas !
-	## 			  Autrement pas de rendu de la page.
-	##
-	## @return     itself
-	##
+    ## Lance la construction du modèle de la vue. Méthode à définir dans tout les cas ! Autrement pas de rendu de la page.
+    ##
+    ## @return self
+    ##
 	def run()
 		self.miseEnPlace()
 		Fenetre::css(:chemin => "/assets/css/FenetreScores.css")
 		return self
 	end
-
 end
