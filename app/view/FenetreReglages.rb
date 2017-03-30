@@ -8,9 +8,15 @@
 #
 
 class FenetreReglages < View
+    @boutonCouleurCaseBase
+    @boutonCouleurCaseSelectionne
+    @boutonCouleurTexte
+    @boutonCouleurIndices
+    @boutonPolice
+    @config
 
     def initialize()
-
+      @config = Hash.new()
     end
 
     #===Methode miseEnplace
@@ -62,16 +68,16 @@ class FenetreReglages < View
             Core::changeTo("Reglages", "pseudo": @pseudo)
         }
 
-        boutonCouleurCaseBase = Gtk::ColorButton.new()
-        boutonCouleurCaseBase.style_context.add_class("bouton_reglage")
-        boutonCouleurCaseSelectionne = Gtk::ColorButton.new()
-        boutonCouleurCaseSelectionne.style_context.add_class("bouton_reglage")
-        boutonCouleurTexte = Gtk::ColorButton.new()
-        boutonCouleurTexte.style_context.add_class("bouton_reglage")
-        boutonCouleurIndices = Gtk::ColorButton.new()
-        boutonCouleurIndices.style_context.add_class("bouton_reglage")
-        boutonPolice = Gtk::FontButton.new()
-        boutonPolice.style_context.add_class("bouton_reglage")
+        @boutonCouleurCaseBase = Gtk::ColorButton.new()
+        @boutonCouleurCaseBase.style_context.add_class("bouton_reglage")
+        @boutonCouleurCaseSelectionne = Gtk::ColorButton.new()
+        @boutonCouleurCaseSelectionne.style_context.add_class("bouton_reglage")
+        @boutonCouleurTexte = Gtk::ColorButton.new()
+        @boutonCouleurTexte.style_context.add_class("bouton_reglage")
+        @boutonCouleurIndices = Gtk::ColorButton.new()
+        @boutonCouleurIndices.style_context.add_class("bouton_reglage")
+        @boutonPolice = Gtk::FontButton.new()
+        @boutonPolice.style_context.add_class("bouton_reglage")
 
         boutonRetour=Gtk::Button.new(:label => "Retour")
         boutonRetour.style_context.add_class("bouton_bottom")
@@ -88,19 +94,19 @@ class FenetreReglages < View
         #tableau reglages
         table=Gtk::Table.new(2,5,false)
         table.attach(labelCouleurCaseBase,0,1,0,1)
-        table.attach(boutonCouleurCaseBase,1,2,0,1)
+        table.attach(@boutonCouleurCaseBase,1,2,0,1)
 
         table.attach(labelCouleurCaseSelectionne,0,1,1,2)
-        table.attach(boutonCouleurCaseSelectionne,1,2,1,2)
+        table.attach(@boutonCouleurCaseSelectionne,1,2,1,2)
 
         table.attach(labelCouleurTexte,0,1,2,3)
-        table.attach(boutonCouleurTexte,1,2,2,3)
+        table.attach(@boutonCouleurTexte,1,2,2,3)
 
         table.attach(labelCouleurIndices,0,1,3,4)
-        table.attach(boutonCouleurIndices,1,2,3,4)
+        table.attach(@boutonCouleurIndices,1,2,3,4)
 
         table.attach(labelPolice,0,1,4,5)
-        table.attach(boutonPolice,1,2,4,5)
+        table.attach(@boutonPolice,1,2,4,5)
 
         #add des boutons
         boxTop=Gtk::Box.new(:vertical,0)
@@ -113,9 +119,36 @@ class FenetreReglages < View
         boxBottom.halign = :center
         boxBottom.add(boutonRetour)
         boxBottom.add(boutonQuitter)
-        
+
         Fenetre::box.add(boxTop)
         Fenetre::box.add(boxBottom)
+
+        self.paramCouleurPolice
+    end
+
+    def paramCouleurPolice()
+        @boutonCouleurCaseBase.signal_connect "color-set" do
+            @config["caseBase"]=@boutonCouleurCaseBase.color
+        end
+
+        @boutonCouleurCaseSelectionne.signal_connect "color-set" do
+            @config["caseSelectionne"]=@boutonCouleurCaseSelectionne.color
+        end
+
+        @boutonCouleurTexte.signal_connect "color-set" do
+            @config["couleurTexte"]=@boutonCouleurTexte.color
+        end
+
+        @boutonCouleurIndices.signal_connect "color-set" do
+            @config["couleurIndices"]=@boutonCouleurIndices.color
+        end
+
+        @boutonPolice.signal_connect "font-set" do
+            font = @boutonPolice.font_name
+            @config["taillePolice"]=font.slice!(-2,2)
+            @config["police"]=font
+        end
+        return self
     end
 
     ##
