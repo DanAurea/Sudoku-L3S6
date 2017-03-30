@@ -1,18 +1,32 @@
-#Class SCandidate
 
-class SCandidate << Technique{
+##
+## @brief      Classe pour single candidate.
+##
+class SCandidate < Technique{
 
+	##
+	## @brief      Constructeur de la classe SCandidate
+	##
+	## @return     Une instance de la classe SCandidate
+	##
 	def SCandidate.creer()
 		new()
 	end
 
+	##
+	## @brief      Recherche une solution pour la technique utilisée
+	##
+	## @param      grille  La grille
+	##
+	## @return     Les informations pour aider l'utilisateur, ou nul si la méthode ne trouve rien
+	##
 	def solution(grille)
 		grilleIndice = indice(grille)
 
 		[1,2,3,4,5,6,7,8,9].sort_by{rand}.each { |numero|
 			grilleIndice.each { |col,x|
 				cpt=0
-				col.each { |case,y|
+				col.each { |c,y|
 					if grilleIndice[x][y][numero.to_s] then
 						cpt +=1
 					end
