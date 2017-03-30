@@ -1,3 +1,14 @@
+#   Modele de la grille
+#   
+#   Author::        Nikuto
+#   Developers:     Nikuto
+#   Version::       0.1
+#   Copyright::     © 2017
+#   License::       Distributes under the same terms as Ruby
+#   
+    
+#   Methodes permettant de manager la grille et de faire des verification
+#   de la validité d'une valeur
 require Core::ROOT + "utils/Generateur.rb"
 
 class Grille < Model
@@ -80,6 +91,8 @@ class Grille < Model
     #assets/save/pseudo.yml
 end
 
+## Vérifie les valeur d'une ligne en se basant sur des coordonées initial
+## @return boolean
 def VerificationLineaire(x,y,xBase,yBase)
     ## Verification horizontale
     if(@grille[x][y]["value"] == @grille[xBase][yBase]["value"])
