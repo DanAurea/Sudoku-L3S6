@@ -50,8 +50,11 @@ module Core
 
 		caller.slice!(".rb")
 
-		## Save caller window
-		@previousWindow = caller
+		if(name != caller)
+			## Save caller window
+			@previousWindow = caller
+		end
+		
 		@args = args
 
 		## Create a new empty window
