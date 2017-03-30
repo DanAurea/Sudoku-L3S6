@@ -21,3 +21,15 @@ group :test do
 	gem "simplecov"
 	gem 'codeclimate-test-reporter'
 end
+
+group :travis  do
+	gem 'sqlite3'
+	gem 'activerecord'
+	gem 'sequel'
+	gem 'hirb'
+	gem 'test'
+	gem 'rake'
+	gem 'rspec'
+	gem "simplecov"
+	gem 'codeclimate-test-reporter'
+end
