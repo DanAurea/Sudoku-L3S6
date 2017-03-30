@@ -9,9 +9,8 @@
  	
 class FenetreNiveau < View
 
-	def initialize()
-		
-	end
+    @boxTop
+    @boxBottom
 
 	#===Methode miseEnplace
     #
@@ -22,17 +21,26 @@ class FenetreNiveau < View
     # * *Returns* :
     #   - /
     #
-	def miseEnPlace()
-		## Définis les classes des labels
-		#titre
-		titre = Fenetre::creerLabelType("<u>Choix difficulté</u>")
-		titre.style_context.add_class("titre_menu")
-		#pseudo
-		pseudo = Fenetre::creerLabelType("<u>Pseudo:</u> #{@pseudo.capitalize}")
-		pseudo.style_context.add_class("pseudo_menu")
+	def miseEnPlace()        
+        creerBoxTop()
+        creerBoxBottom()
+        Fenetre::box.add(@boxTop)
+        Fenetre::box.add(@boxBottom)
+    end
+
+    ##
+    #Creer la box vertical contenant les boutons des niveaux et le titre
+    def creerBoxTop()
+        ## Définis les classes des labels
+        #titre
+        titre = Fenetre::creerLabelType("<u>Choix difficulté</u>")
+        titre.style_context.add_class("titre_menu")
+        #pseudo
+        pseudo = Fenetre::creerLabelType("<u>Pseudo:</u> #{@pseudo.capitalize}")
+        pseudo.style_context.add_class("pseudo_menu")
         pseudo.halign = :end
 
-		#Creation des Boutons
+        #Creation des Boutons
         event_box=Gtk::EventBox.new.add(pseudo)
         event_box.signal_connect('button_press_event'){
             Core::changeTo("JeuLibre", "pseudo": @pseudo)
@@ -56,10 +64,23 @@ class FenetreNiveau < View
             Core::changeTo("JeuLibre", "pseudo": @pseudo,:difficulte=>2)
         }
 
+        #add des boutons
+        @boxTop=Gtk::Box.new(:vertical,0)
+        @boxTop.add(event_box)
+        @boxTop.add(titre)
+        @boxTop.add(boutonFacile)
+        @boxTop.add(boutonMoyen)
+        @boxTop.add(boutonDifficile)
+    end
+
+    ##
+    #Creer la box horizontal contenant les boutons retour et quitter
+    def creerBoxBottom()
+        #Creation des Boutons
         boutonRetour=Gtk::Button.new(:label => "Retour")
         boutonRetour.style_context.add_class("bouton_bottom")
         boutonRetour.signal_connect('clicked'){
-        	Core::back()
+            Core::back()
         }
 
         boutonQuitter=Gtk::Button.new(:label => "Quitter")
@@ -69,20 +90,10 @@ class FenetreNiveau < View
         }
 
         #add des boutons
-        boxTop=Gtk::Box.new(:vertical,0)
-        boxTop.add(event_box)
-        boxTop.add(titre)
-        boxTop.add(boutonFacile)
-        boxTop.add(boutonMoyen)
-        boxTop.add(boutonDifficile)
-
-        boxBottom=Gtk::Box.new(:horizontal, 0)
-        boxBottom.halign = :center
-        boxBottom.add(boutonRetour)
-        boxBottom.add(boutonQuitter)
-        
-        Fenetre::box.add(boxTop)
-        Fenetre::box.add(boxBottom)
+        @boxBottom=Gtk::Box.new(:horizontal, 0)
+        @boxBottom.halign = :center
+        @boxBottom.add(boutonRetour)
+        @boxBottom.add(boutonQuitter)
     end
 
     ##

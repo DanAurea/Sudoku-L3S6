@@ -8,6 +8,9 @@
 # 
 class FenetreMenu < View
 
+    @boxTop
+    @boxBottom
+
     #===Methode miseEnplace
     #
     # Permet de mettre en place la fenetre(taille, informations, conteneurs)
@@ -18,13 +21,22 @@ class FenetreMenu < View
     #   - /
     #
     def miseEnPlace()
-    	## Définis les classes des labels
-		#titre
-		titre = Fenetre::creerLabelType("<u>Menu Principal</u>")
-		titre.style_context.add_class("titre_menu")
-		#pseudo
-		pseudo = Fenetre::creerLabelType("<u>Pseudo:</u> #{@pseudo.capitalize}")
-		pseudo.style_context.add_class("pseudo_menu")
+        creerBoxTop()
+        creerBoxBottom()
+        Fenetre::box.add(@boxTop)
+        Fenetre::box.add(@boxBottom)
+    end
+
+    ##
+    #Creer la box vertical contenant les boutons du menu et le titre
+    def creerBoxTop()
+        ## Définis les classes des labels
+        #titre
+        titre = Fenetre::creerLabelType("<u>Menu Principal</u>")
+        titre.style_context.add_class("titre_menu")
+        #pseudo
+        pseudo = Fenetre::creerLabelType("<u>Pseudo:</u> #{@pseudo.capitalize}")
+        pseudo.style_context.add_class("pseudo_menu")
         pseudo.halign = :end
 
         #Creation des Boutons
@@ -69,6 +81,26 @@ class FenetreMenu < View
             Core::changeTo("Regles", "pseudo": @pseudo)
         }
 
+        #add des boutons
+        @boxTop=Gtk::Box.new(:vertical,0)
+        @boxTop.add(event_box)
+        @boxTop.add(titre)
+        if(partieExiste(@pseudo))
+            @boxTop.add(boutonCharger)
+        else
+            @boxTop.add(Fenetre::creerLabelType(" "))
+        end
+        @boxTop.add(boutonNouveau)
+        @boxTop.add(boutonStat)
+        @boxTop.add(boutonScore)
+        @boxTop.add(boutonReglage)
+        @boxTop.add(boutonRegle)
+    end
+
+    ##
+    #Creer la box horizontal contenant les boutons a propos et quitter
+    def creerBoxBottom()
+        #Creation des Boutons
         boutonAPropos=Gtk::Button.new(:label => " About ")
         boutonAPropos.style_context.add_class("bouton_bottom")
         boutonAPropos.signal_connect('clicked'){
@@ -78,35 +110,18 @@ class FenetreMenu < View
         boutonQuitter=Gtk::Button.new(:label => "Quitter")
         boutonQuitter.style_context.add_class("bouton_bottom")
         boutonQuitter.signal_connect('clicked'){
-        	Fenetre::detruire()
+            Fenetre::detruire()
         }
 
         #add des boutons
-        boxTop=Gtk::Box.new(:vertical,0)
-        boxTop.add(event_box)
-        boxTop.add(titre)
-        if(partieExiste(@pseudo))
-            boxTop.add(boutonCharger)
-        else
-            boxTop.add(Fenetre::creerLabelType(" "))
-        end
-        boxTop.add(boutonNouveau)
-        boxTop.add(boutonStat)
-        boxTop.add(boutonScore)
-        boxTop.add(boutonReglage)
-        boxTop.add(boutonRegle)
-
-        boxBottom=Gtk::Box.new(:horizontal, 0)
-        boxBottom.halign = :center
-        boxBottom.add(boutonAPropos)
-        boxBottom.add(boutonQuitter)
-        
-        Fenetre::box.add(boxTop)
-        Fenetre::box.add(boxBottom)
+        @boxBottom=Gtk::Box.new(:horizontal, 0)
+        @boxBottom.halign = :center
+        @boxBottom.add(boutonAPropos)
+        @boxBottom.add(boutonQuitter)
     end
 
+    #popup explication du projet et des programmeurs
     def aPropos()
-    	#popup explication du projet et des programmeurs
         fenetre = Gtk::AboutDialog.new()
         fenetre.set_program_name("Projet sudoku")
         fenetre.set_version("1.0")
