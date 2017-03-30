@@ -9,6 +9,8 @@ engines:
     config:
       languages:
       - ruby
+  fixme:
+    enabled: true
 ratings:
   paths:
   - "app/**"
