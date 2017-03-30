@@ -8,20 +8,14 @@
 # 	
  	
 class FenetreStatistiques < View
-
+	# VI
 	@boxTop
     @boxBottom
 
-	#===Methode miseEnplace
-    #
-    # Permet de mettre en place la fenetre(conteneurs)
-    #
-    # * *Args*    :
-    #   - /
-    # * *Returns* :
-    #   - /
-    #
-	#
+	##
+    ## Permet de créer et d'ajouter les box au conteneur principal
+    ##
+    ##
 	def miseEnPlace()        
         creerBoxTop()
         @boxBottom=Fenetre::creerBoxBottom()
@@ -30,7 +24,9 @@ class FenetreStatistiques < View
     end
 
 	##
-    #Creer la box vertical contenant les boutons des niveaux et le titre
+    ## Créer la box verticale contenant le listing des stats et le titre
+    ##
+    ##
     def creerBoxTop()
 		## Définis les classes des labels
 		#titre
@@ -92,7 +88,6 @@ class FenetreStatistiques < View
 		labelScore3_2 = Fenetre::creerLabelType("0")
 		labelScore3_2.style_context.add_class("label_contenu_stat_d")
 
-
 		#Creation des Boutons
         event_box=Gtk::EventBox.new.add(pseudo)
         event_box.signal_connect('button_press_event'){
@@ -121,7 +116,7 @@ class FenetreStatistiques < View
     	table.attach(labelScore3_1,2,3,3,4)
 		table.attach(labelScore3_2,3,4,3,4)
 
-        #add des boutons
+        #add des boutons à la box
         @boxTop=Gtk::Box.new(:vertical,0)
         @boxTop.add(event_box)
         @boxTop.add(titre)
@@ -130,17 +125,13 @@ class FenetreStatistiques < View
     end
 
     ##
-    ## @brief     Lance la construction du modèle
-    ##            de la vue.
-    ##            Méthode à définir dans tout les cas !
-    ##            Autrement pas de rendu de la page.
+    ## Lance la construction du modèle de la vue. Méthode à définir dans tout les cas ! Autrement pas de rendu de la page.
     ##
-    ## @return     itself
+    ## @return self
     ##
 	def run()
 		self.miseEnPlace()
 		Fenetre::css(:chemin => "/assets/css/FenetreStatistiques.css")
 		return self
 	end
-
 end

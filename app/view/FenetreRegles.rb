@@ -1,26 +1,22 @@
-# 	Fichier contenant les règles de base dans le jeu
-# 	
-#   Author::        Valentin, DanAurea
-#   Developers:     Valentin, DanAurea
-# 	Version:: 		0.1
-# 	Copyright:: 	© 2016
-# 	License::   	Distributes under the same terms as Ruby
-# 	
- 	
-class FenetreRegles < View
+# => Contient la classe FenetreRegles qui propose un texte explicatif des règles de base
+#
+# => Author::       Valentin, DanAurea
+# => Version::      0.1
+# => Copyright::    © 2016
+# => License::      Distributes under the same terms as Ruby
 
+##
+## classe FenetreRegles
+##
+class FenetreRegles < View
+    # VI
 	@boxTop
     @boxBottom
 
-    #===Methode miseEnplace
-    #
-    # Permet de mettre en place la fenetre(conteneurs)
-    #
-    # * *Args*    :
-    #   - /
-    # * *Returns* :
-    #   - /
-    #
+    ##
+    ## Permet de créer et d'ajouter les box au conteneur principal
+    ##
+    ##
     def miseEnPlace()        
         creerBoxTop()
         @boxBottom=Fenetre::creerBoxBottom()
@@ -29,7 +25,9 @@ class FenetreRegles < View
     end
 
 	##
-    #Creer la box vertical contenant les boutons des niveaux et le titre
+    ## Créer la box verticale contenant le texte explicatif et le titre
+    ##
+    ##
     def creerBoxTop()
 		## Définis les classes des labels
 		#titre
@@ -110,7 +108,7 @@ class FenetreRegles < View
         table.attach(regle13,0,1,13,14)
         table.attach(regle14,0,1,14,15)
 
-        #add des boutons
+        #add des boutons à la box
         @boxTop=Gtk::Box.new(:vertical,0)
         @boxTop.add(event_box)
         @boxTop.add(titre)
@@ -118,17 +116,13 @@ class FenetreRegles < View
     end
 
     ##
-	## @brief     Lance la construction du modèle
-	## 			  de la vue.
-	## 			  Méthode à définir dans tout les cas !
-	## 			  Autrement pas de rendu de la page.
-	##
-	## @return     itself
-	##
+    ## Lance la construction du modèle de la vue. Méthode à définir dans tout les cas ! Autrement pas de rendu de la page.
+    ##
+    ## @return self
+    ##
 	def run()
 		self.miseEnPlace()
 		Fenetre::css(:chemin => "/assets/css/FenetreRegles.css")
 		return self
 	end
-
 end

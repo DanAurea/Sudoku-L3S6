@@ -1,26 +1,22 @@
-# 	Fichier contenant la gestion de la nouvelle partie
-# 	
-#   Author::        Valentin, DanAurea
-#   Developers:     Valentin, DanAurea
-# 	Version:: 		0.1
-# 	Copyright:: 	© 2016
-# 	License::   	Distributes under the same terms as Ruby
-# 	
- 	
-class FenetreNouvellePartie < View
+# => Contient la classe FenetreNouvellePartie qui propose le mode aventure ou apprentissage
+#
+# => Author::       Valentin, DanAurea
+# => Version::      0.1
+# => Copyright::    © 2016
+# => License::      Distributes under the same terms as Ruby
 
+##
+## classe FenetreNouvellePartie
+##
+class FenetreNouvellePartie < View
+    # VI
     @boxTop
     @boxBottom
 
-    #===Methode miseEnplace
-    #
-    # Permet de mettre en place la fenetre(conteneurs)
-    #
-    # * *Args*    :
-    #   - /
-    # * *Returns* :
-    #   - /
-    #
+    ##
+    ## Permet de créer et d'ajouter les box au conteneur principal
+    ##
+    ##
     def miseEnPlace()        
         creerBoxTop()
         @boxBottom=Fenetre::creerBoxBottom()
@@ -29,7 +25,9 @@ class FenetreNouvellePartie < View
     end
 
 	##
-    #Creer la box vertical contenant les boutons des niveaux et le titre
+    ## Créer la box verticale contenant les boutons des choix du mode de jeu et le titre
+    ##
+    ##
     def creerBoxTop()
 		## Définis les classes des labels
 		#titre
@@ -58,7 +56,7 @@ class FenetreNouvellePartie < View
             Core::changeTo("Niveau", "pseudo": @pseudo)
         }
 
-        #add des boutons
+        #add des boutons à la box
         @boxTop=Gtk::Box.new(:vertical,0)
         @boxTop.add(event_box)
         @boxTop.add(titre)
@@ -67,17 +65,13 @@ class FenetreNouvellePartie < View
     end
 
     ##
-	## @brief     Lance la construction du modèle
-	## 			  de la vue.
-	## 			  Méthode à définir dans tout les cas !
-	## 			  Autrement pas de rendu de la page.
-	##
-	## @return     itself
-	##
+    ## Lance la construction du modèle de la vue. Méthode à définir dans tout les cas ! Autrement pas de rendu de la page.
+    ##
+    ## @return self
+    ##
 	def run()
 		self.miseEnPlace
         Fenetre::css(:chemin => "/assets/css/FenetreNouvellePartie.css")
 		return self
 	end
-
 end

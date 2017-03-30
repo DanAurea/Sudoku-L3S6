@@ -7,20 +7,15 @@
 #   License::     Distributes under the same terms as Ruby
 
 class FenetrePseudo < View 
-
+	# VI
 	@boxTop
     @boxBottom
     @entryPseudo
 
-	#===Methode miseEnplace
-    #
-    # Permet de mettre en place la fenetre(conteneurs)
-    #
-    # * *Args*    :
-    #   - /
-    # * *Returns* :
-    #   - /
-    #
+	##
+    ## Permet de créer et d'ajouter les box au conteneur principal
+    ##
+    ##
 	def miseEnPlace()        
         creerBoxTop()
         creerBoxBottom()
@@ -29,7 +24,9 @@ class FenetrePseudo < View
     end
 
 	##
-    #Creer la box vertical contenant les boutons des niveaux et le titre
+    ## Créer la box verticale contenant la demande de pseudo et le titre
+    ##
+    ##
     def creerBoxTop()
 		## Définis les classes des labels
 		#titre
@@ -48,7 +45,7 @@ class FenetrePseudo < View
 			@controller.actionBoutonValider(@entryPseudo)
 		}
 
-		#add des boutons
+		#add des boutons à la box
 		@boxTop=Gtk::Box.new(:vertical,0)
 		@boxTop.add(titre)
 		@boxTop.add(pseudo)
@@ -56,7 +53,7 @@ class FenetrePseudo < View
     end
 
     ##
-    #Creer la box horizontal contenant les boutons retour et quitter
+    #Creer la box horizontal contenant les boutons valider et quitter
     def creerBoxBottom()
         #Creation des Boutons
         boutonValider=Gtk::Button.new(:label => "Valider")
@@ -71,7 +68,7 @@ class FenetrePseudo < View
             Fenetre::detruire()
         }
 
-        #add des boutons
+        #add des boutons à la box
         @boxBottom=Gtk::Box.new(:horizontal, 0)
         @boxBottom.halign = :center
         @boxBottom.add(boutonQuitter)
@@ -79,13 +76,10 @@ class FenetrePseudo < View
     end
 
 	##
-	## @brief     Lance la construction du modèle
-	## 			  de la vue.
-	## 			  Méthode à définir dans tout les cas !
-	## 			  Autrement pas de rendu de la page.
-	##
-	## @return     itself
-	##
+    ## Lance la construction du modèle de la vue. Méthode à définir dans tout les cas ! Autrement pas de rendu de la page.
+    ##
+    ## @return self
+    ##
 	def run
 		self.miseEnPlace
 		Fenetre::css(:chemin => "/assets/css/FenetrePseudo.css")

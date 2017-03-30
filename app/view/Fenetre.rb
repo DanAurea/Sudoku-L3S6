@@ -2,7 +2,7 @@
 #
 # => Author::       Valentin, DanAurea
 # => Version::      0.1
-# => Copyright::    ©
+# => Copyright::    © 2016
 # => License::      Distributes under the same terms as Ruby
 
 require "optparse"
@@ -91,7 +91,6 @@ module Fenetre
     ##
     ## Montre la fenêtre précédente
     ##
-    ## @return
     ##
     def Fenetre.fenetrePrecedente()
         viderFenetre()
@@ -108,7 +107,6 @@ module Fenetre
     ##
     ## @param   fenetre
     ##
-    ## @return
     ##
     def Fenetre.fenetrePrecedente=(fenetre)
         @fenetrePrecedente = fenetre
@@ -117,7 +115,6 @@ module Fenetre
     ##
     ## Accesseur sur le layout
     ##
-    ## @return
     ##
     def Fenetre.box()
         return @box
@@ -126,7 +123,6 @@ module Fenetre
     ##
     ## Vide la fenêtre pour préparer la mise à jour
     ##
-    ## @return
     ##
     def Fenetre.viderFenetre()
         @fenetre.children.each() do |child|
@@ -137,7 +133,6 @@ module Fenetre
     ##
     ## Permet de quitter l'application et de detruire la fenetre
     ##
-    ## @return 
     ##
     def Fenetre.detruire()
         Gtk.main_quit()
@@ -149,7 +144,6 @@ module Fenetre
     ## @param   widget Widget sur lequel appliquer un style
     ## @param   provider  
     ##
-    ## @return
     ##
     def Fenetre.appliquerStyle(widget, provider)
         style_context = widget.style_context
@@ -163,7 +157,6 @@ module Fenetre
     ##
     ## Permet de mettre en place la fenêtre via un conteneur principal VBox
     ##
-    ## @return 
     ##
     def Fenetre.miseEnPlace()
         #Conteneur VBox

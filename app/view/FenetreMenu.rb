@@ -1,25 +1,22 @@
-# 	squelette du menu
-# 	
-#   Author::        Valentin, DanAurea
-#   Developers:     Valentin, DanAurea
-# 	Version:: 		0.1
-# 	Copyright:: 	© 2016
-# 	License::   	Distributes under the same terms as Ruby
-# 
-class FenetreMenu < View
+# => Contient la classe FenetreMenu pour la fenêtre du menu principal
+#
+# => Author::       Valentin, DanAurea
+# => Version::      0.1
+# => Copyright::    © 2016
+# => License::      Distributes under the same terms as Ruby
 
+##
+## classe FenetreMenu contenant le squelette du menu
+##
+class FenetreMenu < View
+    # VI
     @boxTop
     @boxBottom
-
-    #===Methode miseEnplace
-    #
-    # Permet de mettre en place la fenetre(taille, informations, conteneurs)
-    #
-    # * *Args*    :
-    #   - /
-    # * *Returns* :
-    #   - /
-    #
+    
+    ##
+    ## Permet de créer et d'ajouter les box au conteneur principal
+    ##
+    ##
     def miseEnPlace()
         creerBoxTop()
         creerBoxBottom()
@@ -28,7 +25,9 @@ class FenetreMenu < View
     end
 
     ##
-    #Creer la box vertical contenant les boutons du menu et le titre
+    ## Créer la box verticale contenant les boutons du menu et le titre
+    ##
+    ##
     def creerBoxTop()
         ## Définis les classes des labels
         #titre
@@ -81,7 +80,7 @@ class FenetreMenu < View
             Core::changeTo("Regles", "pseudo": @pseudo)
         }
 
-        #add des boutons
+        #add des boutons à la box
         @boxTop=Gtk::Box.new(:vertical,0)
         @boxTop.add(event_box)
         @boxTop.add(titre)
@@ -98,7 +97,9 @@ class FenetreMenu < View
     end
 
     ##
-    #Creer la box horizontal contenant les boutons a propos et quitter
+    ## Créer la box horizontale contenant les boutons a propos et quitter
+    ##
+    ##
     def creerBoxBottom()
         #Creation des Boutons
         boutonAPropos=Gtk::Button.new(:label => " About ")
@@ -113,14 +114,17 @@ class FenetreMenu < View
             Fenetre::detruire()
         }
 
-        #add des boutons
+        #add des boutons à la box
         @boxBottom=Gtk::Box.new(:horizontal, 0)
         @boxBottom.halign = :center
         @boxBottom.add(boutonAPropos)
         @boxBottom.add(boutonQuitter)
     end
-
-    #popup explication du projet et des programmeurs
+    
+    ##
+    ## Créer la popup A propos pour l'explication du projet et des programmeurs
+    ##
+    ##
     def aPropos()
         fenetre = Gtk::AboutDialog.new()
         fenetre.set_program_name("Projet sudoku")
@@ -128,7 +132,6 @@ class FenetreMenu < View
         fenetre.set_copyright("(c) DogeTeam - Groupe B")
         fenetre.set_authors(["JEAN Marvin => Chef de projet", "COUSIN Brandon => Architecte", "PAVARD Valentin => Interface GUI", "DURAN Alizée => Documentaliste", "GUENVER Yann => Développeur", "TABOT Alexandre => Développeur", "BUSSEREAU Keryann => Développeur", "BODINEAU Bastien => Développeur"])
         fenetre.set_comments("Dans le cadre du module 176EN001 intitulé Génie Logiciel 2 :\n Application à la conception à l'université du Maine, nous devons réaliser une interface à aides visuelles à la réalisation d’un Sudoku. Cela permet d’aider un utilisateur à résoudre un Sudoku sans réfléchir. La grille du Sudoku sera générée sur ordinateur.")
-        
         fenetre.set_transient_for(Fenetre::fenetre)
         fenetre.set_window_position(Gtk::WindowPosition::CENTER_ALWAYS)
         fenetre.set_title("Sudoku - A propos")
@@ -154,13 +157,10 @@ class FenetreMenu < View
     end
 
     ##
-	## @brief     Lance la construction du modèle
-	## 			  de la vue.
-	## 			  Méthode à définir dans tout les cas !
-	## 			  Autrement pas de rendu de la page.
-	##
-	## @return     itself
-	##
+    ## Lance la construction du modèle de la vue. Méthode à définir dans tout les cas ! Autrement pas de rendu de la page.
+    ##
+    ## @return self
+    ##
 	def run
 		self.miseEnPlace()
         Fenetre::css(:chemin => "/assets/css/FenetreMenu.css")
