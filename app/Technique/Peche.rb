@@ -31,7 +31,7 @@ class Peche < Technique{
 			}
 		}
 =end
-		return false
+		return nil
 	end
 }
 
