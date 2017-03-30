@@ -1,53 +1,58 @@
-#   Contient la classe abstraite Fenetre regroupant les informations de base de chaque fenetre
+# => Contient la classe abstraite Fenetre regroupant les informations de base de chaque fenêtre
 #
-#   Author::        Valentin, DanAurea
-#   Developers:     Valentin, DanAurea
-#   Version::     0.1
-#   Copyright::   ©
-#   License::     Distributes under the same terms as Ruby
+# => Author::       Valentin, DanAurea
+# => Version::      0.1
+# => Copyright::    ©
+# => License::      Distributes under the same terms as Ruby
 
 require "optparse"
 require "fileutils"
 
+##
+## classe abstraite Fenetre regroupant les informations de base et méthodes de chaque fenêtre
+##
 module Fenetre
-
+    ## VI
     @fenetre 
     @box
     @fenetrePrecedente
 
-    ## Set a basic window
+    ## Création fenêtre de base
 	@fenetre = Gtk::Window.new()
-
     @fenetre.set_name("mainWindow")
     @fenetreStyle = @fenetre.style_context
-
-    # appliquerStyle(@fenetre, @fournisseur)
-
 	@fenetre.signal_connect('destroy') {
 			detruire()
 	}
 
-    # Définis un accesseur pour le contexte de la fenêtre Gtk
+    ##
+    ## Définis un accesseur pour le contexte de la fenêtre Gtk
+    ##
+    ## @return  fenetre
+    ##
     def Fenetre.fenetre()
         return @fenetre
     end
     
-	# Définis un accesseur pour le contexte de style de la fenêtre Gtk
+    ##
+    ## Définis un accesseur pour le contexte de style de la fenêtre Gtk
+    ##
+    ## @return fenetreStyle
+    ##
     def Fenetre.fenetreStyle()
         return @fenetreStyle
     end
     
-
     ##
-    ## @brief      Applique une feuille css sur un widget
+    ## Applique une feuille css sur un widget
     ## 
-    ## @param      args  Liste des argumentss
-    ##             :widget Widget sur lequel appliquer
+    ## @param   args  Liste des argumentss
+    ## @param   :widget Widget sur lequel appliquer
     ##             :chemin  Chemin du fichier css
     ##             :fournisseur Gtk provider pour le css
     ##             :priorite Priorité du style par rapport au système etc...
     ## 
-    ## @return     Style appliqués
+    ## @return Style appliqués
     ##
     def Fenetre.css(**args)
 
