@@ -9,11 +9,10 @@
 
 class FenetreScores < View
 
-	def initialize()
-		
-	end
+	@boxTop
+    @boxBottom
 
-	#===Methode miseEnplace
+    #===Methode miseEnplace
     #
     # Permet de mettre en place la fenetre(conteneurs)
     #
@@ -22,7 +21,16 @@ class FenetreScores < View
     # * *Returns* :
     #   - /
     #
-    def miseEnPlace()
+    def miseEnPlace()        
+        creerBoxTop()
+        creerBoxBottom()
+        Fenetre::box.add(@boxTop)
+        Fenetre::box.add(@boxBottom)
+    end
+
+    ##
+    #Creer la box vertical contenant les boutons des niveaux et le titre
+    def creerBoxTop()
         tabScore=[["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"],["Monsieur X","??"]]
 
         ## Définis les classes des labels
@@ -68,6 +76,17 @@ class FenetreScores < View
             tableScore.attach(pts,2,3,id,id+1)
         }
 
+        #add des boutons
+        @boxTop=Gtk::Box.new(:vertical,0)
+        @boxTop.add(event_box)
+        @boxTop.add(titre)
+        @boxTop.add(tableScore)
+    end
+
+    ##
+    #Creer la box horizontal contenant les boutons retour et quitter
+    def creerBoxBottom()
+        #Creation des Boutons
         boutonRetour=Gtk::Button.new(:label => "Retour")
         boutonRetour.style_context.add_class("bouton_bottom")
         boutonRetour.signal_connect('clicked'){
@@ -81,18 +100,10 @@ class FenetreScores < View
         }
 
         #add des boutons
-        boxTop=Gtk::Box.new(:vertical,0)
-        boxTop.add(event_box)
-        boxTop.add(titre)
-        boxTop.add(tableScore)
-
-        boxBottom=Gtk::Box.new(:horizontal, 0)
-        boxBottom.halign = :center
-        boxBottom.add(boutonRetour)
-        boxBottom.add(boutonQuitter)
-        
-        Fenetre::box.add(boxTop)
-        Fenetre::box.add(boxBottom)
+        @boxBottom=Gtk::Box.new(:horizontal, 0)
+        @boxBottom.halign = :center
+        @boxBottom.add(boutonRetour)
+        @boxBottom.add(boutonQuitter)
     end
 
     ##

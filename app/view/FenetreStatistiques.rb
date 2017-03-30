@@ -9,9 +9,8 @@
  	
 class FenetreStatistiques < View
 
-	def initialize()
-		
-	end
+	@boxTop
+    @boxBottom
 
 	#===Methode miseEnplace
     #
@@ -22,7 +21,16 @@ class FenetreStatistiques < View
     # * *Returns* :
     #   - /
     #
-	def miseEnPlace()
+	def miseEnPlace()        
+        creerBoxTop()
+        creerBoxBottom()
+        Fenetre::box.add(@boxTop)
+        Fenetre::box.add(@boxBottom)
+    end
+
+	##
+    #Creer la box vertical contenant les boutons des niveaux et le titre
+    def creerBoxTop()
 		## Définis les classes des labels
 		#titre
 		titre = Fenetre::creerLabelType("<u>Statistiques</u>")
@@ -89,18 +97,6 @@ class FenetreStatistiques < View
         event_box.signal_connect('button_press_event'){
             Core::changeTo("Reglages", "pseudo": @pseudo)
         }
-
-        boutonRetour=Gtk::Button.new(:label => "Retour")
-        boutonRetour.style_context.add_class("bouton_bottom")
-        boutonRetour.signal_connect('clicked'){
-        	Core::back()
-        }
-
-        boutonQuitter=Gtk::Button.new(:label => "Quitter")
-        boutonQuitter.style_context.add_class("bouton_bottom")
-        boutonQuitter.signal_connect('clicked'){
-            Fenetre::detruire()
-        }
     	   
     	#tableau statistique
     	table=Gtk::Table.new(4,4,false)
@@ -125,19 +121,34 @@ class FenetreStatistiques < View
 		table.attach(labelScore3_2,3,4,3,4)
 
         #add des boutons
-        boxTop=Gtk::Box.new(:vertical,0)
-        boxTop.add(event_box)
-        boxTop.add(titre)
-        boxTop.add(labelNiveau)
-        boxTop.add(table)
+        @boxTop=Gtk::Box.new(:vertical,0)
+        @boxTop.add(event_box)
+        @boxTop.add(titre)
+        @boxTop.add(labelNiveau)
+        @boxTop.add(table)
+    end
 
-        boxBottom=Gtk::Box.new(:horizontal, 0)
-        boxBottom.halign = :center
-        boxBottom.add(boutonRetour)
-        boxBottom.add(boutonQuitter)
-        
-        Fenetre::box.add(boxTop)
-        Fenetre::box.add(boxBottom)
+    ##
+    #Creer la box horizontal contenant les boutons retour et quitter
+    def creerBoxBottom()
+        #Creation des Boutons
+        boutonRetour=Gtk::Button.new(:label => "Retour")
+        boutonRetour.style_context.add_class("bouton_bottom")
+        boutonRetour.signal_connect('clicked'){
+            Core::back()
+        }
+
+        boutonQuitter=Gtk::Button.new(:label => "Quitter")
+        boutonQuitter.style_context.add_class("bouton_bottom")
+        boutonQuitter.signal_connect('clicked'){
+            Fenetre::detruire()
+        }
+
+        #add des boutons
+        @boxBottom=Gtk::Box.new(:horizontal, 0)
+        @boxBottom.halign = :center
+        @boxBottom.add(boutonRetour)
+        @boxBottom.add(boutonQuitter)
     end
 
     ##

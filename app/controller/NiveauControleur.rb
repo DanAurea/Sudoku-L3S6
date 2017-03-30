@@ -17,6 +17,7 @@ class NiveauControleur < Controller
 		@width = 600
 		@height = 550
 		@resizable = false
+		@position= "CENTER_ALWAYS"
 	end
 
 	def run()

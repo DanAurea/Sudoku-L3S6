@@ -11,6 +11,7 @@ class PseudoControleur < Controller
 		@width = 600
 		@height = 550
 		@resizable = false
+		@position= "CENTER_ALWAYS"
 	end
 
 	def actionValider(message, entreePseudo)
