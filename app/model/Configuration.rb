@@ -7,7 +7,7 @@
 # 	License::   	Distributes under the same terms as Ruby
 # 	
  	
-# 	Declaration de la table contenant les paramètres
+# Declaration de la table contenant les paramètres
 #
 class Configuration < Model
 
