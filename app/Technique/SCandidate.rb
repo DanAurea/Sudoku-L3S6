@@ -45,7 +45,7 @@ class SCandidate < Technique{
 			}
 		}
 
-		return false
+		return nil
 	end
 }
 

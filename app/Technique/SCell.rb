@@ -34,7 +34,7 @@ class SCell < Technique{
 				end
 			}
 		}
-		return false
+		return nil
 	end
 }
 

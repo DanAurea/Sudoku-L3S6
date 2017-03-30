@@ -57,6 +57,6 @@ class DSubset < Technique{
 			}			
 		}
 		
-		return false
+		return nil
 	end
 }

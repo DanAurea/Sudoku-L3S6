@@ -65,15 +65,11 @@ class Technique{
 	##
 	def nombreDejaPresent(grille, numero)
 		listPresent = Array.new(9) {nil}
-		[1,4,7].each{ |x|
-			[1,4,7].each{ |y|
-				-1.upto(1){ |xbis|
-					-1.upto(1){ |ybis|
-						if numero.to_s == grille[x+xbis][y+ybis] then
-							listPresent[numero-1]=grille[x+xbis][y+ybis]
-						end
-					}
-				}
+		[0,1,2,3,4,5,6,7,8].sort_by{rand}.each{ |x|
+			[0,1,2,3,4,5,6,7,8].sort_by{rand}.each{ |y|
+				if numero.to_s == grille[x][y] then
+					listPresent[numero-1]=grille[x][y]
+				end
 			}
 		}
 		return listPresent
