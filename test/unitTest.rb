@@ -9,6 +9,11 @@
  	
 # 	Class description
 #
+
+require_relative 'grille/grilleCorrecte'
+require 'rspec'
+
+
 class UnitTest
  
 
@@ -16,10 +21,15 @@ class UnitTest
 		
 	end
 
-	def UnitTest.maMethode()
-		print "Sublime Text is sweet"
+	def UnitTest.testerGrilleCorrecte()
+
+		RSpec.describe Generateur, "#grille" do
+			it "Generation d'une grille aleatoire" do
+				expect(grilleCorrecte()).to eq true
+			end
+		end
 	end
 
 end
 
-UnitTest.maMethode()
+puts UnitTest.testerGrilleCorrecte()
