@@ -43,7 +43,9 @@ class PseudoControleur < Controller
   	def actionBoutonValider(entreePseudo)
 
   		if(entreePseudo.text == "")
-  			messageErreur=Fenetre::creerPopupErreur("Vous devez entrer un pseudo valide pour continuer!")
+  			messageErreur = Fenetre::creerPopup("Vous devez entrer un pseudo valide pour continuer!", "CLOSE")
+  			messageErreur.run()
+  			messageErreur.destroy()
   		elsif self.pseudoExiste(entreePseudo.text)
   			actionValider("Ce pseudo existe déjà, êtes vous '#{entreePseudo.text}'?", entreePseudo)
   		else
