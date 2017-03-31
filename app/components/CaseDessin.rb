@@ -32,7 +32,7 @@ class CaseDessin < Gtk::DrawingArea
         end
 
         ## Crée la zone de dessin au signal draw
-        signal_connect "draw" do  |widget, cr|
+        signal_connect "draw" do  |_, cr|
             dessiner cr
         end
 
@@ -48,9 +48,9 @@ class CaseDessin < Gtk::DrawingArea
             end
 
             ## Lie un callback sur le survol de la souris
-            signal_connect "enter_notify_event" do |widget, evenement|
-                # puts "test"
-            end
+            # signal_connect "enter_notify_event" do |widget, evenement|
+            #     # puts "test"
+            # end
         end
 
     end
@@ -78,11 +78,10 @@ class CaseDessin < Gtk::DrawingArea
     ## @brief      Affiche les chiffres au dessus de la case
     ##              pour changer la valeur de la case.
     ##
-    ## @param      parent  The parent
     ##
     ## @return     
     ##
-    def afficherChiffres(parent)
+    def afficherChiffres()
         popover = Gtk::Popover.new(self)
 
         popover.position = :bottom
@@ -106,7 +105,7 @@ class CaseDessin < Gtk::DrawingArea
 
         ## Cache le popover quand un clic est détecté 
         ## A corriger: ne cacher que si clic en dehors de la zone
-        popover.signal_connect "button_press_event" do |widget, evenement|
+        popover.signal_connect "button_press_event" do
             popover.hide()
             @focus = false
         end
@@ -127,7 +126,7 @@ class CaseDessin < Gtk::DrawingArea
         parLigne = 2
 
         ## Place les chiffres dans le layout grille
-        chiffres.each do |index, bouton|
+        chiffres.each do |_, bouton|
             grillePopover.attach bouton, col, row , 1, 1
 
             col += 1

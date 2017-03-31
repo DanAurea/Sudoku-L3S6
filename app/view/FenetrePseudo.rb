@@ -44,7 +44,7 @@ class FenetrePseudo < View
 		@entryPseudo.style_context.add_class("field_pseudo")
 
 		@entryPseudo.signal_connect("activate"){
-			@controller.actionBoutonValider(@entryPseudo)
+			actionBoutonValider(@entryPseudo)
 		}
 
 		#add des boutons à la box
@@ -61,7 +61,7 @@ class FenetrePseudo < View
         boutonValider=Gtk::Button.new(:label => "Valider")
 		boutonValider.style_context.add_class("bouton_bottom")
 		boutonValider.signal_connect('button_press_event'){
-		      @controller.actionBoutonValider(@entryPseudo)
+		      actionBoutonValider(@entryPseudo)
 		}
 
         boutonQuitter=Gtk::Button.new(:label => "Quitter")
