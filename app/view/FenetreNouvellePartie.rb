@@ -17,7 +17,20 @@ class FenetreNouvellePartie < View
     @boutonJeuLibre
     # VI label
     @titreLabel
-    @pseudoLabel
+
+    ##
+    ## Initialize
+    ##
+    def initialize()
+        # VI box
+        @boxTop = Gtk::Box.new(:vertical,0)
+        @boxBottom = Fenetre::creerBoxBottom()
+        # VI bouton
+        @boutonApprentissage = Gtk::Button.new(:label => "Apprentissage avec aides")
+        @boutonJeuLibre = Gtk::Button.new(:label => "Jeu libre")
+        # VI label
+        @titreLabel = Fenetre::creerLabelType("<u>Nouvelle partie</u>")
+    end
 
     ##
     ## Permet de créer et d'ajouter les box au conteneur principal
@@ -25,7 +38,6 @@ class FenetreNouvellePartie < View
     ##
     def miseEnPlace()        
         creerBoxTop()
-        @boxBottom=Fenetre::creerBoxBottom()
         ajoutCss()
         Fenetre::box.add(@boxTop)
         Fenetre::box.add(@boxBottom)
@@ -36,30 +48,16 @@ class FenetreNouvellePartie < View
     ##
     ##
     def creerBoxTop()
-		#labels
-		@titreLabel = Fenetre::creerLabelType("<u>Nouvelle partie</u>")
-        @pseudoLabel = Fenetre::creerLabelType("<u>Pseudo:</u> #{@pseudo.capitalize}")
-        @pseudoLabel.halign = :end
-
-		#Creation des Boutons
-        event_box=Gtk::EventBox.new.add(@pseudoLabel)
-        event_box.signal_connect('button_press_event'){
-            Core::changeTo("Reglages", "pseudo": @pseudo)
-        }
-
-        @boutonApprentissage=Gtk::Button.new(:label => "Apprentissage avec aides")
+		#Action des boutons
         @boutonApprentissage.signal_connect('clicked'){
             Core::changeTo("Apprentissage", "pseudo": @pseudo)
         }
 
-        @boutonJeuLibre=Gtk::Button.new(:label => "Jeu libre")
         @boutonJeuLibre.signal_connect('clicked'){
             Core::changeTo("Niveau", "pseudo": @pseudo)
         }
 
         #add des boutons à la box
-        @boxTop=Gtk::Box.new(:vertical,0)
-        @boxTop.add(event_box)
         @boxTop.add(@titreLabel)
         @boxTop.add(@boutonApprentissage)
         @boxTop.add(@boutonJeuLibre)
@@ -71,7 +69,6 @@ class FenetreNouvellePartie < View
     def ajoutCss()
         #css label
         @titreLabel.style_context.add_class("titre_menu")
-        @pseudoLabel.style_context.add_class("pseudo_menu")
         #css bouton
         @boutonApprentissage.style_context.add_class("bouton_nouvelle_partie_f")
         @boutonJeuLibre.style_context.add_class("bouton_nouvelle_partie")
@@ -83,7 +80,7 @@ class FenetreNouvellePartie < View
     ## @return self
     ##
 	def run()
-		self.miseEnPlace
+		self.miseEnPlace()
         Fenetre::css(:chemin => "/assets/css/FenetreNouvellePartie.css")
 		return self
 	end

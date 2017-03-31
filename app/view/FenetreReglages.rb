@@ -12,6 +12,7 @@ class FenetreReglages < View
     # VI box
     @boxTop
     @boxBottom
+    @config
     # VI bouton
     @boutonCouleurCaseBase
     @boutonCouleurCaseSelectionne
@@ -20,7 +21,6 @@ class FenetreReglages < View
     @boutonPolice
     # VI label
     @titreLabel
-    @pseudoLabel
     @tmp
     @labelCouleurCaseBase
     @labelCouleurCaseSelectionne
@@ -28,19 +28,28 @@ class FenetreReglages < View
     @labelCouleurIndices
     @labelPolice
 
+    ##
+    ## Initialize
+    ##
     def initialize
+        # VI box
+        @boxTop = Gtk::Box.new(:vertical,0)
+        @boxBottom = Fenetre::creerBoxBottom()
+        @config = Hash.new()
+        # VI bouton
         @boutonCouleurCaseBase = Gtk::ColorButton.new()
-        @boutonCouleurCaseBase.style_context.add_class("bouton_reglage")
         @boutonCouleurCaseSelectionne = Gtk::ColorButton.new()
-        @boutonCouleurCaseSelectionne.style_context.add_class("bouton_reglage")
         @boutonCouleurTexte = Gtk::ColorButton.new()
-        @boutonCouleurTexte.style_context.add_class("bouton_reglage")
         @boutonCouleurIndices = Gtk::ColorButton.new()
-        @boutonCouleurIndices.style_context.add_class("bouton_reglage")
         @boutonPolice = Gtk::FontButton.new()
-        @boutonPolice.style_context.add_class("bouton_reglage")
-
-        @boxTop=Gtk::Box.new(:vertical,0)
+        # VI label
+        @titreLabel = Fenetre::creerLabelType("<u>Réglages</u>")
+        @tmp =  Fenetre::creerLabelType("  ")
+        @labelCouleurCaseBase = Fenetre::creerLabelType("Couleur des cases de base:")
+        @labelCouleurCaseSelectionne = Fenetre::creerLabelType("Couleur des cases surlignées:")
+        @labelCouleurTexte = Fenetre::creerLabelType("Couleur du texte:")
+        @labelCouleurIndices = Fenetre::creerLabelType("Couleur des indices:") 
+        @labelPolice = Fenetre::creerLabelType("Police de texte:")
     end
 
     ##
@@ -49,7 +58,6 @@ class FenetreReglages < View
     ##
     def miseEnPlace()        
         creerBoxTop()
-        @boxBottom=Fenetre::creerBoxBottom()
         ajoutCss()
         Fenetre::box.add(@boxTop)
         Fenetre::box.add(@boxBottom)
@@ -60,33 +68,13 @@ class FenetreReglages < View
     ##
     ##
     def creerBoxTop()
-        #labels
-        @titreLabel = Fenetre::creerLabelType("<u>Réglages</u>")
-        @pseudoLabel = Fenetre::creerLabelType("<u>Pseudo:</u> #{@pseudo.capitalize}")
-        @pseudoLabel.halign = :end
-        @tmp = Fenetre::creerLabelType("  ")
-        @labelCouleurCaseBase = Fenetre::creerLabelType("Couleur des cases de base:")
+        #Action des boutons
         @labelCouleurCaseBase.halign = :start
-        @labelCouleurCaseSelectionne = Fenetre::creerLabelType("Couleur des cases surlignées:")
         @labelCouleurCaseSelectionne.halign = :start
-        @labelCouleurTexte = Fenetre::creerLabelType("Couleur du texte:")
         @labelCouleurTexte.halign = :start
-        @labelCouleurIndices = Fenetre::creerLabelType("Couleur des indices:") 
         @labelCouleurIndices.halign = :start
-        @labelPolice = Fenetre::creerLabelType("Police de texte:")
         @labelPolice.halign = :start
 
-        #Creation des Boutons
-        event_box=Gtk::EventBox.new.add(@pseudoLabel)
-        event_box.signal_connect('button_press_event'){
-            Core::changeTo("Reglages", "pseudo": @pseudo)
-        }
-
-        @boutonCouleurCaseBase = Gtk::ColorButton.new()
-        @boutonCouleurCaseSelectionne = Gtk::ColorButton.new()
-        @boutonCouleurTexte = Gtk::ColorButton.new()
-        @boutonCouleurIndices = Gtk::ColorButton.new()
-        @boutonPolice = Gtk::FontButton.new()
         #tableau réglages
         table=Gtk::Table.new(2,5,false)
         table.attach(@labelCouleurCaseBase,0,1,0,1)
@@ -101,12 +89,11 @@ class FenetreReglages < View
         table.attach(@boutonPolice,1,2,4,5)
 
         #add des boutons
-        @boxTop.add(event_box)
         @boxTop.add(@titreLabel)
         @boxTop.add(@tmp)
         @boxTop.add(table)
 
-        self.paramCouleurPolice
+        paramCouleurPolice()
     end
 
     ##
@@ -115,7 +102,6 @@ class FenetreReglages < View
     def ajoutCss()
         #css label
         @titreLabel.style_context.add_class("titre_menu")
-        @pseudoLabel.style_context.add_class("pseudo_menu")
         @tmp.style_context.add_class("label_reglage_f")        
         @labelCouleurCaseBase.style_context.add_class("label_reglage")
         @labelCouleurCaseSelectionne.style_context.add_class("label_reglage")
@@ -136,28 +122,26 @@ class FenetreReglages < View
     ## @return self
     ##
     def paramCouleurPolice()
-        config = Hash.new()
-
         @boutonCouleurCaseBase.signal_connect "color-set" do
-            config["caseBase"]=@boutonCouleurCaseBase.color
+            @config["caseBase"]=@boutonCouleurCaseBase.color
         end
 
         @boutonCouleurCaseSelectionne.signal_connect "color-set" do
-            config["caseSelectionne"]=@boutonCouleurCaseSelectionne.color
+            @config["caseSelectionne"]=@boutonCouleurCaseSelectionne.color
         end
 
         @boutonCouleurTexte.signal_connect "color-set" do
-            config["couleurTexte"]=@boutonCouleurTexte.color
+            @config["couleurTexte"]=@boutonCouleurTexte.color
         end
 
         @boutonCouleurIndices.signal_connect "color-set" do
-            config["couleurIndices"]=@boutonCouleurIndices.color
+            @config["couleurIndices"]=@boutonCouleurIndices.color
         end
 
         @boutonPolice.signal_connect "font-set" do
             font = @boutonPolice.font_name
-            config["taillePolice"]=font.slice!(-2,2)
-            config["police"]=font
+            @config["taillePolice"]=font.slice!(-2,2)
+            @config["police"]=font
         end
 
         return self

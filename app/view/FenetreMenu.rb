@@ -23,7 +23,26 @@ class FenetreMenu < View
     @boutonQuitter
     # VI label
     @titreLabel
-    @pseudoLabel
+
+    ##
+    ## Initialize
+    ##
+    def initialize()
+        # VI box
+        @boxTop = Gtk::Box.new(:vertical,0)
+        @boxBottom = Gtk::Box.new(:horizontal, 0)
+        # VI bouton
+        @boutonCharger = Gtk::ToggleButton.new(:label => "Reprendre une partie")
+        @boutonNouveau = Gtk::Button.new(:label => "Nouvelle partie")
+        @boutonStat = Gtk::Button.new(:label => "Statistiques")
+        @boutonScore = Gtk::Button.new(:label => "Meilleurs scores")
+        @boutonReglage = Gtk::Button.new(:label => "Réglages")
+        @boutonRegle = Gtk::Button.new(:label => "Règles de base")
+        @boutonAPropos = Gtk::Button.new(:label => " About ")
+        @boutonQuitter = Gtk::Button.new(:label => "Quitter")
+        # VI label
+        @titreLabel = Fenetre::creerLabelType("<u>Menu Principal</u>")
+    end
 
     ##
     ## Permet de créer et d'ajouter les box au conteneur principal
@@ -42,50 +61,32 @@ class FenetreMenu < View
     ##
     ##
     def creerBoxTop()
-        #labels
-        @titreLabel = Fenetre::creerLabelType("<u>Menu Principal</u>")
-        @pseudoLabel = Fenetre::creerLabelType("<u>Pseudo:</u> #{@pseudo.capitalize}")
-        @pseudoLabel.halign = :end
-
-        #Creation des Boutons
-        event_box=Gtk::EventBox.new.add(@pseudoLabel)
-        event_box.signal_connect('button_press_event'){
-            Core::changeTo("Reglages", "pseudo": @pseudo)
-        }
-
-        @boutonCharger=Gtk::ToggleButton.new(:label => "Reprendre une partie")
+        #Action des boutons
         @boutonCharger.signal_connect('clicked'){
             Core::changeTo("Charger", "pseudo": @pseudo)
         }
 
-        @boutonNouveau=Gtk::Button.new(:label => "Nouvelle partie")
         @boutonNouveau.signal_connect('clicked'){
             Core::changeTo("NouvellePartie", "pseudo": @pseudo)
         }
 
-        @boutonStat=Gtk::Button.new(:label => "Statistiques")
         @boutonStat.signal_connect('clicked'){
             Core::changeTo("Statistiques", "pseudo": @pseudo)
         }
 
-        @boutonScore=Gtk::Button.new(:label => "Meilleurs scores")
         @boutonScore.signal_connect('clicked'){
             Core::changeTo("Scores", "pseudo": @pseudo)
         }
 
-        @boutonReglage=Gtk::Button.new(:label => "Réglages")
         @boutonReglage.signal_connect('clicked'){
             Core::changeTo("Reglages", "pseudo": @pseudo)
         }
 
-        @boutonRegle=Gtk::Button.new(:label => "Règles de base")
         @boutonRegle.signal_connect('clicked'){
             Core::changeTo("Regles", "pseudo": @pseudo)
         }
 
         #add des boutons à la box
-        @boxTop=Gtk::Box.new(:vertical,0)
-        @boxTop.add(event_box)
         @boxTop.add(@titreLabel)
         if(partieExiste(@pseudo))
             @boxTop.add(@boutonCharger)
@@ -104,19 +105,16 @@ class FenetreMenu < View
     ##
     ##
     def creerBoxBottom()
-        #Creation des Boutons
-        @boutonAPropos=Gtk::Button.new(:label => " About ")
+        #Action des boutons
         @boutonAPropos.signal_connect('clicked'){
             aPropos()
         }
 
-        @boutonQuitter=Gtk::Button.new(:label => "Quitter")
         @boutonQuitter.signal_connect('clicked'){
             Fenetre::detruire()
         }
 
         #add des boutons à la box
-        @boxBottom=Gtk::Box.new(:horizontal, 0)
         @boxBottom.halign = :center
         @boxBottom.add(@boutonAPropos)
         @boxBottom.add(@boutonQuitter)
@@ -128,7 +126,6 @@ class FenetreMenu < View
     def ajoutCss()
         #css label
         @titreLabel.style_context.add_class("titre_menu")
-        @pseudoLabel.style_context.add_class("pseudo_menu")
         #css bouton
         @boutonCharger.style_context.add_class("bouton_menu_f")
         @boutonNouveau.style_context.add_class("bouton_menu")

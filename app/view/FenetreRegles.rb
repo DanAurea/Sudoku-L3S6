@@ -14,18 +14,24 @@ class FenetreRegles < View
     @boxBottom
     # VI label
     @titreLabel
-    @pseudoLabel
     @regle0Label
     @regle1Label
     # VI règles
     @tabRegle
 
     ##
-    ## Permet de créer et d'ajouter les box au conteneur principal
+    ## Initialize
     ##
-    ##
-    def miseEnPlace()
-        @tabRegle=[
+    def initialize()
+        # VI box
+        @boxTop = Gtk::Box.new(:vertical,0)
+        @boxBottom = Fenetre::creerBoxBottom()
+        # VI label
+        @titreLabel = Fenetre::creerLabelType("<u>Règles</u>")
+        @regle0Label = Fenetre::creerLabelType("******************************************************************")
+        @regle1Label = Fenetre::creerLabelType("******************************************************************")
+        # VI règles
+        @tabRegle = [
             "     - Un sudoku classique contient 9 lignes et 9 colonnes,",
             "soit 81 cases au total.",
             "     - Le but du jeu est de remplir ces cases avec des chiffres",
@@ -40,8 +46,14 @@ class FenetreRegles < View
             "     - Suivez le tutoriel pour vous faciliter la tache et",
             "apprendre certaines techniques..."
         ]
+    end
+
+    ##
+    ## Permet de créer et d'ajouter les box au conteneur principal
+    ##
+    ##
+    def miseEnPlace()
         creerBoxTop()
-        @boxBottom=Fenetre::creerBoxBottom()
         ajoutCss()
         Fenetre::box.add(@boxTop)
         Fenetre::box.add(@boxBottom)
@@ -52,20 +64,9 @@ class FenetreRegles < View
     ##
     ##
     def creerBoxTop()
-		#labels
-		@titreLabel = Fenetre::creerLabelType("<u>Règles</u>")
-        @pseudoLabel = Fenetre::creerLabelType("<u>Pseudo:</u> #{@pseudo.capitalize}")
-        @pseudoLabel.halign = :end
-        @regle0Label= Fenetre::creerLabelType("******************************************************************")
+        #Action des boutons
         @regle0Label.halign = :start
-        @regle1Label = Fenetre::creerLabelType("******************************************************************")
         @regle1Label.halign = :start
-
-		#Creation des Boutons
-        event_box=Gtk::EventBox.new.add(@pseudoLabel)
-        event_box.signal_connect('button_press_event'){
-            Core::changeTo("Reglages", "pseudo": @pseudo)
-        }
 
         #regles enoncées
         table=Gtk::Table.new(1,15,false)
@@ -81,8 +82,6 @@ class FenetreRegles < View
         }
 
         #add des boutons à la box
-        @boxTop=Gtk::Box.new(:vertical,0)
-        @boxTop.add(event_box)
         @boxTop.add(@titreLabel)
         @boxTop.add(table)
     end
@@ -93,7 +92,6 @@ class FenetreRegles < View
     def ajoutCss()
         #css label
         @titreLabel.style_context.add_class("titre_menu")
-        @pseudoLabel.style_context.add_class("pseudo_menu")
         @regle0Label.style_context.add_class("label_regles_t")
         @regle1Label.style_context.add_class("label_regles_t")       
     end

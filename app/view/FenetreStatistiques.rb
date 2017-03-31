@@ -11,14 +11,9 @@
 class FenetreStatistiques < View
 	# VI box
     @boxTop
-    @boxBottom
-    # VI bouton
-  
+    @boxBottom  
     # VI label
     @titreLabel
-    @pseudoLabel
-    @titreLabel
-    @pseudoLabel
     @labelNiveau
 	@labelDifficulte
 	@labelRecord
@@ -31,19 +26,38 @@ class FenetreStatistiques < View
     @tabStat
     @niveau
 
+    ##
+    ## Initialize
+    ##
+    def initialize()
+		# VI box
+		@boxTop = Gtk::Box.new(:vertical,0)
+		@boxBottom = Fenetre::creerBoxBottom()
+		# VI label
+		@titreLabel = Fenetre::creerLabelType("<u>Statistiques</u>")
+    	@labelNiveau = Fenetre::creerLabelType("<u>Niveau:</u> #{@niveau}")
+    	@labelDifficulte = Fenetre::creerLabelType("<u>Difficulté</u>")
+    	@labelRecord = Fenetre::creerLabelType("<u>Record</u>")
+    	@labelMoyenne = Fenetre::creerLabelType("<u>Moyenne</u>")
+    	@labelNbPartie = Fenetre::creerLabelType("<u>Nb Parties</u>")
+    	@labelFacile = Fenetre::creerLabelType("Facile")
+    	@labelMoyen = Fenetre::creerLabelType("Moyen")
+    	@labelDifficile = Fenetre::creerLabelType("Difficile")
+		# VI stat
+		@tabStat = [
+		    [0,0,0],
+		    [0,0,0],
+		    [0,0,0]
+		]
+		@niveau = 99
+    end
+
 	##
     ## Permet de créer et d'ajouter les box au conteneur principal
     ##
     ##
 	def miseEnPlace()
-		@tabStat=[
-            [0,0,0],
-            [0,0,0],
-            [0,0,0]
-        ]
-        @niveau=99
         creerBoxTop()
-        @boxBottom=Fenetre::creerBoxBottom()
         ajoutCss()
         Fenetre::box.add(@boxTop)
         Fenetre::box.add(@boxBottom)
@@ -54,19 +68,7 @@ class FenetreStatistiques < View
     ##
     ##
     def creerBoxTop()
-		#labels
-		@titreLabel = Fenetre::creerLabelType("<u>Statistiques</u>")
-		@pseudoLabel = Fenetre::creerLabelType("<u>Pseudo:</u> #{@pseudo.capitalize}")
-		@pseudoLabel.halign = :end
-    	@labelNiveau = Fenetre::creerLabelType("<u>Niveau:</u> #{@niveau}")
-    	@labelDifficulte = Fenetre::creerLabelType("<u>Difficulté</u>")
-    	@labelRecord = Fenetre::creerLabelType("<u>Record</u>")
-    	@labelMoyenne = Fenetre::creerLabelType("<u>Moyenne</u>")
-    	@labelNbPartie = Fenetre::creerLabelType("<u>Nb Parties</u>")
-    	@labelFacile = Fenetre::creerLabelType("Facile")
-    	@labelMoyen = Fenetre::creerLabelType("Moyen")
-    	@labelDifficile = Fenetre::creerLabelType("Difficile")
-		
+		#Action des boutons
     	#tableau statistique
     	table=Gtk::Table.new(4,4,false)
     	table.attach(@labelDifficulte,0,1,0,1)
@@ -91,15 +93,7 @@ class FenetreStatistiques < View
 	        }
         }
 
-		#Creation des Boutons
-        event_box=Gtk::EventBox.new.add(@pseudoLabel)
-        event_box.signal_connect('button_press_event'){
-            Core::changeTo("Reglages", "pseudo": @pseudo)
-        }
-
         #add des boutons à la box
-        @boxTop=Gtk::Box.new(:vertical,0)
-        @boxTop.add(event_box)
         @boxTop.add(@titreLabel)
         @boxTop.add(@labelNiveau)
         @boxTop.add(table)
@@ -111,7 +105,6 @@ class FenetreStatistiques < View
     def ajoutCss()
         #css label
         @titreLabel.style_context.add_class("titre_menu")
-        @pseudoLabel.style_context.add_class("pseudo_menu")
         @labelNiveau.style_context.add_class("label_niveau")		
 		@labelDifficulte.style_context.add_class("label_titre_stat")		
 		@labelRecord.style_context.add_class("label_titre_stat")		
