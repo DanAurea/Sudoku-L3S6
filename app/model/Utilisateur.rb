@@ -9,8 +9,11 @@
  	
 # 	Class d'administration des utilisateurs
 #
-class Utilisateur < Model
 
+require Core::ROOT + "model/Configuration.rb"
+require Core::ROOT + "model/Score.rb"
+
+class Utilisateur < Model
 
 	def initialize()
 		
@@ -19,6 +22,10 @@ class Utilisateur < Model
 						utilisateur_id integer primary key autoincrement,
 						pseudo varchar(30) NOT NULL
 						);"
+
+		## Récupère les instances des tables configuration et score (Singleton pattern)
+		@configuration = Configuration.instance()
+		@score         = Score.instance()
 	end
 
 	##
@@ -30,6 +37,17 @@ class Utilisateur < Model
 	##
 	def creerUtilisateur(pseudo)
 		insert(:pseudo => pseudo)
+
+		utilisateur_id = @@db.last_insert_row_id
+		@configuration.creerConfiguration(utilisateur_id)
+
+		## Crée un score par défaut si mode débug
+		## Celà permet de pouvoir tester la création de score 
+		## au chargement des utilisateurs.
+		if Core::DEBUG
+			@score.creerScore(utilisateur_id, 1, 0)
+		end
+
 		return self
 	end
 
@@ -50,7 +68,7 @@ class Utilisateur < Model
 	##
 	## @param      pseudo  Le pseudo de l'utilisateur a supprimé
 	##
-	## @return     Retourne vrai si la suppression a ue lieu
+	## @return     Retourne vrai si la suppression a eu lieu
 	##
 	def supprimerUtilisateur(pseudo)
 		@@db.execute "DELETE FROM utilisateur WHERE pseudo = ?;", pseudo
@@ -66,7 +84,7 @@ class Utilisateur < Model
 	##
 	def rechercherUtilisateur(pseudo)
 		resultat = @@db.execute "SELECT pseudo FROM utilisateur WHERE pseudo = ?;", pseudo
-		return (resultat.length == 1) ? true : false;
+		return resultat.length == 1 ? true : false;
 	end
 
 

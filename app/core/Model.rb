@@ -104,8 +104,19 @@ class Model
 		end
 
 		colsName = colsName.join(",")
-		values = values.join(",")
 		bonds = bonds.join(",")
+
+		if Core::DEBUG
+			puts "Request: INSERT INTO " + self.class.to_s.downcase + " (#{colsName}) VALUES (#{bonds});"
+			
+			print "Values was: "
+			options.each do |index, value|
+				print "#{index} => #{value} | "
+			end
+
+			puts
+			puts
+		end
 
 		@@db.execute "INSERT INTO " + self.class.to_s.downcase + " (#{colsName}) 
 				VALUES (#{bonds});", values

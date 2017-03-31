@@ -12,4 +12,20 @@ class Score < Model
 						);"
 	end
 
+
+	##
+	## Crée un score dans la table score pour l'utilisateur
+	##
+	## @param      utilisateurId  L'identifiant utilisateur
+	##
+	## @return     Self
+	##
+	def creerScore(utilisateurId, niveau, score)
+
+
+		insert(:utilisateur => utilisateurId, :niveau => niveau, :score => score)
+
+		return self
+	end
+
 end

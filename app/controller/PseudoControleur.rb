@@ -52,7 +52,6 @@ class PseudoControleur < Controller
 			end
   		end
 		
-
   	end
 
 	def pseudoExiste(pseudo)
