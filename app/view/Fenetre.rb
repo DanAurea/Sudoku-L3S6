@@ -1,72 +1,71 @@
-#   Contient la classe abstraite Fenetre regroupant les informations de base de chaque fenetre
+# => Contient la classe abstraite Fenetre regroupant les informations de base de chaque fenêtre
 #
-#   Author::        Valentin, DanAurea
-#   Developers:     Valentin, DanAurea
-#   Version::     0.1
-#   Copyright::   ©
-#   License::     Distributes under the same terms as Ruby
+# => Author::       Valentin, DanAurea
+# => Version::      0.1
+# => Copyright::    © 2016
+# => License::      Distributes under the same terms as Ruby
 
 require "optparse"
 require "fileutils"
 
+##
+## classe abstraite Fenetre regroupant les informations de base et méthodes de chaque fenêtre
+##
 module Fenetre
-
+    ## VI
     @fenetre 
     @box
     @fenetrePrecedente
 
-    ## Set a basic window
-	@fenetre = Gtk::Window.new()
-
+    ## Création fenêtre de base
+    @fenetre = Gtk::Window.new()
     @fenetre.set_name("mainWindow")
     @fenetreStyle = @fenetre.style_context
+    @fenetre.signal_connect('destroy') {
+       detruire()
+   }
 
-    # appliquerStyle(@fenetre, @fournisseur)
-
-	@fenetre.signal_connect('destroy') {
-			detruire()
-	}
-
-    # Définis un accesseur pour le contexte de la fenêtre Gtk
+    ##
+    ## Définis un accesseur pour le contexte de la fenêtre Gtk
+    ##
+    ## @return  fenetre
+    ##
     def Fenetre.fenetre()
         return @fenetre
     end
     
-	# Définis un accesseur pour le contexte de style de la fenêtre Gtk
+    ##
+    ## Définis un accesseur pour le contexte de style de la fenêtre Gtk
+    ##
+    ## @return fenetreStyle
+    ##
     def Fenetre.fenetreStyle()
         return @fenetreStyle
     end
     
-
     ##
-    ## @brief      Applique une feuille css sur un widget
+    ## Applique une feuille css sur un widget
     ## 
-    ## @param      args  Liste des argumentss
-    ##             :widget Widget sur lequel appliquer
-    ##             :chemin  Chemin du fichier css
-    ##             :fournisseur Gtk provider pour le css
-    ##             :priorite Priorité du style par rapport au système etc...
+    ## @param   widget     Widget sur lequel appliquer
+    ## @param   chemin     Chemin du fichier css
+    ## @param   fournisseur Gtk provider pour le css
+    ## @param   priorite   Priorité du style par rapport au système
     ## 
-    ## @return     Style appliqués
+    ## @return  Style appliqué
     ##
     def Fenetre.css(**args)
-
-
         if(args.has_key?(:fournisseur))
             fournisseur = args[:fournisseur]
         else
-            
             if(args.has_key?(:chemin))
                 chemin = Core::ROOTPROJECT + args[:chemin]
             else
                 chemin = Core::ROOTPROJECT + "assets/css/style.css"
             end
-
             fournisseur = Gtk::CssProvider.new
             fournisseur.load_from_path(chemin)
         end
         
-
         if(args.has_key?(:widget))
             widget = args[:widget]
         else
@@ -83,13 +82,16 @@ module Fenetre
         widgetStyle.add_provider(fournisseur, priorite)
 
         return unless widget.respond_to?(:children)
-            widget.children.each do |child|
-                args[:widget] = child
-                self.css(args)
+        widget.children.each do |child|
+            args[:widget] = child
+            self.css(args)
         end
     end
 
-    ## Montre la fenetre précédente
+    ##
+    ## Montre la fenêtre précédente
+    ##
+    ##
     def Fenetre.fenetrePrecedente()
         viderFenetre()
 
@@ -100,44 +102,47 @@ module Fenetre
         @fenetre.show_all
     end
 
-    ## Définis la fenetre précédente
+    ##
+    ## Définis la fenêtre précédente
+    ##
+    ## @param   fenetre
+    ##
+    ##
     def Fenetre.fenetrePrecedente=(fenetre)
         @fenetrePrecedente = fenetre
     end
 
+    ##
     ## Accesseur sur le layout
-	def Fenetre.box()
-		return @box
-	end
+    ##
+    ##
+    def Fenetre.box()
+        return @box
+    end
 
-    #=== Vide la fenêtre pour préparer la mise à jour.
-    #
-    #
+    ##
+    ## Vide la fenêtre pour préparer la mise à jour
+    ##
+    ##
     def Fenetre.viderFenetre()
         @fenetre.children.each() do |child|
             @fenetre.remove(child)
         end
     end
 
-    #===Methode detruire
-    #
-    # Permet de quitter l'application et de detruire la fenetre
-    #
-    # * *Args*    :
-    #   - /
-    # * *Returns* :
-    #   - /
-    #
+    ##
+    ## Permet de quitter l'application et de detruire la fenetre
+    ##
+    ##
     def Fenetre.detruire()
         Gtk.main_quit()
     end
 
-
     ##
-    ## @brief      Applique un style css sur le widget
+    ## Applique un style css sur le widget
     ##
-    ## @param      widget    Widget sur lequel appliquer un style
-    ## @param      provider  
+    ## @param   widget Widget sur lequel appliquer un style
+    ## @param   provider  
     ##
     ##
     def Fenetre.appliquerStyle(widget, provider)
@@ -145,34 +150,27 @@ module Fenetre
         style_context.add_provider(provider, Gtk::StyleProvider::PRIORITY_USER)
         return unless widget.respond_to?(:children)
         widget.children.each do |child|
-          apply_style(child, provider)
+            apply_style(child, provider)
         end
     end
-
-	#===Methode miseEnplace
-    #
-    # Permet de mettre en place la fenetre(conteneurs)
-    #
-    # * *Args*    :
-    #   - /
-    # * *Returns* :
-    #   - /
-    #
+    
+    ##
+    ## Permet de mettre en place la fenêtre via un conteneur principal VBox
+    ##
+    ##
     def Fenetre.miseEnPlace()
-        #Conteneur box
+        #Conteneur VBox
         @box=Gtk::Box.new(:vertical, 0)
         @fenetre.add(@box)
     end
-
-    #===Methode creerLabelType
-    #
-    # Creer un label type
-    #
-    # * *Args*    :
-    #   - +unNomDeLabel+ -> Chaine de caracteres representant le texte du label
-    # * *Returns* :
-    #   - unLabel -> Label
-    #
+    
+    ##
+    ## Créer un label type à partir d'un string
+    ##
+    ## @param   unNomDeLabel string représentant le texte du label
+    ##
+    ## @return  Label
+    ##
     def Fenetre.creerLabelType(unNomDeLabel)
         #Creation du Label
         label=Gtk::Label.new()
@@ -180,16 +178,14 @@ module Fenetre
         label.set_justify(Gtk::Justification::CENTER)
         return label
     end
-
-    ##===Methode creerPopupErreur
-    #
-    # Creer une popup d'avertissement
-    #
-    # * *Args*    :
-    #   - +unTexte+ -> Chaine de caracteres informative
-    # * *Returns* :
-    #   - messageErreur -> MessageDialog
-    #
+    
+    ##
+    ## Créer une popup d'avertissement avec un simple texte
+    ##
+    ## @param   unTexte Chaine de caractères informative
+    ##
+    ## @return  MessageDialog
+    ##
     def Fenetre.creerPopupErreur(unTexte)
     	messageErreur = Gtk::MessageDialog.new(
     		:parent => @fenetre,
@@ -201,16 +197,14 @@ module Fenetre
     	messageErreur.destroy()
     	return messageErreur
     end
-
-    ##===Methode creerPopupQuestion
-    #
-    # Creer une popup question oui non
-    #
-    # * *Args*    :
-    #   - +unTexte+ -> Chaine de caracteres informative
-    # * *Returns* :
-    #   - messageErreur -> MessageDialog
-    #
+    
+    ##
+    ## Créer une popup question oui ou non avec un simple texte
+    ##
+    ## @param   unTexte Chaine de caractères informative
+    ##
+    ## @return  MessageDialog
+    ##
     def Fenetre.creerPopupQuestion(unTexte)
     	messageErreur = Gtk::MessageDialog.new(
     		:parent => @fenetre,
@@ -222,7 +216,10 @@ module Fenetre
     end
 
     ##
-    #Creer la box horizontal contenant les boutons retour et quitter
+    ## Créer la box horizontale contenant les boutons retour et quitter des fenêtres du menu
+    ##
+    ## @return Box
+    ##
     def Fenetre.creerBoxBottom()
         #Creation des Boutons
         boutonRetour=Gtk::Button.new(:label => "Retour")

@@ -1,26 +1,22 @@
-# 	Fichier contenant le choix de la difficulté pour le jeu libre
-# 	
-#   Author::        Valentin
-#   Developers:     Valentin
-# 	Version:: 		0.1
-# 	Copyright:: 	© 2016
-# 	License::   	Distributes under the same terms as Ruby
-# 	
- 	
-class FenetreNiveau < View
+# => Contient la classe FenetreNiveau pour la fenêtre de choix de la difficulté
+#
+# => Author::       Valentin, DanAurea
+# => Version::      0.1
+# => Copyright::    © 2016
+# => License::      Distributes under the same terms as Ruby
 
+##
+## classe FenetreNiveau
+##
+class FenetreNiveau < View
+    # VI
     @boxTop
     @boxBottom
 
-	#===Methode miseEnplace
-    #
-    # Permet de mettre en place la fenetre(conteneurs)
-    #
-    # * *Args*    :
-    #   - /
-    # * *Returns* :
-    #   - /
-    #
+	##
+    ## Permet de créer et d'ajouter les box au conteneur principal
+    ##
+    ##
 	def miseEnPlace()        
         creerBoxTop()
         @boxBottom=Fenetre::creerBoxBottom()
@@ -29,7 +25,9 @@ class FenetreNiveau < View
     end
 
     ##
-    #Creer la box vertical contenant les boutons des niveaux et le titre
+    ## Créer la box verticale contenant les boutons des choix de la difficulté et le titre
+    ##
+    ##
     def creerBoxTop()
         ## Définis les classes des labels
         #titre
@@ -64,7 +62,7 @@ class FenetreNiveau < View
             Core::changeTo("JeuLibre", "pseudo": @pseudo, :difficulte=>3)
         }
 
-        #add des boutons
+        #add des boutons à la box
         @boxTop=Gtk::Box.new(:vertical,0)
         @boxTop.add(event_box)
         @boxTop.add(titre)
@@ -74,17 +72,13 @@ class FenetreNiveau < View
     end
 
     ##
-	## @brief     Lance la construction du modèle
-	## 			  de la vue.
-	## 			  Méthode à définir dans tout les cas !
-	## 			  Autrement pas de rendu de la page.
-	##
-	## @return     itself
-	##
+    ## Lance la construction du modèle de la vue. Méthode à définir dans tout les cas ! Autrement pas de rendu de la page.
+    ##
+    ## @return self
+    ##
 	def run()
 		self.miseEnPlace
         Fenetre::css(:chemin => "/assets/css/FenetreNiveau.css")
 		return self
 	end
-
 end

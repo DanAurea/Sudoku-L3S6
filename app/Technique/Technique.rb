@@ -1,14 +1,14 @@
 
 
 ##
-## @brief      Classe pour technique, aidant l'utiliateur à la résolution d'un Sudoku.
+## Classe pour technique, aidant l'utiliateur à la résolution d'un Sudoku.
 ##
 class Technique{
 	
 	private_class_method new:
 
 	##
-	## @brief      Constructeur de la classe Technique
+	## Constructeur de la classe Technique
 	##
 	## @return     Une instance de la classe Technique
 	##
@@ -18,7 +18,7 @@ class Technique{
 
 
 	##
-	## @brief      Recherche une solution pour la technique utilisée
+	## Recherche une solution pour la technique utilisée
 	##
 	## @param      grille  La grille
 	##
@@ -29,7 +29,7 @@ class Technique{
 	end
 
 	##
-	## @brief      Calcul les candidats pour une grille donnée
+	## Calcul les candidats pour une grille donnée
 	##
 	## @param      grille  La grille
 	##
@@ -56,7 +56,7 @@ class Technique{
 	end
 	
 	##
-	## @brief      Recherche dans la grille les numeros déjà présents
+	## Recherche dans la grille les numeros déjà présents
 	##
 	## @param      grille  La grille
 	## @param      numero  Le numero
@@ -76,7 +76,7 @@ class Technique{
 	end
 
 	##
-	## @brief      Récupère un block de 9 d'une grille de Sudoku
+	## Récupère un block de 9 d'une grille de Sudoku
 	##
 	## @param      grille  La grille
 	## @param      num     Le numero du block
@@ -97,7 +97,7 @@ class Technique{
 	end
 
 	##
-	## @brief      Récupère la colonne x dans la grille
+	## Récupère la colonne x dans la grille
 	##
 	## @param      grille  La grille
 	## @param      x       La colonne
@@ -109,7 +109,7 @@ class Technique{
 	end
 
 	##
-	## @brief      Récupère la ligne y dans la grille
+	## Récupère la ligne y dans la grille
 	##
 	## @param      grille  La grille
 	## @param      y       La ligne
@@ -125,7 +125,7 @@ class Technique{
 	end
 
 	##
-	## @brief      Vérifie si une case est protégé pour un numéro donnée
+	## Vérifie si une case est protégé pour un numéro donnée
 	##
 	## @param      grille  La grille
 	## @param      num     Le numero
@@ -163,7 +163,7 @@ class Technique{
 	end
 
 	##
-	## @brief      Recherche le numero du block auquel appartient une case donnée
+	## Recherche le numero du block auquel appartient une case donnée
 	##
 	## @param      x     La colonne de la case
 	## @param      y     La ligne de la case
@@ -173,7 +173,6 @@ class Technique{
 	def aQuelBloc(x,y)
 		return ((x/3)+1)+(y/3*3)
 	end
-
 }
 
 

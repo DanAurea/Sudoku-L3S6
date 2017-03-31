@@ -1,13 +1,15 @@
-#   Fichier contenant la gestion des reglages(taille, couleur)
+# => Contient la classe FenetreReglages  contenant la gestion des reglages(taille, couleur)
 #
-#   Author::        Valentin, DanAurea
-#   Developers:     Valentin, DanAurea
-#   Version::       0.1
-#   Copyright::     © 2016
-#   License::       Distributes under the same terms as Ruby
-#
+# => Author::       Valentin, DanAurea
+# => Version::      0.1
+# => Copyright::    © 2016
+# => License::      Distributes under the same terms as Ruby
 
+##
+## classe FenetreReglages
+##
 class FenetreReglages < View
+    # VI
     @boutonCouleurCaseBase
     @boutonCouleurCaseSelectionne
     @boutonCouleurTexte
@@ -18,15 +20,10 @@ class FenetreReglages < View
     @boxTop
     @boxBottom
 
-    #===Methode miseEnplace
-    #
-    # Permet de mettre en place la fenetre(conteneurs)
-    #
-    # * *Args*    :
-    #   - /
-    # * *Returns* :
-    #   - /
-    #
+    ##
+    ## Permet de créer et d'ajouter les box au conteneur principal
+    ##
+    ##
     def miseEnPlace()        
         creerBoxTop()
         @boxBottom=Fenetre::creerBoxBottom()
@@ -35,7 +32,9 @@ class FenetreReglages < View
     end
 
     ##
-    #Creer la box vertical contenant les boutons des niveaux et le titre
+    ## Créer la box verticale contenant le listing des réglages et le titre
+    ##
+    ##
     def creerBoxTop()
         ## Définis les classes des labels
         #titre
@@ -69,7 +68,6 @@ class FenetreReglages < View
         labelPolice.style_context.add_class("label_reglage")
         labelPolice.halign = :start
 
-
         #Creation des Boutons
         event_box=Gtk::EventBox.new.add(pseudo)
         event_box.signal_connect('button_press_event'){
@@ -87,8 +85,7 @@ class FenetreReglages < View
         @boutonPolice = Gtk::FontButton.new()
         @boutonPolice.style_context.add_class("bouton_reglage")
 
-
-        #tableau reglages
+        #tableau réglages
         table=Gtk::Table.new(2,5,false)
         table.attach(labelCouleurCaseBase,0,1,0,1)
         table.attach(@boutonCouleurCaseBase,1,2,0,1)
@@ -115,7 +112,11 @@ class FenetreReglages < View
         self.paramCouleurPolice
     end
 
-
+    ##
+    ## Définis les paramètres d'apparence de l'utilisateur pour les réglages
+    ##
+    ## @return self
+    ##
     def paramCouleurPolice()
         @boutonCouleurCaseBase.signal_connect "color-set" do
             @config["caseBase"]=@boutonCouleurCaseBase.color
@@ -142,17 +143,13 @@ class FenetreReglages < View
     end
 
     ##
-    ## @brief     Lance la construction du modèle
-    ##            de la vue.
-    ##            Méthode à définir dans tout les cas !
-    ##            Autrement pas de rendu de la page.
+    ## Lance la construction du modèle de la vue. Méthode à définir dans tout les cas ! Autrement pas de rendu de la page.
     ##
-    ## @return     itself
+    ## @return self
     ##
     def run()
         self.miseEnPlace()
         Fenetre::css(:chemin => "/assets/css/FenetreReglages.css")
         return self
     end
-
 end

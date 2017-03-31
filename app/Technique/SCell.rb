@@ -1,11 +1,11 @@
 
 ##
-## @brief      Classe pour single cell.
+## Classe pour single cell.
 ##
 class SCell < Technique{
 
 	##
-	## @brief      Constructeur de la classe SCell
+	## Constructeur de la classe SCell
 	##
 	## @return     Une instance de la classe SCell
 	##
@@ -14,7 +14,7 @@ class SCell < Technique{
 	end
 
 	##
-	## @brief      Recherche une solution pour la technique utilisée
+	## Recherche une solution pour la technique utilisée
 	##
 	## @param      grille  La grille
 	##

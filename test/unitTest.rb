@@ -8,7 +8,7 @@
 # 	
  	
 # 	Class description
-#
+# 	Classe de test unitaire des différents modules.
 
 require_relative 'grille/grilleCorrecte'
 require 'rspec'
@@ -24,8 +24,10 @@ class UnitTest
 	def UnitTest.testerGrilleCorrecte()
 
 		RSpec.describe Generateur, "#grille" do
-			it "Generation d'une grille aleatoire" do
-				expect(grilleCorrecte()).to eq true
+			context "test" do
+				it "Generation d'une grille aleatoire" do
+					expect(grilleCorrecte()).to eq false
+				end
 			end
 		end
 	end
