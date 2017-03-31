@@ -63,7 +63,7 @@ class CaseDessin < Gtk::DrawingArea
     def clicSouris widget, evenement
 
         if evenement.button == 1
-            self.afficherChiffres widget
+            self.afficherChiffres
         elsif evenement.button == 2
             puts "middle click pressed"
         elsif evenement.button == 3
