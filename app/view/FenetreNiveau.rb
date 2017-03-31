@@ -34,7 +34,7 @@ class FenetreNiveau < View
         @titreLabel = Fenetre::creerLabelType("<u>Choix difficulté</u>")
     end
 
-	##
+    ##
     ## Permet de créer et d'ajouter les box au conteneur principal
     ##
     ##
