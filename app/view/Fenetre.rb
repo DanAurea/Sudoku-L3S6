@@ -16,14 +16,20 @@ module Fenetre
     @fenetre 
     @box
     @fenetrePrecedente
+    @enteteFenetre
 
     ## Création fenêtre de base
-    @fenetre = Gtk::Window.new()
+    @fenetre = Gtk::Window.new(:toplevel)
     @fenetre.set_name("mainWindow")
     @fenetreStyle = @fenetre.style_context
     @fenetre.signal_connect('destroy') {
        detruire()
-   }
+    }
+
+    ## Création de la header bar
+    @enteteFenetre                   = Gtk::HeaderBar.new()
+    @enteteFenetre.show_close_button = true
+    @enteteFenetre.has_subtitle          = false
 
     ##
     ## Définis un accesseur pour le contexte de la fenêtre Gtk
@@ -32,6 +38,16 @@ module Fenetre
     ##
     def Fenetre.fenetre()
         return @fenetre
+    end
+
+
+    ##
+    ## Définis un accesseur pour le contexte de l'entête de la fenêtre Gtk
+    ##
+    ## @return     L'entête de la fenêtre
+    ##
+    def Fenetre.enteteFenetre()
+        return @enteteFenetre
     end
     
     ##
@@ -128,6 +144,7 @@ module Fenetre
         @fenetre.children.each() do |child|
             @fenetre.remove(child)
         end
+
     end
 
     ##

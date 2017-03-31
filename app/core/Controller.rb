@@ -129,7 +129,8 @@ class Controller
 	def set_properties(view)
 		## Set window properties
     	
-    	view.window.set_title(@title)
+    	view.headerBar.title = @title
+    	view.window.set_titlebar (view.headerBar)
     	view.window.set_size_request(@width, @height)
     	view.window.border_width = @borderWidth
     	view.window.set_resizable(@resizable)

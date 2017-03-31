@@ -5,13 +5,14 @@
 class View
 	include Fenetre
 
-	attr_accessor :window, :controller
+	attr_accessor :headerBar, :window, :controller
 	attr_writer :content
 
 	def initialize()
 		@content    = Hash.new()
 		@controller = nil
 		@window     = Fenetre::fenetre
+		@headerBar  = Fenetre::enteteFenetre
 	end
 
 	##
