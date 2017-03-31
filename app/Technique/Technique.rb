@@ -3,7 +3,7 @@
 ##
 ## Classe pour technique, aidant l'utiliateur à la résolution d'un Sudoku.
 ##
-class Technique{
+class Technique
 	
 	private_class_method new:
 
@@ -173,8 +173,4 @@ class Technique{
 	def aQuelBloc(x,y)
 		return ((x/3)+1)+(y/3*3)
 	end
-}
-
-
-
-
+end

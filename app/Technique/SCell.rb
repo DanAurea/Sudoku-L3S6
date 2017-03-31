@@ -2,7 +2,7 @@
 ##
 ## Classe pour single cell.
 ##
-class SCell < Technique{
+class SCell < Technique
 
 	##
 	## Constructeur de la classe SCell
@@ -36,5 +36,4 @@ class SCell < Technique{
 		}
 		return nil
 	end
-}
-
+end

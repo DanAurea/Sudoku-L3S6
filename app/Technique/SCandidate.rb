@@ -2,7 +2,7 @@
 ##
 ## Classe pour single candidate.
 ##
-class SCandidate < Technique{
+class SCandidate < Technique
 
 	##
 	## Constructeur de la classe SCandidate
@@ -47,5 +47,4 @@ class SCandidate < Technique{
 
 		return nil
 	end
-}
-
+end

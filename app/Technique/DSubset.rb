@@ -2,7 +2,7 @@
 ##
 ## Classe pour disjoint subset.
 ##
-class DSubset < Technique{
+class DSubset < Technique
 
 	##
 	## Constructeur de la classe DSubset
@@ -59,4 +59,4 @@ class DSubset < Technique{
 		
 		return nil
 	end
-}
+end
