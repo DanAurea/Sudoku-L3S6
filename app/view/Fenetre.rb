@@ -180,39 +180,21 @@ module Fenetre
     end
     
     ##
-    ## Créer une popup d'avertissement avec un simple texte
+    ## Crée un popup du type demandé
     ##
-    ## @param   unTexte Chaine de caractères informative
+    ## @param      unTexte  Le texte à afficher
+    ## @param      type     Le type de popup
     ##
-    ## @return  MessageDialog
+    ## @return    L'objet dialog gtk
     ##
-    def Fenetre.creerPopupErreur(unTexte)
-    	messageErreur = Gtk::MessageDialog.new(
-    		:parent => @fenetre,
-    		:flags => Gtk::DialogFlags::DESTROY_WITH_PARENT,
-    		:type => Gtk::MessageType::INFO,
-    		:buttons => Gtk::ButtonsType::CLOSE,
-    		:message => unTexte)
-    	messageErreur.run()
-    	messageErreur.destroy()
-    	return messageErreur
-    end
-    
-    ##
-    ## Créer une popup question oui ou non avec un simple texte
-    ##
-    ## @param   unTexte Chaine de caractères informative
-    ##
-    ## @return  MessageDialog
-    ##
-    def Fenetre.creerPopupQuestion(unTexte)
-    	messageErreur = Gtk::MessageDialog.new(
-    		:parent => @fenetre,
-    		:flags => Gtk::DialogFlags::DESTROY_WITH_PARENT,
-    		:type => Gtk::MessageType::QUESTION,
-    		:buttons => Gtk::ButtonsType::YES_NO,
-    		:message => unTexte)
-    	return messageErreur
+    def Fenetre.creerPopup(unTexte, type)
+        messageErreur = Gtk::MessageDialog.new(
+            :parent => @fenetre,
+            :flags => Gtk::DialogFlags::DESTROY_WITH_PARENT,
+            :type => Gtk::MessageType::INFO,
+            :buttons => Object.const_get("Gtk::ButtonsType::" + type),
+            :message => unTexte)
+        return messageErreur
     end
 
     ##

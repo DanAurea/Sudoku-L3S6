@@ -22,10 +22,27 @@ class Score < Model
 	##
 	def creerScore(utilisateurId, niveau, score)
 
-
 		insert(:utilisateur => utilisateurId, :niveau => niveau, :score => score)
 
 		return self
+	end
+
+
+	##
+	## Calcule le score du joueur
+	##
+	## @param      penalite     Nombre de pénalités
+	## @param      tempsChrono  L'état du chrono
+	##
+	## @return     Score de l'utilisateur
+	##
+	def calculScore(penalite, tempsChrono)
+		tempsResoluMoy = 3*60
+		difficulte = 2
+		evolutionScore = (tempsResoluMoy - tempsChrono) + ((tempsResoluMoy/10)*(20 - this.penalite))
+		scoreCourant = self.valeur + (difficulte*evolutionScore)
+		self.valeur = scoreCourant
+		return scoreCourant
 	end
 
 end
