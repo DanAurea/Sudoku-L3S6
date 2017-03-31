@@ -27,7 +27,7 @@ class DSubset < Technique
 			col = colonne(grilleIndice,x)
 			col.each{ |c,y|
 				i = 0
-				c.each_value(|v| if value then i+=1 end)
+				c.each_value(|v| if v then i+=1 end)
 
 				res = Array.new()
 
@@ -44,7 +44,7 @@ class DSubset < Technique
 			lig = ligne(grilleIndice,y)
 			lig.each{ |c,x|
 				i = 0
-				c.each_value(|v| if value then i+=1 end)
+				c.each_value(|v| if v then i+=1 end)
 
 				res = Array.new()
 
