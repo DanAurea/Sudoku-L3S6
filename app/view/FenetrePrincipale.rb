@@ -39,7 +39,7 @@ class FenetrePrincipale < View
     ## @return self
     ##
 	def run
-		self.miseEnPlace
+		self.miseEnPlace()
 		return self
 	end
 end

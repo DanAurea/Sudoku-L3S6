@@ -152,13 +152,12 @@ class Technique
 			end
 		}
 		block.each{ |col|
-		 	col.each{ |cBis|
+			col.each{ |cBis|
 				if num == cBis then
 					return true
 				end
 			}
 		}
-
 		return false
 	end
 

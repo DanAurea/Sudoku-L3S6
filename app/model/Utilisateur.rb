@@ -18,7 +18,7 @@ class Utilisateur < Model
 	def initialize()
 		
 		## Crée la table utilisateur
-		@@db.execute  "CREATE TABLE IF NOT EXISTS utilisateur (
+		@@db.execute "CREATE TABLE IF NOT EXISTS utilisateur (
 						utilisateur_id integer primary key autoincrement,
 						pseudo varchar(30) NOT NULL
 						);"

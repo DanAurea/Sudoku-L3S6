@@ -20,37 +20,46 @@ class FenetrePseudo < View
     @titreLabel
     @pseudoLabel
 
+    ##
+    ## Initialize
+    ##
+    def initialize()
+    	# VI box
+    	@boxTop = Gtk::Box.new(:vertical,0)
+    	@boxBottom = Gtk::Box.new(:horizontal, 0)
+    	# VI bouton
+    	@entryPseudo = Gtk::Entry.new()
+    	@boutonValider = Gtk::Button.new(:label => "Valider")
+    	@boutonQuitter = Gtk::Button.new(:label => "Quitter")
+    	# VI label
+    	@titreLabel = Fenetre::creerLabelType("<u>Choix du pseudo</u>")
+    	@pseudoLabel = Fenetre::creerLabelType(" Votre pseudo : ")
+    end
+
 	##
     ## Permet de créer et d'ajouter les box au conteneur principal
     ##
     ##
-	def miseEnPlace()        
-        creerBoxTop()
-        creerBoxBottom()
-        ajoutCss()
-        Fenetre::box.add(@boxTop)
-        Fenetre::box.add(@boxBottom)
-    end
+	def miseEnPlace()
+		creerBoxTop()
+		creerBoxBottom()
+		ajoutCss()
+		Fenetre::box.add(@boxTop)
+		Fenetre::box.add(@boxBottom)
+	end
 
 	##
     ## Créer la box verticale contenant la demande de pseudo et le titre
     ##
     ##
-    def creerBoxTop()
-		#labels
-		@titreLabel = Fenetre::creerLabelType("<u>Choix du pseudo</u>")
-		@pseudoLabel=Fenetre::creerLabelType(" Votre pseudo : ")
-		
-		#Creation des Boutons
-		@entryPseudo=Gtk::Entry.new()
+    def creerBoxTop()		
+		#Action des boutons
 		@entryPseudo.set_max_length(15)
-
 		@entryPseudo.signal_connect("activate"){
 			actionBoutonValider(@entryPseudo)
 		}
 
 		#add des boutons à la box
-		@boxTop=Gtk::Box.new(:vertical,0)
 		@boxTop.add(@titreLabel)
 		@boxTop.add(@pseudoLabel)
 		@boxTop.add(@entryPseudo)
@@ -59,19 +68,16 @@ class FenetrePseudo < View
     ##
     #Creer la box horizontal contenant les boutons valider et quitter
     def creerBoxBottom()
-        #Creation des Boutons
-        @boutonValider=Gtk::Button.new(:label => "Valider")
+       #Action des boutons
 		@boutonValider.signal_connect('button_press_event'){
 		      actionBoutonValider(@entryPseudo)
 		}
 
-        @boutonQuitter=Gtk::Button.new(:label => "Quitter")
         @boutonQuitter.signal_connect('clicked'){
             Fenetre::detruire()
         }
 
         #add des boutons à la box
-        @boxBottom=Gtk::Box.new(:horizontal, 0)
         @boxBottom.halign = :center
         @boxBottom.add(@boutonQuitter)
         @boxBottom.add(@boutonValider)
@@ -96,7 +102,7 @@ class FenetrePseudo < View
     ## @return self
     ##
 	def run
-		self.miseEnPlace
+		self.miseEnPlace()
 		Fenetre::css(:chemin => "/assets/css/FenetrePseudo.css")
 		return self
 	end

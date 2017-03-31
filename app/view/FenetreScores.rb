@@ -14,7 +14,6 @@ class FenetreScores < View
     @boxBottom  
     # VI label
     @titreLabel
-    @pseudoLabel
     @labelPosition
     @labelNom
     @labelPoint
@@ -22,11 +21,19 @@ class FenetreScores < View
     @tabScore
 
     ##
-    ## Permet de créer et d'ajouter les box au conteneur principal
+    ## Initialize
     ##
-    ##
-    def miseEnPlace()
-        @tabScore=[
+    def initialize()
+        # VI box
+        @boxTop = Gtk::Box.new(:vertical,0)
+        @boxBottom = Fenetre::creerBoxBottom()
+        # VI label
+        @titreLabel = Fenetre::creerLabelType("<u>Meilleurs Scores</u>")
+        @labelPosition = Fenetre::creerLabelType("<u>Position</u>")
+        @labelNom = Fenetre::creerLabelType("<u>Personne</u>")
+        @labelPoint = Fenetre::creerLabelType("<u>Points</u>")
+        # VI tableau de score
+        @tabScore = [
             ["Monsieur X","??"],
             ["Monsieur X","??"],
             ["Monsieur X","??"],
@@ -38,8 +45,14 @@ class FenetreScores < View
             ["Monsieur X","??"],
             ["Monsieur X","??"]
         ]
+    end
+
+    ##
+    ## Permet de créer et d'ajouter les box au conteneur principal
+    ##
+    ##
+    def miseEnPlace()
         creerBoxTop()
-        @boxBottom=Fenetre::creerBoxBottom()
         ajoutCss()
         Fenetre::box.add(@boxTop)
         Fenetre::box.add(@boxBottom)
@@ -50,20 +63,7 @@ class FenetreScores < View
     ##
     ##
     def creerBoxTop()
-		#labels
-        @titreLabel = Fenetre::creerLabelType("<u>Meilleurs Scores</u>")
-        @pseudoLabel = Fenetre::creerLabelType("<u>Pseudo:</u> #{@pseudo.capitalize}")
-        @pseudoLabel.halign = :end
-        @labelPosition = Fenetre::creerLabelType("<u>Position</u>")
-        @labelNom = Fenetre::creerLabelType("<u>Personne</u>")
-        @labelPoint = Fenetre::creerLabelType("<u>Points</u>")
-
-		#Creation des Boutons
-        event_box=Gtk::EventBox.new.add(@pseudoLabel)
-        event_box.signal_connect('button_press_event'){
-            Core::changeTo("Reglages", "pseudo": @pseudo)
-        }
-
+		#Action des boutons
         #Conteneur box
         tableScore=Gtk::Table.new(3,11,false)
         tableScore.attach(@labelPosition,0,1,0,1)
@@ -84,8 +84,6 @@ class FenetreScores < View
         }
 
         #add des boutons à la box
-        @boxTop=Gtk::Box.new(:vertical,0)
-        @boxTop.add(event_box)
         @boxTop.add(@titreLabel)
         @boxTop.add(tableScore)
     end
@@ -96,7 +94,6 @@ class FenetreScores < View
     def ajoutCss()
         #css label
         @titreLabel.style_context.add_class("titre_menu")
-        @pseudoLabel.style_context.add_class("pseudo_menu")
         @labelPosition.style_context.add_class("label_titre_score")
         @labelNom.style_context.add_class("label_titre_score")
         @labelPoint.style_context.add_class("label_titre_score")

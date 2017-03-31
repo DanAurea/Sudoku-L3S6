@@ -28,13 +28,7 @@ class Generateur
 		ligne = Array.new()
 
 
-		9.times do
-			val = 1+rand(9)
-			while(ligne.include? val)
-				val = 1+rand(9)
-			end
-			ligne.unshift(val)
-		end
+		ligne.genLine()
 
 		3.times do
 			3.times do
@@ -69,8 +63,8 @@ class Generateur
 	## @return
 	##
 	def generer(d)
-    	complexifier(d)
-    end
+		complexifier(d)
+	end
 
 	##
 	## @brief échange la place de 2 lignes.
@@ -88,6 +82,21 @@ class Generateur
 
 		@grid.map {|e| e[a], e[b] = e[b], e[a]}
 	end
+	
+	##
+	## @brief creer une list de 9 nombres entre 1 et 9 différents.
+	##
+	
+	def genLine()
+	
+		9.times do
+			val = 1+rand(9)
+			while(this.include? val)
+				val = 1+rand(9)
+			end
+			this.unshift(val)
+		end
+	end
 
 
 	##
@@ -100,13 +109,7 @@ class Generateur
 	def complexifier(d)
 
 		present = Array.new
-		9.times do
-			val = 1+rand(9)
-			while(present.include? val)
-				val = 1+rand(9)
-			end
-			present.unshift(val)
-		end
+		present.genLine()
 
 		1.upto(d) do
 			victime = present.pop()
