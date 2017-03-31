@@ -104,8 +104,8 @@ class Controller
 		## call.
 		self.class.instance_methods(false).each() do |method|
 			if !view.class.method_defined?(method)
-				view.define_singleton_method(method) do |*args|
-					self.controller.send(method, *args)
+				view.define_singleton_method(method) do |args|
+					self.controller.send(method, args)
 				end
 			end
 		end

@@ -1,6 +1,6 @@
 #Class TechniqueUsine
 
-class TechniqueUsine{
+class TechniqueUsine
 	
 	private_class_method new:
 
@@ -13,5 +13,4 @@ class TechniqueUsine{
 		return Object.const_get(tech).new()
 	end
 
-}
-
+end

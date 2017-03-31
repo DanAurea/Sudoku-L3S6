@@ -78,7 +78,7 @@ class Model
 	## @return     Itself
 	##
 	def self.inherited(subclass)
-		iparent = self.instance()
+		self.instance()
 		super
 
 		return self

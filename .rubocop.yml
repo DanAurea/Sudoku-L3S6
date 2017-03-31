@@ -1,4 +1,8 @@
 AllCops:
+  TargetRubyVersion: 2.3
+  DefaultFormatter: progress
+  DisplayStyleGuide: true
+  DisplayCopNames: false
   DisabledByDefault: true
 
 #################### Lint ################################
@@ -135,7 +139,7 @@ Lint/RequireParentheses:
   Description: >-
                  Use parentheses in the method call to avoid confusion
                  about precedence.
-  Enabled: true
+  Enabled: false
 
 Lint/RescueException:
   Description: 'Avoid rescuing the Exception class.'
@@ -201,7 +205,7 @@ Lint/UselessSetterCall:
 
 Lint/Void:
   Description: 'Possible use of operator/literal/variable in void context.'
-  Enabled: true
+  Enabled: false
 
 ###################### Metrics ####################################
 
@@ -239,7 +243,7 @@ Metrics/MethodLength:
   Description: 'Avoid methods longer than 30 lines of code.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#short-methods'
   Enabled: true
-  Max: 30
+  Max: 50 
 
 Metrics/ModuleLength:
   Description: 'Avoid modules longer than 250 lines of code.'
@@ -857,6 +861,7 @@ Style/PerlBackrefs:
   Description: 'Avoid Perl-style regex back references.'
   StyleGuide: 'https://github.com/bbatsov/ruby-style-guide#no-perl-regexp-last-matchers'
   Enabled: false
+  Autocorrect: false
 
 Style/PredicateName:
   Description: 'Check the names of predicate methods.'

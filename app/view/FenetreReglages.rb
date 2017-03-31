@@ -28,6 +28,21 @@ class FenetreReglages < View
     @labelCouleurIndices
     @labelPolice
 
+    def initialize
+        @boutonCouleurCaseBase = Gtk::ColorButton.new()
+        @boutonCouleurCaseBase.style_context.add_class("bouton_reglage")
+        @boutonCouleurCaseSelectionne = Gtk::ColorButton.new()
+        @boutonCouleurCaseSelectionne.style_context.add_class("bouton_reglage")
+        @boutonCouleurTexte = Gtk::ColorButton.new()
+        @boutonCouleurTexte.style_context.add_class("bouton_reglage")
+        @boutonCouleurIndices = Gtk::ColorButton.new()
+        @boutonCouleurIndices.style_context.add_class("bouton_reglage")
+        @boutonPolice = Gtk::FontButton.new()
+        @boutonPolice.style_context.add_class("bouton_reglage")
+
+        @boxTop=Gtk::Box.new(:vertical,0)
+    end
+
     ##
     ## Permet de créer et d'ajouter les box au conteneur principal
     ##
@@ -72,7 +87,6 @@ class FenetreReglages < View
         @boutonCouleurTexte = Gtk::ColorButton.new()
         @boutonCouleurIndices = Gtk::ColorButton.new()
         @boutonPolice = Gtk::FontButton.new()
-
         #tableau réglages
         table=Gtk::Table.new(2,5,false)
         table.attach(@labelCouleurCaseBase,0,1,0,1)
@@ -87,7 +101,6 @@ class FenetreReglages < View
         table.attach(@boutonPolice,1,2,4,5)
 
         #add des boutons
-        @boxTop=Gtk::Box.new(:vertical,0)
         @boxTop.add(event_box)
         @boxTop.add(@titreLabel)
         @boxTop.add(@tmp)
