@@ -40,13 +40,13 @@ class FenetrePseudo < View
     ## Permet de créer et d'ajouter les box au conteneur principal
     ##
     ##
-	def miseEnPlace()        
-        creerBoxTop()
-        creerBoxBottom()
-        ajoutCss()
-        Fenetre::box.add(@boxTop)
-        Fenetre::box.add(@boxBottom)
-    end
+	def miseEnPlace()
+		creerBoxTop()
+		creerBoxBottom()
+		ajoutCss()
+		Fenetre::box.add(@boxTop)
+		Fenetre::box.add(@boxBottom)
+	end
 
 	##
     ## Créer la box verticale contenant la demande de pseudo et le titre

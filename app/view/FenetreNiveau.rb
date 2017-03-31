@@ -88,8 +88,8 @@ class FenetreNiveau < View
     ## @return self
     ##
     def run()
-      self.miseEnPlace()
-      Fenetre::css(:chemin => "/assets/css/FenetreNiveau.css")
-      return self
-  end
+        self.miseEnPlace()
+        Fenetre::css(:chemin => "/assets/css/FenetreNiveau.css")
+        return self
+    end
 end

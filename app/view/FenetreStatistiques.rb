@@ -57,11 +57,11 @@ class FenetreStatistiques < View
     ##
     ##
 	def miseEnPlace()
-        creerBoxTop()
-        ajoutCss()
-        Fenetre::box.add(@boxTop)
-        Fenetre::box.add(@boxBottom)
-    end
+		creerBoxTop()
+		ajoutCss()
+		Fenetre::box.add(@boxTop)
+		Fenetre::box.add(@boxBottom)
+	end
 
 	##
     ## Créer la box verticale contenant le listing des stats et le titre
@@ -82,16 +82,16 @@ class FenetreStatistiques < View
     	@tabStat.each_with_index{|tab,index|
     		tab.each_with_index{|valeur,id|
     			infoStat=Fenetre::creerLabelType("#{valeur}")
-	            if index==0
-	            	infoStat.style_context.add_class("label_contenu_stat_f")
-	            elsif index==1
-	            	infoStat.style_context.add_class("label_contenu_stat_m")
-	            else
-	            	infoStat.style_context.add_class("label_contenu_stat_d")
-	            end
-	            table.attach(infoStat,id+1,id+2,index+1,index+2)
-	        }
-        }
+    			if index==0
+    				infoStat.style_context.add_class("label_contenu_stat_f")
+    			elsif index==1
+    				infoStat.style_context.add_class("label_contenu_stat_m")
+    			else
+    				infoStat.style_context.add_class("label_contenu_stat_d")
+    			end
+    			table.attach(infoStat,id+1,id+2,index+1,index+2)
+    		}
+    	}
 
         #add des boutons à la box
         @boxTop.add(@titreLabel)
