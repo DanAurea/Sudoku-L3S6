@@ -84,18 +84,6 @@ class Model
 		return self
 	end
 
-
-	##
-	## @brief      Add quote to string
-	##
-	## @param      string  The string
-	##
-	## @return     Return string with quotes
-	##
-	def quote(string)
-		return "\'" + string + "\'"
-	end
-
 	##
 	## @brief      Insert datas in database
 	##
@@ -105,25 +93,22 @@ class Model
 	##
 	def insert(**options)
 		colsName = Array.new 
-		values = Array.new
+		values   = Array.new
+		bonds    = Array.new
 
 		## Parse options to get columns and values
 		options.each do |index, value|
 			colsName << index
-
-			## Puts quotes around string value
-			if(value.class == String)
-				value = self.quote(value)
-			end
-
 			values << value
+			bonds << "?"
 		end
 
 		colsName = colsName.join(",")
 		values = values.join(",")
+		bonds = bonds.join(",")
 
 		@@db.execute "INSERT INTO " + self.class.to_s.downcase + " (#{colsName}) 
-				VALUES (#{values});"
+				VALUES (#{bonds});", values
 
 		return self
 	end

@@ -53,7 +53,7 @@ class Utilisateur < Model
 	## @return     Retourne vrai si la suppression a ue lieu
 	##
 	def supprimerUtilisateur(pseudo)
-		@@db.execute "DELETE FROM utilisateur WHERE pseudo = " + quote(pseudo) + ";"
+		@@db.execute "DELETE FROM utilisateur WHERE pseudo = ?;", pseudo
 	end
 	
 
@@ -65,7 +65,7 @@ class Utilisateur < Model
 	## @return     Retourne 0 si pas trouvé sinon 1
 	##
 	def rechercherUtilisateur(pseudo)
-		resultat = @@db.execute "SELECT pseudo FROM utilisateur WHERE pseudo = " + quote(pseudo) + ";"
+		resultat = @@db.execute "SELECT pseudo FROM utilisateur WHERE pseudo = ?;", pseudo
 		return (resultat.length == 1) ? true : false;
 	end
 
