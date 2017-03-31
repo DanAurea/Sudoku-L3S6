@@ -86,6 +86,17 @@ class Model
 
 
 	##
+	## @brief      Add quote to string
+	##
+	## @param      string  The string
+	##
+	## @return     Return string with quotes
+	##
+	def quote(string)
+		return "\'" + string + "\'"
+	end
+
+	##
 	## @brief      Insert datas in database
 	##
 	## @param      options  Hash with columns and values
@@ -102,7 +113,7 @@ class Model
 
 			## Puts quotes around string value
 			if(value.class == String)
-				value = "\'" + value + "\'"
+				value = self.quote(value)
 			end
 
 			values << value

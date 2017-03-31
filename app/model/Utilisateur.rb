@@ -66,10 +66,11 @@ class Utilisateur < Model
 	##
 	## @param      pseudo  Le pseudo de l'utilisateur à trouver
 	##
-	## @return     Retourne ce qui a été trouver
+	## @return     Retourne 0 si pas trouvé sinon 1
 	##
 	def rechercherUtilisateur(pseudo)
-		return self.find_by(pseudo: pseudo)
+		resultat = @@db.execute "SELECT pseudo FROM utilisateur WHERE pseudo = " + quote(pseudo) + ";"
+		return resultat.length
 	end
 
 

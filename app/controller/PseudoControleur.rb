@@ -44,7 +44,7 @@ class PseudoControleur < Controller
 
   		if(entreePseudo.text == "")
   			messageErreur=Fenetre::creerPopupErreur("Vous devez entrer un pseudo valide pour continuer!")
-  		elsif self.pseudoExiste(entreePseudo.text) == true
+  		elsif self.pseudoExiste(entreePseudo.text) == 1
   			actionValider("Ce pseudo existe déjà, êtes vous '#{entreePseudo.text}'?", entreePseudo)
   		else
 			if actionValider("Pseudo inconnu, creer un nouveau profil?", entreePseudo)
@@ -56,7 +56,7 @@ class PseudoControleur < Controller
   	end
 
 	def pseudoExiste(pseudo)
-		
+		return @Utilisateur.rechercherUtilisateur(pseudo)
 	end
 
 	def run()
