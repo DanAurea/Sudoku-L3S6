@@ -69,8 +69,8 @@ class Generateur
 	## @return
 	##
 	def generer(d)
-    	complexifier(d)
-    end
+		complexifier(d)
+	end
 
 	##
 	## @brief échange la place de 2 lignes.
