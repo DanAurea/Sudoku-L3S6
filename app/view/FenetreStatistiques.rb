@@ -9,17 +9,42 @@
 ## classe FenetreStatistiques
 ##
 class FenetreStatistiques < View
-	# VI
-	@boxTop
+	# VI box
+    @boxTop
     @boxBottom
+    # VI bouton
+  
+    # VI label
+    @titreLabel
+    @pseudoLabel
+    @titreLabel
+    @pseudoLabel
+    @labelNiveau
+	@labelDifficulte
+	@labelRecord
+	@labelMoyenne
+	@labelNbPartie
+	@labelFacile
+	@labelMoyen
+	@labelDifficile
+    # VI stat
+    @tabStat
+    @niveau
 
 	##
     ## Permet de créer et d'ajouter les box au conteneur principal
     ##
     ##
-	def miseEnPlace()        
+	def miseEnPlace()
+		@tabStat=[
+            [0,0,0],
+            [0,0,0],
+            [0,0,0]
+        ]
+        @niveau=99
         creerBoxTop()
         @boxBottom=Fenetre::creerBoxBottom()
+        ajoutCss()
         Fenetre::box.add(@boxTop)
         Fenetre::box.add(@boxBottom)
     end
@@ -29,100 +54,72 @@ class FenetreStatistiques < View
     ##
     ##
     def creerBoxTop()
-		## Définis les classes des labels
-		#titre
-		titre = Fenetre::creerLabelType("<u>Statistiques</u>")
-		titre.style_context.add_class("titre_menu")
-		#pseudo
-		pseudo = Fenetre::creerLabelType("<u>Pseudo:</u> #{@pseudo.capitalize}")
-		pseudo.style_context.add_class("pseudo_menu")
-		pseudo.halign = :end
-		#niveau
-    	labelNiveau = Fenetre::creerLabelType("<u>Niveau:</u> 0")
-		labelNiveau.style_context.add_class("label_niveau")
-		#difficulte
-		labelDifficulte = Fenetre::creerLabelType("<u>Difficulté</u>")
-		labelDifficulte.style_context.add_class("label_titre_stat")
-		#record
-		labelRecord = Fenetre::creerLabelType("<u>Record</u>")
-		labelRecord.style_context.add_class("label_titre_stat")
-		#moyenne
-		labelMoyenne = Fenetre::creerLabelType("<u>Moyenne</u>")
-		labelMoyenne.style_context.add_class("label_titre_stat")
-		#nb partie
-		labelNbPartie = Fenetre::creerLabelType("<u>Nb Parties</u>")
-		labelNbPartie.style_context.add_class("label_titre_stat")
-		#Facile
-		labelFacile = Fenetre::creerLabelType("Facile")
-		labelFacile.style_context.add_class("label_contenu_stat_f")
-		#score1
-		labelScore1 = Fenetre::creerLabelType("---")
-		labelScore1.style_context.add_class("label_contenu_stat_f")
-		#score1_1
-		labelScore1_1 = Fenetre::creerLabelType("---")
-		labelScore1_1.style_context.add_class("label_contenu_stat_f")
-		#score1_2
-		labelScore1_2 = Fenetre::creerLabelType("0")
-		labelScore1_2.style_context.add_class("label_contenu_stat_f")
-		#moyen
-		labelMoyen = Fenetre::creerLabelType("Moyen")
-		labelMoyen.style_context.add_class("label_contenu_stat_m")
-		#score2
-		labelScore2 = Fenetre::creerLabelType("---")
-		labelScore2.style_context.add_class("label_contenu_stat_m")
-		#score2_1
-		labelScore2_1 = Fenetre::creerLabelType("---")
-		labelScore2_1.style_context.add_class("label_contenu_stat_m")
-		#score2_2
-		labelScore2_2 = Fenetre::creerLabelType("0")
-		labelScore2_2.style_context.add_class("label_contenu_stat_m")
-		#difficile
-		labelDifficile = Fenetre::creerLabelType("Difficile")
-		labelDifficile.style_context.add_class("label_contenu_stat_d")
-		#score3
-		labelScore3 = Fenetre::creerLabelType("---")
-		labelScore3.style_context.add_class("label_contenu_stat_d")
-		#score-3_1
-		labelScore3_1 = Fenetre::creerLabelType("---")
-		labelScore3_1.style_context.add_class("label_contenu_stat_d")
-		#score3_2
-		labelScore3_2 = Fenetre::creerLabelType("0")
-		labelScore3_2.style_context.add_class("label_contenu_stat_d")
+		#labels
+		@titreLabel = Fenetre::creerLabelType("<u>Statistiques</u>")
+		@pseudoLabel = Fenetre::creerLabelType("<u>Pseudo:</u> #{@pseudo.capitalize}")
+		@pseudoLabel.halign = :end
+    	@labelNiveau = Fenetre::creerLabelType("<u>Niveau:</u> #{@niveau}")
+    	@labelDifficulte = Fenetre::creerLabelType("<u>Difficulté</u>")
+    	@labelRecord = Fenetre::creerLabelType("<u>Record</u>")
+    	@labelMoyenne = Fenetre::creerLabelType("<u>Moyenne</u>")
+    	@labelNbPartie = Fenetre::creerLabelType("<u>Nb Parties</u>")
+    	@labelFacile = Fenetre::creerLabelType("Facile")
+    	@labelMoyen = Fenetre::creerLabelType("Moyen")
+    	@labelDifficile = Fenetre::creerLabelType("Difficile")
+		
+    	#tableau statistique
+    	table=Gtk::Table.new(4,4,false)
+    	table.attach(@labelDifficulte,0,1,0,1)
+    	table.attach(@labelRecord,1,2,0,1)
+    	table.attach(@labelMoyenne,2,3,0,1)
+    	table.attach(@labelNbPartie,3,4,0,1)
+    	table.attach(@labelFacile,0,1,1,2)
+    	table.attach(@labelMoyen,0,1,2,3)
+    	table.attach(@labelDifficile,0,1,3,4)
+
+    	@tabStat.each_with_index{|tab,index|
+    		tab.each_with_index{|valeur,id|
+    			infoStat=Fenetre::creerLabelType("#{valeur}")
+	            if index==0
+	            	infoStat.style_context.add_class("label_contenu_stat_f")
+	            elsif index==1
+	            	infoStat.style_context.add_class("label_contenu_stat_m")
+	            else
+	            	infoStat.style_context.add_class("label_contenu_stat_d")
+	            end
+	            table.attach(infoStat,id+1,id+2,index+1,index+2)
+	        }
+        }
 
 		#Creation des Boutons
-        event_box=Gtk::EventBox.new.add(pseudo)
+        event_box=Gtk::EventBox.new.add(@pseudoLabel)
         event_box.signal_connect('button_press_event'){
             Core::changeTo("Reglages", "pseudo": @pseudo)
         }
-    	   
-    	#tableau statistique
-    	table=Gtk::Table.new(4,4,false)
-    	table.attach(labelDifficulte,0,1,0,1)
-    	table.attach(labelRecord,1,2,0,1)
-    	table.attach(labelMoyenne,2,3,0,1)
-    	table.attach(labelNbPartie,3,4,0,1)
-
-    	table.attach(labelFacile,0,1,1,2)
-    	table.attach(labelScore1,1,2,1,2)
-    	table.attach(labelScore1_1,2,3,1,2)
-    	table.attach(labelScore1_2,3,4,1,2)
-
-    	table.attach(labelMoyen,0,1,2,3)
-    	table.attach(labelScore2,1,2,2,3)
-    	table.attach(labelScore2_1,2,3,2,3)
-    	table.attach(labelScore2_2,3,4,2,3)
-
-    	table.attach(labelDifficile,0,1,3,4)
-    	table.attach(labelScore3,1,2,3,4)
-    	table.attach(labelScore3_1,2,3,3,4)
-		table.attach(labelScore3_2,3,4,3,4)
 
         #add des boutons à la box
         @boxTop=Gtk::Box.new(:vertical,0)
         @boxTop.add(event_box)
-        @boxTop.add(titre)
-        @boxTop.add(labelNiveau)
+        @boxTop.add(@titreLabel)
+        @boxTop.add(@labelNiveau)
         @boxTop.add(table)
+    end
+
+    ##
+    ## Ajoute les classes css au widget
+    ##
+    def ajoutCss()
+        #css label
+        @titreLabel.style_context.add_class("titre_menu")
+        @pseudoLabel.style_context.add_class("pseudo_menu")
+        @labelNiveau.style_context.add_class("label_niveau")		
+		@labelDifficulte.style_context.add_class("label_titre_stat")		
+		@labelRecord.style_context.add_class("label_titre_stat")		
+		@labelMoyenne.style_context.add_class("label_titre_stat")		
+		@labelNbPartie.style_context.add_class("label_titre_stat")
+		@labelFacile.style_context.add_class("label_contenu_stat_f")
+		@labelMoyen.style_context.add_class("label_contenu_stat_m")
+		@labelDifficile.style_context.add_class("label_contenu_stat_d")
     end
 
     ##

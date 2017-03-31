@@ -7,17 +7,11 @@
 *  License::     Distributes under the same terms as Ruby
 */
 
-.label_regles{
-    color: white;
-    font-size: 15px;
-    margin-top:5px;
-}
-
 .label_regles_s{
     color: white;
-    font-size: 15px;
-    margin-left: 50px;
-    margin-top:7px;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-left: 10px;
 }
 
 .label_regles_t{

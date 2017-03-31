@@ -9,9 +9,16 @@
 ## classe FenetreNiveau
 ##
 class FenetreNiveau < View
-    # VI
+    # VI box
     @boxTop
     @boxBottom
+    # VI bouton
+    @boutonFacile
+    @boutonMoyen
+    @boutonDifficile
+    # VI label
+    @titreLabel
+    @pseudoLabel
 
 	##
     ## Permet de créer et d'ajouter les box au conteneur principal
@@ -20,6 +27,7 @@ class FenetreNiveau < View
 	def miseEnPlace()        
         creerBoxTop()
         @boxBottom=Fenetre::creerBoxBottom()
+        ajoutCss()
         Fenetre::box.add(@boxTop)
         Fenetre::box.add(@boxBottom)
     end
@@ -29,46 +37,52 @@ class FenetreNiveau < View
     ##
     ##
     def creerBoxTop()
-        ## Définis les classes des labels
-        #titre
-        titre = Fenetre::creerLabelType("<u>Choix difficulté</u>")
-        titre.style_context.add_class("titre_menu")
-        #pseudo
-        pseudo = Fenetre::creerLabelType("<u>Pseudo:</u> #{@pseudo.capitalize}")
-        pseudo.style_context.add_class("pseudo_menu")
-        pseudo.halign = :end
+        #labels
+        @titreLabel = Fenetre::creerLabelType("<u>Choix difficulté</u>")
+        @pseudoLabel = Fenetre::creerLabelType("<u>Pseudo:</u> #{@pseudo.capitalize}")
+        @pseudoLabel.halign = :end
 
         #Creation des Boutons
-        event_box=Gtk::EventBox.new.add(pseudo)
+        event_box=Gtk::EventBox.new.add(@pseudoLabel)
         event_box.signal_connect('button_press_event'){
             Core::changeTo("JeuLibre", "pseudo": @pseudo)
         }
 
-        boutonFacile=Gtk::Button.new(:label => "Facile")
-        boutonFacile.style_context.add_class("bouton_niveau_f")
-        boutonFacile.signal_connect('clicked'){
+        @boutonFacile=Gtk::Button.new(:label => "Facile")
+        @boutonFacile.signal_connect('clicked'){
             Core::changeTo("JeuLibre", "pseudo": @pseudo, :difficulte=>1)
         }
 
-        boutonMoyen=Gtk::Button.new(:label => "Moyen")
-        boutonMoyen.style_context.add_class("bouton_niveau")
-        boutonMoyen.signal_connect('clicked'){
+        @boutonMoyen=Gtk::Button.new(:label => "Moyen")
+        @boutonMoyen.signal_connect('clicked'){
             Core::changeTo("JeuLibre", "pseudo": @pseudo, :difficulte=>2)
         }
 
-        boutonDifficile=Gtk::Button.new(:label => "Difficile")
-        boutonDifficile.style_context.add_class("bouton_niveau")
-        boutonDifficile.signal_connect('clicked'){
+        @boutonDifficile=Gtk::Button.new(:label => "Difficile")
+        @boutonDifficile.signal_connect('clicked'){
             Core::changeTo("JeuLibre", "pseudo": @pseudo, :difficulte=>3)
         }
 
         #add des boutons à la box
         @boxTop=Gtk::Box.new(:vertical,0)
         @boxTop.add(event_box)
-        @boxTop.add(titre)
-        @boxTop.add(boutonFacile)
-        @boxTop.add(boutonMoyen)
-        @boxTop.add(boutonDifficile)
+        @boxTop.add(@titreLabel)
+        @boxTop.add(@boutonFacile)
+        @boxTop.add(@boutonMoyen)
+        @boxTop.add(@boutonDifficile)
+    end
+
+    ##
+    ## Ajoute les classes css au widget
+    ##
+    def ajoutCss()
+        #css label
+        @titreLabel.style_context.add_class("titre_menu")
+        @pseudoLabel.style_context.add_class("pseudo_menu")
+        #css bouton
+        @boutonFacile.style_context.add_class("bouton_niveau_f")
+        @boutonMoyen.style_context.add_class("bouton_niveau")
+        @boutonDifficile.style_context.add_class("bouton_niveau")
     end
 
     ##
