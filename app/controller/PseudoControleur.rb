@@ -17,8 +17,7 @@ class PseudoControleur < Controller
 	def actionValider(message, entreePseudo)
 		messageQuestion = Fenetre::creerPopup(message, "YES_NO")
 		reponse = messageQuestion.run()
-        
-        action = FALSE
+        action = false
 
         if(reponse == Gtk::ResponseType::YES)
         	Core::changeTo("Menu", "pseudo": entreePseudo.text)
@@ -30,7 +29,7 @@ class PseudoControleur < Controller
         
         messageQuestion.destroy()
         return action
-	end
+	end	
 
 	#===Methode actionBoutonValider
 	#
