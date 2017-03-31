@@ -16,8 +16,8 @@ class Utilisateur < Model
 		
 		## Crée la table utilisateur
 		@@db.execute  "CREATE TABLE IF NOT EXISTS utilisateur (
-						id integer primary key autoincrement,
-						pseudo varchar(30)
+						utilisateur_id integer primary key autoincrement,
+						pseudo varchar(30) NOT NULL
 						);"
 	end
 
