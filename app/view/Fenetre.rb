@@ -29,7 +29,11 @@ module Fenetre
     ## Création de la header bar
     @enteteFenetre                   = Gtk::HeaderBar.new()
     @enteteFenetre.show_close_button = true
-    @enteteFenetre.has_subtitle          = false
+    @enteteFenetre.has_subtitle      = false
+
+    ## Crée un conteneur pour le contenu
+    @box=Gtk::Box.new(:vertical, 0)
+    @fenetre.add(@box)
 
     ##
     ## Définis un accesseur pour le contexte de la fenêtre Gtk
@@ -141,8 +145,12 @@ module Fenetre
     ##
     ##
     def Fenetre.viderFenetre()
+        @fenetre.hide
+        # puts @fenetre.children[0]
         @fenetre.children.each() do |child|
-            @fenetre.remove(child)
+            @fenetre.child.each() do |chil|
+                child.remove(chil)
+            end
         end
 
     end
@@ -169,16 +177,6 @@ module Fenetre
         widget.children.each do |child|
             apply_style(child, provider)
         end
-    end
-    
-    ##
-    ## Permet de mettre en place la fenêtre via un conteneur principal VBox
-    ##
-    ##
-    def Fenetre.miseEnPlace()
-        #Conteneur VBox
-        @box=Gtk::Box.new(:vertical, 0)
-        @fenetre.add(@box)
     end
     
     ##

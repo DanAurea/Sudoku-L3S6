@@ -63,7 +63,6 @@ module Core
 		## Create a new empty window
 		Fenetre::fenetrePrecedente = Fenetre::fenetre.children.clone()
 		Fenetre::viderFenetre
-		Fenetre::miseEnPlace()
 
 		load(name, args)
 
