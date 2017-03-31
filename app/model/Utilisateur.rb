@@ -1,7 +1,7 @@
 # 	Modele utilisateur
 # 	
-# 	Author:: 		Nikuto
-# 	Developers: 	Nikuto
+# 	Author:: 		Nikuto, DanAurea
+# 	Developers: 	Nikuto, DanAurea
 # 	Version:: 		0.1
 # 	Copyright:: 	© 2016
 # 	License::   	Distributes under the same terms as Ruby
