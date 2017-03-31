@@ -22,8 +22,8 @@ module Fenetre
     @fenetre.set_name("mainWindow")
     @fenetreStyle = @fenetre.style_context
     @fenetre.signal_connect('destroy') {
-       detruire()
-   }
+        detruire()
+    }
 
     ##
     ## Définis un accesseur pour le contexte de la fenêtre Gtk

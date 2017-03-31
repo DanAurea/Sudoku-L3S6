@@ -24,7 +24,7 @@ class FenetreNiveau < View
     ## Permet de créer et d'ajouter les box au conteneur principal
     ##
     ##
-	def miseEnPlace()        
+    def miseEnPlace()
         creerBoxTop()
         @boxBottom=Fenetre::creerBoxBottom()
         ajoutCss()
@@ -90,9 +90,9 @@ class FenetreNiveau < View
     ##
     ## @return self
     ##
-	def run()
-		self.miseEnPlace
-        Fenetre::css(:chemin => "/assets/css/FenetreNiveau.css")
-		return self
-	end
+    def run()
+      self.miseEnPlace
+      Fenetre::css(:chemin => "/assets/css/FenetreNiveau.css")
+      return self
+  end
 end
