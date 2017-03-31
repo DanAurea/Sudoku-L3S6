@@ -10,8 +10,8 @@ class PrincipaleControleur < Controller
 	
 	def initialize ()
 		## Charge la table utilisateur
-		loadModel("Utilisateur")
 		@title = "Sudoku"
+		@resizable = false
 	end
 
 	##
@@ -21,7 +21,6 @@ class PrincipaleControleur < Controller
 	## @return     Itself
 	##
 	def run()
-
 		return self
 	end
 

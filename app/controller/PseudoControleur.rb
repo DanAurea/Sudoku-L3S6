@@ -17,14 +17,18 @@ class PseudoControleur < Controller
 	def actionValider(message, entreePseudo)
 		messageQuestion=Fenetre::creerPopupQuestion(message)
         reponse=messageQuestion.run()
-        
+        action = FALSE
+
         if(reponse == Gtk::ResponseType::YES)
         	Core::changeTo("Menu", "pseudo": entreePseudo.text)
-        elsif(reponse == Gtk::ResponseType::NO)
+        	action = TRUE
+        else
             entreePseudo.text=""
+            action = FALSE
         end
         
         messageQuestion.destroy()
+        return action
 	end
 
 	#===Methode actionBoutonValider
@@ -43,8 +47,11 @@ class PseudoControleur < Controller
   		elsif self.pseudoExiste(entreePseudo.text) == true
   			actionValider("Ce pseudo existe déjà, êtes vous '#{entreePseudo.text}'?", entreePseudo)
   		else
-			actionValider("Pseudo inconnu, creer un nouveau profil?", entreePseudo)
+			if actionValider("Pseudo inconnu, creer un nouveau profil?", entreePseudo)
+				@Utilisateur.creerUtilisateur(entreePseudo.text)
+			end
   		end
+		
 
   	end
 
@@ -53,7 +60,6 @@ class PseudoControleur < Controller
 	end
 
 	def run()
-		
 		return self	
 	end
 

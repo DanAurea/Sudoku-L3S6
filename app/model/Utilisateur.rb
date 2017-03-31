@@ -3,19 +3,15 @@ class Utilisateur < Model
 	def initialize()
 		
 		## Crée la table utilisateur
-		ActiveRecord::Schema.define do
-			unless ActiveRecord::Base.connection.data_sources.include? 'utilisateur'
-				create_table :utilisateur do |table|
-					table.column :utilisateur_id, :integer
- 					table.column :pseudo,     :string
-		    	end
-			end
-		end
-
+		@@db.execute  "CREATE TABLE IF NOT EXISTS utilisateur (
+						id integer primary key autoincrement,
+						pseudo varchar(30)
+						);"
 	end
 
-	def CreerUtilisateur(pseudo)
-		return self.create(pseudo: pseudo)
+	def creerUtilisateur(pseudo)
+		insert(:pseudo => pseudo)
+		return self
 	end
 
 	def majUtilisateur(**args)
