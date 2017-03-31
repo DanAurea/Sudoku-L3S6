@@ -20,11 +20,11 @@ class Grille < Model
 
     
     ##
-    ## @brief      Genere une grille avec un niveau donnée
+    ## @brief      Genere une grille avec un niveau donné
     ##
     ## @param      niveau  Le niveau souhaité
     ##
-    ## @return     La grille generé
+    ## @return     La grille generée
     ##
     def generer(niveau)
         @grille = @gen.generer(niveau)
@@ -36,7 +36,7 @@ class Grille < Model
     ##
     ## @param      pseudo  Le pseudo du joueur qui charge
     ##
-    ## @return     La grille chargé
+    ## @return     La grille chargée
     ##
     def charger(pseudo)
         donnees = YAML.load_file(Core::ROOTPROJECT + "assets/save/" + pseudo.to_s + ".yml")
@@ -90,9 +90,9 @@ class Grille < Model
         ## Parcours dans [0,8]
         for i in 0..8
 
-            cr = VerificationLineaire(x,i,x,y)
+            cr = self.VerificationLineaire(x,i,x,y)
 
-            cr = VerificationLineaire(i,y,x,y)
+            cr = self.VerificationLineaire(i,y,x,y)
 
             ## le bloc est plus petit que la grille
             if(i<3)
@@ -112,28 +112,26 @@ class Grille < Model
         return cr
 
     end
-
-    #assets/save/pseudo.yml
-end
-
-#-------------------------------------------------------------------------------
-## Vérifie les valeur d'une ligne en se basant sur des coordonées initial
-##
-## @param      x      Ordonnée de la case verifié
-## @param      y      Abscisse de la case verifié
-## @param      xBase  Ordonnée de reference
-## @param      yBase  Abscisse de reference
-##
-## @return     true si la verification reussi, false si les case sont egale
-##
-def VerificationLineaire(x,y,xBase,yBase)
-    ## Verification horizontale
-    if(@grille[x][y]["value"] == @grille[xBase][yBase]["value"])
-        ## La valeur unique s'errone
-        @grille[x][y]["unique"] = false
-        ## La case verifié aussi
-        @grille[xBase][yBase]["unique"] = false
-        return false
+    #-------------------------------------------------------------------------------
+    ## Vérifie les valeur d'une ligne en se basant sur des coordonées initial
+    ##
+    ## @param      x      Ordonnée de la case verifié
+    ## @param      y      Abscisse de la case verifié
+    ## @param      xBase  Ordonnée de reference
+    ## @param      yBase  Abscisse de reference
+    ##
+    ## @return     true si la verification reussi, false si les case sont egale
+    ##
+    def VerificationLineaire(x,y,xBase,yBase)
+        ## Verification horizontale
+        if(@grille[x][y]["value"] == @grille[xBase][yBase]["value"])
+            ## La valeur unique s'errone
+            @grille[x][y]["unique"] = false
+            ## La case verifié aussi
+            @grille[xBase][yBase]["unique"] = false
+            return false
+        end
+        return true
     end
-    return true
+
 end

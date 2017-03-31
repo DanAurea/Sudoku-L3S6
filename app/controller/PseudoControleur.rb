@@ -21,10 +21,10 @@ class PseudoControleur < Controller
 
         if(reponse == Gtk::ResponseType::YES)
         	Core::changeTo("Menu", "pseudo": entreePseudo.text)
-        	action = TRUE
+        	action = true
         else
             entreePseudo.text=""
-            action = FALSE
+            action = false
         end
         
         messageQuestion.destroy()
@@ -44,7 +44,7 @@ class PseudoControleur < Controller
 
   		if(entreePseudo.text == "")
   			messageErreur=Fenetre::creerPopupErreur("Vous devez entrer un pseudo valide pour continuer!")
-  		elsif self.pseudoExiste(entreePseudo.text) == 1
+  		elsif self.pseudoExiste(entreePseudo.text)
   			actionValider("Ce pseudo existe déjà, êtes vous '#{entreePseudo.text}'?", entreePseudo)
   		else
 			if actionValider("Pseudo inconnu, creer un nouveau profil?", entreePseudo)

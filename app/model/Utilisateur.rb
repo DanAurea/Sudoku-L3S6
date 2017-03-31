@@ -41,7 +41,7 @@ class Utilisateur < Model
 	## @return     Retourne l'utilisateur modifié
 	##
 	def majUtilisateur(**args)
-		self.update(args)
+		## Faire une jointure sur score etc puis update
 	end
 
 
@@ -53,11 +53,7 @@ class Utilisateur < Model
 	## @return     Retourne vrai si la suppression a ue lieu
 	##
 	def supprimerUtilisateur(pseudo)
-		if self.where(pseudo: pseudo).delete(1) != nil
-			return true
-		else
-			return false
-		end
+		@@db.execute "DELETE FROM utilisateur WHERE pseudo = " + quote(pseudo) + ";"
 	end
 	
 
@@ -70,14 +66,14 @@ class Utilisateur < Model
 	##
 	def rechercherUtilisateur(pseudo)
 		resultat = @@db.execute "SELECT pseudo FROM utilisateur WHERE pseudo = " + quote(pseudo) + ";"
-		return resultat.length
+		return (resultat.length == 1) ? true : false;
 	end
 
 
 	##
 	## @brief      Cherche les utilisateur repondant au filtre
 	##
-	## @param      args  Le filtre a appliqué
+	## @param      args  Le filtre à appliquer
 	##
 	## @return     Les utilisateurs respectant le filtre
 	##
@@ -89,7 +85,7 @@ class Utilisateur < Model
 	##
 	## @brief      Vérifie si un utilisateur a une partie en cours
 	##
-	## @param      pseudo  Le pseudo de l'utilisateur à vérifié
+	## @param      pseudo  Le pseudo de l'utilisateur à vérifier
 	##
 	## @return     Retourne true si une partie est en cours
 	##

@@ -61,6 +61,16 @@ class Generateur
 	end
 
 
+	##
+	## @brief      Génère une grille avec difficulté variable
+	##
+	## @param      d   Niveau de difficulté (1,2,3 pour respectivement facile, moyen, difficile)
+	##
+	## @return
+	##
+	def generer(d)
+    	complexifier(d)
+    end
 
 	##
 	## @brief échange la place de 2 lignes.

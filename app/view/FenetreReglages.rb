@@ -118,27 +118,31 @@ class FenetreReglages < View
     ## @return self
     ##
     def paramCouleurPolice()
+
+        config = Hash.new()
+
         @boutonCouleurCaseBase.signal_connect "color-set" do
-            @config["caseBase"]=@boutonCouleurCaseBase.color
+            config["caseBase"]=@boutonCouleurCaseBase.color
         end
 
         @boutonCouleurCaseSelectionne.signal_connect "color-set" do
-            @config["caseSelectionne"]=@boutonCouleurCaseSelectionne.color
+            config["caseSelectionne"]=@boutonCouleurCaseSelectionne.color
         end
 
         @boutonCouleurTexte.signal_connect "color-set" do
-            @config["couleurTexte"]=@boutonCouleurTexte.color
+            config["couleurTexte"]=@boutonCouleurTexte.color
         end
 
         @boutonCouleurIndices.signal_connect "color-set" do
-            @config["couleurIndices"]=@boutonCouleurIndices.color
+            config["couleurIndices"]=@boutonCouleurIndices.color
         end
 
         @boutonPolice.signal_connect "font-set" do
             font = @boutonPolice.font_name
-            @config["taillePolice"]=font.slice!(-2,2)
-            @config["police"]=font
+            config["taillePolice"]=font.slice!(-2,2)
+            config["police"]=font
         end
+
         return self
     end
 
