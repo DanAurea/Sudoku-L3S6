@@ -1,7 +1,7 @@
 /* Reset all default settings */
 /*
-*  Author::      Valentin
-*  Developers:   Valentin
+*  Author::      Valentin, DanAurea
+*  Developers:   Valentin, DanAurea
 *  Version::     0.1
 *  Copyright::   ©
 *  License::     Distributes under the same terms as Ruby
@@ -21,7 +21,7 @@ button{
     border: 1px solid white;
 	background: rgb(46,134,193);
     box-shadow: none;
-    border-radius: 10px;
+    /*border-radius: 10px;*/
 }
 
 button label{
@@ -66,7 +66,3 @@ button:active label{
     padding-top: 10px;
     padding-bottom: 10px;
 }
-
-
-
-

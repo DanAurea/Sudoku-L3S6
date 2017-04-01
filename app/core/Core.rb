@@ -11,7 +11,7 @@ module Core
 	DEFAULT_DATABASE_DIR  = "db/"
 	DEFAULT_DATABASE_NAME = "main.sqlite3"
 
-	@previousWindow = nil
+	@previousWindow = Array.new()
 	@args           = nil
 
 	##
@@ -53,9 +53,11 @@ module Core
 		## Prevent some issue with back option
 		## no more loop possible when caller is 
 		## identical as destination.
-		if name != caller
+		## Act like an Ariane's thread we
+		## can now back on all previous windows.
+		if caller != self.name.to_s && name != caller && @previousWindow.slice(-1) != caller
 			## Save caller window
-			@previousWindow = caller
+			@previousWindow << caller
 		end
 		
 		@args = args
@@ -76,7 +78,7 @@ module Core
 	## @return     Module itself
 	##
 	def Core.back()
-		self.changeTo(@previousWindow, @args)
+		self.changeTo(@previousWindow.slice!(-1), @args)
 
 		return self
 	end
