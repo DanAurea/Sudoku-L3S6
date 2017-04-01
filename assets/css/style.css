@@ -66,3 +66,12 @@ button:active label{
     padding-top: 10px;
     padding-bottom: 10px;
 }
+
+#profil{
+    background:none;
+    border:none;
+}
+
+#pseudo{
+    font-size: 12px;
+}

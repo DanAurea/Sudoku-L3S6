@@ -10,17 +10,25 @@ module Header
 
 		## Création du bouton de profil
 		boutonProfil = Gtk::Button.new
-		icon = Gio::ThemedIcon.new("mail-send-receive-symbolic")
-		image = Gtk::Image.new(:icon => icon, :size => :button)
+		puts Core::ROOTPROJECT + "assets/doge.png"
+		image = Gtk::Image.new(:file => Core::ROOTPROJECT + "assets/img/doge.png")
+		
+		box = Gtk::Box.new(:horizontal, 5)
 
 		boutonProfil.signal_connect("clicked")  do
 			Core::changeTo("Reglages", :pseudo => pseudo)
 		end
 
+		boutonProfil.set_name("profil")
 		boutonProfil.add(image)
+		box.add(boutonProfil)
+
+		pseudoProfil = Gtk::Label.new(pseudo).set_name("pseudo")
+		box.add(pseudoProfil)
+
 
 		## Ajout au début de l'entête
-		Fenetre::enteteFenetre.pack_start(boutonProfil)
+		Fenetre::enteteFenetre.pack_start(box)
 
 		return self
 	end

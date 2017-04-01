@@ -9,6 +9,7 @@ Gtk::init()
 
 require_relative 'view/Fenetre.rb'
 require_relative 'core/View.rb'
+require_relative 'components/Header.rb'
 
 ## Charge la page principale du jeu
 Core::changeTo("Principale")
