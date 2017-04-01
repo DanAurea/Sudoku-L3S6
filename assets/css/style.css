@@ -1,11 +1,12 @@
-/* Reset all default settings */
 /*
-*  Author::      Valentin, DanAurea
-*  Developers:   Valentin, DanAurea
-*  Version::     0.1
-*  Copyright::   ©
-*  License::     Distributes under the same terms as Ruby
+*   Author::      Valentin, DanAurea
+*   Version::     0.1
+*   Copyright::   © 2016
+*   License::     Distributes under the same terms as Ruby
 */
+/* Reset all default settings */
+
+
 #mainWindow{
     /*background: rgb(38, 50, 56);*/
     background-image: radial-gradient(ellipse at center, rgb(105,150,170) 0%, rgb(25,35,66) 90%);
@@ -21,7 +22,6 @@ button{
     border: 1px solid white;
 	background: rgb(46,134,193);
     box-shadow: none;
-    /*border-radius: 10px;*/
 }
 
 button label{
@@ -51,13 +51,6 @@ button:active label{
     color: white;
     font-size: 40px;
     margin-top: 30px;
-}
-
-.pseudo_menu{
-    color: white;
-    font-size: 15px;
-    margin-top: 10px;
-    margin-right: 10px;
 }
 
 .bouton_bottom{

@@ -1,18 +1,21 @@
-# 	File description
-# 	
-# 	Author:: 		DanAurea
-# 	Developers: 	DanAurea
-# 	Version:: 		0.1
-# 	Copyright:: 	© 2016
-# 	License::   	Distributes under the same terms as Ruby
+# => Controlleur vue regles
+# => Author::       Valentin, DanAurea
+# => Version::      0.1
+# => Copyright::    © 2016
+# => License::      Distributes under the same terms as Ruby
 # 	
  	
-# 	Class description
+# 	Class ReglesControleur
 #
 class ReglesControleur < Controller
 
+	##
+    ## Initialize
+    ##
 	def initialize()
+		#charge le modele utilisateur
 		loadModel("Utilisateur")
+		#parametres fenetre
 		@title = "Sudoku - Règles"
 		@width = 600
 		@height = 550
@@ -20,8 +23,12 @@ class ReglesControleur < Controller
 		@position= "CENTER_ALWAYS"
 	end
 
+	##
+    ## Méthode à définir dans tout les cas !
+    ##
+    ## @return self
+    ##
 	def run()
 		return self
 	end
-
 end
