@@ -39,25 +39,16 @@ module Core
 	##
 	def Core.changeTo(name, **args)
 
-		## Retrieve class caller
-		caller = File.basename(caller_locations.first.path)
-		
-		if(caller.include?(VIEW))
-			caller.slice!(VIEW)
-		elsif(caller.include?(CONTROLLER))
-			caller.slice!(CONTROLLER)
-		end
-
-		caller.slice!(".rb")
+		nameControllerExist = File.exist?(self.controllerPath(name + CONTROLLER))
 
 		## Prevent some issue with back option
 		## no more loop possible when caller is 
 		## identical as destination.
 		## Act like an Ariane's thread we
 		## can now back on all previous windows.
-		if caller != self.name.to_s && name != caller && @previousWindow.slice(-1) != caller
+		if @previousWindow.slice(-1) != name
 			## Save caller window
-			@previousWindow << caller
+			@previousWindow << name
 		end
 		
 		@args = args
@@ -78,7 +69,14 @@ module Core
 	## @return     Module itself
 	##
 	def Core.back()
-		self.changeTo(@previousWindow.slice!(-1), @args)
+		if @previousWindow.length > 1
+			## Slice current page
+			@previousWindow.slice!(-1)
+			## Go back to previous window
+			self.changeTo(@previousWindow.slice!(-1), @args)
+		else
+			puts "Empty stack, you can't back to a non stacked window."
+		end
 
 		return self
 	end

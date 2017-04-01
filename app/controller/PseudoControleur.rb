@@ -12,6 +12,7 @@ class PseudoControleur < Controller
 		@height = 550
 		@resizable = false
 		@position= "CENTER_ALWAYS"
+
 	end
 
 	def actionValider(message, entreePseudo)
@@ -20,6 +21,9 @@ class PseudoControleur < Controller
         action = false
 
         if(reponse == Gtk::ResponseType::YES)
+        	## Ajoute l'entête de la fenêtre avec le profil utilisateur
+        	## puis change de page
+        	Header.profil(entreePseudo.text)
         	Core::changeTo("Menu", "pseudo": entreePseudo.text)
         	action = true
         else
