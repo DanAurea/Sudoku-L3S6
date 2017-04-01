@@ -39,8 +39,6 @@ module Core
 	##
 	def Core.changeTo(name, **args)
 
-		nameControllerExist = File.exist?(self.controllerPath(name + CONTROLLER))
-
 		## Prevent some issue with back option
 		## no more loop possible when caller is 
 		## identical as destination.

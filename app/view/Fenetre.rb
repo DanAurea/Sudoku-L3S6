@@ -21,10 +21,12 @@ module Fenetre
     ## Création fenêtre de base
     @fenetre = Gtk::Window.new(:toplevel)
     @fenetre.set_name("mainWindow")
-    @fenetreStyle = @fenetre.style_context
+    @fenetre.set_icon_from_file(Core::ROOTPROJECT + "assets/img/iconApp.png")
     @fenetre.signal_connect('destroy') {
        detruire()
     }
+
+    @fenetreStyle = @fenetre.style_context
 
     ## Création de la header bar
     @enteteFenetre                   = Gtk::HeaderBar.new()

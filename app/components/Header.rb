@@ -10,8 +10,7 @@ module Header
 
 		## Création du bouton de profil
 		boutonProfil = Gtk::Button.new
-		puts Core::ROOTPROJECT + "assets/doge.png"
-		image = Gtk::Image.new(:file => Core::ROOTPROJECT + "assets/img/doge.png")
+		image = Gtk::Image.new(:file => Core::ROOTPROJECT + "assets/img/user.png")
 		
 		box = Gtk::Box.new(:horizontal, 5)
 
@@ -23,7 +22,7 @@ module Header
 		boutonProfil.add(image)
 		box.add(boutonProfil)
 
-		pseudoProfil = Gtk::Label.new(pseudo).set_name("pseudo")
+		pseudoProfil = Gtk::Label.new(pseudo.capitalize).set_name("pseudo")
 		box.add(pseudoProfil)
 
 
