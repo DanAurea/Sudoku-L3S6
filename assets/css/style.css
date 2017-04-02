@@ -8,8 +8,10 @@
 
 
 #mainWindow{
-    /*background: rgb(38, 50, 56);*/
-    background-image: radial-gradient(ellipse at center, rgb(105,150,170) 0%, rgb(25,35,66) 90%);
+    background-image: -gtk-gradient(radial,
+                                   center center, 0,
+                                   center center, 1,
+                                   from(rgb(105, 150, 170)), to(rgb(25, 35, 65)));
 	font-size: 16px;
     border: 1px solid white;
 }
