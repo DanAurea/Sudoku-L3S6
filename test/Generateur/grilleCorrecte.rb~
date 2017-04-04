@@ -21,7 +21,7 @@ require_relative '../../app/utils/Generateur'
 ## @return true si les valeurs sont bonnes, false sinon.
 ##
 
-def checkValues(grid)
+checkValues(grid)
 
 	grid.each do |line|
 		line.each do |value|
