@@ -46,6 +46,16 @@ module Header
 		return self
 	end
 
+	##
+	## Définis l'état de la pause
+	##
+	## @param      Booléen de l'état
+	##
+	## @return     L'état de la pause
+	##
+	def Header.pause=(bool) 
+		@pause = bool
+	end
 
 	##
 	## Définis un accesseur pour le temps
@@ -57,20 +67,27 @@ module Header
 	end
 
 	##
+	## Définis un accesseur pour le score
+	##
+	## @return     Temps
+	##
+	def Header.score()
+		return @score
+	end
+
+	##
 	## Crée un chrono dans la header bar
 	##
 	## @return     self
 	##
 	def Header.chrono()
-		@pause = false
-		GLib::Timeout.add(1000) {
-			if(@pause == false)
-        		Header.addSecond
-        	end
-        }
         
         Fenetre::enteteFenetre.pack_end(@tempsLabel)
         Fenetre::enteteFenetre.pack_end(@scoreLabel)
+		
+		GLib::Timeout.add(1000) {
+        	Header.addSecond
+        }
 
         return self
 	end
@@ -82,17 +99,20 @@ module Header
 	##
 	def Header.addSecond()
 
-		@reste += 0.5
+		if(@pause == false)
+			@reste += 0.5
 
-		## Prend en compte un reste car Glib::Timeout 
-		## a une granularité de 1 seconde
-		if(@reste >= 1)
-			@reste -=1
-        	@temps += 1
-		end
+			## Prend en compte un reste car Glib::Timeout 
+			## a une granularité de 1 seconde
+			if(@reste >= 1)
+				@reste -=1
+	        	@temps += 1
+			end
 
-        @tempsLabel.text = "Temps: " + Header.surDeuxChiffres(@temps / 60) + ":" + Header.surDeuxChiffres(@temps % 60)
-        @scoreLabel.text = "Score: " + @scoreModel.calcul(@penalite, @temps).to_s
+	        @tempsLabel.text = "Temps: " + Header.surDeuxChiffres(@temps / 60) + ":" + Header.surDeuxChiffres(@temps % 60)
+	        @score = @scoreModel.calcul(@penalite, @temps)
+	        @scoreLabel.text = "Score: " + @score.to_s
+	    end
 
         return true;
     end

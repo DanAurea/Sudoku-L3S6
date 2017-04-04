@@ -89,7 +89,11 @@ class Configuration < Model
 	##
 	## @return     Self
 	##
-	def creerConfiguration(utilisateurId)
+	def creerConfiguration(pseudo)
+
+		## Récupère id utilisateur
+		req = @@db.execute "SELECT utilisateur_id FROM utilisateur WHERE pseudo = ?", pseudo
+
 		params = Hash.new()
 
 		params[:caseBase] = Configuration::CL_CASE_BASE
@@ -99,7 +103,7 @@ class Configuration < Model
 		params[:couleurIndices] = Configuration::CL_INDICES
 		params[:police] = Configuration::POLICE
 		params[:taillePolice] = Configuration::TAILLE_POLICE
-		params[:utilisateur] = utilisateurId
+		params[:utilisateur] = req[0]
 
 		insert(params)
 		

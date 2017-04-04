@@ -1,5 +1,7 @@
 class Score < Model
 
+	attr_accessor :difficulte
+
 	def initialize()
 		
 		## Crée la table Score
@@ -41,13 +43,15 @@ class Score < Model
 	##
 	## Crée un score dans la table score pour l'utilisateur
 	##
-	## @param      utilisateurId  L'identifiant utilisateur
+	## @param      pseudo  Le pseudo utilisateur
 	##
 	## @return     Self
 	##
-	def creer(utilisateurId, niveau, score)
+	def creer(pseudo, niveau, score)
+		## Récupère id utilisateur
+		req = @@db.execute "SELECT utilisateur_id FROM utilisateur WHERE pseudo= ?", pseudo
 
-		insert(:utilisateur => utilisateurId, :niveau => niveau, :score => score)
+		insert(:utilisateur => req[0], :niveau => niveau, :score => score)
 
 		return self
 	end
@@ -74,7 +78,7 @@ class Score < Model
 		tempsResoluMoy = 3*60
 
 		evolutionScore = (tempsResoluMoy - tempsChrono) + ((tempsResoluMoy/10)*(20 - penalite))
-		scoreCourant = (@difficulte+1)*evolutionScore
+		scoreCourant = (@difficulte)*evolutionScore
 		
 		return scoreCourant
 	end
