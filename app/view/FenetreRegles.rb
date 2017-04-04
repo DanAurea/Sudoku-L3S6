@@ -27,9 +27,9 @@ class FenetreRegles < View
         @boxTop = Gtk::Box.new(:vertical,0)
         @boxBottom = Fenetre::creerBoxBottom()
         # VI label
-        @titreLabel = Fenetre::creerLabelType("<u>Règles</u>")
-        @regle0Label = Fenetre::creerLabelType("*************************************************************")
-        @regle1Label = Fenetre::creerLabelType("*************************************************************")
+        @titreLabel = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE}\"><u>Règles</u></span>")
+        @regle0Label = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE_REGLE}\">*************************************************************</span>")
+        @regle1Label = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE_REGLE}\">*************************************************************</span>")
         # VI règles
         @tabRegle = [
             "     - Un sudoku classique contient 9 lignes et 9 colonnes,",
@@ -71,8 +71,8 @@ class FenetreRegles < View
 
         @tabRegle.each_with_index{|tab,index|
             id=index+1
-            regleLabel=Fenetre::creerLabelType("#{tab}")
-            regleLabel.style_context.add_class("label_regles_s")
+            regleLabel=Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_CONTENU_REGLE}\">#{tab}</span>")
+            regleLabel.override_color(:normal, Fenetre::COULEUR_BLANC)
             regleLabel.set_margin_top(5)
             regleLabel.set_margin_left(10)
             regleLabel.halign = :start
@@ -89,10 +89,10 @@ class FenetreRegles < View
     ##
     def ajoutCss()
         #css label
-        @titreLabel.style_context.add_class("titre_menu")
+        @titreLabel.override_color(:normal, Fenetre::COULEUR_BLANC)
         @titreLabel.set_margin_top(30)
-        @regle0Label.style_context.add_class("label_regles_t")
-        @regle1Label.style_context.add_class("label_regles_t") 
+        @regle0Label.override_color(:normal, Fenetre::COULEUR_ORANGE)
+        @regle1Label.override_color(:normal, Fenetre::COULEUR_ORANGE)
         @regle0Label.set_margin_top(10)
         @regle0Label.set_margin_bottom(5)
         @regle1Label.set_margin_top(10)
@@ -106,7 +106,6 @@ class FenetreRegles < View
     ##
 	def run()
 		self.miseEnPlace()
-		Fenetre::css(:chemin => "/assets/css/FenetreRegles.css")
 		return self
 	end
 end

@@ -48,13 +48,13 @@ class FenetreReglages < View
         }
 
         # VI label
-        @titreLabel = Fenetre::creerLabelType("<u>Réglages</u>")
+        @titreLabel = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE}\"><u>Réglages</u></span>")
         @tmp =  Fenetre::creerLabelType("  ")
-        @labelCouleurCaseBase = Fenetre::creerLabelType("Couleur des cases de base:")
-        @labelCouleurCaseSelectionne = Fenetre::creerLabelType("Couleur des cases surlignées:")
-        @labelCouleurTexte = Fenetre::creerLabelType("Couleur du texte:")
-        @labelCouleurIndices = Fenetre::creerLabelType("Couleur des indices:") 
-        @labelPolice = Fenetre::creerLabelType("Police de texte:")
+        @labelCouleurCaseBase = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE_REGLAGE}\">Couleur des cases de base:</span>")
+        @labelCouleurCaseSelectionne = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE_REGLAGE}\">Couleur des cases surlignées:</span>")
+        @labelCouleurTexte = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE_REGLAGE}\">Couleur du texte:</span>")
+        @labelCouleurIndices = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE_REGLAGE}\">Couleur des indices:</span>") 
+        @labelPolice = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE_REGLAGE}\">Police de texte:</span>")
     end
 
     ##
@@ -122,38 +122,33 @@ class FenetreReglages < View
     ##
     def ajoutCss()
         #css label
-        @titreLabel.style_context.add_class("titre_menu")
+        @titreLabel.override_color(:normal, Fenetre::COULEUR_BLANC)
         @titreLabel.set_margin_top(30)
         @tmp.set_margin_top(10)
-        @labelCouleurCaseBase.style_context.add_class("label_reglage")
+        @labelCouleurCaseBase.override_color(:normal, Fenetre::COULEUR_BLANC)
         @labelCouleurCaseBase.set_margin(10)
         @labelCouleurCaseBase.set_margin_bottom(0)
-        @labelCouleurCaseSelectionne.style_context.add_class("label_reglage")
+        @labelCouleurCaseSelectionne.override_color(:normal, Fenetre::COULEUR_BLANC)
         @labelCouleurCaseSelectionne.set_margin(10)
         @labelCouleurCaseSelectionne.set_margin_bottom(0)
-        @labelCouleurTexte.style_context.add_class("label_reglage")
+        @labelCouleurTexte.override_color(:normal, Fenetre::COULEUR_BLANC)
         @labelCouleurTexte.set_margin(10)
         @labelCouleurTexte.set_margin_bottom(0)
-        @labelCouleurIndices.style_context.add_class("label_reglage")
+        @labelCouleurIndices.override_color(:normal, Fenetre::COULEUR_BLANC)
         @labelCouleurIndices.set_margin(10)
         @labelCouleurIndices.set_margin_bottom(0)
-        @labelPolice.style_context.add_class("label_reglage")
+        @labelPolice.override_color(:normal, Fenetre::COULEUR_BLANC)
         @labelPolice.set_margin(10)
         @labelPolice.set_margin_bottom(0)
         #css bouton
-        @boutonCouleurCaseBase.style_context.add_class("bouton_reglage")
         @boutonCouleurCaseBase.set_margin(10)
         @boutonCouleurCaseBase.set_margin_bottom(0)
-        @boutonCouleurCaseSelectionne.style_context.add_class("bouton_reglage")
         @boutonCouleurCaseSelectionne.set_margin(10)
         @boutonCouleurCaseSelectionne.set_margin_bottom(0)
-        @boutonCouleurTexte.style_context.add_class("bouton_reglage")
         @boutonCouleurTexte.set_margin(10)
         @boutonCouleurTexte.set_margin_bottom(0)
-        @boutonCouleurIndices.style_context.add_class("bouton_reglage")
         @boutonCouleurIndices.set_margin(10)
         @boutonCouleurIndices.set_margin_bottom(0)
-        @boutonPolice.style_context.add_class("bouton_reglage")
         @boutonPolice.set_margin(10)
         @boutonPolice.set_margin_bottom(0)
     end
@@ -198,7 +193,6 @@ class FenetreReglages < View
     def run()
         self.setParams()
         self.miseEnPlace()
-        Fenetre::css(:chemin => "/assets/css/FenetreReglages.css")
         return self
     end
 end

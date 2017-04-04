@@ -12,6 +12,23 @@ require "fileutils"
 ## classe abstraite Fenetre regroupant les informations de base et méthodes de chaque fenêtre
 ##
 module Fenetre
+
+    #Constante couleur, taille
+    COULEUR_BLANC = Gdk::RGBA.new(1,1,1,1)
+    COULEUR_VERT = Gdk::RGBA.new(0, 1, 0, 1)
+    COULEUR_JAUNE = Gdk::RGBA.new(1, 1, 0, 1)
+    COULEUR_ROUGE = Gdk::RGBA.new(1, 0, 0, 1)
+    COULEUR_ORANGE = Gdk::RGBA.new(1, 0.6, 0, 1)
+    SIZE_PSEUDO = 20
+    SIZE_TITRE_STAT = 18
+    SIZE_CONTENU_STAT = 15
+    SIZE_TITRE_SCORE = 18
+    SIZE_CONTENU_SCORE = 15
+    SIZE_TITRE_REGLE = 15
+    SIZE_CONTENU_REGLE = 14
+    SIZE_TITRE_REGLAGE = 15
+    SIZE_TITRE = 40
+
     ## VI
     @fenetre 
     @box

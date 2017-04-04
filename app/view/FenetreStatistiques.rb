@@ -32,14 +32,14 @@ class FenetreStatistiques < View
 		@boxTop = Gtk::Box.new(:vertical,0)
 		@boxBottom = Fenetre::creerBoxBottom()
 		# VI label
-		@titreLabel = Fenetre::creerLabelType("<u>Statistiques</u>")
-    	@labelDifficulte = Fenetre::creerLabelType("<u>Difficulté</u>")
-    	@labelRecord = Fenetre::creerLabelType("<u>Record</u>")
-    	@labelMoyenne = Fenetre::creerLabelType("<u>Moyenne</u>")
-    	@labelNbPartie = Fenetre::creerLabelType("<u>Nb Parties</u>")
-    	@labelFacile = Fenetre::creerLabelType("Facile")
-    	@labelMoyen = Fenetre::creerLabelType("Moyen")
-    	@labelDifficile = Fenetre::creerLabelType("Difficile")
+		@titreLabel = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE}\"><u>Statistiques</u></span>")
+    	@labelDifficulte = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE_STAT}\"><u>Difficulté</u></span>")
+    	@labelRecord = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE_STAT}\"><u>Record</u></span>")
+    	@labelMoyenne = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE_STAT}\"><u>Moyenne</u></span>")
+    	@labelNbPartie = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE_STAT}\"><u>Nb Parties</u></span>")
+    	@labelFacile = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_CONTENU_STAT}\">Facile</span>")
+    	@labelMoyen = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_CONTENU_STAT}\">Moyen</span>")
+    	@labelDifficile = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_CONTENU_STAT}\">Difficile</span>")
 		# VI stat
 
 		@tabStat = []
@@ -81,13 +81,13 @@ class FenetreStatistiques < View
 
     	@tabStat.each_with_index{|tab,index|
     		tab.each_with_index{|valeur,id|
-    			infoStat=Fenetre::creerLabelType("#{valeur}")
+    			infoStat=Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_CONTENU_STAT}\">#{valeur}</span>")
     			if index==0
-    				infoStat.style_context.add_class("label_contenu_stat_f")
+    				infoStat.override_color(:normal, Fenetre::COULEUR_VERT)
     			elsif index==1
-    				infoStat.style_context.add_class("label_contenu_stat_m")
+    				infoStat.override_color(:normal, Fenetre::COULEUR_JAUNE)
     			else
-    				infoStat.style_context.add_class("label_contenu_stat_d")
+    				infoStat.override_color(:normal, Fenetre::COULEUR_ROUGE)
     			end
                 infoStat.set_margin(15)
     			table.attach(infoStat,id+1,id+2,index+1,index+2)
@@ -104,21 +104,21 @@ class FenetreStatistiques < View
     ##
     def ajoutCss()
         #css label
-        @titreLabel.style_context.add_class("titre_menu")	
+        @titreLabel.override_color(:normal, Fenetre::COULEUR_BLANC)
         @titreLabel.set_margin_top(30)
-		@labelDifficulte.style_context.add_class("label_titre_stat")
+		@labelDifficulte.override_color(:normal, Fenetre::COULEUR_BLANC)
         @labelDifficulte.set_margin(30)		
-		@labelRecord.style_context.add_class("label_titre_stat")	
+		@labelRecord.override_color(:normal, Fenetre::COULEUR_BLANC)	
         @labelRecord.set_margin(30)	
-		@labelMoyenne.style_context.add_class("label_titre_stat")	
+		@labelMoyenne.override_color(:normal, Fenetre::COULEUR_BLANC)	
         @labelMoyenne.set_margin(30)	
-		@labelNbPartie.style_context.add_class("label_titre_stat")
+		@labelNbPartie.override_color(:normal, Fenetre::COULEUR_BLANC)
         @labelNbPartie.set_margin(30)
-		@labelFacile.style_context.add_class("label_contenu_stat_f")
+		@labelFacile.override_color(:normal, Fenetre::COULEUR_VERT)
         @labelFacile.set_margin(15)
-		@labelMoyen.style_context.add_class("label_contenu_stat_m")
+		@labelMoyen.override_color(:normal, Fenetre::COULEUR_JAUNE)
         @labelMoyen.set_margin(15)
-		@labelDifficile.style_context.add_class("label_contenu_stat_d")
+		@labelDifficile.override_color(:normal, Fenetre::COULEUR_ROUGE)
         @labelDifficile.set_margin(15)
     end
 
@@ -129,7 +129,6 @@ class FenetreStatistiques < View
     ##
 	def run()
 		self.miseEnPlace()
-		Fenetre::css(:chemin => "/assets/css/FenetreStatistiques.css")
 		return self
 	end
 end

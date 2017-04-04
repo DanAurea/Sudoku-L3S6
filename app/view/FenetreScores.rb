@@ -28,10 +28,10 @@ class FenetreScores < View
         @boxTop = Gtk::Box.new(:vertical,0)
         @boxBottom = Fenetre::creerBoxBottom()
         # VI label
-        @titreLabel = Fenetre::creerLabelType("<u>Meilleurs Scores</u>")
-        @labelPosition = Fenetre::creerLabelType("<u>Position</u>")
-        @labelNom = Fenetre::creerLabelType("<u>Personne</u>")
-        @labelPoint = Fenetre::creerLabelType("<u>Points</u>")
+        @titreLabel = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE}\"><u>Meilleurs Scores</u></span>")
+        @labelPosition = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE_SCORE}\"><u>Position</u></span>")
+        @labelNom = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE_SCORE}\"><u>Personne</u></span>")
+        @labelPoint = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE_SCORE}\"><u>Points</u></span>")
         # VI tableau de score
         @tabScore = []
     end
@@ -63,14 +63,14 @@ class FenetreScores < View
 
         @tabScore.each_with_index{|tab,index|
             id=index+1
-            pos=Fenetre::creerLabelType("#{id}")
-            pos.style_context.add_class("ligne_score")
+            pos=Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_CONTENU_SCORE}\">#{id}</span>")
+            pos.override_color(:normal, Fenetre::COULEUR_BLANC)
             pos.set_margin_top(10)
-            nom=Fenetre::creerLabelType("#{tab[0]}")
-            nom.style_context.add_class("ligne_score")
+            nom=Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_CONTENU_SCORE}\">#{tab[0]}</span>")
+            nom.override_color(:normal, Fenetre::COULEUR_BLANC)
             nom.set_margin_top(10)
-            pts=Fenetre::creerLabelType("#{tab[1]}")
-            pts.style_context.add_class("ligne_score")
+            pts=Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_CONTENU_SCORE}\">#{tab[1]}</span>")
+            pts.override_color(:normal, Fenetre::COULEUR_BLANC)
             pts.set_margin_top(10)
             tableScore.attach(pos,0,1,id,id+1)
             tableScore.attach(nom,1,2,id,id+1)
@@ -87,15 +87,15 @@ class FenetreScores < View
     ##
     def ajoutCss()
         #css label
-        @titreLabel.style_context.add_class("titre_menu")
+        @titreLabel.override_color(:normal, Fenetre::COULEUR_BLANC)
         @titreLabel.set_margin_top(30)
-        @labelPosition.style_context.add_class("label_titre_score")
+        @labelPosition.override_color(:normal, Fenetre::COULEUR_ORANGE)
         @labelPosition.set_margin(30)
         @labelPosition.set_margin_bottom(10)
-        @labelNom.style_context.add_class("label_titre_score")
+        @labelNom.override_color(:normal, Fenetre::COULEUR_ORANGE)
         @labelNom.set_margin(30)
         @labelNom.set_margin_bottom(10)
-        @labelPoint.style_context.add_class("label_titre_score")
+        @labelPoint.override_color(:normal, Fenetre::COULEUR_ORANGE)
         @labelPoint.set_margin(30)
         @labelPoint.set_margin_bottom(10)
     end
@@ -107,7 +107,6 @@ class FenetreScores < View
     ##
 	def run()
 		self.miseEnPlace()
-		Fenetre::css(:chemin => "/assets/css/FenetreScores.css")
 		return self
 	end
 end

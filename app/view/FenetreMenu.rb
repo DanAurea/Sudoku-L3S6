@@ -41,7 +41,7 @@ class FenetreMenu < View
         @boutonAPropos = Gtk::Button.new(:label => " About ")
         @boutonQuitter = Gtk::Button.new(:label => "Quitter")
         # VI label
-        @titreLabel = Fenetre::creerLabelType("<u>Menu Principal</u>")
+        @titreLabel = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE}\"><u>Menu Principal</u></span>")
     end
 
     ##
@@ -125,7 +125,7 @@ class FenetreMenu < View
     ##
     def ajoutCss()
         #css label
-        @titreLabel.style_context.add_class("titre_menu")
+        @titreLabel.override_color(:normal, Fenetre::COULEUR_BLANC)
         @titreLabel.set_margin_top(30)
         #css bouton
         @boutonCharger.set_margin(10)

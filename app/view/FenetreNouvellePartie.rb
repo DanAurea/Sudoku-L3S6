@@ -29,7 +29,7 @@ class FenetreNouvellePartie < View
         @boutonApprentissage = Gtk::Button.new(:label => "Apprentissage avec aides")
         @boutonJeuLibre = Gtk::Button.new(:label => "Jeu libre")
         # VI label
-        @titreLabel = Fenetre::creerLabelType("<u>Nouvelle partie</u>")
+        @titreLabel = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE}\"><u>Nouvelle partie</u></span>")
     end
 
     ##
@@ -68,7 +68,7 @@ class FenetreNouvellePartie < View
     ##
     def ajoutCss()
         #css label
-        @titreLabel.style_context.add_class("titre_menu")
+        @titreLabel.override_color(:normal, Fenetre::COULEUR_BLANC)
         @titreLabel.set_margin_top(30)
         #css bouton
         @boutonApprentissage.set_margin_top(100)

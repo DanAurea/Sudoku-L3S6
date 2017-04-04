@@ -31,7 +31,7 @@ class FenetreNiveau < View
         @boutonMoyen = Gtk::Button.new(:label => "Moyen")
         @boutonDifficile = Gtk::Button.new(:label => "Difficile")
         # VI label
-        @titreLabel = Fenetre::creerLabelType("<u>Choix difficulté</u>")
+        @titreLabel = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE}\"><u>Choix difficulté</u></span>")
     end
 
     ##
@@ -75,7 +75,7 @@ class FenetreNiveau < View
     ##
     def ajoutCss()
         #css label
-        @titreLabel.style_context.add_class("titre_menu")
+        @titreLabel.override_color(:normal, Fenetre::COULEUR_BLANC)
         @titreLabel.set_margin_top(30)
         #css bouton
         @boutonFacile.set_margin_top(70)

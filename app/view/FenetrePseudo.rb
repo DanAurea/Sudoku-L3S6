@@ -32,8 +32,8 @@ class FenetrePseudo < View
     	@boutonValider = Gtk::Button.new(:label => "Valider")
     	@boutonQuitter = Gtk::Button.new(:label => "Quitter")
     	# VI label
-    	@titreLabel = Fenetre::creerLabelType("<u>Choix du pseudo</u>")
-    	@pseudoLabel = Fenetre::creerLabelType(" Votre pseudo : ")
+    	@titreLabel = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE}\"><u>Choix du pseudo</u></span>")
+    	@pseudoLabel = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_PSEUDO}\">Votre pseudo :</span>")
     end
 
 	##
@@ -89,13 +89,12 @@ class FenetrePseudo < View
     ##
     def ajoutCss()
         #css label
-        @titreLabel.style_context.add_class("titre_menu")
+        @titreLabel.override_color(:normal, Fenetre::COULEUR_BLANC)
         @titreLabel.set_margin_top(30)
-        @pseudoLabel.set_name("label_field_pseudo")
+        @pseudoLabel.override_color(:normal, Fenetre::COULEUR_BLANC)
         @pseudoLabel.set_margin_top(80)
         @pseudoLabel.set_margin_bottom(30)
         #css bouton
-        @entryPseudo.style_context.add_class("field_pseudo")
         @entryPseudo.set_margin_left(100)
         @entryPseudo.set_margin_right(100)
         @boutonValider.set_margin(40)
@@ -111,7 +110,6 @@ class FenetrePseudo < View
     ##
 	def run
 		self.miseEnPlace()
-		Fenetre::css(:chemin => "/assets/css/FenetrePseudo.css")
 		return self
 	end
 end
