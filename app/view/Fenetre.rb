@@ -371,7 +371,7 @@ end
         @boutonSauvegarder_barre.set_tooltip_text("Sauvegarder")
         @boutonSauvegarder_barre.set_margin_right(10)
 
-        @boutonReinit_barre = Gtk::ToolButton.new(:stock_id => Gtk::Stock::DELETE)
+        @boutonReinit_barre = Gtk::ToolButton.new(:stock_id => Gtk::Stock::CLEAR)
         @boutonReinit_barre.set_tooltip_text("Réinitialise la grille")
         @boutonReinit_barre.set_margin_right(10)
 
