@@ -28,6 +28,7 @@ module Fenetre
     SIZE_CONTENU_REGLE = 14
     SIZE_TITRE_REGLAGE = 15
     SIZE_TITRE = 40
+    SIZE_LABEL_BOUTON = 20
     FONT_MENU = "Monospace"
 
     ## VI
@@ -302,7 +303,7 @@ module Fenetre
     def Fenetre.creerLabelType(unNomDeLabel, uneTaille)
         #Creation du Label
         label=Gtk::Label.new()
-        label.set_markup("<span font_desc=\"#{uneTaille}\">#{unNomDeLabel}</span>")
+        label.set_markup("<span font_desc=\"#{FONT_MENU} #{uneTaille}\">#{unNomDeLabel}</span>")
         label.set_justify(Gtk::Justification::CENTER)
         return label
     end

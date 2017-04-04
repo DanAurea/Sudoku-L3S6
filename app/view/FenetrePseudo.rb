@@ -32,8 +32,8 @@ class FenetrePseudo < View
     	@boutonValider = Gtk::Button.new(:label => "Valider")
     	@boutonQuitter = Gtk::Button.new(:label => "Quitter")
     	# VI label
-    	@titreLabel = Fenetre::creerLabelType("<u>Choix du pseudo</u>",Fenetre::SIZE_TITRE)
-    	@pseudoLabel = Fenetre::creerLabelType("Votre pseudo : ",Fenetre::SIZE_PSEUDO)
+    	@titreLabel = Fenetre::creerLabelType("<u>Choix du pseudo</u>", Fenetre::SIZE_TITRE)
+    	@pseudoLabel = Fenetre::creerLabelType("Votre pseudo : ", Fenetre::SIZE_PSEUDO)
     end
 
 	##
