@@ -35,7 +35,6 @@ class FenetreReglages < View
         # VI box
         @boxTop = Gtk::Box.new(:vertical,0)
         @boxBottom = Fenetre::creerBoxBottom()
-        @config = Hash.new()
 
         # VI bouton
         @boutonCouleurCaseBase = Gtk::ColorButton.new()
