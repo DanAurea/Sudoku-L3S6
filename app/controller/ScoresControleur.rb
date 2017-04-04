@@ -36,8 +36,6 @@ class ScoresControleur < Controller
 		meilleursScores.each do |score|
 			@content["meilleursScores"] << [score["pseudo"], score["score"]]
 		end
-
-		puts @content
 		
 		return self
 	end

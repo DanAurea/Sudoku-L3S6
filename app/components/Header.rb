@@ -1,9 +1,18 @@
+require Core::ROOT + "model/Score.rb"
+
 module Header
+
+	@scoreModel = Score.instance()
 
 	@temps = 0
 	@pause = false
 	@reste = 0
-	@tempsLabel = Gtk::Label.new("00:00")
+	
+	@tempsLabel = Gtk::Label.new("Temps: 00:00")
+	@scoreLabel = Gtk::Label.new("Score: 0")
+	
+	@score    = 0
+	@penalite = 0
 
 	##
 	## Définis le contenu de l'entête de la fenêtre
@@ -37,10 +46,21 @@ module Header
 		return self
 	end
 
+
+	##
+	## Définis un accesseur pour le temps
+	##
+	## @return     Temps
+	##
 	def Header.temps()
 		return @temps
 	end
 
+	##
+	## Crée un chrono dans la header bar
+	##
+	## @return     self
+	##
 	def Header.chrono()
 		@pause = false
 		GLib::Timeout.add(1000) {
@@ -50,6 +70,9 @@ module Header
         }
         
         Fenetre::enteteFenetre.pack_end(@tempsLabel)
+        Fenetre::enteteFenetre.pack_end(@scoreLabel)
+
+        return self
 	end
 	
 	##
@@ -68,12 +91,21 @@ module Header
         	@temps += 1
 		end
 
-        @tempsLabel.text = Header.toTwoDigits(@temps / 60) + ":" + Header.toTwoDigits(@temps % 60)
+        @tempsLabel.text = "Temps: " + Header.surDeuxChiffres(@temps / 60) + ":" + Header.surDeuxChiffres(@temps % 60)
+        @scoreLabel.text = "Score: " + @scoreModel.calcul(@penalite, @temps).to_s
 
         return true;
     end
 
-    def Header.toTwoDigits(temps)
+    
+    ##
+    ## Convertis le temps sur deux chiffres
+    ##
+    ## @param      temps Le temps
+    ##
+    ## @return     Temps sur deux chiffres
+    ##
+    def Header.surDeuxChiffres(temps)
     	return temps.to_s.rjust(2, "0")
     end
 

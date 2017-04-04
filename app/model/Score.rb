@@ -69,11 +69,13 @@ class Score < Model
 	## @return     Score de l'utilisateur
 	##
 	def calcul(penalite, tempsChrono)
+		
 		tempsResoluMoy = 3*60
 		difficulte = 2
+
 		evolutionScore = (tempsResoluMoy - tempsChrono) + ((tempsResoluMoy/10)*(20 - penalite))
-		scoreCourant = self.valeur + (difficulte*evolutionScore)
-		self.valeur = scoreCourant
+		scoreCourant = difficulte*evolutionScore
+		
 		return scoreCourant
 	end
 

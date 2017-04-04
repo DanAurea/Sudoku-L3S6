@@ -15,9 +15,11 @@ class JeuLibreControleur < Controller
 	def initialize()
 		#charge le modele grille
 		loadModel("Grille")
+		loadModel("Score")
+
 		#parametres fenetre
 		@title  = "Sudoku - Jeu Libre"
-		@content = {"grille" => nil}
+		@content = {"grille" => nil, "score" => 0}
 	end
 
 	##

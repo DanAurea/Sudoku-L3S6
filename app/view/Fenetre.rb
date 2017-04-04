@@ -75,6 +75,15 @@ module Fenetre
     end
 
     ##
+    ## Définis un accesseur pour le bouton quitter
+    ##
+    ## @return boutonRetour
+    ##
+    def Fenetre.boutonQuitter()
+        return @boutonQuitter
+    end
+
+    ##
     ## Applique une feuille css sur un widget
     ## 
     ## @param   widget     Widget sur lequel appliquer
@@ -237,9 +246,9 @@ module Fenetre
             Core::back()
         }
 
-        boutonQuitter=Gtk::Button.new(:label => "Quitter")
-        boutonQuitter.style_context.add_class("bouton_bottom")
-        boutonQuitter.signal_connect('clicked'){
+        @boutonQuitter=Gtk::Button.new(:label => "Quitter")
+        @boutonQuitter.style_context.add_class("bouton_bottom")
+        @boutonQuitter.signal_connect('clicked'){
             Fenetre::detruire()
         }
 
@@ -247,7 +256,7 @@ module Fenetre
         boxBottom=Gtk::Box.new(:horizontal, 0)
         boxBottom.halign = :center
         boxBottom.add(@boutonRetour)
-        boxBottom.add(boutonQuitter)
+        boxBottom.add(@boutonQuitter)
         return boxBottom
     end
 end
