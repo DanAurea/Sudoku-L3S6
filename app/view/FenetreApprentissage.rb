@@ -109,29 +109,18 @@ class FenetreApprentissage < View
 	##
 	def gestionDroite()
 
-		fixed = Gtk::Fixed.new
-        label = Gtk::Label.new '-'
-		fixed.put label, 50, 140
 		list = Gtk::ComboBoxText.new()
-        list.signal_connect('changed') do |w, e|
-            on_changed(w, e, label)
+        list.signal_connect('changed') do |widget, event|
+            puts widget.active_text
         end
 
-        list.append_text('Ubuntu')
-        list.append_text('Mandriva')
-        list.append_text('Redhat')
-        list.append_text('Gento')
-        list.append_text('Mint')
-
-        fixed.put(list, 50, 30)
-
-        @boxBouton.add(fixed)
-
+        list.append_text('Technique 1')
+        list.append_text('Technique 2')
+        list.append_text('Technique 3')
+        list.append_text('Technique 4')
+        list.append_text('Technique 5')
+        @boxBouton.add(list)
     end
-
-    def on_changed sender, event, label
-        label.set_label sender.active_text
-	end
 
 	##
 	## Met en place la partie du bas
