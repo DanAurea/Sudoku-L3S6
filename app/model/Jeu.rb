@@ -1,14 +1,20 @@
 class Jeu < Model
 
-  @grille
-  @joueur
-  @score
-  @temps
-  @mode
+  attr_accessor :grille, :chrono, :score
+  # @joueur
+  # @score
+  # @temps
+  # @mode
 
   FACILE=0
   MOYEN=1
   DIFFICILE=2
+
+  def initialize
+  	@grille=nil
+  	@score=0
+  	@chrono =0
+  end
 
   ## Vérification d'une fin de partie, retourne vrai si tout est bon
   ## Doit etre appelé lorsque la grille est pleine
@@ -25,12 +31,22 @@ class Jeu < Model
     return true
   end
 
-  def creerPartie(pseudo,diff,mode)
+  def creerPartie(pseudo)
+    donnees=Hash.new()
+    File.open(Core::ROOTPROJECT + "assets/save/" + pseudo.to_s + ".yml", "w") do |fichier|
+            donnees["grille"] = @grille
+            # donnees["score_id"] = score_id
+            donnees["score"] = @score
+            donnees["chrono"] = @chrono
+            fichier.write(donnees.to_yaml)
+    end
 
+    return true
   end
 
   def chargerPartie(pseudo)
-
+    donnees = YAML.load_file(Core::ROOTPROJECT + "assets/save/" + pseudo.to_s + ".yml")
+    return donnees
   end
 
   def supprimerPartie(pseudo)

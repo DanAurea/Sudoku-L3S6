@@ -1,8 +1,11 @@
+require "observer"
+
 class CaseDessin < Gtk::DrawingArea
+    include Observable
 
     attr_accessor :x, :y, :largeur, :hauteur, :taillePolice, :nombre
 
-    def initialize nombre
+    def initialize valeur
 
         super()
         
@@ -20,16 +23,12 @@ class CaseDessin < Gtk::DrawingArea
         @couleurPolice     = Gdk::Color.new(0, 0, 0)
         @couleurSurlignees = Gdk::Color.new(0, 50000, 50000)
 
-        @nombre   = nombre
+        @nombre   = valeur["value"]
 
         ## Correspond à une case déjà remplie par le générateur
         ## donc non éditable
-        if(@nombre != "")
-            @editable = false
-        else
-            @editable = true
-            @focus    = false
-        end
+        @editable = valeur["editable"]
+        @focus    = false
 
         ## Crée la zone de dessin au signal draw
         signal_connect "draw" do  |_, cr|
@@ -137,7 +136,7 @@ class CaseDessin < Gtk::DrawingArea
 
             ## Change la valeur de la case si appui détecté
             bouton.signal_connect "button_press_event" do |widget|
-                mettreAJour(widget.label)
+                mettreAJour(widget.label.to_i)
                 redessiner()
             end
         end 
@@ -158,7 +157,10 @@ class CaseDessin < Gtk::DrawingArea
     end
 
     def mettreAJour(valeur)
+        changed
         @nombre = valeur
+
+        notify_observers(self)
     end
 
     def redessiner()
@@ -188,9 +190,9 @@ class CaseDessin < Gtk::DrawingArea
             Cairo::FONT_SLANT_NORMAL, Cairo::FONT_WEIGHT_NORMAL
         cr.set_font_size @taillePolice
 
-        extents = cr.text_extents @nombre
+        extents = cr.text_extents @nombre.to_s
         cr.move_to @x + @largeur / 2 - extents.width / 2, @y + @hauteur / 2 + extents.height / 2 ## Déplace le curseur de texte au centre de la case
-        cr.show_text @nombre
+        cr.show_text @nombre.to_s
 
         cr.set_source_rgb 0.5, 0.5, 0.5
 

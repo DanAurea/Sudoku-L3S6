@@ -14,7 +14,6 @@ require Core::ROOT + "utils/Generateur.rb"
 class Grille < Model
 
     def initialize()
-        @gen = Generateur.new()
         @grille = nil
     end
 
@@ -28,7 +27,10 @@ class Grille < Model
     ##
     def generer(niveau)
         # Niveau + 1 car constante de 0 à 2 passée en paramètre
-        @grille = @gen.generer(niveau+1)
+        
+        @gen = Generateur.new(niveau + 1)
+        @grille = @gen.generer()
+        
         return @grille
     end
 

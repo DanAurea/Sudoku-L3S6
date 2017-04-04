@@ -10,6 +10,7 @@ class Score < Model
 						utilisateur integer,
 						FOREIGN KEY(utilisateur) REFERENCES utilisateur(utilisateur_id)
 						);"
+		@difficulte = 0
 	end
 
 	##
@@ -71,10 +72,9 @@ class Score < Model
 	def calcul(penalite, tempsChrono)
 		
 		tempsResoluMoy = 3*60
-		difficulte = 2
 
 		evolutionScore = (tempsResoluMoy - tempsChrono) + ((tempsResoluMoy/10)*(20 - penalite))
-		scoreCourant = difficulte*evolutionScore
+		scoreCourant = (@difficulte+1)*evolutionScore
 		
 		return scoreCourant
 	end

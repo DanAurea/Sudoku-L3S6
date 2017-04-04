@@ -10,23 +10,26 @@
 # 	Class description
 # 	Generation de grille de sudoku (création de difficulté).
 
+# gen = Generateur.new()
+
+# g1 = gen.generer(1)
+# g2 = gen.generer(1)
+
 class Generateur
 
 	@grid
 
-
 	attr_reader :grid
-
-
 
 	##
 	## @brief initialise grid une list de list de nombres.
 	##
 
-	def initialize()
+	def initialize(difficulte)
 		@grid = Array.new()
 		ligne = Array.new()
 
+		@difficulte = difficulte
 
 		9.times do
 			val = 1+rand(9)
@@ -58,6 +61,8 @@ class Generateur
 			switchrow(5-a, 5-b)
 			switchcol(8-a, 8-b)
 		end
+
+		complexifier()
 	end
 
 
@@ -68,8 +73,8 @@ class Generateur
 	##
 	## @return
 	##
-	def generer(d)
-		complexifier(d)
+	def generer()
+		self.convert()
 	end
 
 	##
@@ -97,7 +102,7 @@ class Generateur
 	##
 
 
-	def complexifier(d)
+	def complexifier()
 
 		present = Array.new
 		9.times do
@@ -108,7 +113,7 @@ class Generateur
 			present.unshift(val)
 		end
 
-		1.upto(d) do
+		1.upto(@difficulte) do
 			victime = present.pop()
 			@grid.each do |a|
 				a.each_with_index do |c, index|
@@ -124,7 +129,7 @@ class Generateur
 		@grid.each do |a|
 			nbkill += a.count(nil)
 		end
-		nbkill = (81-nbkill)*d*0.1
+		nbkill = (81-nbkill)* @difficulte *0.1
 
 		0.upto(nbkill) do
 			x = rand(9)
@@ -150,13 +155,17 @@ class Generateur
 
 		res = Array.new()
 		ligne = Array.new()
-		val = Hash.new()
-		val["value"] = nil
-		val["unique"] = true
 
 		@grid.each do |line|
 			line.each do |elem|
+				val = Hash.new()
 				val["value"] = elem
+				val["editable"] = false
+				
+				if(elem == nil)
+					val["editable"] = true
+				end
+
 				ligne.push(val.clone())
 			end
 			res.push(ligne.clone())
