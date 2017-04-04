@@ -92,14 +92,16 @@ class FenetrePseudo < View
         @titreLabel.style_context.add_class("titre_menu")
         @titreLabel.set_margin_top(30)
         @pseudoLabel.set_name("label_field_pseudo")
-        @pseudoLabel.set_margin_top(100)
+        @pseudoLabel.set_margin_top(80)
         @pseudoLabel.set_margin_bottom(30)
         #css bouton
         @entryPseudo.style_context.add_class("field_pseudo")
         @entryPseudo.set_margin_left(100)
         @entryPseudo.set_margin_right(100)
         @boutonValider.set_margin(40)
+        @boutonValider.set_margin_top(60)
         @boutonQuitter.set_margin(40)
+        @boutonQuitter.set_margin_top(60)
     end
 
 	##

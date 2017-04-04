@@ -67,7 +67,7 @@ class PseudoControleur < Controller
   		elsif self.pseudoExiste(entreePseudo.text)
   			actionValider("Ce pseudo existe déjà, êtes vous '#{entreePseudo.text}'?", entreePseudo)
   		else
-			if actionValider("Pseudo inconnu, creer un nouveau profil?", entreePseudo)
+			if actionValider("Pseudo inconnu, créer un nouveau profil?", entreePseudo)
 				@Utilisateur.creerUtilisateur(entreePseudo.text)
 			end
   		end

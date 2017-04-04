@@ -28,8 +28,8 @@ class FenetreRegles < View
         @boxBottom = Fenetre::creerBoxBottom()
         # VI label
         @titreLabel = Fenetre::creerLabelType("<u>Règles</u>")
-        @regle0Label = Fenetre::creerLabelType("******************************************************************")
-        @regle1Label = Fenetre::creerLabelType("******************************************************************")
+        @regle0Label = Fenetre::creerLabelType("*************************************************************")
+        @regle1Label = Fenetre::creerLabelType("*************************************************************")
         # VI règles
         @tabRegle = [
             "     - Un sudoku classique contient 9 lignes et 9 colonnes,",
@@ -37,7 +37,7 @@ class FenetreRegles < View
             "     - Le but du jeu est de remplir ces cases avec des chiffres",
             "allant de 1 à 9 en veillant toujours à ce qu'un même chiffre",
             "ne figure qu'une seule fois par colonne, une seule fois par",
-            "ligne et une seule fois par carré de 9 cases(appelé région).",
+            "ligne et une seule fois par carré de 9 cases (appelé région).",
             "     - Au début du jeu, une vingtaine de chiffres sont déjà placés",
             "et il vous reste à  trouver les autres. En effet, une grille",
             "initiale de sudoku correctement constituée ne peut aboutir qu'à",
@@ -64,10 +64,6 @@ class FenetreRegles < View
     ##
     ##
     def creerBoxTop()
-        #Action des boutons
-        @regle0Label.halign = :start
-        @regle1Label.halign = :start
-
         #regles enoncées
         table=Gtk::Table.new(1,15,false)
         table.attach(@regle0Label,0,1,0,1)

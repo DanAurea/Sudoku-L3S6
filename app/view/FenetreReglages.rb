@@ -124,7 +124,7 @@ class FenetreReglages < View
         #css label
         @titreLabel.style_context.add_class("titre_menu")
         @titreLabel.set_margin_top(30)
-        @tmp.set_margin_top(30)
+        @tmp.set_margin_top(10)
         @labelCouleurCaseBase.style_context.add_class("label_reglage")
         @labelCouleurCaseBase.set_margin(10)
         @labelCouleurCaseBase.set_margin_bottom(0)
