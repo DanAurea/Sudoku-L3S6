@@ -9,8 +9,9 @@ require Core::ROOT + "components/GrilleDessin.rb"
 
 class FenetreApprentissage < View
 	## VI
+	@boxMilieu
 	@boxGrille
-	@boxDroite
+	@boxBouton
 	@boxInfo
 	@grilleDessin
 	@scoreLabel
@@ -23,8 +24,9 @@ class FenetreApprentissage < View
 	def initialize()
 		Header::chrono
 
+		@boxMilieu = Gtk::Box.new(:horizontal, 0)
 		@boxGrille = Gtk::Box.new(:horizontal, 0)
-		@boxDroite = Gtk::Box.new(:vertical, 0)
+		@boxBouton = Gtk::Box.new(:vertical, 0)
 		@boxInfo = Gtk::Box.new(:horizontal, 0)
 		@grilleDessin = nil
 		@scoreLabel   = nil
@@ -46,20 +48,23 @@ class FenetreApprentissage < View
 	##
 	def miseEnPlace()
 		#barre de menu
-		Fenetre::box.add(Fenetre::creerBarreMenu())
 		miseEnPlaceBarreMenu()
 
 		#box grille
-		Fenetre::box.add(@boxGrille)
+		@boxMilieu.add(@boxGrille)
 		@boxGrille.add(@grilleDessin)
 
 		#box de droite
-		Fenetre::box.add(@boxDroite)
-		@boxDroite.add(Fenetre::creerLabelType("test"))
+		@boxMilieu.add(@boxBouton)
+		@boxBouton.add(Fenetre::creerLabelType("test"))
 
 		#box info
-		Fenetre::box.add(@boxInfo)
 		@boxInfo.add(Fenetre::creerLabelType("test"))
+
+		#add a la box
+		Fenetre::box.add(Fenetre::creerBarreMenu())
+		Fenetre::box.add(@boxMilieu)
+		Fenetre::box.add(@boxInfo)
 	end
 
 	##
