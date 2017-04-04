@@ -42,15 +42,10 @@ class JeuLibreControleur < Controller
 		end
 
 		@content["grille"] = @Grille.generer(niveau)
-
+		
 		@Jeu.chrono = 600
 		@Jeu.score  = 2000
 		@Jeu.grille = @content["grille"]
-
-		@Jeu.creerPartie(@content["pseudo"])
-		donnees =@Jeu.chargerPartie(@content["pseudo"])
-		
-		puts donnees
 
 		return self
 	end
