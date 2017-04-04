@@ -6,10 +6,15 @@
 # => License::      Distributes under the same terms as Ruby
 
 require Core::ROOT + "components/GrilleDessin.rb"
-require "observer"
 
 class FenetreApprentissage < View
-	include Observable
+	## VI
+	@boxGrille
+	@boxDroite
+	@boxInfo
+	@grilleDessin
+	@scoreLabel
+
 
 	##
 	## Initialize
@@ -18,7 +23,9 @@ class FenetreApprentissage < View
 	def initialize()
 		Header::chrono
 
-		@contenu      = Gtk::Box.new(:horizontal, 0)
+		@boxGrille = Gtk::Box.new(:horizontal, 0)
+		@boxDroite = Gtk::Box.new(:vertical, 0)
+		@boxInfo = Gtk::Box.new(:horizontal, 0)
 		@grilleDessin = nil
 		@scoreLabel   = nil
 	end
@@ -30,7 +37,6 @@ class FenetreApprentissage < View
 	##
 	def creerGrille()
 		@grilleDessin = GrilleDessin.new(@grille)
-		@grilleDessin.add_observer(self)
 		return self
 	end
 
@@ -39,10 +45,21 @@ class FenetreApprentissage < View
 	##
 	##
 	def miseEnPlace()
-		@contenu.add(@grilleDessin)
+		#barre de menu
 		Fenetre::box.add(Fenetre::creerBarreMenu())
 		miseEnPlaceBarreMenu()
-		Fenetre::box.add(@contenu)
+
+		#box grille
+		Fenetre::box.add(@boxGrille)
+		@boxGrille.add(@grilleDessin)
+
+		#box de droite
+		Fenetre::box.add(@boxDroite)
+		@boxDroite.add(Fenetre::creerLabelType("test"))
+
+		#box info
+		Fenetre::box.add(@boxInfo)
+		@boxInfo.add(Fenetre::creerLabelType("test"))
 	end
 
 	##
