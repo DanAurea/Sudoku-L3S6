@@ -12,6 +12,7 @@
 
 require Core::ROOT + "model/Configuration.rb"
 require Core::ROOT + "model/Score.rb"
+require Core::ROOT + "model/Jeu.rb"
 
 class Utilisateur < Model
 

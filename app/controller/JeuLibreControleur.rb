@@ -6,7 +6,7 @@
 # 	
  	
 # 	Class JeuLibreControleur
-#
+
 class JeuLibreControleur < Controller
 
 	##
@@ -16,10 +16,16 @@ class JeuLibreControleur < Controller
 		#charge le modele grille
 		loadModel("Grille")
 		loadModel("Score")
+		loadModel("Jeu")
 
 		#parametres fenetre
 		@title  = "Sudoku - Jeu Libre"
 		@content = {"grille" => nil, "score" => 0}
+	end
+
+	def updateGrille(x, y, value)
+		@grille[x][y]["value"] = value
+		puts "updated"
 	end
 
 	##
@@ -36,7 +42,16 @@ class JeuLibreControleur < Controller
 		end
 
 		@content["grille"] = @Grille.generer(niveau)
+
+		@Jeu.chrono = 600
+		@Jeu.score  = 2000
+		@Jeu.grille = @content["grille"]
+
+		@Jeu.creerPartie(@content["pseudo"])
+		donnees =@Jeu.chargerPartie(@content["pseudo"])
 		
+		puts donnees
+
 		return self
 	end
 end

@@ -1,18 +1,12 @@
 require_relative "CaseDessin.rb"
+require "observer"
 
 class GrilleDessin < Gtk::Grid
-
+    include Observable
+    
     def initialize valeurs
         
         super() 
-
-        valeurs = valeurs.collect{
-            |ligne|
-            ligne.collect{
-                |colonne|
-                    colonne.to_s
-            }
-        }
 
         ## TODO: Lire largeur et hauteur dans un fichier de config
         @largeurCase = 40 
@@ -33,9 +27,11 @@ class GrilleDessin < Gtk::Grid
         hauteurLig = 1
 
         @valeurs.each do | section |
-            
-            section.each do |valeur |
+        
+            section.each do | valeur |
                 c = CaseDessin.new valeur
+                c.add_observer(self)
+
                 @cases << c
 
                 attach c, colonne, ligne , largeurCol, hauteurLig
@@ -49,6 +45,11 @@ class GrilleDessin < Gtk::Grid
             end
 
         end
+    end
+
+    def update(caseObj)
+        x = @cases.index(caseObj) / 9
+        y = @cases.index(caseObj) % 9
     end
 
     def dessiner cr
