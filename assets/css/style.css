@@ -16,14 +16,11 @@
     border: 1px solid white;
 }
 
-label{
-    font-family: Monospace;
-}
-
 button{
     border: 1px solid rgb(200,200,200);
 	background: rgb(46,134,193);
     box-shadow: none;
+    font-family: monospace;
 }
 
 button label{
