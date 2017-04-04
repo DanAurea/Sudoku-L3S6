@@ -6,15 +6,9 @@
 */
 
 
-.label_reglage_f{
-    margin-top: 30px;
-}
-
 .label_reglage{
     color: white;
     font-size: 15px;
-    margin: 10px;
-    margin-bottom: 0;
 }
 
 .bouton_reglage{
@@ -22,8 +16,6 @@
 	background: rgb(46,134,193);
     box-shadow: none;
     border-radius: 10px;
-    margin: 10px;
-    margin-bottom: 0;
 }
 
 .bouton_reglage label{

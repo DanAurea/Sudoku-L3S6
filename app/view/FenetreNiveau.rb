@@ -76,10 +76,18 @@ class FenetreNiveau < View
     def ajoutCss()
         #css label
         @titreLabel.style_context.add_class("titre_menu")
+        @titreLabel.set_margin_top(30)
         #css bouton
-        @boutonFacile.style_context.add_class("bouton_niveau_f")
-        @boutonMoyen.style_context.add_class("bouton_niveau")
-        @boutonDifficile.style_context.add_class("bouton_niveau")
+        @boutonFacile.set_margin_top(70)
+        @boutonFacile.set_margin_bottom(40)
+        @boutonFacile.set_margin_left(100)
+        @boutonFacile.set_margin_right(100)
+        @boutonMoyen.set_margin_bottom(40)
+        @boutonMoyen.set_margin_left(100)
+        @boutonMoyen.set_margin_right(100)
+        @boutonDifficile.set_margin_bottom(40)
+        @boutonDifficile.set_margin_left(100)
+        @boutonDifficile.set_margin_right(100)
     end
 
     ##
@@ -89,7 +97,6 @@ class FenetreNiveau < View
     ##
     def run()
         self.miseEnPlace()
-        Fenetre::css(:chemin => "/assets/css/FenetreNiveau.css")
         return self
     end
 end

@@ -52,15 +52,8 @@ button:active label{
 .titre_menu{
     color: white;
     font-size: 40px;
-    margin-top: 30px;
 }
 
-.bouton_bottom{
-    margin: 40px;
-    padding: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
 
 #profil{
     background: rgb(200, 200, 200);

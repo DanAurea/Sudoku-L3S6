@@ -314,13 +314,13 @@ module Fenetre
         #Creation des Boutons
         
         @boutonRetour=Gtk::Button.new(:label => "Retour")
-        @boutonRetour.style_context.add_class("bouton_bottom")
+        @boutonRetour.set_margin(40)
         @boutonRetour.signal_connect('clicked'){
             Core::back()
         }
 
         @boutonQuitter=Gtk::Button.new(:label => "Quitter")
-        @boutonQuitter.style_context.add_class("bouton_bottom")
+        @boutonQuitter.set_margin(40)
         @boutonQuitter.signal_connect('clicked'){
             Fenetre::detruire()
         }
@@ -344,27 +344,35 @@ module Fenetre
 
         @boutonMenu_barre = Gtk::ToolButton.new(:stock_id => Gtk::Stock::HOME)
         @boutonMenu_barre.set_tooltip_text("Aller au menu principal")
+        @boutonMenu_barre.set_margin_right(10)
 
         @boutonSauvegarder_barre = Gtk::ToolButton.new(:stock_id => Gtk::Stock::SAVE)
         @boutonSauvegarder_barre.set_tooltip_text("Sauvegarder")
+        @boutonSauvegarder_barre.set_margin_right(10)
 
         @boutonReglage_barre = Gtk::ToolButton.new(:stock_id => Gtk::Stock::PREFERENCES)
         @boutonReglage_barre.set_tooltip_text("Ajuster les réglages")
+        @boutonReglage_barre.set_margin_right(10)
 
         @boutonQuitter_barre = Gtk::ToolButton.new(:stock_id => Gtk::Stock::QUIT)
         @boutonQuitter_barre.set_tooltip_text("Quitter")
+        @boutonQuitter_barre.set_margin_right(10)
 
         @boutonPauseChrono_barre = Gtk::ToolButton.new(:stock_id => Gtk::Stock::MEDIA_PAUSE)
         @boutonPauseChrono_barre.set_tooltip_text("Mettre le jeu en pause")
+        @boutonPauseChrono_barre.set_margin_right(10)
 
         @boutonPlayChrono_barre = Gtk::ToolButton.new(:stock_id => Gtk::Stock::MEDIA_PLAY)
         @boutonPlayChrono_barre.set_tooltip_text("Reprendre le jeu")
+        @boutonPlayChrono_barre.set_margin_right(10)
     
         @boutonAnnuler_barre=Gtk::ToolButton.new(:stock_id => Gtk::Stock::UNDO)
         @boutonAnnuler_barre.set_tooltip_text("Annuler action")
+        @boutonAnnuler_barre.set_margin_right(10)
 
         @boutonRetablir_barre=Gtk::ToolButton.new(:stock_id => Gtk::Stock::REDO)
         @boutonRetablir_barre.set_tooltip_text("Rétablir action annulée")
+        @boutonRetablir_barre.set_margin_right(10)
 
         barreMenu.insert(@boutonMenu_barre,0)
         barreMenu.insert(@boutonSauvegarder_barre,1)

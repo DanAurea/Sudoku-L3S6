@@ -126,15 +126,29 @@ class FenetreMenu < View
     def ajoutCss()
         #css label
         @titreLabel.style_context.add_class("titre_menu")
+        @titreLabel.set_margin_top(30)
         #css bouton
-        @boutonCharger.style_context.add_class("bouton_menu_f")
-        @boutonNouveau.style_context.add_class("bouton_menu")
-        @boutonStat.style_context.add_class("bouton_menu")
-        @boutonScore.style_context.add_class("bouton_menu")
-        @boutonReglage.style_context.add_class("bouton_menu")
-        @boutonRegle.style_context.add_class("bouton_menu")
-        @boutonAPropos.style_context.add_class("bouton_bottom")
-        @boutonQuitter.style_context.add_class("bouton_bottom")
+        @boutonCharger.set_margin(7)
+        @boutonCharger.set_margin_left(100)
+        @boutonCharger.set_margin_right(100)
+        @boutonCharger.set_margin_top(15)
+        @boutonNouveau.set_margin(7)
+        @boutonNouveau.set_margin_left(100)
+        @boutonNouveau.set_margin_right(100)
+        @boutonStat.set_margin(7)
+        @boutonStat.set_margin_left(100)
+        @boutonStat.set_margin_right(100)
+        @boutonScore.set_margin(7)
+        @boutonScore.set_margin_left(100)
+        @boutonScore.set_margin_right(100)
+        @boutonReglage.set_margin(7)
+        @boutonReglage.set_margin_left(100)
+        @boutonReglage.set_margin_right(100)
+        @boutonRegle.set_margin(7)
+        @boutonRegle.set_margin_left(100)
+        @boutonRegle.set_margin_right(100)
+        @boutonAPropos.set_margin(40)
+        @boutonQuitter.set_margin(40)
     end
     
     ##
@@ -179,7 +193,6 @@ class FenetreMenu < View
     ##
 	def run
 		self.miseEnPlace()
-        Fenetre::css(:chemin => "/assets/css/FenetreMenu.css")
 		return self
 	end
 end

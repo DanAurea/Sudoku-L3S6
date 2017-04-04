@@ -79,6 +79,7 @@ class FenetrePseudo < View
 
         #add des boutons à la box
         @boxBottom.halign = :center
+        @boxBottom.valign = :center
         @boxBottom.add(@boutonQuitter)
         @boxBottom.add(@boutonValider)
     end
@@ -89,11 +90,16 @@ class FenetrePseudo < View
     def ajoutCss()
         #css label
         @titreLabel.style_context.add_class("titre_menu")
+        @titreLabel.set_margin_top(30)
         @pseudoLabel.set_name("label_field_pseudo")
+        @pseudoLabel.set_margin_top(100)
+        @pseudoLabel.set_margin_bottom(30)
         #css bouton
         @entryPseudo.style_context.add_class("field_pseudo")
-        @boutonValider.style_context.add_class("bouton_bottom")
-        @boutonQuitter.style_context.add_class("bouton_bottom")
+        @entryPseudo.set_margin_left(100)
+        @entryPseudo.set_margin_right(100)
+        @boutonValider.set_margin(40)
+        @boutonQuitter.set_margin(40)
     end
 
 	##

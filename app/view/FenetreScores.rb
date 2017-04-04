@@ -65,10 +65,13 @@ class FenetreScores < View
             id=index+1
             pos=Fenetre::creerLabelType("#{id}")
             pos.style_context.add_class("ligne_score")
+            pos.set_margin_top(10)
             nom=Fenetre::creerLabelType("#{tab[0]}")
             nom.style_context.add_class("ligne_score")
+            nom.set_margin_top(10)
             pts=Fenetre::creerLabelType("#{tab[1]}")
             pts.style_context.add_class("ligne_score")
+            pts.set_margin_top(10)
             tableScore.attach(pos,0,1,id,id+1)
             tableScore.attach(nom,1,2,id,id+1)
             tableScore.attach(pts,2,3,id,id+1)
@@ -85,9 +88,16 @@ class FenetreScores < View
     def ajoutCss()
         #css label
         @titreLabel.style_context.add_class("titre_menu")
+        @titreLabel.set_margin_top(30)
         @labelPosition.style_context.add_class("label_titre_score")
+        @labelPosition.set_margin(30)
+        @labelPosition.set_margin_bottom(10)
         @labelNom.style_context.add_class("label_titre_score")
+        @labelNom.set_margin(30)
+        @labelNom.set_margin_bottom(10)
         @labelPoint.style_context.add_class("label_titre_score")
+        @labelPoint.set_margin(30)
+        @labelPoint.set_margin_bottom(10)
     end
 
     ##

@@ -77,6 +77,8 @@ class FenetreRegles < View
             id=index+1
             regleLabel=Fenetre::creerLabelType("#{tab}")
             regleLabel.style_context.add_class("label_regles_s")
+            regleLabel.set_margin_top(5)
+            regleLabel.set_margin_left(10)
             regleLabel.halign = :start
             table.attach(regleLabel,0,1,id,id+1)
         }
@@ -92,8 +94,13 @@ class FenetreRegles < View
     def ajoutCss()
         #css label
         @titreLabel.style_context.add_class("titre_menu")
+        @titreLabel.set_margin_top(30)
         @regle0Label.style_context.add_class("label_regles_t")
-        @regle1Label.style_context.add_class("label_regles_t")       
+        @regle1Label.style_context.add_class("label_regles_t") 
+        @regle0Label.set_margin_top(10)
+        @regle0Label.set_margin_bottom(5)
+        @regle1Label.set_margin_top(10)
+        @regle1Label.set_margin_bottom(5)   
     end
 
     ##

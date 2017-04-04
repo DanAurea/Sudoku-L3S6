@@ -89,6 +89,7 @@ class FenetreStatistiques < View
     			else
     				infoStat.style_context.add_class("label_contenu_stat_d")
     			end
+                infoStat.set_margin(15)
     			table.attach(infoStat,id+1,id+2,index+1,index+2)
     		}
     	}
@@ -104,13 +105,21 @@ class FenetreStatistiques < View
     def ajoutCss()
         #css label
         @titreLabel.style_context.add_class("titre_menu")	
-		@labelDifficulte.style_context.add_class("label_titre_stat")		
-		@labelRecord.style_context.add_class("label_titre_stat")		
-		@labelMoyenne.style_context.add_class("label_titre_stat")		
+        @titreLabel.set_margin_top(30)
+		@labelDifficulte.style_context.add_class("label_titre_stat")
+        @labelDifficulte.set_margin(30)		
+		@labelRecord.style_context.add_class("label_titre_stat")	
+        @labelRecord.set_margin(30)	
+		@labelMoyenne.style_context.add_class("label_titre_stat")	
+        @labelMoyenne.set_margin(30)	
 		@labelNbPartie.style_context.add_class("label_titre_stat")
+        @labelNbPartie.set_margin(30)
 		@labelFacile.style_context.add_class("label_contenu_stat_f")
+        @labelFacile.set_margin(15)
 		@labelMoyen.style_context.add_class("label_contenu_stat_m")
+        @labelMoyen.set_margin(15)
 		@labelDifficile.style_context.add_class("label_contenu_stat_d")
+        @labelDifficile.set_margin(15)
     end
 
     ##

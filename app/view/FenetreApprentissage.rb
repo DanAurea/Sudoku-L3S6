@@ -12,7 +12,6 @@ class FenetreApprentissage < View
 	@menuBarre
 	@boxMilieu
 	@boxGrille
-	@boxBouton
 	@boxInfo
 	@grilleDessin
 	@scoreLabel
@@ -28,8 +27,7 @@ class FenetreApprentissage < View
 		@menuBarre=Fenetre::creerBarreMenu()
 		@boxMilieu = Gtk::Box.new(:horizontal, 0)
 		@boxGrille = Gtk::Box.new(:horizontal, 0)
-		@boxBouton = Gtk::Box.new(:vertical, 0)
-		@boxInfo = Gtk::Box.new(:horizontal, 0)
+		@boxInfo = Gtk::Box.new(:vertical, 0)
 		@grilleDessin = nil
 		@scoreLabel   = nil
 	end
@@ -59,15 +57,11 @@ class FenetreApprentissage < View
 		gestionDroite()
 
 		@boxMilieu.add(@boxGrille)
-		@boxMilieu.add(@boxBouton)
-
-		#box info
-		gestionInfo()
+		@boxMilieu.add(@boxInfo)
 
 		#add a la box
 		Fenetre::box.add(@menuBarre)
 		Fenetre::box.add(@boxMilieu)
-		Fenetre::box.add(@boxInfo)
 	end
 
 	##
@@ -119,18 +113,12 @@ class FenetreApprentissage < View
         list.append_text('Technique 3')
         list.append_text('Technique 4')
         list.append_text('Technique 5')
-        @boxBouton.add(list)
+        list.halign = :center
+        @boxInfo.add(list)
+
+
+        
     end
-
-	##
-	## Met en place la partie du bas
-	##
-	## 
-	##
-	def gestionInfo()
-		@boxInfo.add(Fenetre::creerLabelType("test"))
-	end
-
 
 	##
 	## Lance la construction du modèle de la vue. Méthode à définir dans tout les cas ! Autrement pas de rendu de la page.

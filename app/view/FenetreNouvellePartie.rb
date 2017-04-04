@@ -69,9 +69,15 @@ class FenetreNouvellePartie < View
     def ajoutCss()
         #css label
         @titreLabel.style_context.add_class("titre_menu")
+        @titreLabel.set_margin_top(30)
         #css bouton
-        @boutonApprentissage.style_context.add_class("bouton_nouvelle_partie_f")
-        @boutonJeuLibre.style_context.add_class("bouton_nouvelle_partie")
+        @boutonApprentissage.set_margin_top(100)
+        @boutonApprentissage.set_margin_bottom(50)
+        @boutonApprentissage.set_margin_left(100)
+        @boutonApprentissage.set_margin_right(100)
+        @boutonJeuLibre.set_margin_bottom(50)
+        @boutonJeuLibre.set_margin_left(100)
+        @boutonJeuLibre.set_margin_right(100)
     end
 
     ##
@@ -81,7 +87,6 @@ class FenetreNouvellePartie < View
     ##
 	def run()
 		self.miseEnPlace()
-        Fenetre::css(:chemin => "/assets/css/FenetreNouvellePartie.css")
 		return self
 	end
 end
