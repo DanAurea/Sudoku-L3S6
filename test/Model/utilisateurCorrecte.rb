@@ -9,7 +9,6 @@
  	
 # 	Class description
 # 	Classe de test unitaire de l'utilisateur.
-
 require_relative '../../app/model/Utilisateur'
 
 
@@ -40,7 +39,6 @@ def checkSupression(usr)
 	supprimerUtilisateur
 	return !rechercherUtilisateur("toto")
 end
-
 
 ##
 ## méthode de test, génère un utilisateur et vérifi qu'il existe et qu'on peut le supprimer.

@@ -14,7 +14,6 @@ require_relative '../../app/model/Utilisateur'
 require_relative '../../app/model/Score'
 
 
-
 ##
 ## Creer un score et le recherche pour vérifié son existance.
 ##
@@ -38,7 +37,6 @@ end
 ##
 ## @return true si le score foncrionne, false sinon.
 ##
-
 def scoreCorrecte()
 	
 
@@ -50,7 +48,6 @@ def scoreCorrecte()
 	if(!checkCreaScore(usr, sco))
 		return false
 	end
-
 
 	puts "all green"
 	return true

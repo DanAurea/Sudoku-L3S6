@@ -12,8 +12,6 @@
 
 require_relative '../../app/utils/Generateur'
 
-
-
 ##
 ## vérifie que chaque valeur soit correcte.
 ##
