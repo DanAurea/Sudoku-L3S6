@@ -104,8 +104,8 @@ class Controller
 		## call.
 		self.class.instance_methods(false).each() do |method|
 			if !view.class.method_defined?(method)
-				view.define_singleton_method(method) do |args|
-					self.controller.send(method, args)
+				view.define_singleton_method(method) do |*arguments|
+					self.controller.send(method, *arguments)
 				end
 			end
 		end
@@ -119,7 +119,6 @@ class Controller
 		## Display content builded in view with Gtk
 		view.window.show_all
 	end
-
 
 	##
 	## @brief      Sets the properties of window

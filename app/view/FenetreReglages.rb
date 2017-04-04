@@ -45,7 +45,7 @@ class FenetreReglages < View
         @boutonPolice = Gtk::FontButton.new()
 
         Fenetre::boutonRetour.signal_connect('clicked'){
-            @controller.enregistrerReglages(@pseudo, @config)
+            enregistrerReglages(@pseudo, @config)
         }
 
         # VI label
