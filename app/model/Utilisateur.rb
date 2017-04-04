@@ -40,13 +40,13 @@ class Utilisateur < Model
 		insert(:pseudo => pseudo)
 
 		utilisateur_id = @@db.last_insert_row_id
-		@configuration.creerConfiguration(utilisateur_id)
+		@configuration.creerConfiguration(pseudo)
 
 		## Crée un score par défaut si mode débug
 		## Celà permet de pouvoir tester la création de score 
 		## au chargement des utilisateurs.
 		if Core::DEBUG
-			@score.creer(utilisateur_id, Jeu::FACILE, 600)
+			@score.creer(pseudo, Jeu::FACILE, 600)
 		end
 
 		return self

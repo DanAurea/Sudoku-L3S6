@@ -13,6 +13,7 @@ class Jeu < Model
   def initialize
   	@grille=nil
   	@score=0
+    @score_id = 0
   	@chrono =0
   end
 
@@ -35,7 +36,6 @@ class Jeu < Model
     donnees=Hash.new()
     File.open(Core::ROOTPROJECT + "assets/save/" + pseudo.to_s + ".yml", "w") do |fichier|
             donnees["grille"] = @grille
-            # donnees["score_id"] = score_id
             donnees["score"] = @score
             donnees["chrono"] = @chrono
             fichier.write(donnees.to_yaml)

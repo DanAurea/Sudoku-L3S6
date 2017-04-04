@@ -20,12 +20,29 @@ class JeuLibreControleur < Controller
 
 		#parametres fenetre
 		@title  = "Sudoku - Jeu Libre"
-		@content = {"grille" => nil, "score" => 0}
+		@content = {"grille" => nil}
+		
 	end
 
 	def updateGrille(x, y, value)
 		@grille[x][y]["value"] = value
 		puts "updated"
+	end
+
+	##
+	## Sauvegarde la partie dans un fichier yaml
+	##
+	## @return     Self
+	##
+	def sauvegarder()
+		@Jeu.chrono = Header.temps
+		@Jeu.score = Header.score
+		@Jeu.grille = @content["grille"]
+
+		## Sauvegarde la partie dans un fichier yaml au nom de l'utilisateur
+		@Jeu.creerPartie (@content["pseudo"])
+
+		return self
 	end
 
 	##
@@ -41,11 +58,8 @@ class JeuLibreControleur < Controller
 			niveau = 1
 		end
 
+		@Score.difficulte = niveau + 1
 		@content["grille"] = @Grille.generer(niveau)
-		
-		@Jeu.chrono = 600
-		@Jeu.score  = 2000
-		@Jeu.grille = @content["grille"]
 
 		return self
 	end
