@@ -10,9 +10,11 @@
 ##
 
 require Core::ROOT + "components/GrilleDessin.rb"
+require "observer"
 
 class FenetreJeuLibre < View
-	
+	include Observable
+
 	##
 	## Initialize
 	##
@@ -25,6 +27,9 @@ class FenetreJeuLibre < View
 		@scoreLabel   = nil
 	end
 
+	def update(x, y, value)
+		updateGrille(x, y, value)
+	end
 
 	##
 	## Crée le dessin de la grille
@@ -33,6 +38,8 @@ class FenetreJeuLibre < View
 	##
 	def creerGrille()
 		@grilleDessin = GrilleDessin.new(@grille)
+		@grilleDessin.add_observer(self)
+
 		return self
 	end
 
