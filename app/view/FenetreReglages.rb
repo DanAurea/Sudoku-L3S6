@@ -48,13 +48,13 @@ class FenetreReglages < View
         }
 
         # VI label
-        @titreLabel = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE}\"><u>Réglages</u></span>")
-        @tmp =  Fenetre::creerLabelType("  ")
-        @labelCouleurCaseBase = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE_REGLAGE}\">Couleur des cases de base:</span>")
-        @labelCouleurCaseSelectionne = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE_REGLAGE}\">Couleur des cases surlignées:</span>")
-        @labelCouleurTexte = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE_REGLAGE}\">Couleur du texte:</span>")
-        @labelCouleurIndices = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE_REGLAGE}\">Couleur des indices:</span>") 
-        @labelPolice = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE_REGLAGE}\">Police de texte:</span>")
+        @titreLabel = Fenetre::creerLabelType("<u>Réglages</u>", Fenetre::SIZE_TITRE)
+        @tmp =  Fenetre::creerLabelType("  ", 10)
+        @labelCouleurCaseBase = Fenetre::creerLabelType("Couleur des cases de base:", Fenetre::SIZE_TITRE_REGLAGE)
+        @labelCouleurCaseSelectionne = Fenetre::creerLabelType("Couleur des cases surlignées:", Fenetre::SIZE_TITRE_REGLAGE)
+        @labelCouleurTexte = Fenetre::creerLabelType("Couleur du texte:", Fenetre::SIZE_TITRE_REGLAGE)
+        @labelCouleurIndices = Fenetre::creerLabelType("Couleur des indices:", Fenetre::SIZE_TITRE_REGLAGE) 
+        @labelPolice = Fenetre::creerLabelType("Police de texte:", Fenetre::SIZE_TITRE_REGLAGE)
     end
 
     ##

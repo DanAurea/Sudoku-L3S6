@@ -27,9 +27,9 @@ class FenetreRegles < View
         @boxTop = Gtk::Box.new(:vertical,0)
         @boxBottom = Fenetre::creerBoxBottom()
         # VI label
-        @titreLabel = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE}\"><u>Règles</u></span>")
-        @regle0Label = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE_REGLE}\">*************************************************************</span>")
-        @regle1Label = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE_REGLE}\">*************************************************************</span>")
+        @titreLabel = Fenetre::creerLabelType("<u>Règles</u>", Fenetre::SIZE_TITRE)
+        @regle0Label = Fenetre::creerLabelType("*************************************************************", Fenetre::SIZE_TITRE_REGLE)
+        @regle1Label = Fenetre::creerLabelType("*************************************************************", Fenetre::SIZE_TITRE_REGLE)
         # VI règles
         @tabRegle = [
             "     - Un sudoku classique contient 9 lignes et 9 colonnes,",
@@ -71,7 +71,7 @@ class FenetreRegles < View
 
         @tabRegle.each_with_index{|tab,index|
             id=index+1
-            regleLabel=Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_CONTENU_REGLE}\">#{tab}</span>")
+            regleLabel=Fenetre::creerLabelType("#{tab}", Fenetre::SIZE_CONTENU_REGLE)
             regleLabel.override_color(:normal, Fenetre::COULEUR_BLANC)
             regleLabel.set_margin_top(5)
             regleLabel.set_margin_left(10)

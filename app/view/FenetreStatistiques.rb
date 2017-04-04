@@ -32,14 +32,14 @@ class FenetreStatistiques < View
 		@boxTop = Gtk::Box.new(:vertical,0)
 		@boxBottom = Fenetre::creerBoxBottom()
 		# VI label
-		@titreLabel = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE}\"><u>Statistiques</u></span>")
-    	@labelDifficulte = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE_STAT}\"><u>Difficulté</u></span>")
-    	@labelRecord = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE_STAT}\"><u>Record</u></span>")
-    	@labelMoyenne = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE_STAT}\"><u>Moyenne</u></span>")
-    	@labelNbPartie = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE_STAT}\"><u>Nb Parties</u></span>")
-    	@labelFacile = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_CONTENU_STAT}\">Facile</span>")
-    	@labelMoyen = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_CONTENU_STAT}\">Moyen</span>")
-    	@labelDifficile = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_CONTENU_STAT}\">Difficile</span>")
+		@titreLabel = Fenetre::creerLabelType("<u>Statistiques</u>",Fenetre::SIZE_TITRE)
+    	@labelDifficulte = Fenetre::creerLabelType("<u>Difficulté</u>",Fenetre::SIZE_TITRE_STAT)
+    	@labelRecord = Fenetre::creerLabelType("<u>Record</u>",Fenetre::SIZE_TITRE_STAT)
+    	@labelMoyenne = Fenetre::creerLabelType("<u>Moyenne</u>",Fenetre::SIZE_TITRE_STAT)
+    	@labelNbPartie = Fenetre::creerLabelType("<u>Nb Parties</u>",Fenetre::SIZE_TITRE_STAT)
+    	@labelFacile = Fenetre::creerLabelType("Facile", Fenetre::SIZE_CONTENU_STAT)
+    	@labelMoyen = Fenetre::creerLabelType("Moyen", Fenetre::SIZE_CONTENU_STAT)
+    	@labelDifficile = Fenetre::creerLabelType("Difficile", Fenetre::SIZE_CONTENU_STAT)
 		# VI stat
 
 		@tabStat = []
@@ -81,7 +81,7 @@ class FenetreStatistiques < View
 
     	@tabStat.each_with_index{|tab,index|
     		tab.each_with_index{|valeur,id|
-    			infoStat=Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_CONTENU_STAT}\">#{valeur}</span>")
+    			infoStat=Fenetre::creerLabelType("#{valeur}",Fenetre::SIZE_CONTENU_STAT)
     			if index==0
     				infoStat.override_color(:normal, Fenetre::COULEUR_VERT)
     			elsif index==1

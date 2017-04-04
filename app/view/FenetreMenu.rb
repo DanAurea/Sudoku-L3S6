@@ -41,7 +41,7 @@ class FenetreMenu < View
         @boutonAPropos = Gtk::Button.new(:label => " About ")
         @boutonQuitter = Gtk::Button.new(:label => "Quitter")
         # VI label
-        @titreLabel = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE}\"><u>Menu Principal</u></span>")
+        @titreLabel = Fenetre::creerLabelType("<u>Menu Principal</u>",Fenetre::SIZE_TITRE)
     end
 
     ##
@@ -91,7 +91,7 @@ class FenetreMenu < View
         if(partieExiste(@pseudo))
             @boxTop.add(@boutonCharger)
         else
-            @boxTop.add(Fenetre::creerLabelType(" "))
+            @boxTop.add(Fenetre::creerLabelType(" ",10))
         end
         @boxTop.add(@boutonNouveau)
         @boxTop.add(@boutonStat)

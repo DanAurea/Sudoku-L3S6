@@ -29,7 +29,7 @@ class FenetreNouvellePartie < View
         @boutonApprentissage = Gtk::Button.new(:label => "Apprentissage avec aides")
         @boutonJeuLibre = Gtk::Button.new(:label => "Jeu libre")
         # VI label
-        @titreLabel = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE}\"><u>Nouvelle partie</u></span>")
+        @titreLabel = Fenetre::creerLabelType("<u>Nouvelle partie</u>",Fenetre::SIZE_TITRE)
     end
 
     ##

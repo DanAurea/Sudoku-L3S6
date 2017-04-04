@@ -28,10 +28,10 @@ class FenetreScores < View
         @boxTop = Gtk::Box.new(:vertical,0)
         @boxBottom = Fenetre::creerBoxBottom()
         # VI label
-        @titreLabel = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE}\"><u>Meilleurs Scores</u></span>")
-        @labelPosition = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE_SCORE}\"><u>Position</u></span>")
-        @labelNom = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE_SCORE}\"><u>Personne</u></span>")
-        @labelPoint = Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_TITRE_SCORE}\"><u>Points</u></span>")
+        @titreLabel = Fenetre::creerLabelType("<u>Meilleurs Scores</u>", Fenetre::SIZE_TITRE)
+        @labelPosition = Fenetre::creerLabelType("<u>Position</u>", Fenetre::SIZE_TITRE_SCORE)
+        @labelNom = Fenetre::creerLabelType("<u>Personne</u>", Fenetre::SIZE_TITRE_SCORE)
+        @labelPoint = Fenetre::creerLabelType("<u>Points</u>", Fenetre::SIZE_TITRE_SCORE)
         # VI tableau de score
         @tabScore = []
     end
@@ -63,13 +63,13 @@ class FenetreScores < View
 
         @tabScore.each_with_index{|tab,index|
             id=index+1
-            pos=Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_CONTENU_SCORE}\">#{id}</span>")
+            pos=Fenetre::creerLabelType("#{id}", Fenetre::SIZE_CONTENU_SCORE)
             pos.override_color(:normal, Fenetre::COULEUR_BLANC)
             pos.set_margin_top(10)
-            nom=Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_CONTENU_SCORE}\">#{tab[0]}</span>")
+            nom=Fenetre::creerLabelType("#{tab[0]}", Fenetre::SIZE_CONTENU_SCORE)
             nom.override_color(:normal, Fenetre::COULEUR_BLANC)
             nom.set_margin_top(10)
-            pts=Fenetre::creerLabelType("<span font_desc=\"#{Fenetre::SIZE_CONTENU_SCORE}\">#{tab[1]}</span>")
+            pts=Fenetre::creerLabelType("#{tab[1]}", Fenetre::SIZE_CONTENU_SCORE)
             pts.override_color(:normal, Fenetre::COULEUR_BLANC)
             pts.set_margin_top(10)
             tableScore.attach(pos,0,1,id,id+1)
