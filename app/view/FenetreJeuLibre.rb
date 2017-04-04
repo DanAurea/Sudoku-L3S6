@@ -87,7 +87,6 @@ class FenetreJeuLibre < View
 	def run()
 		self.creerGrille()
 		self.miseEnPlace()
-		Fenetre::css(:chemin => "/assets/css/FenetreJeuLibre.css")
 		return self
 	end
 end

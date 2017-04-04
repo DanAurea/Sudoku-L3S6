@@ -26,7 +26,6 @@ class FenetreCharger < View
 	def run()
 		grilleDessin = GrilleDessin.new(@grille)
 		Fenetre::box.add(grilleDessin)
-		Fenetre::css(:chemin => "/assets/css/FenetreCharger.css")
 		return self
 	end
 end
