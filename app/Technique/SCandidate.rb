@@ -24,24 +24,28 @@ class SCandidate < Technique
 		grilleIndice = indice(grille)
 
 		[1,2,3,4,5,6,7,8,9].sort_by{rand}.each { |numero|
-			grilleIndice.each { |col,x|
+			grilleIndice.sort_by{rand}.each_index { |x|
 				cpt=0
-				col.each { |c,y|
+				ytmp=0
+				grilleIndice[x].sort_by{rand}.each_index { |y|
 					if grilleIndice[x][y][numero.to_s] then
 						cpt +=1
+						ytmp = y
 					end
 				}
-				if cpt == 1 then return [x,y,numero.to_s] end
+				if cpt == 1 then return [x,ytmp,numero.to_s] end
 			}
 
-			[0,1,2,3,4,5,6,7,8].each { |y|
+			[0,1,2,3,4,5,6,7,8].sort_by{rand}.each { |y|
 				cpt=0
-				[0,1,2,3,4,5,6,7,8].each { |x|
+				xtmp=0
+				[0,1,2,3,4,5,6,7,8].sort_by{rand}.each { |x|
 					if grilleIndice[x][y][numero.to_s] then
 						cpt +=1
+						xtmp = x
 					end
 				}
-				if cpt == 1 then return [x,y,numero.to_s] end
+				if cpt == 1 then return [xtmp,y,numero.to_s] end
 			}
 		}
 
