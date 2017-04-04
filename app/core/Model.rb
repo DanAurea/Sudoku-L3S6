@@ -124,4 +124,25 @@ class Model
 		return self
 	end
 
+	##
+	## @brief      Convert an array reques to a hash with columns => values
+	##
+	## @param      req   The request
+	##
+	## @return     Request hashed
+	##
+	def to_h(req)
+		response = Array.new()
+
+		## Transforme la réponse en hash
+		(1...req.length).each do |row|
+			response[row-1] = Hash.new()
+			(0...req[0].length).each do |col|
+				response[row-1][req[0][col]] = req[row][col]
+			end
+		end
+
+		return response
+	end
+
 end

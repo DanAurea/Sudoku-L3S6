@@ -15,6 +15,7 @@ class MenuControleur < Controller
 	def initialize
 		#charge le modele utilisateur
 		loadModel("Utilisateur")
+		loadModel("Jeu")
 		#parametres fenetre
 		@title = "Sudoku - Menu"
 		@width = 600

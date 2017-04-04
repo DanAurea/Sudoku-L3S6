@@ -14,7 +14,6 @@ class FenetreStatistiques < View
     @boxBottom  
     # VI label
     @titreLabel
-    @labelNiveau
 	@labelDifficulte
 	@labelRecord
 	@labelMoyenne
@@ -24,7 +23,6 @@ class FenetreStatistiques < View
 	@labelDifficile
     # VI stat
     @tabStat
-    @niveau
 
     ##
     ## Initialize
@@ -35,7 +33,6 @@ class FenetreStatistiques < View
 		@boxBottom = Fenetre::creerBoxBottom()
 		# VI label
 		@titreLabel = Fenetre::creerLabelType("<u>Statistiques</u>")
-    	@labelNiveau = Fenetre::creerLabelType("<u>Niveau:</u> #{@niveau}")
     	@labelDifficulte = Fenetre::creerLabelType("<u>Difficulté</u>")
     	@labelRecord = Fenetre::creerLabelType("<u>Record</u>")
     	@labelMoyenne = Fenetre::creerLabelType("<u>Moyenne</u>")
@@ -44,12 +41,9 @@ class FenetreStatistiques < View
     	@labelMoyen = Fenetre::creerLabelType("Moyen")
     	@labelDifficile = Fenetre::creerLabelType("Difficile")
 		# VI stat
-		@tabStat = [
-		    [0,0,0],
-		    [0,0,0],
-		    [0,0,0]
-		]
-		@niveau = 99
+
+		@tabStat = []
+  
     end
 
 	##
@@ -79,6 +73,12 @@ class FenetreStatistiques < View
     	table.attach(@labelMoyen,0,1,2,3)
     	table.attach(@labelDifficile,0,1,3,4)
 
+        @tabStat = [
+            [@meilleursScores[Jeu::FACILE], @moyennes[Jeu::FACILE], @nombreParties[Jeu::FACILE]],
+            [@meilleursScores[Jeu::MOYEN], @moyennes[Jeu::MOYEN], @nombreParties[Jeu::MOYEN]],
+            [@meilleursScores[Jeu::DIFFICILE], @moyennes[Jeu::DIFFICILE], @nombreParties[Jeu::DIFFICILE]]
+        ]
+
     	@tabStat.each_with_index{|tab,index|
     		tab.each_with_index{|valeur,id|
     			infoStat=Fenetre::creerLabelType("#{valeur}")
@@ -95,7 +95,6 @@ class FenetreStatistiques < View
 
         #add des boutons à la box
         @boxTop.add(@titreLabel)
-        @boxTop.add(@labelNiveau)
         @boxTop.add(table)
     end
 
@@ -104,8 +103,7 @@ class FenetreStatistiques < View
     ##
     def ajoutCss()
         #css label
-        @titreLabel.style_context.add_class("titre_menu")
-        @labelNiveau.style_context.add_class("label_niveau")		
+        @titreLabel.style_context.add_class("titre_menu")	
 		@labelDifficulte.style_context.add_class("label_titre_stat")		
 		@labelRecord.style_context.add_class("label_titre_stat")		
 		@labelMoyenne.style_context.add_class("label_titre_stat")		

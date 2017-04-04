@@ -45,7 +45,7 @@ class Utilisateur < Model
 		## Celà permet de pouvoir tester la création de score 
 		## au chargement des utilisateurs.
 		if Core::DEBUG
-			@score.creerScore(utilisateur_id, 1, 0)
+			@score.creer(utilisateur_id, Jeu::FACILE, 600)
 		end
 
 		return self
@@ -83,8 +83,8 @@ class Utilisateur < Model
 	## @return     Retourne 0 si pas trouvé sinon 1
 	##
 	def rechercherUtilisateur(pseudo)
-		resultat = @@db.execute "SELECT pseudo FROM utilisateur WHERE pseudo = ?;", pseudo
-		return resultat.length == 1 ? true : false;
+		resultat = @@db.execute "SELECT pseudo FROM utilisateur WHERE pseudo = ? LIMIT 1;", pseudo
+		return resultat.length >= 1 ? true : false;
 	end
 
 

@@ -66,6 +66,15 @@ module Fenetre
     end
     
     ##
+    ## Définis un accesseur pour le bouton de retour
+    ##
+    ## @return boutonRetour
+    ##
+    def Fenetre.boutonRetour()
+        return @boutonRetour
+    end
+
+    ##
     ## Applique une feuille css sur un widget
     ## 
     ## @param   widget     Widget sur lequel appliquer
@@ -221,9 +230,10 @@ module Fenetre
     ##
     def Fenetre.creerBoxBottom()
         #Creation des Boutons
-        boutonRetour=Gtk::Button.new(:label => "Retour")
-        boutonRetour.style_context.add_class("bouton_bottom")
-        boutonRetour.signal_connect('clicked'){
+        
+        @boutonRetour=Gtk::Button.new(:label => "Retour")
+        @boutonRetour.style_context.add_class("bouton_bottom")
+        @boutonRetour.signal_connect('clicked'){
             Core::back()
         }
 
@@ -236,7 +246,7 @@ module Fenetre
         #add des boutons
         boxBottom=Gtk::Box.new(:horizontal, 0)
         boxBottom.halign = :center
-        boxBottom.add(boutonRetour)
+        boxBottom.add(@boutonRetour)
         boxBottom.add(boutonQuitter)
         return boxBottom
     end

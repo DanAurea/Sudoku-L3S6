@@ -33,18 +33,7 @@ class FenetreScores < View
         @labelNom = Fenetre::creerLabelType("<u>Personne</u>")
         @labelPoint = Fenetre::creerLabelType("<u>Points</u>")
         # VI tableau de score
-        @tabScore = [
-            ["Monsieur X","??"],
-            ["Monsieur X","??"],
-            ["Monsieur X","??"],
-            ["Monsieur X","??"],
-            ["Monsieur X","??"],
-            ["Monsieur X","??"],
-            ["Monsieur X","??"],
-            ["Monsieur X","??"],
-            ["Monsieur X","??"],
-            ["Monsieur X","??"]
-        ]
+        @tabScore = []
     end
 
     ##
@@ -69,6 +58,8 @@ class FenetreScores < View
         tableScore.attach(@labelPosition,0,1,0,1)
         tableScore.attach(@labelNom,1,2,0,1)
         tableScore.attach(@labelPoint,2,3,0,1)
+
+        @tabScore = @meilleursScores
 
         @tabScore.each_with_index{|tab,index|
             id=index+1

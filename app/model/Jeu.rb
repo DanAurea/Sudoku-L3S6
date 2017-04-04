@@ -6,6 +6,10 @@ class Jeu < Model
   @temps
   @mode
 
+  FACILE=0
+  MOYEN=1
+  DIFFICILE=2
+
   ## Vérification d'une fin de partie, retourne vrai si tout est bon
   ## Doit etre appelé lorsque la grille est pleine
   def checkFiniPartie()

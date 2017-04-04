@@ -52,15 +52,15 @@ class FenetreNiveau < View
     def creerBoxTop()
         #Action des boutons
         @boutonFacile.signal_connect('clicked'){
-            Core::changeTo("JeuLibre", "pseudo": @pseudo, :difficulte=>1)
+            Core::changeTo("JeuLibre", "pseudo": @pseudo, :difficulte=>Jeu::FACILE)
         }
 
         @boutonMoyen.signal_connect('clicked'){
-            Core::changeTo("JeuLibre", "pseudo": @pseudo, :difficulte=>2)
+            Core::changeTo("JeuLibre", "pseudo": @pseudo, :difficulte=>Jeu::MOYEN)
         }
 
         @boutonDifficile.signal_connect('clicked'){
-            Core::changeTo("JeuLibre", "pseudo": @pseudo, :difficulte=>3)
+            Core::changeTo("JeuLibre", "pseudo": @pseudo, :difficulte=>Jeu::DIFFICILE)
         }
 
         #add des boutons à la box

@@ -15,6 +15,7 @@ class PseudoControleur < Controller
 	def initialize()
 		#charge le modele utilisateur
 		loadModel("Utilisateur")
+		
 		#parametres fenetre
 		@title = "Sudoku - Pseudo"
 		@width = 600

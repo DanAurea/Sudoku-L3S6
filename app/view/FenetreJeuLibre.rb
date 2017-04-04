@@ -8,6 +8,7 @@
 ##
 ## classe FenetreJeuLibre
 ##
+
 class FenetreJeuLibre < View
 	
 	##

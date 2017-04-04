@@ -14,7 +14,7 @@ class ScoresControleur < Controller
     ##
 	def initialize()
 		#charge le modele utilisateur
-		loadModel("Utilisateur")
+		loadModel('Score')
 		#parametres fenetre
 		@title = "Sudoku - Scores"
 		@width = 600
@@ -29,6 +29,16 @@ class ScoresControleur < Controller
     ## @return self
     ##
 	def run()
+		meilleursScores = @Score.meilleursScores(10)
+
+		@content["meilleursScores"] = []
+
+		meilleursScores.each do |score|
+			@content["meilleursScores"] << [score["pseudo"], score["score"]]
+		end
+
+		puts @content
+		
 		return self
 	end
 end

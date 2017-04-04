@@ -27,7 +27,8 @@ class Grille < Model
     ## @return     La grille generée
     ##
     def generer(niveau)
-        @grille = @gen.generer(niveau)
+        # Niveau + 1 car constante de 0 à 2 passée en paramètre
+        @grille = @gen.generer(niveau+1)
         return @grille
     end
 

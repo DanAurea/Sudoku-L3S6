@@ -36,12 +36,18 @@ class FenetreReglages < View
         @boxTop = Gtk::Box.new(:vertical,0)
         @boxBottom = Fenetre::creerBoxBottom()
         @config = Hash.new()
+
         # VI bouton
         @boutonCouleurCaseBase = Gtk::ColorButton.new()
         @boutonCouleurCaseSelectionne = Gtk::ColorButton.new()
         @boutonCouleurTexte = Gtk::ColorButton.new()
         @boutonCouleurIndices = Gtk::ColorButton.new()
         @boutonPolice = Gtk::FontButton.new()
+
+        Fenetre::boutonRetour.signal_connect('clicked'){
+            @controller.enregistrerReglages(@pseudo, @config)
+        }
+
         # VI label
         @titreLabel = Fenetre::creerLabelType("<u>Réglages</u>")
         @tmp =  Fenetre::creerLabelType("  ")
@@ -50,6 +56,22 @@ class FenetreReglages < View
         @labelCouleurTexte = Fenetre::creerLabelType("Couleur du texte:")
         @labelCouleurIndices = Fenetre::creerLabelType("Couleur des indices:") 
         @labelPolice = Fenetre::creerLabelType("Police de texte:")
+    end
+
+    ##
+    ## Définis les paramètres en provenance de la base de donnée
+    ##
+    ## @return     self
+    ##
+    def setParams()
+
+        @boutonCouleurCaseBase.color        = creerCouleur(@config["caseBase"])
+        @boutonCouleurCaseSelectionne.color = creerCouleur(@config["caseSelectionne"])
+        @boutonCouleurTexte.color           = creerCouleur(@config["couleurTexte"])
+        @boutonCouleurIndices.color         = creerCouleur(@config["couleurIndices"])
+        @boutonPolice.font_name             = @config["police"] + " " + @config["taillePolice"].to_s
+
+        return self
     end
 
     ##
@@ -123,24 +145,25 @@ class FenetreReglages < View
     ##
     def paramCouleurPolice()
         @boutonCouleurCaseBase.signal_connect "color-set" do
-            @config["caseBase"]=@boutonCouleurCaseBase.color
+            @config["caseBase"] = couleur(@boutonCouleurCaseBase.color)
         end
 
         @boutonCouleurCaseSelectionne.signal_connect "color-set" do
-            @config["caseSelectionne"]=@boutonCouleurCaseSelectionne.color
+            @config["caseSelectionne"] = couleur(@boutonCouleurCaseSelectionne.color)
+
         end
 
         @boutonCouleurTexte.signal_connect "color-set" do
-            @config["couleurTexte"]=@boutonCouleurTexte.color
+            @config["couleurTexte"] = couleur(@boutonCouleurTexte.color)
         end
 
         @boutonCouleurIndices.signal_connect "color-set" do
-            @config["couleurIndices"]=@boutonCouleurIndices.color
+            @config["couleurIndices"] = couleur(@boutonCouleurIndices.color)
         end
 
         @boutonPolice.signal_connect "font-set" do
             font = @boutonPolice.font_name
-            @config["taillePolice"]=font.slice!(-2,2)
+            @config["taillePolice"]=font.slice!(-2,2).to_i
             @config["police"]=font
         end
 
@@ -153,6 +176,7 @@ class FenetreReglages < View
     ## @return self
     ##
     def run()
+        self.setParams()
         self.miseEnPlace()
         Fenetre::css(:chemin => "/assets/css/FenetreReglages.css")
         return self
