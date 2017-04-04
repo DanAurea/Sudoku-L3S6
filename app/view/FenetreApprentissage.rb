@@ -116,7 +116,7 @@ class FenetreApprentissage < View
 	##
 	## 
 	##
-	def gestionDroite()
+	def gestionInfo()
 		@boxInfo.add(Fenetre::creerLabelType("test"))
 	end
 
