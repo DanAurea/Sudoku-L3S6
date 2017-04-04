@@ -19,14 +19,14 @@ module Fenetre
     @enteteFenetre
 
     ## VI barre menu
-    @boutonMenu
-    @boutonSauvegarder
-    @boutonReglage
-    @boutonQuitter
-    @boutonPauseChrono
-    @boutonPlayChrono
-    @boutonAnnuler
-    @boutonRetablir
+    @boutonMenu_barre
+    @boutonSauvegarder_barre
+    @boutonReglage_barre
+    @boutonQuitter_barre
+    @boutonPauseChrono_barre
+    @boutonPlayChrono_barre
+    @boutonAnnuler_barre
+    @boutonRetablir_barre
 
     ## Création fenêtre de base
     @fenetre = Gtk::Window.new(:toplevel)
@@ -85,12 +85,75 @@ module Fenetre
     end
 
     ##
-    ## Définis un accesseur pour le bouton quitter
+    ## Définis un accesseur pour le bouton boutonMenu_barre
     ##
-    ## @return boutonRetour
+    ## @return boutonMenu_barre
     ##
-    def Fenetre.boutonQuitter()
-        return @boutonQuitter
+    def Fenetre.boutonMenu_barre()
+        return @boutonMenu_barre
+    end
+
+    ##
+    ## Définis un accesseur pour le bouton boutonSauvegarder_barre
+    ##
+    ## @return boutonSauvegarder_barre
+    ##
+    def Fenetre.boutonSauvegarder_barre()
+        return @boutonSauvegarder_barre
+    end
+
+    ##
+    ## Définis un accesseur pour le bouton boutonReglage_barre
+    ##
+    ## @return boutonReglage_barre
+    ##
+    def Fenetre.boutonReglage_barre()
+        return @boutonReglage_barre
+    end
+
+    ##
+    ## Définis un accesseur pour le bouton boutonQuitter_barre
+    ##
+    ## @return boutonQuitter_barre
+    ##
+    def Fenetre.boutonQuitter_barre()
+        return @boutonQuitter_barre
+    end
+
+    ##
+    ## Définis un accesseur pour le bouton boutonPauseChrono_barre
+    ##
+    ## @return boutonPauseChrono_barre
+    ##
+    def Fenetre.boutonPauseChrono_barre()
+        return @boutonPauseChrono_barre
+    end
+
+    ##
+    ## Définis un accesseur pour le bouton boutonPlayChrono_barre
+    ##
+    ## @return boutonPlayChrono_barre
+    ##
+    def Fenetre.boutonPlayChrono_barre()
+        return @boutonPlayChrono_barre
+    end
+
+    ##
+    ## Définis un accesseur pour le bouton boutonAnnuler_barre
+    ##
+    ## @return boutonAnnuler_barre
+    ##
+    def Fenetre.boutonAnnuler_barre()
+        return @boutonAnnuler_barre
+    end
+
+    ##
+    ## Définis un accesseur pour le bouton boutonRetablir_barre
+    ##
+    ## @return boutonRetablir_barre
+    ##
+    def Fenetre.boutonRetablir_barre()
+        return @boutonRetablir_barre
     end
 
     ##
@@ -270,53 +333,49 @@ module Fenetre
         return boxBottom
     end
 
-    ##Permet de creer la barre de menu
+    ## Permet de creer la barre de menu
     ##
     ## @return barreMenu barre de menu du haut
     ##
     def Fenetre.creerBarreMenu()
         barreMenu = Gtk::Toolbar.new()
-        barreMenu.modify_bg(Gdk::Color.new(0,0,100))
-        barreMenu.set_toolbar_style(Gtk::Toolbar::Style::ICONS)
+        barreMenu.set_toolbar_style(Gtk::ToolbarStyle::ICONS)
+        barreMenu.style_context.add_class("barre_menu")
 
-        @boutonMenu = Gtk::ToolButton.new(:stock_id => Gtk::Stock::HOME)
-        @boutonMenu.set_tooltip_text("Aller au menu principal")
+        @boutonMenu_barre = Gtk::ToolButton.new(:stock_id => Gtk::Stock::HOME)
+        @boutonMenu_barre.set_tooltip_text("Aller au menu principal")
 
-        @boutonSauvegarder = Gtk::ToolButton.new(:stock_id => Gtk::Stock::SAVE)
-        @boutonSauvegarder.set_tooltip_text("Sauvegarder")
+        @boutonSauvegarder_barre = Gtk::ToolButton.new(:stock_id => Gtk::Stock::SAVE)
+        @boutonSauvegarder_barre.set_tooltip_text("Sauvegarder")
 
-        @boutonReglage = Gtk::ToolButton.new(:stock_id => Gtk::Stock::PREFERENCES)
-        @boutonReglage.set_tooltip_text("Ajuster les réglages")
+        @boutonReglage_barre = Gtk::ToolButton.new(:stock_id => Gtk::Stock::PREFERENCES)
+        @boutonReglage_barre.set_tooltip_text("Ajuster les réglages")
 
-        @boutonQuitter = Gtk::ToolButton.new(:stock_id => Gtk::Stock::QUIT)
-        @boutonQuitter.set_tooltip_text("Quitter")
+        @boutonQuitter_barre = Gtk::ToolButton.new(:stock_id => Gtk::Stock::QUIT)
+        @boutonQuitter_barre.set_tooltip_text("Quitter")
 
-        separateur = Gtk::SeparatorToolItem.new()
+        @boutonPauseChrono_barre = Gtk::ToolButton.new(:stock_id => Gtk::Stock::MEDIA_PAUSE)
+        @boutonPauseChrono_barre.set_tooltip_text("Mettre le jeu en pause")
 
-        @boutonPauseChrono = Gtk::ToolButton.new(:stock_id => Gtk::Stock::MEDIA_PAUSE)
-        @boutonPauseChrono.set_tooltip_text("Mettre le jeu en pause")
-
-        @boutonPlayChrono = Gtk::ToolButton.new(:stock_id => Gtk::Stock::MEDIA_PLAY)
-        @boutonPlayChrono.set_tooltip_text("Reprendre le jeu")
+        @boutonPlayChrono_barre = Gtk::ToolButton.new(:stock_id => Gtk::Stock::MEDIA_PLAY)
+        @boutonPlayChrono_barre.set_tooltip_text("Reprendre le jeu")
     
-        separateur2 = Gtk::SeparatorToolItem.new()
+        @boutonAnnuler_barre=Gtk::ToolButton.new(:stock_id => Gtk::Stock::UNDO)
+        @boutonAnnuler_barre.set_tooltip_text("Annuler action")
 
-        @boutonAnnuler=Gtk::ToolButton.new(:stock_id => Gtk::Stock::UNDO)
-        @boutonAnnuler.set_tooltip_text("Annuler action")
+        @boutonRetablir_barre=Gtk::ToolButton.new(:stock_id => Gtk::Stock::REDO)
+        @boutonRetablir_barre.set_tooltip_text("Rétablir action annulée")
 
-        @boutonRetablir=Gtk::ToolButton.new(:stock_id => Gtk::Stock::REDO)
-        @boutonRetablir.set_tooltip_text("Rétablir action annulée")
-
-        barreMenu.insert(@boutonMenu,0)
-        barreMenu.insert(@boutonSauvegarder,1)
-        barreMenu.insert(@boutonReglage,2)
-        barreMenu.insert(@boutonQuitter,3)
-        barreMenu.insert(separateur,4)
-        barreMenu.insert(@boutonPauseChrono,5)
-        barreMenu.insert(@boutonPlayChrono,6)
-        barreMenu.insert(separateur2,7)
-        barreMenu.insert(@boutonAnnuler,8)
-        barreMenu.insert(@boutonRetablir,9)
+        barreMenu.insert(@boutonMenu_barre,0)
+        barreMenu.insert(@boutonSauvegarder_barre,1)
+        barreMenu.insert(@boutonReglage_barre,2)
+        barreMenu.insert(@boutonQuitter_barre,3)
+        barreMenu.insert(Gtk::SeparatorToolItem.new(),4)
+        barreMenu.insert(@boutonPauseChrono_barre,5)
+        barreMenu.insert(@boutonPlayChrono_barre,6)
+        barreMenu.insert(Gtk::SeparatorToolItem.new(),7)
+        barreMenu.insert(@boutonAnnuler_barre,8)
+        barreMenu.insert(@boutonRetablir_barre,9)
 
         return barreMenu
     end

@@ -78,3 +78,8 @@ button:active label{
 #pseudo{
     font-size: 12px;
 }
+
+.barre_menu{
+    background-image: -gtk-gradient(radial, center center, 0, center center, 0.8, from(rgb(105, 150, 170)), to(rgb(25, 35, 65)));
+    border: 1px solid white;
+}
