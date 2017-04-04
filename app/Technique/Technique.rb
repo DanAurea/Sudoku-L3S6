@@ -38,11 +38,11 @@ class Technique
 	def indice(grille)
 		grilleIndice = Array.new(9){Array.new(9){Hash.new()}}
 
-		grille.each { |col,x|
-			col.each { |c,y|
-				if c.nil? then
+		grille.each_index { |x|
+			grille[x].each_index { |y|
+				if grille[x][y].nil? then
 					[1,2,3,4,5,6,7,8,9].each { |numero|
-						unless estProtegee(grille,numero.to_s,x,y) then
+						unless estProtegee?(grille,numero.to_s,x,y) then
 							grilleIndice[x][y][numero.to_s] = true
 						else
 							grilleIndice[x][y][numero.to_s] = false

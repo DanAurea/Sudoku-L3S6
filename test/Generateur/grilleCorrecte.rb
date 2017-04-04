@@ -12,7 +12,6 @@
 
 require_relative '../../app/utils/Generateur'
 
-
 ##
 ## vérifie que chaque valeur soit correcte.
 ##
@@ -132,15 +131,67 @@ def checkBloc(grid)
 	return true
 end
 
+
 ##
-## fonction de test, génère une grille et test les lignes, colones et bloc de 9.
+## vérifie que chaque valeur soit correcte.
+##
+## @param grid la grille de sudoku
+##
+## @return true si les valeurs sont valide, false sinon.
+##
+
+def checkAllVal(grid)
+
+	grid.each do |l|
+		l.each do |e|
+			if (e == nil)
+			else
+				if (e>0) && (e<10)
+				else
+					return false
+				end
+			end
+		end
+	end
+	return true
+end
+
+
+##
+## vérifie que chaque valeur soit correcte après conversion de la grille.
+##
+## @param grid la grille de sudoku
+##
+## @return true si les valeurs sont valide, false sinon.
+##
+
+def checkAllValConverted(grid)
+
+	grid.each do |l|
+		l.each do |e|
+			if (e['value'] == nil)
+			else
+				if (e['value']>0) && (e['value']<10)
+				else
+					return false
+				end
+			end
+		end
+	end
+	return true
+end
+
+
+
+##
+## méthode de test, génère une grille et test les lignes, colones et bloc de 9.
 ##
 ## @return true si la grille est valide, false sinon.
 ##
 
 def grilleCorrecte()
 
-	gen = Generateur.new(0)
+	gen = Generateur.new()
 
 
 	if(!checkValues(gen.grid))
@@ -155,12 +206,24 @@ def grilleCorrecte()
 		return false
 	end
 
-	gridBloc(gen.grid(), 0, 0)
-
 	if(!checkBloc(gen.grid))
 		return false
 	end
 
+	gen.complexifier(1)
+
+	if(!checkAllVal(gen.grid))
+		return false
+	end
+
+	gen.convert()
+
+	if(!checkAllValConverted(gen.convert()))
+		return false
+	end
+
+
+	puts "All green."
 	return true
 end
 

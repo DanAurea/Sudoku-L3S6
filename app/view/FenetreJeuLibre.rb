@@ -50,7 +50,31 @@ class FenetreJeuLibre < View
 	##
 	def miseEnPlace()
 		@contenu.add(@grilleDessin)
-
+		Fenetre::box.add(Fenetre::creerBarreMenu())
+	    Fenetre::boutonMenu_barre.signal_connect('clicked'){
+            Core::changeTo("Menu", "pseudo": @pseudo)
+        }
+	    Fenetre::boutonSauvegarder_barre.signal_connect('clicked'){
+            
+        }
+	    Fenetre::boutonReglage_barre.signal_connect('clicked'){
+            Core::changeTo("Reglages", "pseudo": @pseudo)
+        }
+	    Fenetre::boutonQuitter_barre.signal_connect('clicked'){
+             Fenetre::detruire()
+        }
+	    Fenetre::boutonPauseChrono_barre.signal_connect('clicked'){
+            
+        }
+	    Fenetre::boutonPlayChrono_barre.signal_connect('clicked'){
+            
+        }
+	    Fenetre::boutonAnnuler_barre.signal_connect('clicked'){
+            
+        }
+	    Fenetre::boutonRetablir_barre.signal_connect('clicked'){
+            
+        }
 		Fenetre::box.add(@contenu)
 	end
 
