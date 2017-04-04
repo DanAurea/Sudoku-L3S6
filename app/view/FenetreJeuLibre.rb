@@ -42,6 +42,7 @@ class FenetreJeuLibre < View
 	## @return     { description_of_the_return_value }
 	##
 	def miseEnPlace()
+		
 		@contenu.add(@grilleDessin)
 		Fenetre::box.add(Fenetre::creerBarreMenu())
 		Fenetre::boutonMenu_barre.signal_connect('clicked'){
