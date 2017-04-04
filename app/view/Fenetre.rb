@@ -18,6 +18,16 @@ module Fenetre
     @fenetrePrecedente
     @enteteFenetre
 
+    ## VI barre menu
+    @boutonMenu
+    @boutonSauvegarder
+    @boutonReglage
+    @boutonQuitter
+    @boutonPauseChrono
+    @boutonPlayChrono
+    @boutonAnnuler
+    @boutonRetablir
+
     ## Création fenêtre de base
     @fenetre = Gtk::Window.new(:toplevel)
     @fenetre.set_name("mainWindow")
@@ -258,5 +268,56 @@ module Fenetre
         boxBottom.add(@boutonRetour)
         boxBottom.add(@boutonQuitter)
         return boxBottom
+    end
+
+    ##Permet de creer la barre de menu
+    ##
+    ## @return barreMenu barre de menu du haut
+    ##
+    def Fenetre.creerBarreMenu()
+        barreMenu = Gtk::Toolbar.new()
+        barreMenu.modify_bg(Gdk::Color.new(0,0,100))
+        barreMenu.set_toolbar_style(Gtk::Toolbar::Style::ICONS)
+
+        @boutonMenu = Gtk::ToolButton.new(:stock_id => Gtk::Stock::HOME)
+        @boutonMenu.set_tooltip_text("Aller au menu principal")
+
+        @boutonSauvegarder = Gtk::ToolButton.new(:stock_id => Gtk::Stock::SAVE)
+        @boutonSauvegarder.set_tooltip_text("Sauvegarder")
+
+        @boutonReglage = Gtk::ToolButton.new(:stock_id => Gtk::Stock::PREFERENCES)
+        @boutonReglage.set_tooltip_text("Ajuster les réglages")
+
+        @boutonQuitter = Gtk::ToolButton.new(:stock_id => Gtk::Stock::QUIT)
+        @boutonQuitter.set_tooltip_text("Quitter")
+
+        separateur = Gtk::SeparatorToolItem.new()
+
+        @boutonPauseChrono = Gtk::ToolButton.new(:stock_id => Gtk::Stock::MEDIA_PAUSE)
+        @boutonPauseChrono.set_tooltip_text("Mettre le jeu en pause")
+
+        @boutonPlayChrono = Gtk::ToolButton.new(:stock_id => Gtk::Stock::MEDIA_PLAY)
+        @boutonPlayChrono.set_tooltip_text("Reprendre le jeu")
+    
+        separateur2 = Gtk::SeparatorToolItem.new()
+
+        @boutonAnnuler=Gtk::ToolButton.new(:stock_id => Gtk::Stock::UNDO)
+        @boutonAnnuler.set_tooltip_text("Annuler action")
+
+        @boutonRetablir=Gtk::ToolButton.new(:stock_id => Gtk::Stock::REDO)
+        @boutonRetablir.set_tooltip_text("Rétablir action annulée")
+
+        barreMenu.insert(@boutonMenu,0)
+        barreMenu.insert(@boutonSauvegarder,1)
+        barreMenu.insert(@boutonReglage,2)
+        barreMenu.insert(@boutonQuitter,3)
+        barreMenu.insert(separateur,4)
+        barreMenu.insert(@boutonPauseChrono,5)
+        barreMenu.insert(@boutonPlayChrono,6)
+        barreMenu.insert(separateur2,7)
+        barreMenu.insert(@boutonAnnuler,8)
+        barreMenu.insert(@boutonRetablir,9)
+
+        return barreMenu
     end
 end
