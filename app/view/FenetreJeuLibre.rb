@@ -51,22 +51,22 @@ class FenetreJeuLibre < View
             
         }
 	    Fenetre::boutonReglage_barre.signal_connect('clicked'){
-            Core::changeTo("Menu", "pseudo": @pseudo)
+            Core::changeTo("Reglages", "pseudo": @pseudo)
         }
 	    Fenetre::boutonQuitter_barre.signal_connect('clicked'){
-            Core::changeTo("Menu", "pseudo": @pseudo)
+             Fenetre::detruire()
         }
 	    Fenetre::boutonPauseChrono_barre.signal_connect('clicked'){
-            Core::changeTo("Menu", "pseudo": @pseudo)
+            
         }
 	    Fenetre::boutonPlayChrono_barre.signal_connect('clicked'){
-            Core::changeTo("Menu", "pseudo": @pseudo)
+            
         }
 	    Fenetre::boutonAnnuler_barre.signal_connect('clicked'){
-            Core::changeTo("Menu", "pseudo": @pseudo)
+            
         }
 	    Fenetre::boutonRetablir_barre.signal_connect('clicked'){
-            Core::changeTo("Menu", "pseudo": @pseudo)
+            
         }
 		Fenetre::box.add(@contenu)
 	end
