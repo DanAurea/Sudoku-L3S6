@@ -21,7 +21,7 @@ label{
 }
 
 button{
-    border: 1px solid white;
+    border: 1px solid rgb(200,200,200);
 	background: rgb(46,134,193);
     box-shadow: none;
 }
