@@ -14,6 +14,13 @@ require "observer"
 
 class FenetreJeuLibre < View
 	include Observable
+	## VI
+	@menuBarre
+	@boxMilieu
+	@boxGrille
+	@boxInfo
+	@grilleDessin
+	@scoreLabel
 
 	##
 	## Initialize
@@ -22,7 +29,10 @@ class FenetreJeuLibre < View
 	def initialize()
 		Header::chrono
 
-		@contenu      = Gtk::Box.new(:horizontal, 0)
+		@menuBarre=Fenetre::creerBarreMenu()
+		@boxMilieu = Gtk::Box.new(:horizontal, 0)
+		@boxGrille = Gtk::Box.new(:horizontal, 0)
+		@boxInfo = Gtk::Box.new(:vertical, 0)
 		@grilleDessin = nil
 		@scoreLabel   = nil
 	end
@@ -46,12 +56,31 @@ class FenetreJeuLibre < View
 	##
 	## Met en place tout les éléments sur la page
 	##
-	## @return     { description_of_the_return_value }
 	##
 	def miseEnPlace()
-		
-		@contenu.add(@grilleDessin)
-		Fenetre::box.add(Fenetre::creerBarreMenu())
+		#barre de menu
+		gestionBarreMenu()
+
+		#box grille
+		@boxGrille.add(@grilleDessin)
+
+		#box de droite
+		gestionDroite()
+
+		@boxMilieu.add(@boxGrille)
+		@boxMilieu.add(@boxInfo)
+
+		#add a la box
+		Fenetre::box.add(@menuBarre)
+		Fenetre::box.add(@boxMilieu)
+	end
+
+	##
+	## Met en place la barre de menu
+	##
+	## 
+	##
+	def gestionBarreMenu()
 		Fenetre::boutonMenu_barre.signal_connect('clicked'){
 			Core::changeTo("Menu", "pseudo": @pseudo)
 		}
@@ -76,7 +105,27 @@ class FenetreJeuLibre < View
 		Fenetre::boutonRetablir_barre.signal_connect('clicked'){
 
 		}
-		Fenetre::box.add(@contenu)
+	end
+
+	##
+	## Met en place la partie de droite
+	##
+	## 
+	##
+	def gestionDroite()
+
+		list = Gtk::ComboBoxText.new()
+		list.signal_connect('changed'){ |widget|
+			puts widget.active_text
+		}
+
+		list.append_text('Technique 1')
+		list.append_text('Technique 2')
+		list.append_text('Technique 3')
+		list.append_text('Technique 4')
+		list.append_text('Technique 5')
+		list.halign = :center
+		@boxInfo.add(list)
 	end
 
 	##

@@ -73,19 +73,19 @@ class FenetreApprentissage < View
 			Core::changeTo("Menu", "pseudo": @pseudo)
 		}
 		Fenetre::boutonSauvegarder_barre.signal_connect('clicked'){
-
+			sauvegarder
 		}
-		Fenetre::boutonReglage_barre.signal_connect('clicked'){
-			Core::changeTo("Reglages", "pseudo": @pseudo)
+		Fenetre::boutonReinit_barre.signal_connect('clicked'){
+			
 		}
 		Fenetre::boutonQuitter_barre.signal_connect('clicked'){
 			Fenetre::detruire()
 		}
 		Fenetre::boutonPauseChrono_barre.signal_connect('clicked'){
-
+			Header::pause = true
 		}
 		Fenetre::boutonPlayChrono_barre.signal_connect('clicked'){
-
+			Header::pause = false
 		}
 		Fenetre::boutonAnnuler_barre.signal_connect('clicked'){
 

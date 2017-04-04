@@ -40,7 +40,7 @@ module Fenetre
     ## VI barre menu
     @boutonMenu_barre
     @boutonSauvegarder_barre
-    @boutonReglage_barre
+    @boutonReinit_barre
     @boutonQuitter_barre
     @boutonPauseChrono_barre
     @boutonPlayChrono_barre
@@ -122,13 +122,13 @@ module Fenetre
     end
 
     ##
-    ## Définis un accesseur pour le bouton boutonReglage_barre
+    ## Définis un accesseur pour le bouton boutonReinit_barre
     ##
-    ## @return boutonReglage_barre
+    ## @return boutonReinit_barre
     ##
-    def Fenetre.boutonReglage_barre()
-        return @boutonReglage_barre
-    end
+    def Fenetre.boutonReinit_barre()
+        return @boutonReinit_barre
+end
 
     ##
     ## Définis un accesseur pour le bouton boutonQuitter_barre
@@ -371,9 +371,9 @@ module Fenetre
         @boutonSauvegarder_barre.set_tooltip_text("Sauvegarder")
         @boutonSauvegarder_barre.set_margin_right(10)
 
-        @boutonReglage_barre = Gtk::ToolButton.new(:stock_id => Gtk::Stock::PREFERENCES)
-        @boutonReglage_barre.set_tooltip_text("Ajuster les réglages")
-        @boutonReglage_barre.set_margin_right(10)
+        @boutonReinit_barre = Gtk::ToolButton.new(:stock_id => Gtk::Stock::DELETE)
+        @boutonReinit_barre.set_tooltip_text("Réinitialise la grille")
+        @boutonReinit_barre.set_margin_right(10)
 
         @boutonQuitter_barre = Gtk::ToolButton.new(:stock_id => Gtk::Stock::QUIT)
         @boutonQuitter_barre.set_tooltip_text("Quitter")
@@ -397,7 +397,7 @@ module Fenetre
 
         barreMenu.insert(@boutonMenu_barre,0)
         barreMenu.insert(@boutonSauvegarder_barre,1)
-        barreMenu.insert(@boutonReglage_barre,2)
+        barreMenu.insert(@boutonReinit_barre,2)
         barreMenu.insert(@boutonQuitter_barre,3)
         barreMenu.insert(Gtk::SeparatorToolItem.new(),4)
         barreMenu.insert(@boutonPauseChrono_barre,5)
@@ -407,5 +407,5 @@ module Fenetre
         barreMenu.insert(@boutonRetablir_barre,9)
 
         return barreMenu
-    end
+end
 end
