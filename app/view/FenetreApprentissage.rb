@@ -16,7 +16,6 @@ class FenetreApprentissage < View
 	@grilleDessin
 	@scoreLabel
 
-
 	##
 	## Initialize
 	##
@@ -104,9 +103,9 @@ class FenetreApprentissage < View
 	def gestionDroite()
 
 		list = Gtk::ComboBoxText.new()
-        list.signal_connect('changed') do |widget, event|
-            puts widget.active_text
-        end
+        list.signal_connect('changed'){ |widget, event|
+        	puts widget.active_text
+        }
 
         list.append_text('Technique 1')
         list.append_text('Technique 2')
@@ -115,9 +114,6 @@ class FenetreApprentissage < View
         list.append_text('Technique 5')
         list.halign = :center
         @boxInfo.add(list)
-
-
-        
     end
 
 	##
@@ -128,7 +124,6 @@ class FenetreApprentissage < View
 	def run()
 		self.creerGrille()
 		self.miseEnPlace()
-		Fenetre::css(:chemin => "/assets/css/FenetreJeuLibre.css")
 		return self
 	end
 end
