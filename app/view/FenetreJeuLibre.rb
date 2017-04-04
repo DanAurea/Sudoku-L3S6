@@ -43,7 +43,7 @@ class FenetreJeuLibre < View
 	##
 	def miseEnPlace()
 		@contenu.add(@grilleDessin)
-
+		Fenetre::box.add(Fenetre::creerBarreMenu())
 		Fenetre::box.add(@contenu)
 	end
 
