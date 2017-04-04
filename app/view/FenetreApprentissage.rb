@@ -9,6 +9,7 @@ require Core::ROOT + "components/GrilleDessin.rb"
 
 class FenetreApprentissage < View
 	## VI
+	@menuBarre
 	@boxMilieu
 	@boxGrille
 	@boxBouton
@@ -24,6 +25,7 @@ class FenetreApprentissage < View
 	def initialize()
 		Header::chrono
 
+		@menuBarre=Fenetre::creerBarreMenu()
 		@boxMilieu = Gtk::Box.new(:horizontal, 0)
 		@boxGrille = Gtk::Box.new(:horizontal, 0)
 		@boxBouton = Gtk::Box.new(:vertical, 0)
@@ -48,21 +50,22 @@ class FenetreApprentissage < View
 	##
 	def miseEnPlace()
 		#barre de menu
-		miseEnPlaceBarreMenu()
+		gestionBarreMenu()
 
 		#box grille
-		@boxMilieu.add(@boxGrille)
 		@boxGrille.add(@grilleDessin)
 
 		#box de droite
+		gestionDroite()
+
+		@boxMilieu.add(@boxGrille)
 		@boxMilieu.add(@boxBouton)
-		@boxBouton.add(Fenetre::creerLabelType("test"))
 
 		#box info
-		@boxInfo.add(Fenetre::creerLabelType("test"))
+		gestionInfo()
 
 		#add a la box
-		Fenetre::box.add(Fenetre::creerBarreMenu())
+		Fenetre::box.add(@menuBarre)
 		Fenetre::box.add(@boxMilieu)
 		Fenetre::box.add(@boxInfo)
 	end
@@ -72,7 +75,7 @@ class FenetreApprentissage < View
 	##
 	## 
 	##
-	def miseEnPlaceBarreMenu()
+	def gestionBarreMenu()
 		Fenetre::boutonMenu_barre.signal_connect('clicked'){
 			Core::changeTo("Menu", "pseudo": @pseudo)
 		}
@@ -98,6 +101,25 @@ class FenetreApprentissage < View
 
 		}
 	end
+
+	##
+	## Met en place la partie de droite
+	##
+	## 
+	##
+	def gestionDroite()
+		@boxBouton.add(Fenetre::creerLabelType("test"))
+	end
+
+	##
+	## Met en place la partie du bas
+	##
+	## 
+	##
+	def gestionDroite()
+		@boxInfo.add(Fenetre::creerLabelType("test"))
+	end
+
 
 	##
 	## Lance la construction du modèle de la vue. Méthode à définir dans tout les cas ! Autrement pas de rendu de la page.
