@@ -108,7 +108,29 @@ class FenetreApprentissage < View
 	## 
 	##
 	def gestionDroite()
-		@boxBouton.add(Fenetre::creerLabelType("test"))
+
+		fixed = Gtk::Fixed.new
+        label = Gtk::Label.new '-'
+		fixed.put label, 50, 140
+		list = Gtk::ComboBoxText.new()
+        list.signal_connect('changed') do |w, e|
+            on_changed(w, e, label)
+        end
+
+        list.append_text('Ubuntu')
+        list.append_text('Mandriva')
+        list.append_text('Redhat')
+        list.append_text('Gento')
+        list.append_text('Mint')
+
+        fixed.put(list, 50, 30)
+
+        @boxBouton.add(fixed)
+
+    end
+
+    def on_changed sender, event, label
+        label.set_label sender.active_text
 	end
 
 	##
