@@ -9,6 +9,8 @@
 ## classe FenetreJeuLibre
 ##
 
+require Core::ROOT + "components/GrilleDessin.rb"
+
 class FenetreJeuLibre < View
 	
 	##
@@ -16,7 +18,7 @@ class FenetreJeuLibre < View
 	##
 	##
 	def initialize()
-		require Core::ROOT + "components/GrilleDessin.rb"
+		Header::chrono
 	end
 
 	##
