@@ -23,36 +23,41 @@ class FenetreApprentissage < View
 	##
 	def initialize()
 		Header::chrono
-		@etapeEnCours=2
-		@nbEtape=6
+		@grilleDessin = nil
+		@scoreLabel   = nil
+
+		#Recuperation de la classe technique
+		@etapeEnCours=0
+		@nbEtape=0
+		@techniqueChoisie=""
+		@texteContenu = Gtk::Label.new("")
+
+		#liste technique
 		@tabTechnique=[
+						"Fonctionnement du jeu",
 						"Technique 1",
 						"Technique 2",
 						"Technique 3",
 						"Technique 4",
 						"Technique 5"
 					]
-		@techniqueChoisie=" "
-
+		#box
 		@menuBarre = Fenetre::creerBarreMenu()
 		@boxMilieu = Gtk::Box.new(:horizontal, 0)
 		@boxGrille = Gtk::Box.new(:horizontal, 0)
 		@boxInfo = Gtk::Box.new(:vertical, 0)
 		
+		#Choix technique
 		@labelChoix = Fenetre::creerLabelType("<u>Choix de la technique</u>", Fenetre::SIZE_TITRE_JEU)
 		@list = Gtk::ComboBoxText.new()
-		@labelChoix2 = Fenetre::creerLabelType("Explication de la technique #{@techniqueChoisie}", Fenetre::SIZE_TITRE_JEU)
-		
+
+		#information de la technique
+		@labelChoix2 = Fenetre::creerLabelType("Choississez une technique..", Fenetre::SIZE_TITRE_JEU)
 		@boxEtape = Gtk::Box.new(:horizontal, 0)
 		@boutonEtapePrec = Gtk::Button.new(:label => "Precedente")
 		@boutonEtapeSuiv = Gtk::Button.new(:label => "Suivante")
 		@labelEtape = Fenetre::creerLabelType("Etape #{@etapeEnCours}/#{@nbEtape}", Fenetre::SIZE_TITRE_JEU)
-		
 		@boxExplication = Gtk::Box.new(:horizontal, 0)
-		@texteContenu = Gtk::Label.new("doizjediozejdiozejdijezdijeziodjzeiodjzeiodj dzeidze,iodze")
-
-		@grilleDessin = nil
-		@scoreLabel   = nil
 	end
 
 	##
@@ -128,21 +133,32 @@ class FenetreApprentissage < View
 	##
 	def gestionDroite()
 		#choix technique
-		@list.signal_connect('changed'){ |widget|
-			@techniqueChoisie=widget.active_text()
-		}
 		@tabTechnique.each{ |t|
 			@list.append_text("#{t}")
 		}
 
+		@list.signal_connect('changed'){ |widget|
+			@techniqueChoisie=widget.active_text()
+			@nbEtape= recuperationNbEtape(@techniqueChoisie)
+			@etapeEnCours=1
+			actualisation()
+		}
+
 		#etapes
 		@boutonEtapePrec.signal_connect('clicked'){
-
+			if @etapeEnCours-1 > 0
+				@etapeEnCours=@etapeEnCours-1
+				actualisation()
+			end
 		}
 
 		@boutonEtapeSuiv.signal_connect('clicked'){
-
+			if @etapeEnCours+1 <= @nbEtape
+				@etapeEnCours=@etapeEnCours+1
+				actualisation()
+			end
 		}
+
 		@boxEtape.add(@boutonEtapePrec)
 		@boxEtape.add(@labelEtape)
 		@boxEtape.add(@boutonEtapeSuiv)
@@ -159,6 +175,32 @@ class FenetreApprentissage < View
 		@boxInfo.add(@labelChoix2)
 		@boxInfo.add(@boxEtape)
 		@boxInfo.add(@boxExplication)
+	end
+
+	##
+	## actualisation informations
+	##
+	def actualisation()
+		@labelChoix2.set_text("Explication de #{@techniqueChoisie}")
+		@texteContenu.set_text("doizjediozejdiozejdijezdijeziodjzeiodjzeiodj dzeidze,iodze")
+		@labelEtape.set_text("Etape #{@etapeEnCours}/#{@nbEtape}")
+	end
+
+	##TODO
+	def recuperationNbEtape(techniqueChoisie)
+		if techniqueChoisie == "Fonctionnement du jeu"
+			@nbEtape=0
+		elsif techniqueChoisie == "Technique 1"
+			@nbEtape=1
+		elsif techniqueChoisie == "Technique 2"
+			@nbEtape=2
+		elsif techniqueChoisie == "Technique 3"
+			@nbEtape=3
+		elsif techniqueChoisie == "Technique 4"
+			@nbEtape=4
+		elsif techniqueChoisie == "Technique 5"
+			@nbEtape=5
+		end
 	end
 
 	##
