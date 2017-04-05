@@ -13,6 +13,7 @@ class FenetreApprentissage < View
 	@boxMilieu
 	@boxGrille
 	@boxInfo
+	@boxBouton
 	@grilleDessin
 	@scoreLabel
 
@@ -27,6 +28,9 @@ class FenetreApprentissage < View
 		@boxMilieu = Gtk::Box.new(:horizontal, 0)
 		@boxGrille = Gtk::Box.new(:horizontal, 0)
 		@boxInfo = Gtk::Box.new(:vertical, 0)
+		@boxBouton = Gtk::Box.new(:horizontal, 0)
+		@choixLabel = Fenetre::creerLabelType("<u>Choix de la technique</u>", Fenetre::SIZE_TITRE)
+		@list = Gtk::ComboBoxText.new()
 		@grilleDessin = nil
 		@scoreLabel   = nil
 	end
@@ -101,21 +105,20 @@ class FenetreApprentissage < View
 	## 
 	##
 	def gestionDroite()
-		boxBouton = Gtk::Box.new(:horizontal, 0)
-		list = Gtk::ComboBoxText.new()
-		list.signal_connect('changed'){ |widget|
+		@list.signal_connect('changed'){ |widget|
 			puts widget.active_text
 		}
 
-		list.append_text('Technique 1')
-		list.append_text('Technique 2')
-		list.append_text('Technique 3')
-		list.append_text('Technique 4')
-		list.append_text('Technique 5')
-		list.set_margin_top(100)
-		boxBouton.add(list)
-		boxBouton.halign = :center
-		@boxInfo.add(boxBouton)
+		@list.append_text('Technique 1')
+		@list.append_text('Technique 2')
+		@list.append_text('Technique 3')
+		@list.append_text('Technique 4')
+		@list.append_text('Technique 5')
+		@list.set_margin_top(100)
+		@boxBouton.add(@choixLabel)
+		@boxBouton.add(@list)
+		@boxBouton.halign = :center
+		@boxInfo.add(@boxBouton)
 	end
 
 	##
