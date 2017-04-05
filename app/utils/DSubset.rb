@@ -23,38 +23,41 @@ class DSubset < Technique
 	def solution(grille)
 		grilleIndice = indice(grille)
 
+		res = Array.new()
 		[0,1,2,3,4,5,6,7,8].each { |x|
 			col = colonne(grilleIndice,x)
-			col.each{ |c,y|
+			col.each_with_index{ |c,y|
 				i = 0
-				c.each_value{|v| if v then i+=1 end }
-
-				res = Array.new()
-
-				col[(y+1)..-1].each{ |cBis|
-					if cBis == c then res << [x,y] end
-				}
-				if res.length == i then
-					return res
+				c.each_value{|v| if v == true then i+=1 end }
+				if i>1 then
+					res << [x,y]
+					col[(y+1)..(-1)].each_with_index{ |cBis,yBis|
+						if cBis.eql?(c) then res << [x,y+yBis+1] end
+					}
+					if res.length == i then
+						return res
+					end
 				end
+				res = Array.new()
 			}
 		}
 
 		[0,1,2,3,4,5,6,7,8].each { |y|
 			lig = ligne(grilleIndice,y)
-			lig.each{ |c,x|
+			lig.each_with_index{ |c,x|
 				i = 0
-				c.each_value{|v| if v then i+=1 end }
-
-				res = Array.new()
-
-				lig[(x+1)..-1].each{|cBis|
-					if cBis == c then res << [x,y] end
-				}
-				if res.length == i then
-					return res
+				c.each_value{|v| if v == true  then i+=1 end }
+				if i>1 then
+					res << [x,y]
+					lig[(x+1)..(-1)].each_with_index{|cBis,xBis|
+						if cBis.eql?(c) then res << [x+xBis+1,y] end
+					}
+					if res.length == i then
+						return res
+					end
 				end
-			}			
+				res = Array.new()
+			}
 		}
 		
 		return nil
@@ -66,7 +69,7 @@ class DSubset < Technique
 	## @return     Le nombre d'étape(s)
 	##
 	def combienEtape()
-		return 3
+		return 4
 	end
 
 	##
@@ -80,10 +83,12 @@ class DSubset < Technique
 
 		case(n)
 		when 1
-			return "Recherchez les candidats possibles pour chaque case d'une ligne/colonne."
+			return "Bienvenue sur l'explication de la technique "+self.class.to_s+"."
 		when 2
-			return "Il arrive que N candicats soient possibles sur N cases d'une même ligne/colonne"
+			return "Recherchez les candidats possibles pour chaque case d'une ligne/colonne."
 		when 3
+			return "Il arrive que N candicats soient possibles sur N cases d'une même ligne/colonne"
+		when 4
 			return "Dans ce cas, les N candidats sont applicable uniquement dans ces N cases et non ailleur."
 		end
 		

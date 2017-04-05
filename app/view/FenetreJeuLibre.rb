@@ -18,7 +18,6 @@ class FenetreJeuLibre < View
 	@menuBarre
 	@boxMilieu
 	@boxGrille
-	@boxInfo
 	@grilleDessin
 	@scoreLabel
 
@@ -32,7 +31,6 @@ class FenetreJeuLibre < View
 		@menuBarre=Fenetre::creerBarreMenu()
 		@boxMilieu = Gtk::Box.new(:horizontal, 0)
 		@boxGrille = Gtk::Box.new(:horizontal, 0)
-		@boxInfo = Gtk::Box.new(:vertical, 0)
 		@grilleDessin = nil
 		@scoreLabel   = nil
 	end
@@ -64,11 +62,7 @@ class FenetreJeuLibre < View
 		#box grille
 		@boxGrille.add(@grilleDessin)
 
-		#box de droite
-		gestionDroite()
-
 		@boxMilieu.add(@boxGrille)
-		@boxMilieu.add(@boxInfo)
 
 		#add a la box
 		Fenetre::box.add(@menuBarre)
@@ -82,16 +76,34 @@ class FenetreJeuLibre < View
 	##
 	def gestionBarreMenu()
 		Fenetre::boutonMenu_barre.signal_connect('clicked'){
-			Core::changeTo("Menu", "pseudo": @pseudo)
+			messageQuestion = Fenetre::creerPopup("1/2: Voulez-vous vraiment abandonner la partie et revenir au menu principal?", "YES_NO")
+		    if(messageQuestion.run() == Gtk::ResponseType::YES)
+		    	messageQuestion2 = Fenetre::creerPopup("2/2: Voulez-vous sauvegarder la partie actuelle?", "YES_NO")
+		    	if(messageQuestion2.run() == Gtk::ResponseType::YES)
+		    		sauvegarder()
+		    	end
+		    	Core::changeTo("Menu", "pseudo": @pseudo)
+		    	messageQuestion2.destroy()
+		    end
+		    messageQuestion.destroy()
 		}
 		Fenetre::boutonSauvegarder_barre.signal_connect('clicked'){
-			sauvegarder
+			sauvegarder()
 		}
 		Fenetre::boutonReinit_barre.signal_connect('clicked'){
 			
 		}
 		Fenetre::boutonQuitter_barre.signal_connect('clicked'){
-			Fenetre::detruire()
+			messageQuestion = Fenetre::creerPopup("1/2: Voulez-vous vraiment abandonner la partie et quitter l'application?", "YES_NO")
+		    if(messageQuestion.run() == Gtk::ResponseType::YES)
+		    	messageQuestion2 = Fenetre::creerPopup("2/2: Voulez-vous sauvegarder la partie actuelle?", "YES_NO")
+		    	if(messageQuestion2.run() == Gtk::ResponseType::YES)
+		    		sauvegarder()
+		    	end
+		    	Fenetre::detruire()
+		    	messageQuestion2.destroy()
+		    end
+		    messageQuestion.destroy()
 		}
 		Fenetre::boutonPauseChrono_barre.signal_connect('clicked'){
 			Header::pause = true
@@ -105,27 +117,6 @@ class FenetreJeuLibre < View
 		Fenetre::boutonRetablir_barre.signal_connect('clicked'){
 
 		}
-	end
-
-	##
-	## Met en place la partie de droite
-	##
-	## 
-	##
-	def gestionDroite()
-
-		list = Gtk::ComboBoxText.new()
-		list.signal_connect('changed'){ |widget|
-			puts widget.active_text
-		}
-
-		list.append_text('Technique 1')
-		list.append_text('Technique 2')
-		list.append_text('Technique 3')
-		list.append_text('Technique 4')
-		list.append_text('Technique 5')
-		list.halign = :center
-		@boxInfo.add(list)
 	end
 
 	##

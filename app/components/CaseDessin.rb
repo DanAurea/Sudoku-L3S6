@@ -69,10 +69,10 @@ class CaseDessin < Gtk::DrawingArea
         changed
 
         if evenement.button == 1
-            @state = "focus"
+            @state = "clicked"
         end
 
-        notify_observers(@x, @y)
+        notify_observers(@x, @y, @state)
 
         return self
     end
@@ -335,7 +335,6 @@ class CaseDessin < Gtk::DrawingArea
     ## 
     ##
     def dessinerIndices cr
-
         ## Définis les caractéristiques du texte
         cr.select_font_face "Arial", 
             Cairo::FONT_SLANT_NORMAL, Cairo::FONT_WEIGHT_NORMAL

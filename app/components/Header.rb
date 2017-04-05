@@ -86,6 +86,7 @@ module Header
         Fenetre::enteteFenetre.pack_end(@scoreLabel)
 		
 		GLib::Timeout.add(1000) {
+
         	Header.addSecond
         }
 

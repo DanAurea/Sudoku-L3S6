@@ -19,6 +19,7 @@ module Fenetre
     COULEUR_JAUNE = Gdk::RGBA.new(1, 1, 0, 1)
     COULEUR_ROUGE = Gdk::RGBA.new(1, 0, 0, 1)
     COULEUR_ORANGE = Gdk::RGBA.new(1, 0.6, 0, 1)
+    COULEUR_BLEU = Gdk::RGBA.new(0.2, 0.59, 0.86, 1)
     SIZE_PSEUDO = 20
     SIZE_TITRE_STAT = 18
     SIZE_CONTENU_STAT = 15
@@ -30,7 +31,7 @@ module Fenetre
     SIZE_TITRE = 40
     SIZE_LABEL_BOUTON = 20
     SIZE_TITRE_JEU = 18
-    SIZE_AUTRE_JEU = 15
+    SIZE_AUTRE_JEU = 12
     FONT_MENU = "Monospace"
 
     ## VI
@@ -54,7 +55,7 @@ module Fenetre
     @fenetre.set_name("mainWindow")
     @fenetre.set_icon_from_file(Core::ROOTPROJECT + "assets/img/iconApp.png")
     @fenetre.signal_connect('destroy') {
-       detruire()
+        detruire()
     }
 
     @fenetreStyle = @fenetre.style_context

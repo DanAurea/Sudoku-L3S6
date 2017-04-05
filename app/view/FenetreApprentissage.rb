@@ -8,14 +8,35 @@
 require Core::ROOT + "components/GrilleDessin.rb"
 
 class FenetreApprentissage < View
-	## VI
+	## VI box
 	@menuBarre
 	@boxMilieu
 	@boxGrille
 	@boxInfo
-	@boxBouton
+	@boxTexte
+	@boxExplication
+	@boxEtape
+
+	# VI dessin
 	@grilleDessin
 	@scoreLabel
+
+	# VI info
+	@labelChoix 
+	@list
+	@labelChoix2
+	@boutonEtapePrec
+	@boutonEtapeSuiv
+	@labelEtape
+	
+	
+	# VI recup
+	@etapeEnCours
+	@nbEtape
+	@techniqueChoisie
+	@texteContenu
+	@tabTechnique
+	@techniqueObjet
 
 	##
 	## Initialize
@@ -30,23 +51,23 @@ class FenetreApprentissage < View
 		@etapeEnCours=0
 		@nbEtape=0
 		@techniqueChoisie=""
-		@texteContenu = Gtk::Label.new("")
+		@texteContenu = Fenetre::creerLabelType("Bonjour, je suis là pour vous aider à apprendre des techniques!",Fenetre::SIZE_AUTRE_JEU)
 
 		#liste technique
 		@tabTechnique=[
-						"Fonctionnement du jeu",
 						"SCandidate",
-						"Technique 2",
-						"Technique 3",
-						"Technique 4",
-						"Technique 5"
+						"DSubset",
+						"SCell"
 					]
 		#box
 		@menuBarre = Fenetre::creerBarreMenu()
 		@boxMilieu = Gtk::Box.new(:horizontal, 50)
 		@boxGrille = Gtk::Box.new(:horizontal, 0)
 		@boxInfo = Gtk::Box.new(:vertical, 40)
-		@boxTexte = Gtk::Box.new(:vertical,10)
+		@boxEtape = Gtk::Box.new(:horizontal, 30)
+		@boxExplication = Gtk::Box.new(:horizontal, 0)
+		@boxContour = Gtk::Box.new(:horizontal,0)
+        @boxTexte = Gtk::Box.new(:vertical,10)
 		
 		#Choix technique
 		@labelChoix = Fenetre::creerLabelType("<u>Choix de la technique</u>", Fenetre::SIZE_TITRE_JEU)
@@ -54,11 +75,9 @@ class FenetreApprentissage < View
 
 		#information de la technique
 		@labelChoix2 = Fenetre::creerLabelType("Choississez une technique...", Fenetre::SIZE_AUTRE_JEU)
-		@boxEtape = Gtk::Box.new(:horizontal, 30)
 		@boutonEtapePrec = Gtk::Button.new(:label => "Precedente")
 		@boutonEtapeSuiv = Gtk::Button.new(:label => " Suivante ")
 		@labelEtape = Fenetre::creerLabelType("Etape #{@etapeEnCours}/#{@nbEtape}", Fenetre::SIZE_AUTRE_JEU)
-		@boxExplication = Gtk::Box.new(:horizontal, 0)
 	end
 
 	##
@@ -102,16 +121,22 @@ class FenetreApprentissage < View
 	##
 	def gestionBarreMenu()
 		Fenetre::boutonMenu_barre.signal_connect('clicked'){
-			Core::changeTo("Menu", "pseudo": @pseudo)
+			messageQuestion = Fenetre::creerPopup("Voulez-vous vraiment abandonner l'apprentissage et revenir au menu principal?", "YES_NO")
+		    if(messageQuestion.run() == Gtk::ResponseType::YES)
+		    	Core::changeTo("Menu", "pseudo": @pseudo)
+		    end
+		    messageQuestion.destroy()
 		}
 		Fenetre::boutonSauvegarder_barre.signal_connect('clicked'){
-			sauvegarder
 		}
 		Fenetre::boutonReinit_barre.signal_connect('clicked'){
-			
 		}
 		Fenetre::boutonQuitter_barre.signal_connect('clicked'){
-			Fenetre::detruire()
+			messageQuestion = Fenetre::creerPopup("Voulez-vous vraiment abandonner l'apprentissage et quitter l'application?", "YES_NO")
+		    if(messageQuestion.run() == Gtk::ResponseType::YES)
+		    	Fenetre::detruire()
+		    end
+		    messageQuestion.destroy()
 		}
 		Fenetre::boutonPauseChrono_barre.signal_connect('clicked'){
 			Header::pause = true
@@ -120,10 +145,8 @@ class FenetreApprentissage < View
 			Header::pause = false
 		}
 		Fenetre::boutonAnnuler_barre.signal_connect('clicked'){
-
 		}
 		Fenetre::boutonRetablir_barre.signal_connect('clicked'){
-
 		}
 	end
 
@@ -140,6 +163,7 @@ class FenetreApprentissage < View
 
 		@list.signal_connect('changed'){ |widget|
 			@techniqueChoisie=widget.active_text()
+			@techniqueObjet=@Techniques.creer(@techniqueChoisie)
 			@nbEtape= recuperationNbEtape()
 			@etapeEnCours=1
 			actualisation()
@@ -165,9 +189,13 @@ class FenetreApprentissage < View
 		@boxEtape.add(@boutonEtapeSuiv)
 
 		#explication
+        @boxExplication.set_hexpand(true)
+        @boxExplication.set_vexpand(true)
+
         @texteContenu.set_line_wrap(true)
         @boxTexte.add(@texteContenu)
-        @boxExplication.add(@boxTexte)
+        @boxContour.pack_start(@boxTexte, :expand => true, :fill => true)
+        @boxExplication.pack_start(@boxContour, :expand => true, :fill => true)
 
 		#add a la box
 		@boxInfo.add(@labelChoix)
@@ -182,18 +210,25 @@ class FenetreApprentissage < View
 	##
 	def actualisation()
 		@labelChoix2.set_text("Explication de #{@techniqueChoisie}")
-		@texteContenu.set_text("doizjediozejdiozejdijezdijeziodjzeiodjzeiodj dzeidze,iodze")
 		@labelEtape.set_text("Etape #{@etapeEnCours}/#{@nbEtape}")
+		recuperationEtape()
 	end
 
-	##TODO
+	##
+	## Recuperatuon du nombre d'etapes pour le tutoriel
+	##
+	##
 	def recuperationNbEtape()
-		if @techniqueChoisie == "Fonctionnement du jeu"
-			@nbEtape=0
-		else
-			@technique = @Techniques.creer(@techniqueChoisie)
-			@nbEtape=@Techniques.creer(@techniqueChoisie).combienEtape()
-		end
+		@nbEtape=@techniqueObjet.combienEtape()
+	end
+
+	##
+	## Recuperatuon du texte de l'etape en cours
+	##
+	##
+	def recuperationEtape()
+		string=@techniqueObjet.etape(@etapeEnCours)
+		@texteContenu.set_text(string)
 	end
 
 	##
@@ -203,11 +238,19 @@ class FenetreApprentissage < View
         #css label
         @labelChoix.override_color(:normal, Fenetre::COULEUR_BLANC)
         @labelChoix.set_margin_top(40)
+        @list.set_hexpand(true);
         @labelEtape.override_color(:normal, Fenetre::COULEUR_BLANC)
+        @labelEtape.set_hexpand(true);
         @texteContenu.override_color(:normal, Fenetre::COULEUR_BLANC)
+        @texteContenu.set_margin(4)
         @labelChoix2.override_color(:normal, Fenetre::COULEUR_BLANC)
         #css bouton
-        @boxTexte.override_background_color(:normal, Fenetre::COULEUR_ORANGE)
+        @boxContour.override_background_color(:normal, Fenetre::COULEUR_BLANC)
+        @boxTexte.override_background_color(:normal, Fenetre::COULEUR_BLEU)
+        @boxTexte.set_margin(3)
+        @boutonEtapePrec.set_hexpand(true);
+        @boutonEtapeSuiv.set_hexpand(true);
+        @boxInfo.set_margin(10)
     end
 
 	##

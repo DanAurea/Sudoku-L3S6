@@ -36,9 +36,9 @@ class Technique
 	def indice(grille)
 		grilleIndice = Array.new(9){Array.new(9){Hash.new()}}
 
-		grille.each_index { |x|
-			grille[x].each_index { |y|
-				if grille[x][y].nil? then
+		grille.each_with_index { |col,x|
+			col.each_with_index { |c,y|
+				if c.nil? then
 					[1,2,3,4,5,6,7,8,9].each { |numero|
 						unless estProtegee?(grille,numero.to_s,x,y) then
 							grilleIndice[x][y][numero.to_s] = true
