@@ -44,7 +44,7 @@ class SCell < Technique
 	## @return     Le nombre d'étape(s)
 	##
 	def combienEtape()
-		return 1
+		return 2
 	end
 
 	##
@@ -58,6 +58,8 @@ class SCell < Technique
 
 		case(n)
 		when 1
+			return "Bienvenu sur l'explication de la technique "+self.class.to_s+"."
+		when 2
 			return "Recherchez les candidats possibles pour chaque case. Remarquez que dans certaines, il n'y a qu'un seul candidat possible."
 		end
 		

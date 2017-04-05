@@ -25,7 +25,7 @@ class DSubset < Technique
 
 		[0,1,2,3,4,5,6,7,8].each { |x|
 			col = colonne(grilleIndice,x)
-			col.each{ |c,y|
+			col.each_with_index{ |c,y|
 				i = 0
 				c.each_value{|v| if v then i+=1 end }
 
@@ -42,7 +42,7 @@ class DSubset < Technique
 
 		[0,1,2,3,4,5,6,7,8].each { |y|
 			lig = ligne(grilleIndice,y)
-			lig.each{ |c,x|
+			lig.each_with_index{ |c,x|
 				i = 0
 				c.each_value{|v| if v then i+=1 end }
 
@@ -66,7 +66,7 @@ class DSubset < Technique
 	## @return     Le nombre d'étape(s)
 	##
 	def combienEtape()
-		return 3
+		return 4
 	end
 
 	##
@@ -80,10 +80,12 @@ class DSubset < Technique
 
 		case(n)
 		when 1
-			return "Recherchez les candidats possibles pour chaque case d'une ligne/colonne."
+			return "Bienvenu sur l'explication de la technique "+self.class.to_s+"."
 		when 2
-			return "Il arrive que N candicats soient possibles sur N cases d'une même ligne/colonne"
+			return "Recherchez les candidats possibles pour chaque case d'une ligne/colonne."
 		when 3
+			return "Il arrive que N candicats soient possibles sur N cases d'une même ligne/colonne"
+		when 4
 			return "Dans ce cas, les N candidats sont applicable uniquement dans ces N cases et non ailleur."
 		end
 		
