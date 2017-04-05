@@ -27,9 +27,10 @@ class FenetreApprentissage < View
 		@menuBarre=Fenetre::creerBarreMenu()
 		@boxMilieu = Gtk::Box.new(:horizontal, 0)
 		@boxGrille = Gtk::Box.new(:horizontal, 0)
-		@boxInfo = Gtk::Box.new(:horizontal, 0)
+		@boxInfo = Gtk::Table.new(1,3,false)
 		@choixLabel = Fenetre::creerLabelType("<u>Choix de la technique</u>", Fenetre::SIZE_TITRE_JEU)
 		@list = Gtk::ComboBoxText.new()
+		@etape = Fenetre::creerLabelType("Etape", 15)
 		@grilleDessin = nil
 		@scoreLabel   = nil
 	end
@@ -113,8 +114,9 @@ class FenetreApprentissage < View
 		@list.append_text('Technique 3')
 		@list.append_text('Technique 4')
 		@list.append_text('Technique 5')
-		@boxInfo.pack_start(@choixLabel, :expand => true, :fill => true)
-		@boxInfo.pack_start(@list, :expand => true, :fill => true)
+		@boxInfo.attach(@choixLabel,0,1,0,1)
+		@boxInfo.attach(@list,0,1,1,2)
+		@boxInfo.attach(@etape,0,1,2,3)
 	end
 
 	##
