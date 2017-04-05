@@ -35,8 +35,9 @@ class FenetreApprentissage < View
 
 		#liste technique
 		@tabTechnique=[
-						"Fonctionnement du jeu",
 						"SCandidate",
+						"DSubset",
+						"SCell"
 					]
 		#box
 		@menuBarre = Fenetre::creerBarreMenu()
@@ -184,22 +185,21 @@ class FenetreApprentissage < View
 		recuperationEtape()
 	end
 
-	##TODO
+	##
+	## Recuperatuon du nombre d'etapes pour le tutoriel
+	##
+	##
 	def recuperationNbEtape()
-		if @techniqueChoisie == "Fonctionnement du jeu"
-			@nbEtape=0
-		else
-			@nbEtape=@techniqueObjet.combienEtape()
-		end
+		@nbEtape=@techniqueObjet.combienEtape()
 	end
 
+	##
+	## Recuperatuon du texte de l'etape en cours
+	##
+	##
 	def recuperationEtape()
-		if @techniqueChoisie == "Fonctionnement du jeu"
-			@texteContenu.set_text("doizjediozejdiozejdijezdijeziodjzeiodjzeiodj dzeidze,iodze")
-		else
-			string=@techniqueObjet.etape(@etapeEnCours)
-			@texteContenu.set_text(string)
-		end
+		string=@techniqueObjet.etape(@etapeEnCours)
+		@texteContenu.set_text(string)
 	end
 
 	##
@@ -214,6 +214,7 @@ class FenetreApprentissage < View
         @labelChoix2.override_color(:normal, Fenetre::COULEUR_BLANC)
         #css bouton
         @boxTexte.override_background_color(:normal, Fenetre::COULEUR_ORANGE)
+        @boxInfo.set_margin(10)
     end
 
 	##
