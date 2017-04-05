@@ -8,14 +8,34 @@
 require Core::ROOT + "components/GrilleDessin.rb"
 
 class FenetreApprentissage < View
-	## VI
+	## VI box
 	@menuBarre
 	@boxMilieu
 	@boxGrille
 	@boxInfo
-	@boxBouton
+	@boxTexte
+	@boxExplication
+	@boxEtape
+
+	# VI dessin
 	@grilleDessin
 	@scoreLabel
+
+	# VI info
+	@labelChoix 
+	@list
+	@labelChoix2
+	@boutonEtapePrec
+	@boutonEtapeSuiv
+	@labelEtape
+	
+	
+	# VI recup
+	@etapeEnCours
+	@nbEtape
+	@techniqueChoisie
+	@texteContenu
+	@tabTechnique
 	@techniqueObjet
 
 	##
@@ -31,7 +51,7 @@ class FenetreApprentissage < View
 		@etapeEnCours=0
 		@nbEtape=0
 		@techniqueChoisie=""
-		@texteContenu = Gtk::Label.new("")
+		@texteContenu = Fenetre::creerLabelType("Bonjour, je suis là pour vous aider à apprendre des techniques!",Fenetre::SIZE_AUTRE_JEU)
 
 		#liste technique
 		@tabTechnique=[
@@ -44,7 +64,10 @@ class FenetreApprentissage < View
 		@boxMilieu = Gtk::Box.new(:horizontal, 50)
 		@boxGrille = Gtk::Box.new(:horizontal, 0)
 		@boxInfo = Gtk::Box.new(:vertical, 40)
-		@boxTexte = Gtk::Box.new(:vertical,10)
+		@boxEtape = Gtk::Box.new(:horizontal, 30)
+		@boxExplication = Gtk::Box.new(:horizontal, 0)
+		@boxContour = Gtk::Box.new(:horizontal,0)
+        @boxTexte = Gtk::Box.new(:vertical,10)
 		
 		#Choix technique
 		@labelChoix = Fenetre::creerLabelType("<u>Choix de la technique</u>", Fenetre::SIZE_TITRE_JEU)
@@ -52,11 +75,9 @@ class FenetreApprentissage < View
 
 		#information de la technique
 		@labelChoix2 = Fenetre::creerLabelType("Choississez une technique...", Fenetre::SIZE_AUTRE_JEU)
-		@boxEtape = Gtk::Box.new(:horizontal, 30)
 		@boutonEtapePrec = Gtk::Button.new(:label => "Precedente")
 		@boutonEtapeSuiv = Gtk::Button.new(:label => " Suivante ")
 		@labelEtape = Fenetre::creerLabelType("Etape #{@etapeEnCours}/#{@nbEtape}", Fenetre::SIZE_AUTRE_JEU)
-		@boxExplication = Gtk::Box.new(:horizontal, 0)
 	end
 
 	##
@@ -164,9 +185,13 @@ class FenetreApprentissage < View
 		@boxEtape.add(@boutonEtapeSuiv)
 
 		#explication
+        @boxExplication.set_hexpand(true)
+        @boxExplication.set_vexpand(true)
+
         @texteContenu.set_line_wrap(true)
         @boxTexte.add(@texteContenu)
-        @boxExplication.add(@boxTexte)
+        @boxContour.pack_start(@boxTexte, :expand => true, :fill => true)
+        @boxExplication.pack_start(@boxContour, :expand => true, :fill => true)
 
 		#add a la box
 		@boxInfo.add(@labelChoix)
@@ -209,11 +234,18 @@ class FenetreApprentissage < View
         #css label
         @labelChoix.override_color(:normal, Fenetre::COULEUR_BLANC)
         @labelChoix.set_margin_top(40)
+        @list.set_hexpand(true);
         @labelEtape.override_color(:normal, Fenetre::COULEUR_BLANC)
+        @labelEtape.set_hexpand(true);
         @texteContenu.override_color(:normal, Fenetre::COULEUR_BLANC)
+        @texteContenu.set_margin(4)
         @labelChoix2.override_color(:normal, Fenetre::COULEUR_BLANC)
         #css bouton
-        @boxTexte.override_background_color(:normal, Fenetre::COULEUR_ORANGE)
+        @boxContour.override_background_color(:normal, Fenetre::COULEUR_BLANC)
+        @boxTexte.override_background_color(:normal, Fenetre::COULEUR_BLEU)
+        @boxTexte.set_margin(3)
+        @boutonEtapePrec.set_hexpand(true);
+        @boutonEtapeSuiv.set_hexpand(true);
         @boxInfo.set_margin(10)
     end
 

@@ -19,6 +19,7 @@ module Fenetre
     COULEUR_JAUNE = Gdk::RGBA.new(1, 1, 0, 1)
     COULEUR_ROUGE = Gdk::RGBA.new(1, 0, 0, 1)
     COULEUR_ORANGE = Gdk::RGBA.new(1, 0.6, 0, 1)
+    COULEUR_BLEU = Gdk::RGBA.new(0.2, 0.59, 0.86, 1)
     SIZE_PSEUDO = 20
     SIZE_TITRE_STAT = 18
     SIZE_CONTENU_STAT = 15
