@@ -33,9 +33,7 @@ class FenetrePseudo < View
     	@boutonQuitter = Gtk::Button.new(:label => "Quitter")
     	# VI label
     	@titreLabel = Fenetre::creerLabelType("<u>Choix du pseudo</u>", Fenetre::SIZE_TITRE)
-    	@pseudoLabel = Gtk::Label.new("dedede")
-        font_desc = Pango::FontDescription.new("Monospace Bold 30")
-        @pseudoLabel.override_font(font_desc)
+    	@pseudoLabel = Fenetre::creerLabelType("Votre pseudo : ", Fenetre::SIZE_PSEUDO)
     end
 
 	##
