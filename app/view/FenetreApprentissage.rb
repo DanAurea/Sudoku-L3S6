@@ -101,7 +101,7 @@ class FenetreApprentissage < View
 	## 
 	##
 	def gestionDroite()
-
+		boxBouton = Gtk::Box.new(:horizontal, 0)
 		list = Gtk::ComboBoxText.new()
 		list.signal_connect('changed'){ |widget|
 			puts widget.active_text
@@ -112,9 +112,10 @@ class FenetreApprentissage < View
 		list.append_text('Technique 3')
 		list.append_text('Technique 4')
 		list.append_text('Technique 5')
-		list.halign = :center
-		list.set_margin(100)
-		@boxInfo.add(list)
+		list.set_margin_top(100)
+		boxBouton.add(list)
+		boxBouton.halign = :center
+		@boxInfo.add(boxBouton)
 	end
 
 	##
