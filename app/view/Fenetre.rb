@@ -29,7 +29,7 @@ module Fenetre
     SIZE_TITRE_REGLAGE = 15
     SIZE_TITRE = 40
     SIZE_LABEL_BOUTON = 20
-    FONT_MENU = "Comic Sans MS"
+    FONT_MENU = "Monospace"
 
     ## VI
     @fenetre 
@@ -128,7 +128,7 @@ module Fenetre
     ##
     def Fenetre.boutonReinit_barre()
         return @boutonReinit_barre
-end
+    end
 
     ##
     ## Définis un accesseur pour le bouton boutonQuitter_barre
