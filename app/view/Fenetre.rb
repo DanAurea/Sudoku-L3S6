@@ -31,7 +31,7 @@ module Fenetre
     SIZE_TITRE = 40
     SIZE_LABEL_BOUTON = 20
     SIZE_TITRE_JEU = 18
-    SIZE_AUTRE_JEU = 15
+    SIZE_AUTRE_JEU = 12
     FONT_MENU = "Monospace"
 
     ## VI
