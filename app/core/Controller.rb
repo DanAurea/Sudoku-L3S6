@@ -11,14 +11,15 @@ class Controller
 		@height      = 500
 		@borderWidth = 0
 		@resizable   = true
-		@position 	 = "POS_CENTER"
+		@position 	 = "CENTER"
 
 		## Create content variable sent from controller to view called
-		@content = Hash.new()
+		@content = Hash.new(0)
 
 		if Core::DEBUG
 			puts "Main controller instanciation"
 		end
+
 	end
 
 	##
@@ -103,8 +104,8 @@ class Controller
 		## call.
 		self.class.instance_methods(false).each() do |method|
 			if !view.class.method_defined?(method)
-				view.define_singleton_method(method) do |*args|
-					self.controller.send(method, *args)
+				view.define_singleton_method(method) do |*arguments|
+					self.controller.send(method, *arguments)
 				end
 			end
 		end
@@ -113,10 +114,11 @@ class Controller
 		view.setInstanceVars()
 		view.run()
 
+		Fenetre::css(:priorite => "PRIORITY_APPLICATION")
+
 		## Display content builded in view with Gtk
 		view.window.show_all
 	end
-
 
 	##
 	## @brief      Sets the properties of window
@@ -126,11 +128,12 @@ class Controller
 	def set_properties(view)
 		## Set window properties
     	
-    	view.window.set_title(@title)
-    	view.window.set_default_size(@width, @height)
+    	view.headerBar.title = @title
+    	view.window.set_titlebar (view.headerBar)
+    	view.window.set_size_request(@width, @height)
     	view.window.border_width = @borderWidth
     	view.window.set_resizable(@resizable)
-    	view.window.set_window_position(Object.const_get("Gtk::Window::" + @position))
+    	view.window.set_window_position(Object.const_get("Gtk::WindowPosition::" + @position))
     	
 	end
 

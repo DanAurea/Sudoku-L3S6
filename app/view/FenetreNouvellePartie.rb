@@ -1,75 +1,92 @@
-# 	Fichier contenant la gestion de la nouvelle partie
-# 	
-# 	Author:: 		PAVARD Valentin, DanAurea
-# 	Developers: 	PAVARD Valentin, DanAurea
-# 	Version:: 		0.1
-# 	Copyright:: 	© 2016
-# 	License::   	Distributes under the same terms as Ruby
-# 	
- 	
+# => Contient la classe FenetreNouvellePartie qui propose le mode aventure ou apprentissage
+#
+# => Author::       Valentin, DanAurea
+# => Version::      0.1
+# => Copyright::    © 2016
+# => License::      Distributes under the same terms as Ruby
+
+##
+## classe FenetreNouvellePartie
+##
 class FenetreNouvellePartie < View
+    # VI box
+    @boxTop
+    @boxBottom
+    # VI bouton
+    @boutonApprentissage
+    @boutonJeuLibre
+    # VI label
+    @titreLabel
 
-	def initialize()
-		
-	end
-
-	#===Methode miseEnplace
-    #
-    # Permet de mettre en place la fenetre(conteneurs)
-    #
-    # * *Args*    :
-    #   - /
-    # * *Returns* :
-    #   - /
-    #
-	def miseEnPlace()
-		#titre et pseudo
-        event_box=Gtk::EventBox.new.add(Fenetre::creerLabelType("Pseudo : #{@pseudo.capitalize}", 15, "#FF0000"))
-        event_box.signal_connect('button_press_event'){
-            Core::changeTo("Reglages", "pseudo": @pseudo)
-        }
-    	Fenetre::table.attach(event_box,7,10,0,1)
-    	Fenetre::table.attach(Fenetre::creerLabelType("<u>Nouvelle partie</u>", 40, "#FFFFFF"),0,10,1,2)
-
-        #Creation des Boutons
-        boutonApprentissage=Gtk::Button.new("Apprentissage avec aides")
-        boutonApprentissage.signal_connect('clicked'){
-            Core::changeTo("Apprentissage", "pseudo": @pseudo)
-        }
-
-        boutonJeuLibre=Gtk::Button.new("Jeu libre")
-        boutonJeuLibre.signal_connect('clicked'){
-            Core::changeTo("JeuLibre", "pseudo": @pseudo)
-        }
-
-        boutonRetour=Gtk::Button.new(Gtk::Stock::GO_BACK)
-        boutonRetour.signal_connect('clicked'){
-        	Fenetre::fenetrePrecedente()
-        }
-
-        boutonQuitter=Gtk::Button.new(Gtk::Stock::QUIT)
-        boutonQuitter.signal_connect('clicked'){
-        	Fenetre::detruire()
-        }
-
-        #attach des boutons
-        Fenetre::table.attach(boutonApprentissage,3,7,5,6)
-        Fenetre::table.attach(boutonJeuLibre,3,7,7,8)
-        Fenetre::table.attach(boutonRetour,1,3,11,12)
-        Fenetre::table.attach(boutonQuitter,7,9,11,12)
+    ##
+    ## Initialize
+    ##
+    def initialize()
+        # VI box
+        @boxTop = Gtk::Box.new(:vertical,0)
+        @boxBottom = Fenetre::creerBoxBottom()
+        # VI bouton
+        @boutonApprentissage = Gtk::Button.new(:label => "Apprentissage avec aides")
+        @boutonJeuLibre = Gtk::Button.new(:label => "Jeu libre")
+        # VI label
+        @titreLabel = Fenetre::creerLabelType("<u>Nouvelle partie</u>",Fenetre::SIZE_TITRE)
     end
 
     ##
-	## @brief     Lance la construction du modèle
-	## 			  de la vue.
-	## 			  Méthode à définir dans tout les cas !
-	## 			  Autrement pas de rendu de la page.
+    ## Permet de créer et d'ajouter les box au conteneur principal
+    ##
+    ##
+    def miseEnPlace()        
+        creerBoxTop()
+        ajoutCss()
+        Fenetre::box.add(@boxTop)
+        Fenetre::box.add(@boxBottom)
+    end
+
 	##
-	## @return     itself
-	##
+    ## Créer la box verticale contenant les boutons des choix du mode de jeu et le titre
+    ##
+    ##
+    def creerBoxTop()
+		#Action des boutons
+        @boutonApprentissage.signal_connect('clicked'){
+            Core::changeTo("Apprentissage", "pseudo": @pseudo)
+        }
+
+        @boutonJeuLibre.signal_connect('clicked'){
+            Core::changeTo("Niveau", "pseudo": @pseudo)
+        }
+
+        #add des boutons à la box
+        @boxTop.add(@titreLabel)
+        @boxTop.add(@boutonApprentissage)
+        @boxTop.add(@boutonJeuLibre)
+    end
+
+    ##
+    ## Ajoute les classes css au widget
+    ##
+    def ajoutCss()
+        #css label
+        @titreLabel.override_color(:normal, Fenetre::COULEUR_BLANC)
+        @titreLabel.set_margin_top(30)
+        #css bouton
+        @boutonApprentissage.set_margin_top(100)
+        @boutonApprentissage.set_margin_bottom(50)
+        @boutonApprentissage.set_margin_left(100)
+        @boutonApprentissage.set_margin_right(100)
+        @boutonJeuLibre.set_margin_bottom(50)
+        @boutonJeuLibre.set_margin_left(100)
+        @boutonJeuLibre.set_margin_right(100)
+    end
+
+    ##
+    ## Lance la construction du modèle de la vue. Méthode à définir dans tout les cas ! Autrement pas de rendu de la page.
+    ##
+    ## @return self
+    ##
 	def run()
-		self.miseEnPlace
+		self.miseEnPlace()
 		return self
 	end
-
 end

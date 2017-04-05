@@ -1,41 +1,26 @@
-require 'active_record'
 require 'sqlite3'
 require 'singleton'
-require 'core/Conf.rb'
+require_relative 'Conf.rb'
 
 class Model
 	include Singleton
+
+	attr_accessor :db
 
 	def initialize
 		## Retrieving configuration from yaml files
 		@conf = Conf.instance()
 		
-		@app  = @conf.app
-		@db   = @conf.db
+		@app    = @conf.app
+		@dbConf = @conf.db
+		@@db     = nil
 
 		dbPath = Core::ROOT + Core::DEFAULT_DATABASE_DIR
 
-		adapter  = @db["development"]["adapter"]
-		database = dbPath + @db["development"]["database"]
+		database = dbPath + @dbConf["development"]["database"]
 
 		self.mkDatabaseDir(dbPath)
-		self.touchDatabase(database)
-
-		## Try to connect with configuration set in files
-		begin
-			self.connection(adapter, database)
-		rescue 
-
-			if Core::DEBUG
-				puts "Bad settings detected in configuration, Model will try to connect to database with default settings."
-			end
-
-			adapter = Core::DEFAULT_ADAPTER
-			database  = Core::ROOT + Core::DEFAULT_DATABASE_DIR + Core::DEFAULT_DATABASE_NAME
-
-			self.connection(adapter, database)
-
-		end
+		self.connection(database)
 		
 	end
 
@@ -60,37 +45,29 @@ class Model
 
 
 	##
-	## @brief      Create a new database file
+	## @brief      Connect to a database
 	##
 	## @param      database  The database
 	##
 	## @return     Itself
 	##
-	def touchDatabase(database)
+	def connection(database)
 		## Create a SQLite database 
 		if !File.exist?(database)
 			if Core::DEBUG
 				puts "SQLite3 database not found, it will be created."
 			end
-			SQLite3::Database.new(database)
+			begin 
+				SQLite3::Database.new(database)
+			rescue SQLite3::Exception => e
+				puts "SQLite3 couldn't create a new database."
+			end
 		end
+		
+		## Connect to created dtabase
+		@@db = SQLite3::Database.open(database)
 
 		return self
-	end
-
-	def connection(adapter, database)
-		
-		## Set options for logging database access
-		if Core::DEBUG
-			Logger.new(STDERR)
-		else
-			Logger.new(File.open(Core::ROOT + Core::DEFAULT_DATABASE_LOG, 'w'))
-		end
-
-		ActiveRecord::Base.establish_connection(
-			:adapter  => adapter,
-  		 	:database => database
-		)
 	end
 
 	##
@@ -105,6 +82,67 @@ class Model
 		super
 
 		return self
+	end
+
+	##
+	## @brief      Insert datas in database
+	##
+	## @param      options  Hash with columns and values
+	##
+	## @return     Itself
+	##
+	def insert(**options)
+		colsName = Array.new 
+		values   = Array.new
+		bonds    = Array.new
+
+		## Parse options to get columns and values
+		options.each do |index, value|
+			colsName << index
+			values << value
+			bonds << "?"
+		end
+
+		colsName = colsName.join(",")
+		bonds = bonds.join(",")
+
+		if Core::DEBUG
+			puts "Request: INSERT INTO " + self.class.to_s.downcase + " (#{colsName}) VALUES (#{bonds});"
+			
+			print "Values was: "
+			options.each do |index, value|
+				print "#{index} => #{value} | "
+			end
+
+			puts
+			puts
+		end
+
+		@@db.execute "INSERT INTO " + self.class.to_s.downcase + " (#{colsName}) 
+				VALUES (#{bonds});", values
+
+		return self
+	end
+
+	##
+	## @brief      Convert an array reques to a hash with columns => values
+	##
+	## @param      req   The request
+	##
+	## @return     Request hashed
+	##
+	def to_h(req)
+		response = Array.new()
+
+		## Transforme la réponse en hash
+		(1...req.length).each do |row|
+			response[row-1] = Hash.new()
+			(0...req[0].length).each do |col|
+				response[row-1][req[0][col]] = req[row][col]
+			end
+		end
+
+		return response
 	end
 
 end

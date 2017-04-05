@@ -1,29 +1,232 @@
-#   Contient la classe abstraite Fenetre regroupant les informations de base de chaque fenetre
+# => Contient la classe abstraite Fenetre regroupant les informations de base de chaque fenêtre
 #
-#   Author::      PAVARD Valentin, DanAurea
-#   Developers:   PAVARD Valentin, DanAurea
-#   Version::     0.1
-#   Copyright::   ©
-#   License::     Distributes under the same terms as Ruby
+# => Author::       Valentin, DanAurea
+# => Version::      0.1
+# => Copyright::    © 2016
+# => License::      Distributes under the same terms as Ruby
 
+require "optparse"
+require "fileutils"
 
+##
+## classe abstraite Fenetre regroupant les informations de base et méthodes de chaque fenêtre
+##
 module Fenetre
 
-    @fenetre
-    @table
+    #Constante couleur, taille
+    COULEUR_BLANC = Gdk::RGBA.new(1,1,1,1)
+    COULEUR_VERT = Gdk::RGBA.new(0, 1, 0, 1)
+    COULEUR_JAUNE = Gdk::RGBA.new(1, 1, 0, 1)
+    COULEUR_ROUGE = Gdk::RGBA.new(1, 0, 0, 1)
+    COULEUR_ORANGE = Gdk::RGBA.new(1, 0.6, 0, 1)
+    COULEUR_BLEU = Gdk::RGBA.new(0.2, 0.59, 0.86, 1)
+    SIZE_PSEUDO = 20
+    SIZE_TITRE_STAT = 18
+    SIZE_CONTENU_STAT = 15
+    SIZE_TITRE_SCORE = 18
+    SIZE_CONTENU_SCORE = 15
+    SIZE_TITRE_REGLE = 15
+    SIZE_CONTENU_REGLE = 14
+    SIZE_TITRE_REGLAGE = 15
+    SIZE_TITRE = 40
+    SIZE_LABEL_BOUTON = 20
+    SIZE_TITRE_JEU = 18
+    SIZE_AUTRE_JEU = 12
+    FONT_MENU = "Monospace"
+
+    ## VI
+    @fenetre 
+    @box
     @fenetrePrecedente
+    @enteteFenetre
 
-	@fenetre = Gtk::Window.new()
-	@fenetre.signal_connect('destroy') {
-			detruire()
-	}
+    ## VI barre menu
+    @boutonMenu_barre
+    @boutonSauvegarder_barre
+    @boutonReinit_barre
+    @boutonQuitter_barre
+    @boutonPauseChrono_barre
+    @boutonPlayChrono_barre
+    @boutonAnnuler_barre
+    @boutonRetablir_barre
 
-	# Définis un accesseur pour le contexte de la fenêtre Gtk
-	def Fenetre.fenetre()
-		return @fenetre
-	end   
+    ## Création fenêtre de base
+    @fenetre = Gtk::Window.new(:toplevel)
+    @fenetre.set_name("mainWindow")
+    @fenetre.set_icon_from_file(Core::ROOTPROJECT + "assets/img/iconApp.png")
+    @fenetre.signal_connect('destroy') {
+        detruire()
+    }
 
-    ## Montre la fenetre précédente
+    @fenetreStyle = @fenetre.style_context
+
+    ## Création de la header bar
+    @enteteFenetre                   = Gtk::HeaderBar.new()
+    @enteteFenetre.show_close_button = true
+    @enteteFenetre.has_subtitle      = false
+
+    ## Crée un conteneur pour le contenu
+    @box=Gtk::Box.new(:vertical, 0)
+    @fenetre.add(@box)
+
+    ##
+    ## Définis un accesseur pour le contexte de la fenêtre Gtk
+    ##
+    ## @return  fenetre
+    ##
+    def Fenetre.fenetre()
+        return @fenetre
+    end
+
+
+    ##
+    ## Définis un accesseur pour le contexte de l'entête de la fenêtre Gtk
+    ##
+    ## @return     L'entête de la fenêtre
+    ##
+    def Fenetre.enteteFenetre()
+        return @enteteFenetre
+    end
+    
+    ##
+    ## Définis un accesseur pour le contexte de style de la fenêtre Gtk
+    ##
+    ## @return fenetreStyle
+    ##
+    def Fenetre.fenetreStyle()
+        return @fenetreStyle
+    end
+    
+    ##
+    ## Définis un accesseur pour le bouton de retour
+    ##
+    ## @return boutonRetour
+    ##
+    def Fenetre.boutonRetour()
+        return @boutonRetour
+    end
+
+    ##
+    ## Définis un accesseur pour le bouton boutonMenu_barre
+    ##
+    ## @return boutonMenu_barre
+    ##
+    def Fenetre.boutonMenu_barre()
+        return @boutonMenu_barre
+    end
+
+    ##
+    ## Définis un accesseur pour le bouton boutonSauvegarder_barre
+    ##
+    ## @return boutonSauvegarder_barre
+    ##
+    def Fenetre.boutonSauvegarder_barre()
+        return @boutonSauvegarder_barre
+    end
+
+    ##
+    ## Définis un accesseur pour le bouton boutonReinit_barre
+    ##
+    ## @return boutonReinit_barre
+    ##
+    def Fenetre.boutonReinit_barre()
+        return @boutonReinit_barre
+    end
+
+    ##
+    ## Définis un accesseur pour le bouton boutonQuitter_barre
+    ##
+    ## @return boutonQuitter_barre
+    ##
+    def Fenetre.boutonQuitter_barre()
+        return @boutonQuitter_barre
+    end
+
+    ##
+    ## Définis un accesseur pour le bouton boutonPauseChrono_barre
+    ##
+    ## @return boutonPauseChrono_barre
+    ##
+    def Fenetre.boutonPauseChrono_barre()
+        return @boutonPauseChrono_barre
+    end
+
+    ##
+    ## Définis un accesseur pour le bouton boutonPlayChrono_barre
+    ##
+    ## @return boutonPlayChrono_barre
+    ##
+    def Fenetre.boutonPlayChrono_barre()
+        return @boutonPlayChrono_barre
+    end
+
+    ##
+    ## Définis un accesseur pour le bouton boutonAnnuler_barre
+    ##
+    ## @return boutonAnnuler_barre
+    ##
+    def Fenetre.boutonAnnuler_barre()
+        return @boutonAnnuler_barre
+    end
+
+    ##
+    ## Définis un accesseur pour le bouton boutonRetablir_barre
+    ##
+    ## @return boutonRetablir_barre
+    ##
+    def Fenetre.boutonRetablir_barre()
+        return @boutonRetablir_barre
+    end
+
+    ##
+    ## Applique une feuille css sur un widget
+    ## 
+    ## @param   widget     Widget sur lequel appliquer
+    ## @param   chemin     Chemin du fichier css
+    ## @param   fournisseur Gtk provider pour le css
+    ## @param   priorite   Priorité du style par rapport au système
+    ## 
+    ## @return  Style appliqué
+    ##
+    def Fenetre.css(**args)
+        if(args.has_key?(:fournisseur))
+            fournisseur = args[:fournisseur]
+        else
+            if(args.has_key?(:chemin))
+                chemin = Core::ROOTPROJECT + args[:chemin]
+            else
+                chemin = Core::ROOTPROJECT + "assets/css/style.css"
+            end
+            fournisseur = Gtk::CssProvider.new
+            fournisseur.load_from_path(chemin)
+        end
+        
+        if(args.has_key?(:widget))
+            widget = args[:widget]
+        else
+            widget = @fenetre
+        end
+
+        if(args.has_key?(:priorite))
+            priorite = Object.const_get("Gtk::StyleProvider::" + args[:priorite])
+        else
+            priorite = Object.const_get("Gtk::StyleProvider::PRIORITY_USER")
+        end
+
+        widgetStyle = widget.style_context
+        widgetStyle.add_provider(fournisseur, priorite)
+
+        return unless widget.respond_to?(:children)
+        widget.children.each do |child|
+            args[:widget] = child
+            self.css(args)
+        end
+    end
+
+    ##
+    ## Montre la fenêtre précédente
+    ##
+    ##
     def Fenetre.fenetrePrecedente()
         viderFenetre()
 
@@ -34,112 +237,178 @@ module Fenetre
         @fenetre.show_all
     end
 
-    ## Définis la fenetre précédente
+    ##
+    ## Définis la fenêtre précédente
+    ##
+    ## @param   fenetre
+    ##
+    ##
     def Fenetre.fenetrePrecedente=(fenetre)
         @fenetrePrecedente = fenetre
     end
 
+    ##
     ## Accesseur sur le layout
-	def Fenetre.table()
-		return @table
-	end
-
-    #=== Vide la fenêtre pour préparer la mise à jour.
-    #
-    #
-    def Fenetre.viderFenetre()
-        @fenetre.children.each() do |child|
-            @fenetre.remove(child)
-        end
+    ##
+    ##
+    def Fenetre.box()
+        return @box
     end
 
-    #===Methode detruire
-    #
-    # Permet de quitter l'application et de detruire la fenetre
-    #
-    # * *Args*    :
-    #   - /
-    # * *Returns* :
-    #   - /
-    #
+    ##
+    ## Vide la fenêtre pour préparer la mise à jour
+    ##
+    ##
+    def Fenetre.viderFenetre()
+        @fenetre.hide
+        # puts @fenetre.children[0]
+        @fenetre.children.each() do |child|
+            @fenetre.child.each() do |chil|
+                child.remove(chil)
+            end
+        end
+
+    end
+
+    ##
+    ## Permet de quitter l'application et de detruire la fenetre
+    ##
+    ##
     def Fenetre.detruire()
         Gtk.main_quit()
     end
 
-	#===Methode miseEnplace
-    #
-    # Permet de mettre en place la fenetre(conteneurs)
-    #
-    # * *Args*    :
-    #   - /
-    # * *Returns* :
-    #   - /
-    #
-    def Fenetre.miseEnPlace()
-        #Conteneur table
-        @table=Gtk::Table.new(10,12,false)
-        @fenetre.add(@table)
-        #espace
-        1.upto(10){|i|
-        	@table.attach(self.creerLabelType(" ", 20, "#FF0000"),0,10,i,i+1)
-        }
+    ##
+    ## Applique un style css sur le widget
+    ##
+    ## @param   widget Widget sur lequel appliquer un style
+    ## @param   provider  
+    ##
+    ##
+    def Fenetre.appliquerStyle(widget, provider)
+        style_context = widget.style_context
+        style_context.add_provider(provider, Gtk::StyleProvider::PRIORITY_USER)
+        return unless widget.respond_to?(:children)
+        widget.children.each do |child|
+            apply_style(child, provider)
+        end
     end
-
-    #===Methode creerLabelType
-    #
-    # Creer un label type
-    #
-    # * *Args*    :
-    #   - +unNomDeLabel+ -> Chaine de caracteres representant le texte du label
-    # * *Returns* :
-    #   - unLabel -> Label
-    #
-    def Fenetre.creerLabelType(unNomDeLabel, taillePolice, couleur)
+    
+    ##
+    ## Créer un label type à partir d'un string
+    ##
+    ## @param   unNomDeLabel string représentant le texte du label
+    ## @param   uneTaille taille de la police
+    ## @param   une couleur couleur du texte
+    ##
+    ## @return  Label
+    ##
+    def Fenetre.creerLabelType(unNomDeLabel, uneTaille)
         #Creation du Label
-        texte = "<span font_desc=\"Comic sans MS " + taillePolice.to_s + "\" foreground=\"" + couleur + "\"> #{unNomDeLabel} </span>\n"
         label=Gtk::Label.new()
-        label.set_markup(texte)
-        label.set_justify(Gtk::JUSTIFY_CENTER)
+        label.set_markup("<span font_desc=\"#{FONT_MENU} #{uneTaille}\">#{unNomDeLabel}</span>")
+        label.set_justify(Gtk::Justification::CENTER)
         return label
     end
-
-    ##===Methode creerPopupErreur
-    #
-    # Creer une popup d'avertissement
-    #
-    # * *Args*    :
-    #   - +unTexte+ -> Chaine de caracteres informative
-    # * *Returns* :
-    #   - messageErreur -> MessageDialog
-    #
-    def Fenetre.creerPopupErreur(unTexte)
-    	messageErreur = Gtk::MessageDialog.new(
-    		@fenetre,
-    		Gtk::Dialog::DESTROY_WITH_PARENT,
-    		Gtk::MessageDialog::INFO,
-    		Gtk::MessageDialog::BUTTONS_CLOSE,
-    		unTexte)
-    	messageErreur.run()
-    	messageErreur.destroy()
-    	return messageErreur
+    
+    ##
+    ## Crée un popup du type demandé
+    ##
+    ## @param      unTexte  Le texte à afficher
+    ## @param      type     Le type de popup
+    ##
+    ## @return    L'objet dialog gtk
+    ##
+    def Fenetre.creerPopup(unTexte, type)
+        messageErreur = Gtk::MessageDialog.new(
+            :parent => @fenetre,
+            :flags => Gtk::DialogFlags::DESTROY_WITH_PARENT,
+            :type => Gtk::MessageType::INFO,
+            :buttons => Object.const_get("Gtk::ButtonsType::" + type),
+            :message => unTexte)
+        return messageErreur
     end
 
-    ##===Methode creerPopupQuestion
-    #
-    # Creer une popup question oui non
-    #
-    # * *Args*    :
-    #   - +unTexte+ -> Chaine de caracteres informative
-    # * *Returns* :
-    #   - messageErreur -> MessageDialog
-    #
-    def Fenetre.creerPopupQuestion(unTexte)
-    	messageErreur = Gtk::MessageDialog.new(
-    		@fenetre,
-    		Gtk::Dialog::DESTROY_WITH_PARENT,
-    		Gtk::MessageDialog::QUESTION,
-    		Gtk::MessageDialog::BUTTONS_YES_NO,
-    		unTexte)
-    	return messageErreur
+    ##
+    ## Créer la box horizontale contenant les boutons retour et quitter des fenêtres du menu
+    ##
+    ## @return Box
+    ##
+    def Fenetre.creerBoxBottom()
+        #Creation des Boutons
+        
+        @boutonRetour=Gtk::Button.new(:label => "Retour")
+        @boutonRetour.set_margin(40)
+        @boutonRetour.signal_connect('clicked'){
+            Core::back()
+        }
+
+        @boutonQuitter=Gtk::Button.new(:label => "Quitter")
+        @boutonQuitter.set_margin(40)
+        @boutonQuitter.signal_connect('clicked'){
+            Fenetre::detruire()
+        }
+
+        #add des boutons
+        boxBottom=Gtk::Box.new(:horizontal, 0)
+        boxBottom.halign = :center
+        boxBottom.add(@boutonRetour)
+        boxBottom.add(@boutonQuitter)
+        return boxBottom
     end
+
+    ## Permet de creer la barre de menu
+    ##
+    ## @return barreMenu barre de menu du haut
+    ##
+    def Fenetre.creerBarreMenu()
+        barreMenu = Gtk::Toolbar.new()
+        barreMenu.set_toolbar_style(Gtk::ToolbarStyle::ICONS)
+        barreMenu.style_context.add_class("barre_menu")
+
+        @boutonMenu_barre = Gtk::ToolButton.new(:stock_id => Gtk::Stock::HOME)
+        @boutonMenu_barre.set_tooltip_text("Aller au menu principal")
+        @boutonMenu_barre.set_margin_right(10)
+
+        @boutonSauvegarder_barre = Gtk::ToolButton.new(:stock_id => Gtk::Stock::SAVE)
+        @boutonSauvegarder_barre.set_tooltip_text("Sauvegarder")
+        @boutonSauvegarder_barre.set_margin_right(10)
+
+        @boutonReinit_barre = Gtk::ToolButton.new(:stock_id => Gtk::Stock::CLEAR)
+        @boutonReinit_barre.set_tooltip_text("Réinitialiser la grille")
+        @boutonReinit_barre.set_margin_right(10)
+
+        @boutonQuitter_barre = Gtk::ToolButton.new(:stock_id => Gtk::Stock::QUIT)
+        @boutonQuitter_barre.set_tooltip_text("Quitter")
+        @boutonQuitter_barre.set_margin_right(10)
+
+        @boutonPauseChrono_barre = Gtk::ToolButton.new(:stock_id => Gtk::Stock::MEDIA_PAUSE)
+        @boutonPauseChrono_barre.set_tooltip_text("Mettre le jeu en pause")
+        @boutonPauseChrono_barre.set_margin_right(10)
+
+        @boutonPlayChrono_barre = Gtk::ToolButton.new(:stock_id => Gtk::Stock::MEDIA_PLAY)
+        @boutonPlayChrono_barre.set_tooltip_text("Reprendre le jeu")
+        @boutonPlayChrono_barre.set_margin_right(10)
+    
+        @boutonAnnuler_barre=Gtk::ToolButton.new(:stock_id => Gtk::Stock::UNDO)
+        @boutonAnnuler_barre.set_tooltip_text("Annuler action")
+        @boutonAnnuler_barre.set_margin_right(10)
+
+        @boutonRetablir_barre=Gtk::ToolButton.new(:stock_id => Gtk::Stock::REDO)
+        @boutonRetablir_barre.set_tooltip_text("Rétablir action annulée")
+        @boutonRetablir_barre.set_margin_right(10)
+
+        barreMenu.insert(@boutonMenu_barre,0)
+        barreMenu.insert(@boutonSauvegarder_barre,1)
+        barreMenu.insert(@boutonReinit_barre,2)
+        barreMenu.insert(@boutonQuitter_barre,3)
+        barreMenu.insert(Gtk::SeparatorToolItem.new(),4)
+        barreMenu.insert(@boutonPauseChrono_barre,5)
+        barreMenu.insert(@boutonPlayChrono_barre,6)
+        barreMenu.insert(Gtk::SeparatorToolItem.new(),7)
+        barreMenu.insert(@boutonAnnuler_barre,8)
+        barreMenu.insert(@boutonRetablir_barre,9)
+
+        return barreMenu
+end
 end

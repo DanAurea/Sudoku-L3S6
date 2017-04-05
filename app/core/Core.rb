@@ -1,7 +1,7 @@
 module Core
 
 	## Define root directory constant
-	ROOT                  = File.dirname(File.dirname(__FILE__)) + "/"
+	ROOT                  = File.expand_path(File.dirname(File.dirname(__FILE__))) + "/"
 	ROOTPROJECT           = File.dirname(ROOT) + "/"
 	CONTROLLER            = "Controleur"
 	VIEW                  = "Fenetre"
@@ -10,6 +10,9 @@ module Core
 	DEFAULT_ADAPTER       = "sqlite3"
 	DEFAULT_DATABASE_DIR  = "db/"
 	DEFAULT_DATABASE_NAME = "main.sqlite3"
+
+	@previousWindow = Array.new()
+	@args           = nil
 
 	##
 	## @brief      Load a controller and render its view
@@ -35,14 +38,44 @@ module Core
 	## @return     Module itself
 	##
 	def Core.changeTo(name, **args)
+
+		## Prevent some issue with back option
+		## no more loop possible when caller is 
+		## identical as destination.
+		## Act like an Ariane's thread we
+		## can now back on all previous windows.
+		if @previousWindow.slice(-1) != name
+			## Save caller window
+			@previousWindow << name
+		end
 		
+		@args = args
+
 		## Create a new empty window
 		Fenetre::fenetrePrecedente = Fenetre::fenetre.children.clone()
 		Fenetre::viderFenetre
-		Fenetre::miseEnPlace()
 
 		load(name, args)
-		
+
+		return self
+	end
+
+
+	##
+	## @brief      Back to previous window
+	##
+	## @return     Module itself
+	##
+	def Core.back()
+		if @previousWindow.length > 1
+			## Slice current page
+			@previousWindow.slice!(-1)
+			## Go back to previous window
+			self.changeTo(@previousWindow.slice!(-1), @args)
+		else
+			puts "Empty stack, you can't back to a non stacked window."
+		end
+
 		return self
 	end
 

@@ -1,28 +1,29 @@
-#   Author::      PAVARD Valentin
-#   Version::     0.1
-#   Copyright::   ©
-#   License::     Distributes under the same terms as Ruby
-
-##
-## @brief      Controleur fenêtre principale
-##
+# => Controlleur vue principale
+# => Author::       Valentin, DanAurea
+# => Version::      0.1
+# => Copyright::    © 2016
+# => License::      Distributes under the same terms as Ruby
+# 	
+ 	
+# 	Class PrincipaleControleur
+#
 class PrincipaleControleur < Controller
 	
+	##
+    ## Initialize
+    ##
 	def initialize ()
-		## Charge la table utilisateur
-		loadModel("Utilisateur")
+		#parametres fenetre
 		@title = "Sudoku"
+		@resizable = false
 	end
 
 	##
-	## @brief      Invoke all methods from controller resulting
-	## 				in a sent to view.
-	##
-	## @return     Itself
-	##
+    ## Méthode à définir dans tout les cas !
+    ##
+    ## @return self
+    ##
 	def run()
-
 		return self
 	end
-
 end

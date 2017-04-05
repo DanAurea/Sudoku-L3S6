@@ -1,0 +1,70 @@
+/*
+*   Author::      Valentin, DanAurea
+*   Version::     0.1
+*   Copyright::   © 2016
+*   License::     Distributes under the same terms as Ruby
+*/
+/* Reset all default settings */
+
+
+#mainWindow{
+    background-image: -gtk-gradient(radial,
+                                   center center, 0,
+                                   center center, 0.8,
+                                   from(rgb(105, 150, 170)), to(rgb(25, 35, 65)));
+	font-size: 16px;
+    border: 1px solid white;
+}
+
+button{
+    border: 1px solid rgb(200,200,200);
+	background: rgb(46,134,193);
+    box-shadow: none;
+    font-family: monospace;
+}
+
+button label{
+    color: white;
+    font-size: 20px;
+}
+
+button:hover{
+    background: rgb(52,152,219);
+    box-shadow: none;
+}
+
+button:hover label{
+    color: white;
+}
+
+button:active{
+    background: rgb(40,116,166);
+    box-shadow: none;
+}
+
+button:active label{
+    color: #2B2A29;
+}
+
+
+#profil{
+    background: rgb(200, 200, 200);
+    border: 1px rgb(150, 150, 150) solid;
+}
+
+#profil:hover{
+    background-image: linear-gradient(to top, rgb(160, 160, 160) 0%, rgb(255, 255, 255) 100%);
+}
+
+#profil:active{
+    background-image: linear-gradient(to top, rgb(255, 255, 255) 0%, rgb(160, 160, 160) 100%);
+}
+
+#pseudo{
+    font-size: 12px;
+}
+
+.barre_menu{
+    background-image: -gtk-gradient(radial, center center, 0, center center, 0.8, from(rgb(105, 150, 170)), to(rgb(25, 35, 65)));
+    border: 1px solid white;
+}

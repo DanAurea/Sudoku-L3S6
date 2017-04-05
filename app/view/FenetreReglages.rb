@@ -1,118 +1,198 @@
-# 	Fichier contenant la gestion des reglages(taille, couleur)
-# 	
-# 	Author:: 		PAVARD Valentin, DanAurea
-# 	Developers: 	PAVARD Valentin, DanAurea
-# 	Version:: 		0.1
-# 	Copyright:: 	© 2016
-# 	License::   	Distributes under the same terms as Ruby
-# 	
- 	
+# => Contient la classe FenetreReglages  contenant la gestion des reglages(taille, couleur)
+#
+# => Author::       Valentin, DanAurea
+# => Version::      0.1
+# => Copyright::    © 2016
+# => License::      Distributes under the same terms as Ruby
+
+##
+## classe FenetreReglages
+##
 class FenetreReglages < View
+    # VI box
+    @boxTop
+    @boxBottom
+    @config
+    # VI bouton
+    @boutonCouleurCaseBase
+    @boutonCouleurCaseSelectionne
+    @boutonCouleurTexte
+    @boutonCouleurIndices
+    @boutonPolice
+    # VI label
+    @titreLabel
+    @tmp
+    @labelCouleurCaseBase
+    @labelCouleurCaseSelectionne
+    @labelCouleurTexte
+    @labelCouleurIndices
+    @labelPolice
 
-	def initialize()
-		
-	end
+    ##
+    ## Initialize
+    ##
+    def initialize
+        # VI box
+        @boxTop = Gtk::Box.new(:vertical,0)
+        @boxBottom = Fenetre::creerBoxBottom()
 
-	#===Methode miseEnplace
-    #
-    # Permet de mettre en place la fenetre(conteneurs)
-    #
-    # * *Args*    :
-    #   - /
-    # * *Returns* :
-    #   - /
-    #
-	def miseEnPlace()
-		#titre et pseudo
-        event_box=Gtk::EventBox.new.add(Fenetre::creerLabelType("Pseudo : #{@pseudo.capitalize}", 15, "#FF0000"))
-        event_box.signal_connect('button_press_event'){
-            Core::changeTo("Reglages", "pseudo": @pseudo)
-        }
-    	Fenetre::table.attach(event_box,7,10,0,1)
-    	Fenetre::table.attach(Fenetre::creerLabelType("<u>Réglages</u>", 40, "#FFFFFF"),0,10,1,2)
+        # VI bouton
+        @boutonCouleurCaseBase = Gtk::ColorButton.new()
+        @boutonCouleurCaseSelectionne = Gtk::ColorButton.new()
+        @boutonCouleurTexte = Gtk::ColorButton.new()
+        @boutonCouleurIndices = Gtk::ColorButton.new()
+        @boutonPolice = Gtk::FontButton.new()
 
-        #Creation des Boutons
-        frame1 = Gtk::Frame.new(" Choix taille des chiffres ")
-        frame1.shadow_type = Gtk::SHADOW_ETCHED_OUT
-
-        tableTaille=Gtk::Table.new(4,1,false)
-        boutonPetitChiffre = Gtk::RadioButton.new("Petit Chiffre")
-        boutonGrandChiffre = Gtk::RadioButton.new(boutonPetitChiffre,"Grand Chiffre")
-        #tableTaille.attach(Gtk::Image.new(CHEMIN_IMAGE_PETIT_CHIFFRE_REGLAGE),0,1,0,1)
-        tableTaille.attach(boutonPetitChiffre,1,2,0,1)
-        #tableTaille.attach(Gtk::Image.new(CHEMIN_IMAGE_GRAND_CHIFFRE_REGLAGE),2,3,0,1)
-        tableTaille.attach(boutonGrandChiffre,3,4,0,1)
-        frame1.add(tableTaille)
-
-        frame2 = Gtk::Frame.new(" Choix de la couleur ")
-        frame2.shadow_type = Gtk::SHADOW_ETCHED_OUT
-        tableCouleur=Gtk::Table.new(8,2,false)
-        
-        boutonBlanc = Gtk::RadioButton.new("Blanc")
-        boutonBleu = Gtk::RadioButton.new(boutonBlanc,"Bleu")
-        boutonJaune = Gtk::RadioButton.new(boutonBlanc,"Jaune")
-        boutonOrange = Gtk::RadioButton.new(boutonBlanc,"Orange")
-        boutonRouge = Gtk::RadioButton.new(boutonBlanc,"Rouge")
-        boutonTurquoise = Gtk::RadioButton.new(boutonBlanc,"Turquoise")
-        boutonVert = Gtk::RadioButton.new(boutonBlanc,"Vert")
-        boutonViolet = Gtk::RadioButton.new(boutonBlanc,"Violet")
-
-        # tableCouleur.attach(Gtk::Image.new(CHEMIN_IMAGE_BLANC_REGLAGE),0,1,0,1)
-        tableCouleur.attach(boutonBlanc,1,2,0,1)
-
-        # tableCouleur.attach(Gtk::Image.new(CHEMIN_IMAGE_BLEU_REGLAGE),2,3,0,1)
-        tableCouleur.attach(boutonBleu,3,4,0,1)
-
-        # tableCouleur.attach(Gtk::Image.new(CHEMIN_IMAGE_JAUNE_REGLAGE),4,5,0,1)
-        tableCouleur.attach(boutonJaune,5,6,0,1)
-
-        # tableCouleur.attach(Gtk::Image.new(CHEMIN_IMAGE_ORANGE_REGLAGE),6,7,0,1)
-        tableCouleur.attach(boutonOrange,7,8,0,1)
-
-        # tableCouleur.attach(Gtk::Image.new(CHEMIN_IMAGE_ROUGE_REGLAGE),0,1,1,2)
-        tableCouleur.attach(boutonRouge,1,2,1,2)
-
-        # tableCouleur.attach(Gtk::Image.new(CHEMIN_IMAGE_TURQUOISE_REGLAGE),2,3,1,2)
-        tableCouleur.attach(boutonTurquoise,3,4,1,2)
-
-        # tableCouleur.attach(Gtk::Image.new(CHEMIN_IMAGE_VERT_REGLAGE),4,5,1,2)
-        tableCouleur.attach(boutonVert,5,6,1,2)
-
-        # tableCouleur.attach(Gtk::Image.new(CHEMIN_IMAGE_VIOLET_REGLAGE),6,7,1,2)
-        tableCouleur.attach(boutonViolet,7,8,1,2)
-
-        tableCouleur.set_row_spacing(0, 10)
-        tableCouleur.set_row_spacing(1, 10)
-        frame2.add(tableCouleur)
-
-        boutonRetour=Gtk::Button.new(Gtk::Stock::GO_BACK)
-        boutonRetour.signal_connect('clicked'){
-        	Fenetre::fenetrePrecedente()
+        Fenetre::boutonRetour.signal_connect('clicked'){
+            enregistrerReglages(@pseudo, @config)
         }
 
-        boutonQuitter=Gtk::Button.new(Gtk::Stock::QUIT)
-        boutonQuitter.signal_connect('clicked'){
-        	Fenetre::detruire()
-        }
-
-        #attach des boutons
-        Fenetre::table.attach(frame1,2,8,2,4)
-        Fenetre::table.attach(frame2,1,9,5,9)
-        Fenetre::table.attach(boutonRetour,1,3,11,12)
-        Fenetre::table.attach(boutonQuitter,7,9,11,12)
+        # VI label
+        @titreLabel = Fenetre::creerLabelType("<u>Réglages</u>", Fenetre::SIZE_TITRE)
+        @tmp =  Fenetre::creerLabelType("  ", 10)
+        @labelCouleurCaseBase = Fenetre::creerLabelType("Couleur des cases de base:", Fenetre::SIZE_TITRE_REGLAGE)
+        @labelCouleurCaseSelectionne = Fenetre::creerLabelType("Couleur des cases surlignées:", Fenetre::SIZE_TITRE_REGLAGE)
+        @labelCouleurTexte = Fenetre::creerLabelType("Couleur du texte:", Fenetre::SIZE_TITRE_REGLAGE)
+        @labelCouleurIndices = Fenetre::creerLabelType("Couleur des indices:", Fenetre::SIZE_TITRE_REGLAGE) 
+        @labelPolice = Fenetre::creerLabelType("Police de texte:", Fenetre::SIZE_TITRE_REGLAGE)
     end
 
     ##
-	## @brief     Lance la construction du modèle
-	## 			  de la vue.
-	## 			  Méthode à définir dans tout les cas !
-	## 			  Autrement pas de rendu de la page.
-	##
-	## @return     itself
-	##
-	def run()
-		self.miseEnPlace()
-		return self
-	end
+    ## Définis les paramètres en provenance de la base de donnée
+    ##
+    ## @return     self
+    ##
+    def setParams()
 
+        @boutonCouleurCaseBase.color        = creerCouleur(@config["caseBase"])
+        @boutonCouleurCaseSelectionne.color = creerCouleur(@config["caseSelectionne"])
+        @boutonCouleurTexte.color           = creerCouleur(@config["couleurTexte"])
+        @boutonCouleurIndices.color         = creerCouleur(@config["couleurIndices"])
+        @boutonPolice.font_name             = @config["police"] + " " + @config["taillePolice"].to_s
+
+        return self
+    end
+
+    ##
+    ## Permet de créer et d'ajouter les box au conteneur principal
+    ##
+    ##
+    def miseEnPlace()        
+        creerBoxTop()
+        ajoutCss()
+        Fenetre::box.add(@boxTop)
+        Fenetre::box.add(@boxBottom)
+    end
+
+    ##
+    ## Créer la box verticale contenant le listing des réglages et le titre
+    ##
+    ##
+    def creerBoxTop()
+        #Action des boutons
+        @labelCouleurCaseBase.halign = :start
+        @labelCouleurCaseSelectionne.halign = :start
+        @labelCouleurTexte.halign = :start
+        @labelCouleurIndices.halign = :start
+        @labelPolice.halign = :start
+
+        #tableau réglages
+        table=Gtk::Table.new(2,5,false)
+        table.attach(@labelCouleurCaseBase,0,1,0,1)
+        table.attach(@boutonCouleurCaseBase,1,2,0,1)
+        table.attach(@labelCouleurCaseSelectionne,0,1,1,2)
+        table.attach(@boutonCouleurCaseSelectionne,1,2,1,2)
+        table.attach(@labelCouleurTexte,0,1,2,3)
+        table.attach(@boutonCouleurTexte,1,2,2,3)
+        table.attach(@labelCouleurIndices,0,1,3,4)
+        table.attach(@boutonCouleurIndices,1,2,3,4)
+        table.attach(@labelPolice,0,1,4,5)
+        table.attach(@boutonPolice,1,2,4,5)
+
+        #add des boutons
+        @boxTop.add(@titreLabel)
+        @boxTop.add(@tmp)
+        @boxTop.add(table)
+
+        paramCouleurPolice()
+    end
+
+    ##
+    ## Ajoute les classes css au widget
+    ##
+    def ajoutCss()
+        #css label
+        @titreLabel.override_color(:normal, Fenetre::COULEUR_BLANC)
+        @titreLabel.set_margin_top(30)
+        @tmp.set_margin_top(10)
+        @labelCouleurCaseBase.override_color(:normal, Fenetre::COULEUR_BLANC)
+        @labelCouleurCaseBase.set_margin(10)
+        @labelCouleurCaseBase.set_margin_bottom(0)
+        @labelCouleurCaseSelectionne.override_color(:normal, Fenetre::COULEUR_BLANC)
+        @labelCouleurCaseSelectionne.set_margin(10)
+        @labelCouleurCaseSelectionne.set_margin_bottom(0)
+        @labelCouleurTexte.override_color(:normal, Fenetre::COULEUR_BLANC)
+        @labelCouleurTexte.set_margin(10)
+        @labelCouleurTexte.set_margin_bottom(0)
+        @labelCouleurIndices.override_color(:normal, Fenetre::COULEUR_BLANC)
+        @labelCouleurIndices.set_margin(10)
+        @labelCouleurIndices.set_margin_bottom(0)
+        @labelPolice.override_color(:normal, Fenetre::COULEUR_BLANC)
+        @labelPolice.set_margin(10)
+        @labelPolice.set_margin_bottom(0)
+        #css bouton
+        @boutonCouleurCaseBase.set_margin(10)
+        @boutonCouleurCaseBase.set_margin_bottom(0)
+        @boutonCouleurCaseSelectionne.set_margin(10)
+        @boutonCouleurCaseSelectionne.set_margin_bottom(0)
+        @boutonCouleurTexte.set_margin(10)
+        @boutonCouleurTexte.set_margin_bottom(0)
+        @boutonCouleurIndices.set_margin(10)
+        @boutonCouleurIndices.set_margin_bottom(0)
+        @boutonPolice.set_margin(10)
+        @boutonPolice.set_margin_bottom(0)
+    end
+
+    ##
+    ## Définis les paramètres d'apparence de l'utilisateur pour les réglages
+    ##
+    ## @return self
+    ##
+    def paramCouleurPolice()
+        @boutonCouleurCaseBase.signal_connect "color-set" do
+            @config["caseBase"] = couleur(@boutonCouleurCaseBase.color)
+        end
+
+        @boutonCouleurCaseSelectionne.signal_connect "color-set" do
+            @config["caseSelectionne"] = couleur(@boutonCouleurCaseSelectionne.color)
+
+        end
+
+        @boutonCouleurTexte.signal_connect "color-set" do
+            @config["couleurTexte"] = couleur(@boutonCouleurTexte.color)
+        end
+
+        @boutonCouleurIndices.signal_connect "color-set" do
+            @config["couleurIndices"] = couleur(@boutonCouleurIndices.color)
+        end
+
+        @boutonPolice.signal_connect "font-set" do
+            font = @boutonPolice.font_name
+            @config["taillePolice"]=font.slice!(-2,2).to_i
+            @config["police"]=font
+        end
+
+        return self
+    end
+
+    ##
+    ## Lance la construction du modèle de la vue. Méthode à définir dans tout les cas ! Autrement pas de rendu de la page.
+    ##
+    ## @return self
+    ##
+    def run()
+        self.setParams()
+        self.miseEnPlace()
+        return self
+    end
 end
