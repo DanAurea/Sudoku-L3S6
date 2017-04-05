@@ -191,7 +191,7 @@ end
 
 def grilleCorrecte()
 
-	gen = Generateur.new()
+	gen = Generateur.new(0)
 
 
 	if(!checkValues(gen.grid))
@@ -210,17 +210,15 @@ def grilleCorrecte()
 		return false
 	end
 
-	gen.complexifier(1)
-
-	if(!checkAllVal(gen.grid))
+	if(!checkAllValConverted(gen.generer))
 		return false
 	end
 
 	gen.convert()
 
-	if(!checkAllValConverted(gen.convert()))
-		return false
-	end
+	#if(!checkAllValConverted(gen.convert()))
+	#	return false
+	#end
 
 
 	puts "All green."
