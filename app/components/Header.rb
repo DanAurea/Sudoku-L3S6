@@ -1,4 +1,13 @@
+# => Author:: 		Valentin, DanAurea
+# => Version:: 		0.1
+# => Copyright:: 	© 2016
+# => License:: 		Distributes under the same terms as Ruby
+
 require Core::ROOT + "model/Score.rb"
+
+##
+## Module permettant de 
+##
 
 module Header
 
@@ -15,9 +24,9 @@ module Header
 	@penalite = 0
 
 	##
-	## Définis le contenu de l'entête de la fenêtre
+	## Définit le contenu de l'entête de la fenêtre
 	##
-	## @return     Module
+	## @return 	Module
 	##
 	def Header.profil(pseudo)
 
@@ -47,29 +56,29 @@ module Header
 	end
 
 	##
-	## Définis l'état de la pause
+	## Définit l'état de la pause
 	##
-	## @param      Booléen de l'état
+	## @param 	bool			Booléen de l'état
 	##
-	## @return     L'état de la pause
+	## @return 	L'état de la pause
 	##
 	def Header.pause=(bool) 
 		@pause = bool
 	end
 
 	##
-	## Définis un accesseur pour le temps
+	## Définit un accesseur pour le temps
 	##
-	## @return     Temps
+	## @return 	temps
 	##
 	def Header.temps()
 		return @temps
 	end
 
 	##
-	## Définis un accesseur pour le score
+	## Définit un accesseur pour le score
 	##
-	## @return     Temps
+	## @return 	score
 	##
 	def Header.score()
 		return @score
@@ -78,7 +87,7 @@ module Header
 	##
 	## Crée un chrono dans la header bar
 	##
-	## @return     self
+	## @return 	self
 	##
 	def Header.chrono()
         
@@ -95,7 +104,7 @@ module Header
 	##
 	## Ajoute une seconde au chrono
 	##
-	## @return     True
+	## @return 	true
 	##
 	def Header.addSecond()
 
@@ -119,11 +128,11 @@ module Header
 
     
     ##
-    ## Convertis le temps sur deux chiffres
+    ## Convertit le temps sur deux chiffres
     ##
-    ## @param      temps Le temps
+    ## @param 	temps 			Le temps
     ##
-    ## @return     Temps sur deux chiffres
+    ## @return 	Temps sur deux chiffres
     ##
     def Header.surDeuxChiffres(temps)
     	return temps.to_s.rjust(2, "0")

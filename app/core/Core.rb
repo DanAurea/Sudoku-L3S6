@@ -1,25 +1,42 @@
+# => Author:: 		Valentin, DanAurea
+# => Version:: 		0.1
+# => Copyright:: 	© 2016
+# => License:: 		Distributes under the same terms as Ruby
+
+ ##
+ ## Module permettant de 
+ ##
+
 module Core
 
-	## Define root directory constant
+	## Définit le répertoire de la racine
 	ROOT                  = File.expand_path(File.dirname(File.dirname(__FILE__))) + "/"
+	## Définit la racine du projet
 	ROOTPROJECT           = File.dirname(ROOT) + "/"
+	## Définit le contrôleur
 	CONTROLLER            = "Controleur"
+	## Définit la vue
 	VIEW                  = "Fenetre"
+	## Définit le mode debug
 	DEBUG                 = true
+	## Définit le log de la base de données
 	DEFAULT_DATABASE_LOG  = "log/main.log"
+	## Définit la base de données
 	DEFAULT_ADAPTER       = "sqlite3"
+	## Définit le répertoire de la base de données
 	DEFAULT_DATABASE_DIR  = "db/"
+	## Définit le fichier où contiennent les éléments de la base de données
 	DEFAULT_DATABASE_NAME = "main.sqlite3"
 
 	@previousWindow = Array.new()
 	@args           = nil
 
 	##
-	## @brief      Load a controller and render its view
+	## Load a controller and render its view
 	##
-	## @param      name  The name
+	## @param 	name 			The name
 	##
-	## @return     Module itself
+	## @return 	Module itself
 	##
 	def Core.load(name, **args)
 
@@ -31,11 +48,11 @@ module Core
 	end
 
 	##
-	## @brief      Change window
+	## Change window
 	##
-	## @param      name  The name
+	## @param 	name 			The name
 	##
-	## @return     Module itself
+	## @return 	Module itself
 	##
 	def Core.changeTo(name, **args)
 
@@ -62,9 +79,9 @@ module Core
 
 
 	##
-	## @brief      Back to previous window
+	## Back to previous window
 	##
-	## @return     Module itself
+	## @return 	Module itself
 	##
 	def Core.back()
 		if @previousWindow.length > 1
@@ -80,35 +97,33 @@ module Core
 	end
 
 	##
-	## @brief      Give model path for 
-	##				model called.
+	## Give model path for model called.
 	##
-	## @param      name  The name
+	## @param 	name 			The name
 	##
-	## @return     Model path
+	## @return 	Model path
 	##
 	def Core.modelPath(name)
 		return ROOT + "model/" + name + ".rb"
 	end
 
 	##
-	## @brief      Give view path for
-	## 				view called.
-	## @param      name  The name
+	## Give view path for view called.
+	## 
+	## @param 	name 			The name
 	##
-	## @return     View path
+	## @return 	View path
 	##
 	def Core.viewPath(name)
 		return ROOT + "view/" + name + ".rb"
 	end
 
 	##
-	## @brief      Give controller path for
-	## 				controller called.
+	## Give controller path for controller called.
 	##
-	## @param      name  The name
+	## @param 	name 			The name
 	##
-	## @return     Controller path
+	## @return 	Controller path
 	##
 	def Core.controllerPath(name)
 		return ROOT + "controller/" + name + ".rb"
@@ -116,11 +131,9 @@ module Core
 
 
 	##
-	## @brief      Force children overriding constructor
-	## 				inherited from parent class to run 
-	## 				parent constructor.
+	## Force children overriding constructor inherited from parent class to run parent constructor.
 	##
-	## @return     Itself
+	## @return 	Itself
 	##
 	def Core.forceParentInit(o)
 		
@@ -133,11 +146,11 @@ module Core
 	end
 
 	##
-	## @brief      Loads a controller.
+	## Loads a controller.
 	##
-	## @param      name  The controller to load
+	## @param 	name 			The controller to load
 	##
-	## @return     Controller instance
+	## @return 	Controller instance
 	##
 	def Core.loadController(name)
 		

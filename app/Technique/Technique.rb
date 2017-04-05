@@ -1,7 +1,10 @@
-
+# => Author:: 		yguenver
+# => Version:: 		0.1
+# => Copyright:: 	© 2016
+# => License:: 		Distributes under the same terms as Ruby
 
 ##
-## Classe pour technique, aidant l'utiliateur à la résolution d'un Sudoku.
+## Classe Technique, aidant l'utiliateur à la résolution d'un Sudoku.
 ##
 class Technique
 	
@@ -10,7 +13,7 @@ class Technique
 	##
 	## Constructeur de la classe Technique
 	##
-	## @return     Une instance de la classe Technique
+	## @return 	Une instance de la classe Technique
 	##
 	def Technique.creer()
 		new()
@@ -20,20 +23,20 @@ class Technique
 	##
 	## Recherche une solution pour la technique utilisée
 	##
-	## @param      grille  La grille
+	## @param  	grille 			La grille
 	##
-	## @return     Les informations pour aider l'utilisateur, ou nul si la méthode ne trouve rien
+	## @return 	res, les informations pour aider l'utilisateur ou nil si la méthode ne trouve rien
 	##
 	def solution(grille)
 		return nil
 	end
 
 	##
-	## Calcul les candidats pour une grille donnée
+	## Calcule les candidats pour une grille donnée
 	##
-	## @param      grille  La grille
+	## @param 	grille 			La grille
 	##
-	## @return     Un tableau de tableau d'Hashmap 
+	## @return 	grilleIndice, un tableau de tableau d'Hashmap 
 	##
 	def indice(grille)
 		grilleIndice = Array.new(9){Array.new(9){Hash.new()}}
@@ -56,12 +59,12 @@ class Technique
 	end
 	
 	##
-	## Recherche dans la grille les numeros déjà présents
+	## Recherche dans la grille les numéros déjà présents
 	##
-	## @param      grille  La grille
-	## @param      numero  Le numero
+	## @param 	grille 			La grille
+	## @param 	numero 			Le numéro
 	##
-	## @return     La liste des coordonnées des numeros déjà présents
+	## @return 	listPresent, la liste des coordonnées des numéros déjà présents
 	##
 	def nombreDejaPresent(grille, numero)
 		listPresent = Array.new(9) {nil}
@@ -76,12 +79,12 @@ class Technique
 	end
 
 	##
-	## Récupère un block de 9 d'une grille de Sudoku
+	## Récupère un bloc de 9 cases d'une grille de Sudoku
 	##
-	## @param      grille  La grille
-	## @param      num     Le numero du block
+	## @param 	grille 			La grille
+	## @param 	num 			Le numero du block
 	##
-	## @return     Un tableau d'un tableau de 3 par 3
+	## @return 	res, un tableau d'un tableau de 3 par 3
 	##
 	def block(grille, num)
 		res = Array.new()
@@ -99,10 +102,10 @@ class Technique
 	##
 	## Récupère la colonne x dans la grille
 	##
-	## @param      grille  La grille
-	## @param      x       La colonne
+	## @param 	grille 			La grille
+	## @param 	x 				La colonne
 	##
-	## @return     La colonne
+	## @return     grille[x], la colonne
 	##
 	def colonne(grille, x)
 		return grille[x]
@@ -111,10 +114,10 @@ class Technique
 	##
 	## Récupère la ligne y dans la grille
 	##
-	## @param      grille  La grille
-	## @param      y       La ligne
+	## @param 	grille 			La grille
+	## @param  	y 				La ligne
 	##
-	## @return     La ligne
+	## @return res, la ligne
 	##
 	def ligne(grille, y)
 		res = Array.new()
@@ -125,14 +128,14 @@ class Technique
 	end
 
 	##
-	## Vérifie si une case est protégé pour un numéro donnée
+	## Vérifie si une case est protégée pour un numéro donnée
 	##
-	## @param      grille  La grille
-	## @param      num     Le numero
-	## @param      x       La colonne de la case
-	## @param      y       La ligne de la case
+	## @param 	grille 			La grille
+	## @param 	num 			Le numero
+	## @param 	x 				La colonne de la case
+	## @param 	y 				La ligne de la case
 	##
-	## @return     True si elle est protégée, false sinon
+	## @return 	True si elle est protégée, false sinon
 	##
 	def estProtegee?(grille, num, x, y)
 
@@ -162,12 +165,12 @@ class Technique
 	end
 
 	##
-	## Recherche le numero du block auquel appartient une case donnée
+	## Recherche le numéro du bloc auquel appartient une case donnée
 	##
-	## @param      x     La colonne de la case
-	## @param      y     La ligne de la case
+	## @param 	x 				La colonne de la case
+	## @param 	y 				La ligne de la case
 	##
-	## @return     Le numero du block
+	## @return 	Le numero du bloc
 	##
 	def aQuelBloc(x,y)
 		return ((x/3)+1)+(y/3*3)

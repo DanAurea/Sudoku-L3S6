@@ -1,13 +1,18 @@
+# => Author:: 		yguenver
+# => Version:: 		0.1
+# => Copyright:: 	© 2016
+# => License:: 		Distributes under the same terms as Ruby
+
 
 ##
-## Classe pour disjoint subset.
+## Classe pour la technique 'Disjoint Subset'.
 ##
 class DSubset < Technique
 
 	##
 	## Constructeur de la classe DSubset
 	##
-	## @return     Une instance de la classe DSubset
+	## @return 	Une instance de la classe DSubset
 	##
 	def DSubset.creer()
 		new()
@@ -16,9 +21,9 @@ class DSubset < Technique
 	##
 	## Recherche une solution pour la technique utilisée
 	##
-	## @param      grille  La grille
+	## @param 	grille 			La grille
 	##
-	## @return     Les informations pour aider l'utilisateur, ou nul si la méthode ne trouve rien
+	## @return 	res, les informations pour aider l'utilisateur ou nil si la méthode ne trouve rien
 	##
 	def solution(grille)
 		grilleIndice = indice(grille)

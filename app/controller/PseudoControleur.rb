@@ -1,22 +1,22 @@
-# => Controlleur vue choix pseudo
 # => Author::       Valentin, DanAurea
 # => Version::      0.1
 # => Copyright::    © 2016
 # => License::      Distributes under the same terms as Ruby
 # 	
  	
-# 	Class PseudoControleur
-#
+##
+## Classe permettant de créer un contrôleur pour la vue FenetrePseudo
+##
 class PseudoControleur < Controller
 	
 	##
     ## Initialize
     ##
 	def initialize()
-		#charge le modele utilisateur
+		#charge le modèle utilisateur
 		loadModel("Utilisateur")
 		
-		#parametres fenetre
+		#paramètres fenêtre
 		@title = "Sudoku - Pseudo"
 		@width = 600
 		@height = 550
@@ -28,8 +28,8 @@ class PseudoControleur < Controller
 	##
 	## Action après clic sur le bouton valider pour choix du pseudo
 	##
-	## @param 	message message popup
-	## @param 	entreePseudo widget pseudo
+	## @param 	message 		Message popup
+	## @param 	entreePseudo 	Widget pseudo
 	##
 	## @return 	boolean
 	##
@@ -54,10 +54,9 @@ class PseudoControleur < Controller
 	end	
 	
 	##
-	## Action du bouton valider(verification pseudo)
+	## Action du bouton valider (vérification pseudo)
 	##
-	## @param 	entreePseudo widget pseudo
-	##
+	## @param 	entreePseudo 	Widget pseudo
 	##
   	def actionBoutonValider(entreePseudo)
   		if(entreePseudo.text == "")
@@ -74,9 +73,9 @@ class PseudoControleur < Controller
   	end
 
   	##
-  	## Permet de savoir si le pseudo existe deja dans la base
+  	## Permet de savoir si le pseudo existe déjà dans la base
   	##
-  	## @param 	pseudo  pseudo voulu par l'utilisateur
+  	## @param 	pseudo  	Pseudo voulu par l'utilisateur
   	##
   	## @return 	boolean
   	##
@@ -85,9 +84,9 @@ class PseudoControleur < Controller
 	end
 
 	##
-    ## Méthode à définir dans tout les cas !
+    ## Méthode à définir dans tous les cas !
     ##
-    ## @return self
+    ## @return 	self
     ##
 	def run()
 		return self	

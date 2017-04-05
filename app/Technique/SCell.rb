@@ -1,13 +1,17 @@
+# => Author:: 		yguenver
+# => Version:: 		0.1
+# => Copyright:: 	© 2016
+# => License:: 		Distributes under the same terms as Ruby
 
 ##
-## Classe pour single cell.
+## Classe pour la technique 'Single Cell'.
 ##
 class SCell < Technique
 
 	##
 	## Constructeur de la classe SCell
 	##
-	## @return     Une instance de la classe SCell
+	## @return 	Une instance de la classe SCell
 	##
 	def SCell.creer()
 		new()
@@ -16,9 +20,9 @@ class SCell < Technique
 	##
 	## Recherche une solution pour la technique utilisée
 	##
-	## @param      grille  La grille
+	## @param 	grille 			La grille
 	##
-	## @return     Les informations pour aider l'utilisateur, ou nul si la méthode ne trouve rien
+	## @return 	res, les informations pour aider l'utilisateur ou nil si la méthode ne trouve rien
 	##
 	def solution(grille)
 		grilleIndice = indice(grille)

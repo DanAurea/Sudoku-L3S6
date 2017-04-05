@@ -1,10 +1,21 @@
 require "observer"
 
+## => Author::      DanAurea
+## => version::     0.1
+## => copyright::   © 2016
+## => license::     Distributes under the same terms as Ruby
+
+##
+## Classe permettant de dessiner les cases d'une grille de Sudoku 
+##
 class CaseDessin < Gtk::DrawingArea
     include Observable
 
     attr_accessor :x, :y, :largeur, :hauteur, :taillePolice, :nombre
 
+    ##
+    ## Initialisation
+    ##
     def initialize valeur
 
         super()
@@ -36,7 +47,7 @@ class CaseDessin < Gtk::DrawingArea
         end
 
         if(@editable == true)
-            ## Ajoute les évènement de survol et de clics
+            ## Ajoute les évènements de survol et de clics
             add_events(Gdk::EventMask::ENTER_NOTIFY_MASK)
             add_events(Gdk::EventMask::BUTTON_PRESS_MASK)
 
@@ -55,9 +66,9 @@ class CaseDessin < Gtk::DrawingArea
     end
 
     ##
-    ## @brief      Callback sur l'appui sur la souris (évènement ajouté à la main)
+    ## Callback sur l'appui sur la souris (évènement ajouté à la main)
     ##
-    ## @return
+    ## @return  itself
     ##
     def clicSouris widget, evenement
 
@@ -74,11 +85,9 @@ class CaseDessin < Gtk::DrawingArea
 
 
     ##
-    ## @brief      Affiche les chiffres au dessus de la case
-    ##              pour changer la valeur de la case.
+    ## Affiche les chiffres au dessus de la case pour changer la valeur de la case.
     ##
-    ##
-    ## @return     
+    ## @return  itself
     ##
     def afficherChiffres()
         popover = Gtk::Popover.new(self)
@@ -112,6 +121,11 @@ class CaseDessin < Gtk::DrawingArea
         return self  
     end
 
+    ##
+    ## Permet d'ajouter des chiffres sur les cases vides de la grille
+    ## 
+    ## @param   grillePopover   Grille
+    ## 
     def ajouterChiffres(grillePopover)
 
         chiffres = Hash.new()
@@ -142,6 +156,11 @@ class CaseDessin < Gtk::DrawingArea
         end 
     end
 
+    ##
+    ## Edite la couleur de la case
+    ## 
+    ## @param   cr      case
+    ## 
     def couleurCase cr
         if(@editable && !@focus)
             cr.set_source_color @couleurCase
@@ -152,10 +171,18 @@ class CaseDessin < Gtk::DrawingArea
         end
     end
 
+    ##
+    ## Edite la couleur de la police
+    ## 
     def couleurPolice cr
         cr.set_source_color @couleurPolice
     end
 
+    ##
+    ## Met à jour la valeur de la case
+    ## 
+    ## @param   valeur      La valeur à mettre à jour
+    ## 
     def mettreAJour(valeur)
         changed
         @nombre = valeur
@@ -163,29 +190,34 @@ class CaseDessin < Gtk::DrawingArea
         notify_observers(self)
     end
 
+    ##
+    ## Redessine la case avec les nouvelles valeurs si modifiées
+    ## 
     def redessiner()
         self.queue_draw
     end
 
     ##
-    ## @brief      Dessine une case
-    ##
-    ##
+    ## Dessine une case
+    ## 
+    ## @param   cr  case à dessiner
+    ## 
+    ## @return  itself
     def dessiner cr
 
         set_size_request(@largeur, @hauteur)
 
-        ## Définis la couleur pour le dessin (ici blanc)
+        ## Définit la couleur pour le dessin (ici blanc)
         self.couleurCase cr
 
         ## Dessine un rectangle
         cr.rectangle @x, @y, @largeur, @hauteur
         cr.fill
 
-        ## Définis une nouvelle couleur (ici noire)
+        ## Définit une nouvelle couleur (ici noire)
         cr.set_source_color @couleurPolice
 
-        ## Définis les caractéristiques du texte
+        ## Définit les caractéristiques du texte
         cr.select_font_face "Arial", 
             Cairo::FONT_SLANT_NORMAL, Cairo::FONT_WEIGHT_NORMAL
         cr.set_font_size @taillePolice

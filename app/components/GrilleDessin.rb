@@ -1,6 +1,14 @@
 require_relative "CaseDessin.rb"
 require "observer"
 
+## => Author::      DanAurea
+## => version::     0.1
+## => copyright::   © 2016
+## => license::     Distributes under the same terms as Ruby
+
+##
+## Classe permettant de dessiner la grille
+## 
 class GrilleDessin < Gtk::Grid
     include Observable
     
@@ -47,11 +55,23 @@ class GrilleDessin < Gtk::Grid
         end
     end
 
+    ##
+    ## Permet d'actualiser
+    ##
+    ## @param   caseObj  la case
+    ##
     def update(caseObj)
         x = @cases.index(caseObj) / 9
         y = @cases.index(caseObj) % 9
     end
 
+    ##
+    ## Permet de dessiner la grille
+    ## 
+    ## @param   cr  
+    ##
+    ## @return  itself
+    ##
     def dessiner cr
 
         ## TODO: Définir une largeur de case et fenêtre par défaut chargé

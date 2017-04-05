@@ -1,22 +1,22 @@
-# => Controlleur vue menu
 # => Author::       Valentin, DanAurea
 # => Version::      0.1
 # => Copyright::    © 2016
 # => License::      Distributes under the same terms as Ruby
 # 	
- 	
-# 	Class MenuControleur
-#
+ 
+##	
+## Classe permettant de créer un contrôleur pour la vue FenetreMenu
+##
 class MenuControleur < Controller
 
 	##
     ## Initialize
     ##
 	def initialize
-		#charge le modele utilisateur
+		#charge le modèle utilisateur
 		loadModel("Utilisateur")
 		
-		#parametres fenetre
+		#paramètres fenêtre
 		@title = "Sudoku - Menu"
 		@width = 600
 		@height = 550
@@ -25,9 +25,9 @@ class MenuControleur < Controller
 	end
 
 	##
-	## Permet de connaitre si une partie sauvegardée existe portant le nom du pseudo
+	## Permet de connaître si une partie sauvegardée existe portant le nom du pseudo
 	##
-	## @param 	pseudo le pseudo de l'utilisateur
+	## @param 	pseudo		Le pseudo de l'utilisateur
 	##
 	## @return 	boolean
 	##
@@ -36,9 +36,9 @@ class MenuControleur < Controller
 	end
 
 	##
-    ## Méthode à définir dans tout les cas !
+    ## Méthode à définir dans tous les cas !
     ##
-    ## @return self
+    ## @return 	self
     ##
 	def run
 		return self

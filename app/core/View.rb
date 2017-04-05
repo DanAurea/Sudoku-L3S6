@@ -1,6 +1,10 @@
+# => Author::       DanAurea
+# => Version::      0.1
+# => Copyright::    © 2016
+# => License::      Distributes under the same terms as Ruby
 
 ##
-## @brief      Visualization of the data that model contains.
+## =Visualization of the data that model contains.
 ##
 class View
 	include Fenetre
@@ -16,7 +20,7 @@ class View
 	end
 
 	##
-	## @brief      Invoke methods when inherited
+	## Invoke methods when inherited
 	##
 	## @param      subclass  The subclass
 	##
@@ -30,9 +34,9 @@ class View
 	end
 
 	##
-	## @brief      Create instance variables from 
-	## 				@content provided by controller.
+	## Create instance variables from @content provided by controller.
 	##
+	## @return 		Itself
 	def setInstanceVars ()
 		@content.each { |name, value| instance_variable_set("@" + name, value) }
 
@@ -41,8 +45,7 @@ class View
 
 
 	##
-	## @brief      Invoke all methods from view
-	##
+	## Invoke all methods from view
 	##
 	def run()
 		if Core::DEBUG

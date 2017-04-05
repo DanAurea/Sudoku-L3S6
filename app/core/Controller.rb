@@ -1,9 +1,15 @@
+# => Author::       DanAurea
+# => Version::      0.1
+# => Copyright::    © 2016
+# => License::      Distributes under the same terms as Ruby
 
 ##
-## @brief      Controls the data flow into an item object and updates the view whenever data changes.
+## Controls the data flow into an item object and updates the view whenever data changes.
 ##
 class Controller
-
+	##
+	## Initialisation
+	##
 	def initialize ()
 
 		@title       = "MyApp"
@@ -23,11 +29,11 @@ class Controller
 	end
 
 	##
-	## @brief      Invoke methods when inherited
+	## Invoke methods when inherited
 	##
-	## @param      subclass  The subclass
+	## @param 	subclass  The subclass
 	##
-	## @return     Itself
+	## @return 	Itself
 	##
 	def self.inherited(subclass)
 		super
@@ -36,7 +42,7 @@ class Controller
 	end
 
 	##
-	## @brief      Loads a file.
+	## Loads a file.
 	##
 	## @param      filePath   The file path
 	## @param      debugInfo  The debug information
@@ -59,10 +65,9 @@ class Controller
 	end
 
 	##
-	## @brief      Render view called by controller
+	## Render view called by controller
 	##
-	## @param      name  The view to render
-	##
+	## @param 		name  The view to render
 	##
 	def render(name, **args)
 		
@@ -121,9 +126,7 @@ class Controller
 	end
 
 	##
-	## @brief      Sets the properties of window
-	##
-	## @return     Itself
+	## Sets the properties of window
 	##
 	def set_properties(view)
 		## Set window properties
@@ -138,7 +141,7 @@ class Controller
 	end
 
 	##
-	## @brief      Loads a model.
+	## Loads a model.
 	##
 	## @param      name  The model to load
 	##
@@ -163,9 +166,9 @@ class Controller
 
 	end
 
-	## @brief      Invoke all method in controller for collecting
-	## 				contents to send on view. 
+	## Invoke all method in controller for collecting contents to send on view. 
 	##
+	## @return itself
 	##
 	def run()
 		if Core::DEBUG

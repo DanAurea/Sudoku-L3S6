@@ -1,19 +1,25 @@
 load "Action.rb"
 
+## => Author:: 		keryann
+## => version:: 	0.1
+## => copyright:: 	© 2016
+## => license:: 	Distributes under the same terms as Ruby
+
 ##
-## @brief      Classe pour l'historique des actions.
-##
-##
+## Classe pour l'historique des actions.
+##--
 ## Regarder slice-1 pour enlever bas de la pile
+##++
 class HistoriqueAction
+	##VI
 	@pileRefaire
 	@pileDefaire
 	@maxActions
 
 	##
-	## @brief      Méthode qui effectue une action présente dans la pileDefaire
+	## Méthode qui effectue une action présente dans la pileDefaire
 	##
-	## @return     lui-même
+	## @return 	lui-même
 	##
 	def faire()
 		action=@pileDefaire.last()
@@ -23,9 +29,9 @@ class HistoriqueAction
 
 
 	##
-	## @brief      Méthode qui annule la dernière action et l'empile dans pileRefaire
+	## Méthode qui annule la dernière action et l'empile dans pileRefaire
 	##
-	## @return     lui-même
+	## @return lui-même
 	##
 	def defaire()
 		@pileRefaire.push(@pileDefaire.pop())
@@ -36,9 +42,9 @@ class HistoriqueAction
 
 
 	##
-	## @brief      Méthode qui permet de refaire une action qu'on a annulé
+	## Méthode qui permet de refaire une action qu'on a annulé
 	##
-	## @return     lui-même
+	## @return 	lui-même
 	##
 	def refaire()
 		@pileDefaire.push(@pileRefaire.pop())
@@ -49,9 +55,7 @@ class HistoriqueAction
 
 
 	##
-	## @brief      Fonction d'initialisation
-	##
-	## @return     { description_of_the_return_value }
+	## Fonction d'initialisation
 	##
 	def initialize()
 		@pileRefaire=[]
@@ -61,11 +65,11 @@ class HistoriqueAction
 
 
 	##
-	## @brief      Ajoute une nouvelle fonction dans la pileDefaire
+	## Ajoute une nouvelle fonction dans la pileDefaire
 	##
-	## @param      action  L'action à ajouter
+	## @param 	action 			L'action à ajouter
 	##
-	## @return     lui-même
+	## @return 	lui-même
 	##
 	def nouvelleAction(action)
 		@pileDefaire.push(action)
@@ -73,9 +77,9 @@ class HistoriqueAction
 	end
 
 	##
-	## @brief      Défait une action
+	## Défait une action
 	##
-	## @return     L'action dépilée
+	## @return 	L'action dépilée
 	##
 	def defaireAction()
 		action=@pileDefaire.pop
@@ -85,9 +89,7 @@ class HistoriqueAction
 
 
 	##
-	## @brief      Fonction de test
-	##
-	## @return     
+	## Fonction de test   
 	##
 	def HistoriqueAction.Test()
 		histo=HistoriqueAction.new()

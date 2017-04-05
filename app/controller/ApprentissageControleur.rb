@@ -1,12 +1,12 @@
-# => Controlleur vue apprentissage
-# => Author::       Valentin, DanAurea
-# => Version::      0.1
-# => Copyright::    © 2016
-# => License::      Distributes under the same terms as Ruby
+# => Author:: 		Valentin, DanAurea
+# => Version:: 		0.1
+# => Copyright:: 	© 2016
+# => License:: 		Distributes under the same terms as Ruby
 # 	
- 	
-# 	Class ApprentissageControleur
-#
+
+##
+## Classe permettant de créer un controlleur pour la vue FenetreApprentissage
+##
 class ApprentissageControleur < Controller
 
 	##
@@ -17,11 +17,18 @@ class ApprentissageControleur < Controller
 		loadModel("Grille")
 		loadModel("Score")
 		loadModel("Jeu")
-		#parametres fenetre
+		#paramètres fenêtre
 		@title  = "Sudoku - Apprentissage"
 		@content = {"grille" => nil}
 	end
 
+	##
+	## Permet la mise à jour de la grille
+	##
+	## @param      x      Coordonnée x de la grille
+	## @param      y      Coordonnée y de la grille
+	## @param      value  La valeur pour la mise à jour
+	##
 	def updateGrille(x, y, value)
 		@grille[x][y]["value"] = value
 		puts "updated"
@@ -30,7 +37,7 @@ class ApprentissageControleur < Controller
 	##
 	## Sauvegarde la partie dans un fichier yaml
 	##
-	## @return     Self
+	## @return 	self
 	##
 	def sauvegarder()
 		@Jeu.chrono = Header.temps
@@ -44,7 +51,7 @@ class ApprentissageControleur < Controller
 	end
 
 	##
-    ## Méthode à définir dans tout les cas !
+    ## Méthode à définir dans tous les cas !
     ##
     ## @return self
     ##

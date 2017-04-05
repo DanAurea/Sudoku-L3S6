@@ -1,16 +1,13 @@
-#   Modele de la grille
-#   
+require Core::ROOT + "utils/Generateur.rb"  
 #   Author::        Nikuto
-#   Developers:     Nikuto
 #   Version::       0.1
 #   Copyright::     © 2017
 #   License::       Distributes under the same terms as Ruby
-#   
-    
-#   Methodes permettant de manager la grille et de faire des verification
-#   de la validité d'une valeurs
-require Core::ROOT + "utils/Generateur.rb"
 
+##  
+##   Méthodes permettant de manager la grille et de faire des vérifications de la validité d'une valeur
+##   Modèle de la grille
+##
 class Grille < Model
 
     def initialize()
@@ -19,7 +16,7 @@ class Grille < Model
 
     
     ##
-    ## @brief      Genere une grille avec un niveau donné
+    ## Génère une grille avec un niveau donné
     ##
     ## @param      niveau  Le niveau souhaité
     ##
@@ -35,7 +32,7 @@ class Grille < Model
     end
 
     ##
-    ## @brief      Charge la partie du pseudo donnée
+    ## Charge la partie du pseudo donnée
     ##
     ## @param      pseudo  Le pseudo du joueur qui charge
     ##
@@ -47,11 +44,11 @@ class Grille < Model
     end
 
     ##
-    ## @brief      Sauvegarde la partie du joueur
+    ## Sauvegarde la partie du joueur
     ##
     ## @param      pseudo  Le pseudo du joueur qui sauvegarde
     ##
-    ## @return     Retourne vrai quand la sauvegarde s'est fait
+    ## @return     Retourne vrai quand la sauvegarde s'est faite
     ##
     def sauvegarder(pseudo)
         donnees=Hash.new()
@@ -63,14 +60,17 @@ class Grille < Model
         return true
     end
 
-    ## TODO
+    ##
     ## Supprime la partie d'un joueur
+    ## 
+    ## @param       _pseudo     Le pseudo dont on supprime la partie
+    ## 
+    ## @return true 
     def supprimer(_pseudo)
         return true
     end
 
-    #---------------------------------------------------------------------------
-    ## Vérifie a partir de coordonné que la valeur est valide
+    ## Vérifie à partir de coordonnées que la valeur est valide
     ##
     ## @param      x     Abscisse de la case
     ## @param      y     Ordonnée de la case
@@ -81,7 +81,7 @@ class Grille < Model
         ## Le compte rendu de l'inspection
         cr = true
 
-        ## Initialisation pour le parcours du block
+        ## Initialisation pour le parcours du bloc
         block = Array.new()
         x = ((num-1)*3)%9
         y = num/3*3
@@ -99,12 +99,12 @@ class Grille < Model
 
             ## le bloc est plus petit que la grille
             if(i<3)
-                # Verification du block
+                # Vérification du bloc
                 for j in 0..2
                     if(block[i][j]["value"] == @grille[x][y]["value"])
                         ## La valeur unique s'errone
                         @grille[i][j]["unique"] = false
-                        ## La case verifié aussi
+                        ## La case verifiée aussi
                         @grille[x][y]["unique"] = false
                         cr = false
                     end
@@ -115,22 +115,22 @@ class Grille < Model
         return cr
 
     end
-    #-------------------------------------------------------------------------------
-    ## Vérifie les valeur d'une ligne en se basant sur des coordonées initial
+
+    ## Vérifie les valeurs d'une ligne en se basant sur des coordonées initiales
     ##
-    ## @param      x      Ordonnée de la case verifié
-    ## @param      y      Abscisse de la case verifié
-    ## @param      xBase  Ordonnée de reference
-    ## @param      yBase  Abscisse de reference
+    ## @param      x      Ordonnée de la case vérifiée
+    ## @param      y      Abscisse de la case vérifiée
+    ## @param      xBase  Ordonnée de référence
+    ## @param      yBase  Abscisse de référence
     ##
-    ## @return     true si la verification reussi, false si les case sont egale
+    ## @return     true si la vérification est reussie, false si les cases sont égales
     ##
     def VerificationLineaire(x,y,xBase,yBase)
         ## Verification horizontale
         if(@grille[x][y]["value"] == @grille[xBase][yBase]["value"])
             ## La valeur unique s'errone
             @grille[x][y]["unique"] = false
-            ## La case verifié aussi
+            ## La case vérifiée aussi
             @grille[xBase][yBase]["unique"] = false
             return false
         end

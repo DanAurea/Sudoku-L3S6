@@ -1,5 +1,3 @@
-# 	File description
-# 	
 # 	Author:: 		BastienMor
 # 	Developers: 	BastienMor
 # 	Version:: 		0.1
@@ -7,14 +5,14 @@
 # 	License::   	Distributes under the same terms as Ruby
 # 	
  	
-# 	Class description
-# 	Generation de grille de sudoku (création de difficulté).
 
 # gen = Generateur.new()
-
 # g1 = gen.generer(1)
 # g2 = gen.generer(1)
 
+##
+## 	Génération de grille de Sudoku (création de difficulté).
+##
 class Generateur
 
 	@grid
@@ -22,7 +20,9 @@ class Generateur
 	attr_reader :grid
 
 	##
-	## @brief initialise grid une list de list de nombres.
+	## Initialisation
+	## 
+	## @param difficulte	Difficulté à prendre en compte
 	##
 
 	def initialize(difficulte)
@@ -67,41 +67,36 @@ class Generateur
 
 
 	##
-	## @brief      Génère une grille avec difficulté variable
+	## Génère une grille avec une difficulté variable
 	##
 	## @param      d   Niveau de difficulté (1,2,3 pour respectivement facile, moyen, difficile)
-	##
-	## @return
 	##
 	def generer()
 		self.convert()
 	end
 
 	##
-	## @brief échange la place de 2 lignes.
+	## Echange la place de 2 lignes.
 	##
-
 	def switchrow(a, b)
 		@grid[a], @grid[b] = @grid[b], @grid[a]
 	end
 
 	##
-	## @brief échange la place de 2 colones.
+	## Ehange la place de 2 colones.
 	##
 
 	def switchcol(a, b)
-
 		@grid.map {|e| e[a], e[b] = e[b], e[a]}
 	end
 
 
 	##
-	## @brief méthode qui retire des cases pour creer la difficulté.
+	## Retire des cases pour créer la difficulté.
 	##
-	## @param d la difficulté souhaiter.
+	## @param d la difficulté souhaitée.
 	##
-
-
+	## @return la grille
 	def complexifier()
 
 		present = Array.new
@@ -146,11 +141,10 @@ class Generateur
 
 
 	##
-	## @brief converti la grille de list{ list{int}} -> list{ list{ hash[value, unique]}}.
+	## Convertit la grille de list{ list{int}} -> list{ list{ hash[value, unique]}}.
 	##
-	## @return la grille converti.
+	## @return la grille convertie.
 	##
-
 	def convert()
 
 		res = Array.new()

@@ -1,24 +1,34 @@
-# 	Modele de la configuration
-# 	
+
 # 	Author:: 		DanAurea
-# 	Developers: 	DanAurea
 # 	Version:: 		0.1
 # 	Copyright:: 	© 2016
 # 	License::   	Distributes under the same terms as Ruby
 # 	
- 	
-# Declaration de la table contenant les paramètres
-#
+ 
+##
+## Déclaration de la table contenant les paramètres 
+## Modèle de configuration
+## 
 class Configuration < Model
 	
+	#Définit la couleur de la case de base
 	CL_CASE_BASE        = "65535, 65535, 65535"
+	#Définit la couleur de la case fixe
 	CL_CASE_FIXE        = "61500, 61500, 61500"
+	#Définit la couleur de la case sélectionnée
 	CL_CASE_SELECTIONNE = "0, 50000, 50000"
+	#Définit la couleur des indices
 	CL_INDICES          = "0, 32000, 65535"
+	#Définit la couleur du texte
 	CL_TEXTE			= "0, 0, 0"
+	#Définit la police du texte
 	POLICE              = "Sans Regular"
+	#Définit la taille de la police
 	TAILLE_POLICE		= 12
 
+	##
+	## Initialisation
+	##
 	def initialize()
 		
 		## Crée la table configuration
@@ -38,12 +48,9 @@ class Configuration < Model
 
 
 	##
-	## @brief      Enregistre dans la base de donnée
-	##  			la configuration. 
+	## Enregistre la configuration dans la base de donnée. 
 	##
-	## @param      config  La Configuration
-	##
-	## @return     
+	## @param 	config 		La Configuration   
 	##
 	def enregistrer(pseudo, config)
 		utilisateur_id =  @@db.execute "SELECT utilisateur_id FROM utilisateur WHERE pseudo=?", pseudo
@@ -52,12 +59,12 @@ class Configuration < Model
 			
 		params = Hash.new()
 
-		## Définis tout les paramètres à enregistrer à partir de la configuration
+		## Définit tout les paramètres à enregistrer à partir de la configuration
 		config.each do |key, param|
 			params[key.to_sym] = param
 		end
 
-		## Définis l'identifiant de l'utilisateur
+		## Définit l'identifiant de l'utilisateur
 		params[:utilisateur]     = utilisateur_id[0][0]
 
 		if(req.length > 0)
@@ -68,7 +75,7 @@ class Configuration < Model
 	end
 
 	##
-	## @brief      Récupère la configuration de l'utilisateur
+	## Récupère la configuration de l'utilisateur
 	##
 	## @param      pseudo  Pseudo utilisateur
 	##
@@ -83,11 +90,11 @@ class Configuration < Model
 	end
 
 	##
-	##  Crée une configuration par défaut pour l'utilisateur
+	## Crée une configuration par défaut pour l'utilisateur
 	##
 	## @param      utilisateurId  L'identifiant utilisateur
 	##
-	## @return     Self
+	## @return     self
 	##
 	def creerConfiguration(pseudo)
 
