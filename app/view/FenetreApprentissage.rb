@@ -25,6 +25,14 @@ class FenetreApprentissage < View
 		Header::chrono
 		@etapeEnCours=2
 		@nbEtape=6
+		@tabTechnique=[
+						"Technique 1",
+						"Technique 2",
+						"Technique 3",
+						"Technique 4",
+						"Technique 5"
+					]
+		@techniqueChoisie=" "
 
 		@menuBarre = Fenetre::creerBarreMenu()
 		@boxMilieu = Gtk::Box.new(:horizontal, 0)
@@ -33,6 +41,7 @@ class FenetreApprentissage < View
 		
 		@labelChoix = Fenetre::creerLabelType("<u>Choix de la technique</u>", Fenetre::SIZE_TITRE_JEU)
 		@list = Gtk::ComboBoxText.new()
+		@labelChoix2 = Fenetre::creerLabelType("Explication de la technique #{@techniqueChoisie}", Fenetre::SIZE_TITRE_JEU)
 		
 		@boxEtape = Gtk::Box.new(:horizontal, 0)
 		@boutonEtapePrec = Gtk::Button.new(:label => "Precedente")
@@ -120,13 +129,11 @@ class FenetreApprentissage < View
 	def gestionDroite()
 		#choix technique
 		@list.signal_connect('changed'){ |widget|
-			puts widget.active_text
+			@techniqueChoisie=widget.active_text()
 		}
-		@list.append_text('Technique 1')
-		@list.append_text('Technique 2')
-		@list.append_text('Technique 3')
-		@list.append_text('Technique 4')
-		@list.append_text('Technique 5')
+		@tabTechnique.each{ |t|
+			@list.append_text("#{t}")
+		}
 
 		#etapes
 		@boutonEtapePrec.signal_connect('clicked'){
@@ -149,6 +156,7 @@ class FenetreApprentissage < View
 		#add a la box
 		@boxInfo.add(@labelChoix)
 		@boxInfo.add(@list)
+		@boxInfo.add(@labelChoix2)
 		@boxInfo.add(@boxEtape)
 		@boxInfo.add(@boxExplication)
 	end
@@ -164,6 +172,8 @@ class FenetreApprentissage < View
         @labelEtape.override_color(:normal, Fenetre::COULEUR_BLANC)
         @texteContenu.set_margin(20)
         @texteContenu.override_color(:normal, Fenetre::COULEUR_BLANC)
+        @labelChoix2.set_margin(20)
+        @labelChoix.override_color(:normal, Fenetre::COULEUR_BLANC)
         #css bouton
         @list.set_margin(20)
         @boutonEtapePrec.set_margin(20)
