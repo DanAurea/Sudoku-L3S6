@@ -209,25 +209,19 @@ class FenetreApprentissage < View
     def ajoutCss()
         #css label
         @labelChoix.set_margin(20)
-        @labelChoix.set_margin_left(80)
         @labelChoix.override_color(:normal, Fenetre::COULEUR_BLANC)
         @labelEtape.set_margin(20)
         @labelEtape.override_color(:normal, Fenetre::COULEUR_BLANC)
         @texteContenu.set_margin(20)
-        @texteContenu.set_margin_left(80)
         @texteContenu.override_color(:normal, Fenetre::COULEUR_BLANC)
         @labelChoix2.set_margin(20)
-        @labelChoix2.set_margin_left(80)
         @labelChoix2.override_color(:normal, Fenetre::COULEUR_BLANC)
         #css bouton
         @list.set_margin(20)
-        @list.set_margin_left(80)
         @boutonEtapePrec.set_margin(20)
-       	@boutonEtapePrec.set_margin_left(80)
        	@boutonEtapePrec.set_margin_right(40)
         @boutonEtapeSuiv.set_margin(20)
         @boutonEtapeSuiv.set_margin_left(40)
-       	@boutonEtapeSuiv.set_margin_right(80)
     end
 
 	##
