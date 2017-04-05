@@ -29,7 +29,7 @@ class FenetreApprentissage < View
 		@boxGrille = Gtk::Box.new(:horizontal, 0)
 		@boxInfo = Gtk::Box.new(:vertical, 0)
 		@boxBouton = Gtk::Box.new(:horizontal, 0)
-		@choixLabel = Fenetre::creerLabelType("<u>Choix de la technique</u>", Fenetre::SIZE_TITRE)
+		@choixLabel = Fenetre::creerLabelType("<u>Choix de la technique</u>", Fenetre::SIZE_TITRE_JEU)
 		@list = Gtk::ComboBoxText.new()
 		@grilleDessin = nil
 		@scoreLabel   = nil
@@ -114,7 +114,6 @@ class FenetreApprentissage < View
 		@list.append_text('Technique 3')
 		@list.append_text('Technique 4')
 		@list.append_text('Technique 5')
-		@list.set_margin_top(100)
 		@boxBouton.add(@choixLabel)
 		@boxBouton.add(@list)
 		@boxBouton.halign = :center
