@@ -1,8 +1,10 @@
+require Core::ROOT + "utils/TechniqueUsine.rb"
 # => Author:: 		Valentin, DanAurea
 # => Version:: 		0.1
 # => Copyright:: 	© 2016
 # => License:: 		Distributes under the same terms as Ruby
 # 	
+
 
 ##
 ## Classe permettant de créer un controlleur pour la vue FenetreApprentissage
@@ -64,7 +66,9 @@ class ApprentissageControleur < Controller
 		end
 
 		@content["grille"] = @Grille.generer(niveau)
-		
+		@content["Techniques"] = TechniqueUsine.new()		
+
+
 		return self
 	end
 end

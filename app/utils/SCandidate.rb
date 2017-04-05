@@ -28,11 +28,11 @@ class SCandidate < Technique
 		grilleIndice = indice(grille)
 
 		[1,2,3,4,5,6,7,8,9].sort_by{rand}.each { |numero|
-			grilleIndice.sort_by{rand}.each_index { |x|
+			grilleIndice.sort_by{rand}.each_with_index { |col,x|
 				cpt=0
 				ytmp=0
-				grilleIndice[x].sort_by{rand}.each_index { |y|
-					if grilleIndice[x][y][numero.to_s] then
+				col.sort_by{rand}.each_with_index { |c,y|
+					if c[numero.to_s] then
 						cpt +=1
 						ytmp = y
 					end
@@ -53,6 +53,34 @@ class SCandidate < Technique
 			}
 		}
 
+		return nil
+	end
+
+	##
+	## Retourne le nombre d'étapes pour faire la technique
+	##
+	## @return     Le nombre d'étapes
+	##
+	def combienEtape()
+		return 2
+	end
+
+	##
+	## Retourne les étapes pour faire la technique
+	##
+	## @param      n     Le numéro de la technique
+	##
+	## @return     Un texte expliquant l'étape sinon nil
+	##
+	def etape(n)
+
+		case(n)
+		when 1
+			return "Bienvenue sur l'explication de la technique "+self.class.to_s+"."
+		when 2
+			return "Recherchez les candidats possibles pour chaque case d'une ligne/colonne. Remarquez que dans certaines, un candidat n'est possible que dans une seule case de la ligne/colonne."
+		end
+		
 		return nil
 	end
 end

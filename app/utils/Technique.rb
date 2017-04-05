@@ -8,8 +8,6 @@
 ##
 class Technique
 	
-	private_class_method new:
-
 	##
 	## Constructeur de la classe Technique
 	##
@@ -41,9 +39,9 @@ class Technique
 	def indice(grille)
 		grilleIndice = Array.new(9){Array.new(9){Hash.new()}}
 
-		grille.each_index { |x|
-			grille[x].each_index { |y|
-				if grille[x][y].nil? then
+		grille.each_with_index { |col,x|
+			col.each_with_index { |c,y|
+				if c.nil? then
 					[1,2,3,4,5,6,7,8,9].each { |numero|
 						unless estProtegee?(grille,numero.to_s,x,y) then
 							grilleIndice[x][y][numero.to_s] = true
@@ -174,5 +172,26 @@ class Technique
 	##
 	def aQuelBloc(x,y)
 		return ((x/3)+1)+(y/3*3)
+	end
+
+	##
+	## Retourne le nombre d'étape pour faire la téchnique
+	##
+	## @return     Le nombre d'étape(s)
+	##
+	def combienEtape()
+		return nil
+	end
+
+
+	##
+	## Retourne les étapes pour faire la téchnique
+	##
+	## @param      n     
+	##
+	## @return     Le nombre d'étape si n=0, un text expliquant l'étape sinon
+	##
+	def etape(n)
+		return nil
 	end
 end

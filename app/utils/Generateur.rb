@@ -16,8 +16,9 @@
 class Generateur
 
 	@grid
+	@difficulte
 
-	attr_reader :grid
+	attr_reader :grid, :difficulte
 
 	##
 	## Initialisation

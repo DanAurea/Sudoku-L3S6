@@ -21,6 +21,8 @@ module Fenetre
     COULEUR_ROUGE = Gdk::RGBA.new(1, 0, 0, 1)
     ## Définit la couleur orange
     COULEUR_ORANGE = Gdk::RGBA.new(1, 0.6, 0, 1)
+    ## Définit la couleur bleue
+    COULEUR_BLEU = Gdk::RGBA.new(0.2, 0.59, 0.86, 1)
     ## Définit la taille du pseudo
     SIZE_PSEUDO = 20
     ## Définit la taille du titre 'Statistiques'
@@ -41,6 +43,10 @@ module Fenetre
     SIZE_TITRE = 40
     ## Définit la taille des labels des boutons
     SIZE_LABEL_BOUTON = 20
+    ## Définit la taille du titre du jeu
+    SIZE_TITRE_JEU = 18
+    ## Définit la taille du titre de l'autre jeu
+    SIZE_AUTRE_JEU = 12
     ## Définit le menu
     FONT_MENU = "Monospace"
 
@@ -65,7 +71,7 @@ module Fenetre
     @fenetre.set_name("mainWindow")
     @fenetre.set_icon_from_file(Core::ROOTPROJECT + "assets/img/iconApp.png")
     @fenetre.signal_connect('destroy') {
-       detruire()
+        detruire()
     }
 
     @fenetreStyle = @fenetre.style_context
@@ -141,7 +147,7 @@ module Fenetre
     ##
     def Fenetre.boutonReinit_barre()
         return @boutonReinit_barre
-end
+    end
 
     ##
     ## Définit un accesseur pour le bouton boutonQuitter_barre

@@ -40,4 +40,34 @@ class SCell < Technique
 		}
 		return nil
 	end
+
+
+	##
+	## Retourne le nombre d'étapes pour faire la technique
+	##
+	## @return     Le nombre d'étapes
+	##
+	def combienEtape()
+		return 2
+	end
+
+	##
+	## Retourne les étapes pour faire la technique
+	##
+	## @param      n     Le numéro de la technique
+	##
+	## @return     Un texte expliquant l'étape sinon nil
+	##
+	def etape(n)
+
+		case(n)
+		when 1
+			return "Bienvenue sur l'explication de la technique "+self.class.to_s+"."
+		when 2
+			return "Recherchez les candidats possibles pour chaque case. Remarquez que dans certaines, il n'y a qu'un seul candidat possible."
+		end
+		
+		return nil
+	end
 end
+
