@@ -202,8 +202,8 @@ class CaseDessin < Gtk::DrawingArea
         ## Calcule le chemin du contour de la case
         cr.rel_line_to @largeur, 0
         cr.rel_line_to 0, @hauteur
-        cr.rel_line_to -@largeur, 0
-        cr.rel_line_to 0, -@hauteur
+        cr.rel_line_to -(@largeur), 0
+        cr.rel_line_to 0, -(@hauteur)
 
         cr.stroke
 
