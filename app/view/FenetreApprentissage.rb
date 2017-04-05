@@ -191,6 +191,7 @@ class FenetreApprentissage < View
 		if @techniqueChoisie == "Fonctionnement du jeu"
 			@nbEtape=0
 		else
+			@technique = @Techniques.creer(@techniqueChoisie)
 			@nbEtape=@Techniques.creer(@techniqueChoisie).combienEtape()
 		end
 	end

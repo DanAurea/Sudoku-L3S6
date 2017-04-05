@@ -3,71 +3,108 @@ require "observer"
 class CaseDessin < Gtk::DrawingArea
     include Observable
 
-    attr_accessor :x, :y, :largeur, :hauteur, :taillePolice, :nombre
+    attr_accessor :x, :y, :size, :taillePolice, :nombre, :indices, :indice, :state, :couleurCase, :couleurCaseFixe, :couleurIndices, :couleurPolice, :couleurSurlignee
 
     def initialize valeur
 
         super()
         
-        @largeur = 40
-        @hauteur = 40
-
-        @x = 0
-        @y = 0
-
-        @taillePolice = @largeur / 3
-
-        @couleurCase       = Gdk::Color.new(65535, 65535, 65535)
-        @couleurCaseFixe   = Gdk::Color.new(61500, 61500, 61500)
-        @couleurIndices    = Gdk::Color.new(0, 0, 0)
-        @couleurPolice     = Gdk::Color.new(0, 0, 0)
-        @couleurSurlignees = Gdk::Color.new(0, 50000, 50000)
-
         @nombre   = valeur["value"]
-
-        ## Correspond à une case déjà remplie par le générateur
-        ## donc non éditable
         @editable = valeur["editable"]
-        @focus    = false
+        @state    = ""
+
+        @indices  = nil
+        @indice   = false
 
         ## Crée la zone de dessin au signal draw
         signal_connect "draw" do  |_, cr|
             dessiner cr
         end
 
+        @x = 0
+        @y = 0
+
+        @taillePolice = 20
+        @tailleIndices = @taillePolice / 2
+
+        # Prend en compte la configuration utilisateur
+        @couleurCase       = Gdk::Color.new(65535, 65535, 65535)
+        @couleurCaseFixe   = Gdk::Color.new(61500, 61500, 61500)
+        @couleurIndices    = Gdk::Color.new(0, 0, 65535)
+        @couleurPolice     = Gdk::Color.new(0, 0, 0)
+        @couleurSurlignee  = Gdk::Color.new(0, 50000, 50000)
+
         if(@editable == true)
             ## Ajoute les évènement de survol et de clics
             add_events(Gdk::EventMask::ENTER_NOTIFY_MASK)
             add_events(Gdk::EventMask::BUTTON_PRESS_MASK)
+            add_events(Gdk::EventMask::LEAVE_NOTIFY_MASK)
 
             ## Lie un callback sur la souris
-            signal_connect "button_press_event" do |widget, evenement|
+            signal_connect "button_press_event" do |_, evenement|
                 @focus = true
-                clicSouris widget, evenement
+                focused evenement
             end
 
-            ## Lie un callback sur le survol de la souris
-            # signal_connect "enter_notify_event" do |widget, evenement|
-            #     # puts "test"
-            # end
+            ## Lie un callback sur l'entrée du curseur dans la zone
+            signal_connect "enter_notify_event" do 
+                hover 
+            end
+
+            ## Lie un callback sur la sortie du curseur de la zone
+            signal_connect "leave_notify_event" do 
+                leave
+            end
+
         end
 
     end
 
     ##
-    ## @brief      Callback sur l'appui sur la souris (évènement ajouté à la main)
+    ## Callback sur l'appui sur la souris (évènement ajouté à la main)
     ##
-    ## @return
+    ## @return     Self
     ##
-    def clicSouris widget, evenement
+    def focused evenement
+        changed
 
         if evenement.button == 1
-            self.afficherChiffres
-        elsif evenement.button == 2
-            puts "middle click pressed"
-        elsif evenement.button == 3
-            puts "right click pressed"
+            @state = "focus"
         end
+
+        notify_observers(@x, @y)
+
+        return self
+    end
+
+
+    ##
+    ## Action lors du survol de la case
+    ##
+    ## @return     Self
+    ##
+    def hover
+        changed
+        
+        @state = "hover"
+
+        notify_observers(@x, @y, @state)
+
+        return self
+    end
+
+
+    ##
+    ## Action lors de la sortie du curseur de la case
+    ##
+    ## @return     Self
+    ##
+    def leave
+        changed
+
+        @state = "leave"
+
+        notify_observers(@x, @y, @state)
 
         return self
     end
@@ -80,135 +117,248 @@ class CaseDessin < Gtk::DrawingArea
     ##
     ## @return     
     ##
-    def afficherChiffres()
-        popover = Gtk::Popover.new(self)
+    # def afficherChiffres()
+    #     popover = Gtk::Popover.new(self)
 
-        popover.position = :bottom
+    #     popover.position = :bottom
         
 
 
-        ## Ajoute le contenu du popover
-        child = Gtk::Grid.new()
+    #     ## Ajoute le contenu du popover
+    #     child = Gtk::Grid.new()
 
-        ## Ajoute les chiffres à la grille du popover
-        self.ajouterChiffres(child)
+    #     ## Ajoute les chiffres à la grille du popover
+    #     self.ajouterChiffres(child)
         
-        ## Définis les espaces entre les chiffres
-        child.row_spacing = 5
-        child.column_spacing = 5
+    #     ## Définis les espaces entre les chiffres
+    #     child.row_spacing = 5
+    #     child.column_spacing = 5
 
-        popover.add(child)
+    #     popover.add(child)
         
-        popover.show_all
+    #     popover.show_all
 
 
-        ## Cache le popover quand un clic est détecté 
-        ## A corriger: ne cacher que si clic en dehors de la zone
-        popover.signal_connect "button_press_event" do
-            popover.hide()
-            @focus = false
-        end
+    #     ## Cache le popover quand un clic est détecté 
+    #     ## A corriger: ne cacher que si clic en dehors de la zone
+    #     popover.signal_connect "button_press_event" do
+    #         popover.hide()
+    #         @focus = false
+    #     end
 
-        return self  
-    end
+    #     return self  
+    # end
 
-    def ajouterChiffres(grillePopover)
+    # def ajouterChiffres(grillePopover)
 
-        chiffres = Hash.new()
+    #     chiffres = Hash.new()
         
-        (1..9).each do |value|
-            chiffres[value.to_s] = Gtk::Button.new(:label => value.to_s)
-        end
+    #     (1..9).each do |value|
+    #         chiffres[value.to_s] = Gtk::Button.new(:label => value.to_s)
+    #     end
 
-        row = 0
-        col = 0
-        parLigne = 2
+    #     row = 0
+    #     col = 0
+    #     parLigne = 2
 
-        ## Place les chiffres dans le layout grille
-        chiffres.each do |_, bouton|
-            grillePopover.attach bouton, col, row , 1, 1
+    #     ## Place les chiffres dans le layout grille
+    #     chiffres.each do |_, bouton|
+    #         grillePopover.attach bouton, col, row , 1, 1
 
-            col += 1
-            if(col > parLigne)
-                row += 1
-                col  = 0
-            end
+    #         col += 1
+    #         if(col > parLigne)
+    #             row += 1
+    #             col  = 0
+    #         end
 
-            ## Change la valeur de la case si appui détecté
-            bouton.signal_connect "button_press_event" do |widget|
-                mettreAJour(widget.label.to_i)
-                redessiner()
-            end
-        end 
-    end
+    #         ## Change la valeur de la case si appui détecté
+    #         bouton.signal_connect "button_press_event" do |widget|
+    #             mettreAJour(widget.label.to_i)
+    #             redessiner()
+    #         end
+    #     end 
+    # end
 
+
+    ##
+    ## Définis la couleur de la case
+    ##
+    ## @return self
+    ##
     def couleurCase cr
-        if(@editable && !@focus)
+        if(@editable && @state != "focus" && @state != "hover")
             cr.set_source_color @couleurCase
-        elsif(@focus)
-            cr.set_source_color @couleurSurlignees
+        elsif(@state == "focus" || @state == "hover")
+            cr.set_source_color @couleurSurlignee
         else
             cr.set_source_color @couleurCaseFixe
         end
+
+        return self
     end
 
+
+    ##
+    ## Définis la couleur de la police dans la case
+    ##
+    ## @return self
+    ##
     def couleurPolice cr
-        cr.set_source_color @couleurPolice
+        if(@indice == false || !@editable)
+            cr.set_source_color @couleurPolice
+        else
+            cr.set_source_color @couleurIndices
+        end
+
+        return self
     end
 
-    def mettreAJour(valeur)
-        changed
-        @nombre = valeur
+    # def mettreAJour(valeur)
+    #     changed
+    #     @nombre = valeur
 
-        notify_observers(self)
-    end
+    #     notify_observers(self)
+    # end
 
     def redessiner()
         self.queue_draw
     end
 
     ##
-    ## @brief      Dessine une case
+    ## Dessine une case
     ##
     ##
     def dessiner cr
 
-        set_size_request(@largeur, @hauteur)
+        ## On définit la taille comme 1/12 de la fenêtre pour garder de l'espace
+        ## pour les boutons
+        @size = Fenetre::fenetre.size[1] / 12
 
-        ## Définis la couleur pour le dessin (ici blanc)
+        ## Définis la largeur et la hauteur de la case (obligatoire pour gestion des évènements)
+        set_size_request(@size, @size )
+
+        ## Définis la couleur pour le dessin en fonction du type de case
         self.couleurCase cr
 
         ## Dessine un rectangle
-        cr.rectangle @x, @y, @largeur, @hauteur
+        cr.rectangle 0, 0, @size, @size
         cr.fill
 
-        ## Définis une nouvelle couleur (ici noire)
-        cr.set_source_color @couleurPolice
+        ## Définis la couleur du texte
+        self.couleurPolice cr
 
+        if(@indice == false || !@editable)
+            dessinerChiffre cr
+        else
+            dessinerIndices cr
+        end
+
+        dessinerContour cr
+
+        cr.stroke
+
+        return self
+
+    end
+
+
+    ##
+    ## Dessine le contour de la case
+    ##
+    ##
+    def dessinerContour cr
+        cr.set_source_rgb 0, 0, 0
+
+        cr.move_to 0 , 0
+
+        cr.set_line_width 0.5
+
+        ## Calcule le chemin du contour de la case
+        cr.rel_line_to @size, 0
+        cr.rel_line_to 0, @size
+        cr.rel_line_to -@size, 0
+        cr.rel_line_to 0, -@size
+        cr.stroke
+
+        cr.set_line_width 7
+
+        ## Bordure exétieure haut
+        if(@x == 0)
+            cr.move_to 0, 0
+            cr.line_to @size, 0
+            cr.stroke
+        end
+
+        ## Bordure extérieur gauche
+        if(@y == 0)
+            cr.move_to 0, 0
+            cr.line_to 0, @size
+            cr.stroke
+        end
+
+        ## Bordure bas
+        if(@x == 8 || @x % 3 == 2)
+            cr.move_to 0, @size
+            cr.line_to @size, @size
+            cr.stroke
+        end
+
+        ## Bordure droite
+        if(@y == 8 || @y % 3 == 2)
+            cr.move_to @size, 0
+            cr.rel_line_to 0, @size
+            cr.stroke
+        end
+
+    end
+
+    ##
+    ## Dessine le chiffre
+    ##
+    ## @return     { description_of_the_return_value }
+    ##
+    def dessinerChiffre cr
         ## Définis les caractéristiques du texte
         cr.select_font_face "Arial", 
             Cairo::FONT_SLANT_NORMAL, Cairo::FONT_WEIGHT_NORMAL
         cr.set_font_size @taillePolice
 
         extents = cr.text_extents @nombre.to_s
-        cr.move_to @x + @largeur / 2 - extents.width / 2, @y + @hauteur / 2 + extents.height / 2 ## Déplace le curseur de texte au centre de la case
+        cr.move_to @size / 2 - extents.width / 2,  @size / 2 + extents.height / 2 
+        ## Déplace le curseur de texte au centre de la case
         cr.show_text @nombre.to_s
+    end
 
-        cr.set_source_rgb 0.5, 0.5, 0.5
+    ##
+    ## Dessine les indices
+    ##
+    ## 
+    ##
+    def dessinerIndices cr
 
-        cr.move_to @x , @y
-        cr.set_line_width 0.5
+        ## Définis les caractéristiques du texte
+        cr.select_font_face "Arial", 
+            Cairo::FONT_SLANT_NORMAL, Cairo::FONT_WEIGHT_NORMAL
+        
+        cr.set_font_size @tailleIndices
 
-        ## Calcule le chemin du contour de la case
-        cr.rel_line_to @largeur, 0
-        cr.rel_line_to 0, @hauteur
-        cr.rel_line_to -@largeur, 0
-        cr.rel_line_to 0, -@hauteur
+        col = 1
+        lig = 1
+        @indices.each do | key, value|
+            
+            if(value == true)
+                extents = cr.text_extents key
+                cr.move_to (col * @size / 4) - extents.width / 2 , (lig * @size / 3) - extents.height
+                ## Déplace le curseur de texte au centre de la case
+                cr.show_text key
+            end
 
-        cr.stroke
-
-        return self
-
+            if key.to_i % 3 == 0
+                lig += 1
+                col = 0
+            end
+            col += 1
+        end
     end
 
 end

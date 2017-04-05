@@ -8,112 +8,140 @@ class GrilleDessin < Gtk::Grid
         
         super() 
 
-        ## TODO: Lire largeur et hauteur dans un fichier de config
-        @largeurCase = 40 
-        @hauteurCase = 40
-        
-        @valeurs     = valeurs     
-        @cases       = Array.new()
+        @size = 40
+             
         @nbCases     = 9
-
-        signal_connect "draw" do |widget, cr|
-            dessiner cr
-        end
-
-        colonne = 0
-        ligne   = 0
-
-        largeurCol = 1
-        hauteurLig = 1
-
-        @valeurs.each do | section |
+        @cases       = Array.new(@nbCases)
         
-            section.each do | valeur |
+        set_margin_top(10);
+        set_margin_left(10);
+        
+        valeurs.each_with_index do |ligne, ligneIndex|
+            
+            @cases[ligneIndex] = Array.new()
+
+            ligne.each_with_index do |valeur, colonneIndex|
                 c = CaseDessin.new valeur
                 c.add_observer(self)
+                c.size = @size
+                
+                c.x = ligneIndex
+                c.y = colonneIndex
 
-                @cases << c
+                @cases[ligneIndex] << c
 
-                attach c, colonne, ligne , largeurCol, hauteurLig
-
-                if colonne == 8
-                    colonne  = 0
-                    ligne   += 1 
-                else
-                    colonne += 1
-                end
-            end
-
-        end
-    end
-
-    def update(caseObj)
-        x = @cases.index(caseObj) / 9
-        y = @cases.index(caseObj) % 9
-    end
-
-    def dessiner cr
-
-        ## TODO: Définir une largeur de case et fenêtre par défaut chargé
-        ## à partir d'un fichier de config en variables d'instances
-        @largeurCase = (25 * toplevel.allocated_width  / 600).round
-        @hauteurCase = @largeurCase
-
-        colonne = 0
-        ligne   = 0
-
-        @cases.each do | c |
-
-            c.largeur = @largeurCase
-            c.hauteur = @hauteurCase
-            c.taillePolice = @largeurCase / 3
-
-            c.x = colonne * @largeurCase
-            c.y = ligne * @hauteurCase
-            c.dessiner cr
-
-            if colonne == 8
-                colonne  = 0
-                ligne   += 1 
-            else
-                colonne += 1
+                attach c, colonneIndex, ligneIndex , 1, 1
             end
         end
 
-        largeurLigne = @nbCases * @largeurCase
-        hauteurLigne = @nbCases * @hauteurCase
-        
-        set_size_request largeurLigne , hauteurLigne
+    end
 
-        largeurBordureExt = 4
 
-        cr.set_source_rgb 0.0 , 0.0, 0.0
+    ##
+    ## Limite le dépassement de valeur d'une couleur 16 bits
+    ##
+    ## @param      couleur  La couleur à vérifier
+    ##
+    ## @return     La couleur limitée à la borne si dépassement sinon la couleur elle même
+    ##
+    def verifierCouleur(couleur)
+        max = 65535
+        min = 0
 
-        ## Calcule le chemin du contour
-        cr.move_to 0, 0
-        cr.set_line_width largeurBordureExt
+        if(couleur >  max)
+            couleur = max
+        elsif(couleur < 0)
+            couleur = min
+        end
 
-        cr.rel_line_to largeurLigne, 0
-        cr.rel_line_to 0, hauteurLigne
-        cr.rel_line_to -largeurLigne, 0
-        cr.rel_line_to 0, -hauteurLigne
+        return couleur
+    end
 
-        ## Calcule le chemin des délimitations
-        cr.move_to 3 * @largeurCase, 0
-        cr.rel_line_to 0, hauteurLigne
+    ##
+    ## Redessine la grille en mettant à jour les couleurs
+    ##
+    ## @param      x     position x de la case sélectionnée
+    ## @param      y     position y de la case sélectionnée
+    ## @param      etat  L'état de la case
+    ##
+    ## @return self
+    ##
+    def redessiner(x,y, etat)
 
-        cr.move_to 6 * @largeurCase, 0
-        cr.rel_line_to 0, hauteurLigne
+        for i in 0..@nbCases - 1
+            for j in 0..@nbCases - 1
+                    @cases[x][j].state = etat
+                    @cases[x][j].redessiner
+                    @cases[i][y].state = etat
+                    @cases[i][y].redessiner
+            end
+        end
 
-        cr.move_to 0, 3 * @hauteurCase
-        cr.rel_line_to largeurLigne, 0
+        self.colorierBloc(x, y, etat)
 
-        cr.move_to 0, 6 * @hauteurCase
-        cr.rel_line_to largeurLigne, 0
+        return self
+    end
 
-        ## Dessine les lignes à partir des chemins calculés précédemment
-        cr.stroke
+    ##
+    ## Met en surbillance la région
+    ##
+    ## @param      x     Position x d'une case
+    ## @param      y     Position y d'une case
+    ## @param      etat  Etat
+    ##
+    ## @return     self
+    ##
+    def colorierBloc(x, y, etat)
 
+        # Position x et y de la région
+        rX = x
+        rY = y
+
+        ## Récupère les cordonnées de la première case de la région
+        while(rX % 3 != 0 || rY % 3 != 0)
+            if(rX % 3 != 0)
+                rX -= 1
+            end
+            if(rY % 3 != 0)
+                rY -=1
+            end
+        end
+
+         ## Coefficient pour éclaircir
+        coeff = 1.3
+
+        couleurSurlignee = @cases[x][y].couleurSurlignee
+        rouge, vert, bleu = couleurSurlignee.red * coeff, couleurSurlignee.green * coeff, couleurSurlignee.blue * coeff
+
+        rouge = self.verifierCouleur(rouge)
+        vert =self.verifierCouleur(vert)
+        bleu =self.verifierCouleur(bleu)
+
+        couleurBloc = Gdk::Color.new(rouge, vert, bleu)
+
+        ## Colorie la région d'une couleur plus claire
+        for i in 0..2
+            for j in 0..2
+
+                @cases[rX + i][rY + j].state = etat
+                @cases[rX + i][rY + j].redessiner
+            end
+        end
+
+        return self
+    end
+
+    ##
+    ## Mise à jour observateur
+    ##
+    ## @param      x     postion x de la case sélectionnée
+    ## @param      y     position y de la case sélectionnée
+    ## @param      etat  L'état
+    ##
+    ## @return self
+    ##
+    def update(x, y, etat)
+        self.redessiner x,y, etat
         return self
     end
 
