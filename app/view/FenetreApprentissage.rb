@@ -23,14 +23,18 @@ class FenetreApprentissage < View
 	##
 	def initialize()
 		Header::chrono
-
+		@etapeEnCours=2
+		@nbEtape=6
 		@menuBarre=Fenetre::creerBarreMenu()
 		@boxMilieu = Gtk::Box.new(:horizontal, 0)
 		@boxGrille = Gtk::Box.new(:horizontal, 0)
-		@boxInfo = Gtk::Table.new(1,3,false)
+		@boxInfo = Gtk::Box.new(:vertical, 0)
 		@choixLabel = Fenetre::creerLabelType("<u>Choix de la technique</u>", Fenetre::SIZE_TITRE_JEU)
 		@list = Gtk::ComboBoxText.new()
-		@etape = Fenetre::creerLabelType("Etape", 15)
+		@boxEtape = Gtk::Box.new(:horizontal, 0)
+		@boutonEtapePrec = Gtk::Button.new(:label => "Precedente")
+		@boutonEtapeSuiv = Gtk::Button.new(:label => "Suivante")
+		@labelEtape = Fenetre::creerLabelType("Etape #{@etapeEnCours}/#{@nbEtape}", Fenetre::SIZE_TITRE_JEU)
 		@grilleDessin = nil
 		@scoreLabel   = nil
 	end
@@ -108,15 +112,27 @@ class FenetreApprentissage < View
 		@list.signal_connect('changed'){ |widget|
 			puts widget.active_text
 		}
-
 		@list.append_text('Technique 1')
 		@list.append_text('Technique 2')
 		@list.append_text('Technique 3')
 		@list.append_text('Technique 4')
 		@list.append_text('Technique 5')
-		@boxInfo.attach(@choixLabel,0,1,0,1)
-		@boxInfo.attach(@list,0,1,1,2)
-		@boxInfo.attach(@etape,0,1,2,3)
+
+		@boutonEtapePrec.signal_connect('clicked'){
+
+		}
+
+		@boutonEtapeSuiv.signal_connect('clicked'){
+
+		}
+		@boxEtape.add(@boutonEtapePrec)
+		@boxEtape.add(@labelEtape)
+		@boxEtape.add(@boutonEtapePrec)
+
+		#add a la box
+		@boxInfo.add(@choixLabel)
+		@boxInfo.add(@list)
+		@boxInfo.add(@boxEtape)
 	end
 
 	##
