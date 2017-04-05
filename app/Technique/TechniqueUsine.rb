@@ -1,4 +1,4 @@
-#Class TechniqueUsine
+require_relative './Technique'
 
 class TechniqueUsine
 	
