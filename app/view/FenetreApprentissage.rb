@@ -127,7 +127,7 @@ class FenetreApprentissage < View
 		}
 		@boxEtape.add(@boutonEtapePrec)
 		@boxEtape.add(@labelEtape)
-		@boxEtape.add(@boutonEtapePrec)
+		@boxEtape.add(@boutonEtapeSuiv)
 
 		#add a la box
 		@boxInfo.add(@choixLabel)
