@@ -173,7 +173,7 @@ class FenetreApprentissage < View
         @texteContenu.set_margin(20)
         @texteContenu.override_color(:normal, Fenetre::COULEUR_BLANC)
         @labelChoix2.set_margin(20)
-        @labelChoix.override_color(:normal, Fenetre::COULEUR_BLANC)
+        @labelChoix2.override_color(:normal, Fenetre::COULEUR_BLANC)
         #css bouton
         @list.set_margin(20)
         @boutonEtapePrec.set_margin(20)
