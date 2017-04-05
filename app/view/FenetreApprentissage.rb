@@ -25,16 +25,23 @@ class FenetreApprentissage < View
 		Header::chrono
 		@etapeEnCours=2
 		@nbEtape=6
-		@menuBarre=Fenetre::creerBarreMenu()
+
+		@menuBarre = Fenetre::creerBarreMenu()
 		@boxMilieu = Gtk::Box.new(:horizontal, 0)
 		@boxGrille = Gtk::Box.new(:horizontal, 0)
 		@boxInfo = Gtk::Box.new(:vertical, 0)
-		@choixLabel = Fenetre::creerLabelType("<u>Choix de la technique</u>", Fenetre::SIZE_TITRE_JEU)
+		
+		@labelChoix = Fenetre::creerLabelType("<u>Choix de la technique</u>", Fenetre::SIZE_TITRE_JEU)
 		@list = Gtk::ComboBoxText.new()
+		
 		@boxEtape = Gtk::Box.new(:horizontal, 0)
 		@boutonEtapePrec = Gtk::Button.new(:label => "Precedente")
 		@boutonEtapeSuiv = Gtk::Button.new(:label => "Suivante")
 		@labelEtape = Fenetre::creerLabelType("Etape #{@etapeEnCours}/#{@nbEtape}", Fenetre::SIZE_TITRE_JEU)
+		
+		@boxExplication = Gtk::Box.new(:horizontal, 0)
+		@texteContenu = Gtk::Label.new("doizjediozejdiozejdijezdijeziodjzeiodjzeiodj dzeidze,iodze")
+
 		@grilleDessin = nil
 		@scoreLabel   = nil
 	end
@@ -65,6 +72,8 @@ class FenetreApprentissage < View
 
 		@boxMilieu.add(@boxGrille)
 		@boxMilieu.add(@boxInfo)
+
+		ajoutCss()
 
 		#add a la box
 		Fenetre::box.add(@menuBarre)
@@ -132,30 +141,34 @@ class FenetreApprentissage < View
 		@boxEtape.add(@boutonEtapeSuiv)
 
 		#explication
-		boxExplication = Gtk::Box.new(:horizontal, 0);
-        boxExplication.set_hexpand(true);
-        boxExplication.set_vexpand(true);
-
-        boxTexte = Gtk::Box.new(:horizontal);
-        boxTexteIn = Gtk::Box.new(:vertical);
-        boxTexteIn.override_background_color(:normal, Gdk::RGBA.new(1,1,1,1));
-        boxTexteIn.set_margin_top(10);
-        boxTexteIn.set_margin_bottom(10);
-
-        texteContenu = Gtk::Label.new("doizjediozejdiozejdijezdijeziodjzeiodjzeiodj dzeidze,iodze");
-        texteContenu.set_margin(4)
-        texteContenu.set_line_wrap(true);
-        boxTexteIn.add(texteContenu);
-
-        boxTexte.pack_start(boxTexteIn, :expand => true, :fill => true);
-        boxExplication.pack_start(boxTexte, :expand => true, :fill => true);
+        boxTexte = Gtk::Box.new(:vertical)
+        @texteContenu.set_line_wrap(true)
+        boxTexte.add(@texteContenu)
+        @boxExplication.add(boxTexte)
 
 		#add a la box
-		@boxInfo.add(@choixLabel)
+		@boxInfo.add(@labelChoix)
 		@boxInfo.add(@list)
 		@boxInfo.add(@boxEtape)
-		@boxInfo.add(boxExplication)
+		@boxInfo.add(@boxExplication)
 	end
+
+	##
+    ## Ajoute les classes css au widget
+    ##
+    def ajoutCss()
+        #css label
+        @labelChoix.set_margin(20)
+        @labelChoix.override_color(:normal, Fenetre::COULEUR_BLANC)
+        @labelEtape.set_margin(20)
+        @labelEtape.override_color(:normal, Fenetre::COULEUR_BLANC)
+        @texteContenu.set_margin(20)
+        @texteContenu.override_color(:normal, Fenetre::COULEUR_BLANC)
+        #css bouton
+        @list.set_margin(20)
+        @boutonEtapePrec.set_margin(20)
+        @boutonEtapeSuiv.set_margin(20)
+    end
 
 	##
 	## Lance la construction du modèle de la vue. Méthode à définir dans tout les cas ! Autrement pas de rendu de la page.
