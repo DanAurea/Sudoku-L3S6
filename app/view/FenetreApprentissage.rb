@@ -109,6 +109,7 @@ class FenetreApprentissage < View
 	## 
 	##
 	def gestionDroite()
+		#choix technique
 		@list.signal_connect('changed'){ |widget|
 			puts widget.active_text
 		}
@@ -118,6 +119,7 @@ class FenetreApprentissage < View
 		@list.append_text('Technique 4')
 		@list.append_text('Technique 5')
 
+		#etapes
 		@boutonEtapePrec.signal_connect('clicked'){
 
 		}
@@ -129,10 +131,30 @@ class FenetreApprentissage < View
 		@boxEtape.add(@labelEtape)
 		@boxEtape.add(@boutonEtapeSuiv)
 
+		#explication
+		boxExplication = Gtk::Box.new(:horizontal, 0);
+        boxExplication.set_hexpand(true);
+        boxExplication.set_vexpand(true);
+
+        boxTexte = Gtk::Box.new(:horizontal);
+        boxTexteIn = Gtk::Box.new(:vertical);
+        boxTexteIn.override_background_color(:normal, Gdk::RGBA.new(1,1,1,1));
+        boxTexteIn.set_margin_top(10);
+        boxTexteIn.set_margin_bottom(10);
+
+        texteContenu = Gtk::Label.new("doizjediozejdiozejdijezdijeziodjzeiodjzeiodj dzeidze,iodze");
+        texteContenu.set_margin(4)
+        texteContenu.set_line_wrap(true);
+        boxTexteIn.add(texteContenu);
+
+        boxTexte.pack_start(boxTexteIn, :expand => true, :fill => true);
+        boxExplication.pack_start(boxTexte, :expand => true, :fill => true);
+
 		#add a la box
 		@boxInfo.add(@choixLabel)
 		@boxInfo.add(@list)
 		@boxInfo.add(@boxEtape)
+		@boxInfo.add(boxExplication)
 	end
 
 	##
