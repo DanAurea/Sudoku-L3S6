@@ -27,7 +27,7 @@ class FenetreApprentissage < View
 		@menuBarre=Fenetre::creerBarreMenu()
 		@boxMilieu = Gtk::Box.new(:horizontal, 0)
 		@boxGrille = Gtk::Box.new(:horizontal, 0)
-		@boxInfo = Gtk::Box.new(:vertical, 0)
+		@boxInfo = Gtk::Box.new(:horizontal, 0)
 		@choixLabel = Fenetre::creerLabelType("<u>Choix de la technique</u>", Fenetre::SIZE_TITRE_JEU)
 		@list = Gtk::ComboBoxText.new()
 		@grilleDessin = nil
