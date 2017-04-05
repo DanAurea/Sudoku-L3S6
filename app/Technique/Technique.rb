@@ -172,4 +172,25 @@ class Technique
 	def aQuelBloc(x,y)
 		return ((x/3)+1)+(y/3*3)
 	end
+
+	##
+	## Retourne le nombre d'étape pour faire la téchnique
+	##
+	## @return     Le nombre d'étape(s)
+	##
+	def combienEtape()
+		return nil
+	end
+
+
+	##
+	## Retourne les étapes pour faire la téchnique
+	##
+	## @param      n     
+	##
+	## @return     Le nombre d'étape si n=0, un text expliquant l'étape sinon
+	##
+	def etape(n)
+		return nil
+	end
 end

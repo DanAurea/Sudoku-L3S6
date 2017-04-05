@@ -51,4 +51,29 @@ class SCandidate < Technique
 
 		return nil
 	end
+
+	##
+	## Retourne le nombre d'étape pour faire la téchnique
+	##
+	## @return     Le nombre d'étape(s)
+	##
+	def combienEtape()
+		return 1
+	end
+
+	##
+	## Retourne les étapes pour faire la téchnique
+	##
+	## @param      n     Le numéro de la tachnique
+	##
+	## @return     Un text expliquant l'étape sinon
+	##
+	def etape(n)
+
+		case(n)
+		when 1
+			return "Recherchez les candidats possibles pour chaque case d'une ligne/colonne. Remarquez que dans certaines, un candidat n'est possible que dans une seule case de la ligne/colonne."
+
+		return nil
+	end
 end
