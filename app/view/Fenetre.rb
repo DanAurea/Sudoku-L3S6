@@ -29,7 +29,7 @@ module Fenetre
     SIZE_TITRE_REGLAGE = 15
     SIZE_TITRE = 40
     SIZE_LABEL_BOUTON = 20
-    FONT_MENU = "Monospace"
+    FONT_MENU = "Times New Roman"
 
     ## VI
     @fenetre 
