@@ -112,7 +112,8 @@ class FenetreApprentissage < View
 		list.append_text('Technique 3')
 		list.append_text('Technique 4')
 		list.append_text('Technique 5')
-		@boxInfo.halign = :center
+		list.halign = :center
+		list.set_margin(100)
 		@boxInfo.add(list)
 	end
 
