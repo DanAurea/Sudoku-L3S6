@@ -303,7 +303,7 @@ end
     def Fenetre.creerLabelType(unNomDeLabel, uneTaille)
         #Creation du Label
         label=Gtk::Label.new(unNomDeLabel)
-        font_desc = Pango::FontDescription.new("#{FONT_MENU} bold #{uneTaille}")
+        font_desc = Pango::FontDescription.new("Monospace bold #{uneTaille}")
         label.override_font(font_desc)
         return label
     end
