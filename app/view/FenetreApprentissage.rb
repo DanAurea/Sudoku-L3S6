@@ -35,7 +35,7 @@ class FenetreApprentissage < View
 		#liste technique
 		@tabTechnique=[
 						"Fonctionnement du jeu",
-						"Technique 1",
+						"SCandidate",
 						"Technique 2",
 						"Technique 3",
 						"Technique 4",
@@ -43,20 +43,21 @@ class FenetreApprentissage < View
 					]
 		#box
 		@menuBarre = Fenetre::creerBarreMenu()
-		@boxMilieu = Gtk::Box.new(:horizontal, 0)
+		@boxMilieu = Gtk::Box.new(:horizontal, 50)
 		@boxGrille = Gtk::Box.new(:horizontal, 0)
-		@boxInfo = Gtk::Box.new(:vertical, 0)
+		@boxInfo = Gtk::Box.new(:vertical, 40)
+		@boxTexte = Gtk::Box.new(:vertical,10)
 		
 		#Choix technique
 		@labelChoix = Fenetre::creerLabelType("<u>Choix de la technique</u>", Fenetre::SIZE_TITRE_JEU)
 		@list = Gtk::ComboBoxText.new()
 
 		#information de la technique
-		@labelChoix2 = Fenetre::creerLabelType("Choississez une technique..", Fenetre::SIZE_TITRE_JEU)
-		@boxEtape = Gtk::Box.new(:horizontal, 0)
+		@labelChoix2 = Fenetre::creerLabelType("Choississez une technique...", Fenetre::SIZE_AUTRE_JEU)
+		@boxEtape = Gtk::Box.new(:horizontal, 30)
 		@boutonEtapePrec = Gtk::Button.new(:label => "Precedente")
-		@boutonEtapeSuiv = Gtk::Button.new(:label => "Suivante")
-		@labelEtape = Fenetre::creerLabelType("Etape #{@etapeEnCours}/#{@nbEtape}", Fenetre::SIZE_TITRE_JEU)
+		@boutonEtapeSuiv = Gtk::Button.new(:label => " Suivante ")
+		@labelEtape = Fenetre::creerLabelType("Etape #{@etapeEnCours}/#{@nbEtape}", Fenetre::SIZE_AUTRE_JEU)
 		@boxExplication = Gtk::Box.new(:horizontal, 0)
 	end
 
@@ -164,10 +165,9 @@ class FenetreApprentissage < View
 		@boxEtape.add(@boutonEtapeSuiv)
 
 		#explication
-        boxTexte = Gtk::Box.new(:vertical)
         @texteContenu.set_line_wrap(true)
-        boxTexte.add(@texteContenu)
-        @boxExplication.add(boxTexte)
+        @boxTexte.add(@texteContenu)
+        @boxExplication.add(@boxTexte)
 
 		#add a la box
 		@boxInfo.add(@labelChoix)
@@ -190,16 +190,8 @@ class FenetreApprentissage < View
 	def recuperationNbEtape(techniqueChoisie)
 		if techniqueChoisie == "Fonctionnement du jeu"
 			@nbEtape=0
-		elsif techniqueChoisie == "Technique 1"
-			@nbEtape=1
-		elsif techniqueChoisie == "Technique 2"
-			@nbEtape=2
-		elsif techniqueChoisie == "Technique 3"
-			@nbEtape=3
-		elsif techniqueChoisie == "Technique 4"
-			@nbEtape=4
-		elsif techniqueChoisie == "Technique 5"
-			@nbEtape=5
+		else
+			@nbEtape=TechniqueUsine.new(@techniqueChoisie).combienEtape()
 		end
 	end
 
@@ -208,20 +200,13 @@ class FenetreApprentissage < View
     ##
     def ajoutCss()
         #css label
-        @labelChoix.set_margin(20)
         @labelChoix.override_color(:normal, Fenetre::COULEUR_BLANC)
-        @labelEtape.set_margin(20)
+        @labelChoix.set_margin_top(40)
         @labelEtape.override_color(:normal, Fenetre::COULEUR_BLANC)
-        @texteContenu.set_margin(20)
         @texteContenu.override_color(:normal, Fenetre::COULEUR_BLANC)
-        @labelChoix2.set_margin(20)
         @labelChoix2.override_color(:normal, Fenetre::COULEUR_BLANC)
         #css bouton
-        @list.set_margin(20)
-        @boutonEtapePrec.set_margin(20)
-       	@boutonEtapePrec.set_margin_right(40)
-        @boutonEtapeSuiv.set_margin(20)
-        @boutonEtapeSuiv.set_margin_left(40)
+        @boxTexte.override_background_color(:normal, Fenetre::COULEUR_ORANGE)
     end
 
 	##
