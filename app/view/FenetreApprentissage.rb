@@ -16,6 +16,7 @@ class FenetreApprentissage < View
 	@boxBouton
 	@grilleDessin
 	@scoreLabel
+	@techniqueObjet
 
 	##
 	## Initialize
@@ -36,10 +37,6 @@ class FenetreApprentissage < View
 		@tabTechnique=[
 						"Fonctionnement du jeu",
 						"SCandidate",
-						"Technique 2",
-						"Technique 3",
-						"Technique 4",
-						"Technique 5"
 					]
 		#box
 		@menuBarre = Fenetre::creerBarreMenu()
@@ -140,6 +137,7 @@ class FenetreApprentissage < View
 
 		@list.signal_connect('changed'){ |widget|
 			@techniqueChoisie=widget.active_text()
+			@techniqueObjet=@Techniques.creer(@techniqueChoisie)
 			@nbEtape= recuperationNbEtape()
 			@etapeEnCours=1
 			actualisation()
@@ -182,8 +180,8 @@ class FenetreApprentissage < View
 	##
 	def actualisation()
 		@labelChoix2.set_text("Explication de #{@techniqueChoisie}")
-		@texteContenu.set_text("doizjediozejdiozejdijezdijeziodjzeiodjzeiodj dzeidze,iodze")
 		@labelEtape.set_text("Etape #{@etapeEnCours}/#{@nbEtape}")
+		recuperationEtape()
 	end
 
 	##TODO
@@ -191,7 +189,16 @@ class FenetreApprentissage < View
 		if @techniqueChoisie == "Fonctionnement du jeu"
 			@nbEtape=0
 		else
-			@nbEtape=@Techniques.creer(@techniqueChoisie).combienEtape()
+			@nbEtape=@techniqueObjet.combienEtape()
+		end
+	end
+
+	def recuperationEtape()
+		if @techniqueChoisie == "Fonctionnement du jeu"
+			@texteContenu.set_text("doizjediozejdiozejdijezdijeziodjzeiodjzeiodj dzeidze,iodze")
+		else
+			string=@techniqueObjet.etape(@etapeEnCours)
+			@texteContenu.set_text(string)
 		end
 	end
 
