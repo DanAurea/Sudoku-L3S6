@@ -121,16 +121,22 @@ class FenetreApprentissage < View
 	##
 	def gestionBarreMenu()
 		Fenetre::boutonMenu_barre.signal_connect('clicked'){
-			Core::changeTo("Menu", "pseudo": @pseudo)
+			messageQuestion = Fenetre::creerPopup("Voulez-vous vraiment abandonner l'apprentissage et revenir au menu principal?", "YES_NO")
+		    if(messageQuestion.run() == Gtk::ResponseType::YES)
+		    	Core::changeTo("Menu", "pseudo": @pseudo)
+		    end
+		    messageQuestion.destroy()
 		}
 		Fenetre::boutonSauvegarder_barre.signal_connect('clicked'){
-			sauvegarder
 		}
 		Fenetre::boutonReinit_barre.signal_connect('clicked'){
-			
 		}
 		Fenetre::boutonQuitter_barre.signal_connect('clicked'){
-			Fenetre::detruire()
+			messageQuestion = Fenetre::creerPopup("Voulez-vous vraiment abandonner l'apprentissage et quitter l'application?", "YES_NO")
+		    if(messageQuestion.run() == Gtk::ResponseType::YES)
+		    	Fenetre::detruire()
+		    end
+		    messageQuestion.destroy()
 		}
 		Fenetre::boutonPauseChrono_barre.signal_connect('clicked'){
 			Header::pause = true
@@ -139,10 +145,8 @@ class FenetreApprentissage < View
 			Header::pause = false
 		}
 		Fenetre::boutonAnnuler_barre.signal_connect('clicked'){
-
 		}
 		Fenetre::boutonRetablir_barre.signal_connect('clicked'){
-
 		}
 	end
 

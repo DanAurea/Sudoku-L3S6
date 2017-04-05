@@ -55,7 +55,7 @@ module Fenetre
     @fenetre.set_name("mainWindow")
     @fenetre.set_icon_from_file(Core::ROOTPROJECT + "assets/img/iconApp.png")
     @fenetre.signal_connect('destroy') {
-       detruire()
+        detruire()
     }
 
     @fenetreStyle = @fenetre.style_context

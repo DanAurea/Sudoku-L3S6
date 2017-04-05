@@ -31,22 +31,6 @@ class ApprentissageControleur < Controller
 	end
 
 	##
-	## Sauvegarde la partie dans un fichier yaml
-	##
-	## @return     Self
-	##
-	def sauvegarder()
-		@Jeu.chrono = Header.temps
-		@Jeu.score = Header.score
-		@Jeu.grille = @content["grille"]
-
-		## Sauvegarde la partie dans un fichier yaml au nom de l'utilisateur
-		@Jeu.creerPartie (@content["pseudo"])
-
-		return self
-	end
-
-	##
     ## Méthode à définir dans tout les cas !
     ##
     ## @return self
