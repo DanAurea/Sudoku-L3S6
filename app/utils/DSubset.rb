@@ -23,21 +23,22 @@ class DSubset < Technique
 	def solution(grille)
 		grilleIndice = indice(grille)
 
+		i = 0
+		res = Array.new()
+
 		[0,1,2,3,4,5,6,7,8].each { |x|
 			col = colonne(grilleIndice,x)
 			col.each_with_index{ |c,y|
 				i = 0
 				c.each_value{|v| if v then i+=1 end }
 
-				res = Array.new()
-
 				col[(y+1)..-1].each{ |cBis|
 					if cBis == c then res << [x,y] end
 				}
-				if res.length == i then
-					return res
-				end
 			}
+			if res.length == i then
+				return res
+			end
 		}
 
 		[0,1,2,3,4,5,6,7,8].each { |y|
@@ -46,15 +47,13 @@ class DSubset < Technique
 				i = 0
 				c.each_value{|v| if v then i+=1 end }
 
-				res = Array.new()
-
 				lig[(x+1)..-1].each{|cBis|
 					if cBis == c then res << [x,y] end
 				}
-				if res.length == i then
-					return res
-				end
-			}			
+			}
+			if res.length == i then
+				return res
+			end		
 		}
 		
 		return nil
@@ -80,7 +79,7 @@ class DSubset < Technique
 
 		case(n)
 		when 1
-			return "Bienvenu sur l'explication de la technique "+self.class.to_s+"."
+			return "Bienvenue sur l'explication de la technique "+self.class.to_s+"."
 		when 2
 			return "Recherchez les candidats possibles pour chaque case d'une ligne/colonne."
 		when 3

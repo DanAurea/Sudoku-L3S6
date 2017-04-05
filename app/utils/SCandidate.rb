@@ -72,7 +72,7 @@ class SCandidate < Technique
 
 		case(n)
 		when 1
-			return "Bienvenu sur l'explication de la technique "+self.class.to_s+"."
+			return "Bienvenue sur l'explication de la technique "+self.class.to_s+"."
 		when 2
 			return "Recherchez les candidats possibles pour chaque case d'une ligne/colonne. Remarquez que dans certaines, un candidat n'est possible que dans une seule case de la ligne/colonne."
 		end
