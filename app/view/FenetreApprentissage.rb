@@ -186,7 +186,6 @@ class FenetreApprentissage < View
 
 		#explication
         @boxExplication.set_hexpand(true)
-        @boxExplication.set_vexpand(true)
 
         @texteContenu.set_line_wrap(true)
         @boxTexte.add(@texteContenu)
