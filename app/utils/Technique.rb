@@ -5,8 +5,6 @@
 ##
 class Technique
 	
-	private_class_method new:
-
 	##
 	## Constructeur de la classe Technique
 	##

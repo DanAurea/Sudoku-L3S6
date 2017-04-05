@@ -73,7 +73,8 @@ class SCandidate < Technique
 		case(n)
 		when 1
 			return "Recherchez les candidats possibles pour chaque case d'une ligne/colonne. Remarquez que dans certaines, un candidat n'est possible que dans une seule case de la ligne/colonne."
-
+		end
+		
 		return nil
 	end
 end

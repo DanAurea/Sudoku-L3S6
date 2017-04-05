@@ -85,6 +85,8 @@ class DSubset < Technique
 			return "Il arrive que N candicats soient possibles sur N cases d'une même ligne/colonne"
 		when 3
 			return "Dans ce cas, les N candidats sont applicable uniquement dans ces N cases et non ailleur."
+		end
+		
 		return nil
 	end
 

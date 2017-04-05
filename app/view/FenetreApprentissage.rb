@@ -140,7 +140,7 @@ class FenetreApprentissage < View
 
 		@list.signal_connect('changed'){ |widget|
 			@techniqueChoisie=widget.active_text()
-			@nbEtape= recuperationNbEtape(@techniqueChoisie)
+			@nbEtape= recuperationNbEtape()
 			@etapeEnCours=1
 			actualisation()
 		}
@@ -187,11 +187,11 @@ class FenetreApprentissage < View
 	end
 
 	##TODO
-	def recuperationNbEtape(techniqueChoisie)
-		if techniqueChoisie == "Fonctionnement du jeu"
+	def recuperationNbEtape()
+		if @techniqueChoisie == "Fonctionnement du jeu"
 			@nbEtape=0
 		else
-			@nbEtape=TechniqueUsine.new(@techniqueChoisie).combienEtape()
+			@nbEtape=@Techniques.creer(@techniqueChoisie).combienEtape()
 		end
 	end
 

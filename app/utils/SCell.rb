@@ -59,7 +59,8 @@ class SCell < Technique
 		case(n)
 		when 1
 			return "Recherchez les candidats possibles pour chaque case. Remarquez que dans certaines, il n'y a qu'un seul candidat possible."
-
+		end
+		
 		return nil
 	end
 end

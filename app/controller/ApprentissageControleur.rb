@@ -7,6 +7,9 @@
  	
 # 	Class ApprentissageControleur
 #
+
+require Core::ROOT + "utils/TechniqueUsine.rb"
+
 class ApprentissageControleur < Controller
 
 	##
@@ -57,7 +60,9 @@ class ApprentissageControleur < Controller
 		end
 
 		@content["grille"] = @Grille.generer(niveau)
-		
+		@content["Techniques"] = TechniqueUsine.new()		
+
+
 		return self
 	end
 end
