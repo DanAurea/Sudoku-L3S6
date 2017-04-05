@@ -84,7 +84,7 @@ class FenetreApprentissage < View
 		#box de droite
 		gestionDroite()
 
-		#@boxMilieu.add(@boxGrille)
+		@boxMilieu.add(@boxGrille)
 		@boxMilieu.add(@boxInfo)
 
 		ajoutCss()
