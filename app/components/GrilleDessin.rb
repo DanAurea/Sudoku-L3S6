@@ -9,8 +9,8 @@ class GrilleDessin < Gtk::Grid
         super() 
 
         ## TODO: Lire largeur et hauteur dans un fichier de config
-        @largeurCase = 60 
-        @hauteurCase = 60
+        @largeurCase = 40 
+        @hauteurCase = 40
         
         @valeurs     = valeurs     
         @cases       = Array.new()

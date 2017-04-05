@@ -9,8 +9,8 @@ class CaseDessin < Gtk::DrawingArea
 
         super()
         
-        @largeur = 60
-        @hauteur = 60
+        @largeur = 40
+        @hauteur = 40
 
         @x = 0
         @y = 0
