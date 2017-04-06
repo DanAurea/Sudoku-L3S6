@@ -63,7 +63,7 @@ class FenetreMenu < View
     def creerBoxTop()
         #Action des boutons
         @boutonCharger.signal_connect('clicked'){
-            Core::changeTo("Charger", "pseudo": @pseudo)
+            charger
         }
 
         @boutonNouveau.signal_connect('clicked'){

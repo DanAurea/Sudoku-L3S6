@@ -239,6 +239,7 @@ class FenetreJeuLibre < View
 		}
 		Fenetre::boutonQuitter_barre.signal_connect('clicked'){
 			messageQuestion = Fenetre::creerPopup("1/2: Voulez-vous vraiment abandonner la partie et quitter l'application?", "YES_NO")
+
 		    if(messageQuestion.run() == Gtk::ResponseType::YES)
 		    	messageQuestion2 = Fenetre::creerPopup("2/2: Voulez-vous sauvegarder la partie actuelle?", "YES_NO")
 		    	if(messageQuestion2.run() == Gtk::ResponseType::YES)
@@ -246,6 +247,7 @@ class FenetreJeuLibre < View
 		    	end
 		    	Fenetre::detruire()
 		    	messageQuestion2.destroy()
+
 		    end
 		    messageQuestion.destroy()
 		}

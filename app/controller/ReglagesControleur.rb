@@ -23,6 +23,7 @@ class ReglagesControleur < Controller
 		@height    = 550
 		@resizable = false
 		@position  = "CENTER_ALWAYS"
+
 	end
 
 
@@ -70,6 +71,7 @@ class ReglagesControleur < Controller
     ##
 	def run()
 		@content["config"] = @Configuration.getConfiguration(@content["pseudo"])
+		puts @content
 
 		return self
 	end

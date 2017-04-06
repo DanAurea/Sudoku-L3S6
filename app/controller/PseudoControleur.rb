@@ -42,6 +42,7 @@ class PseudoControleur < Controller
         	## Ajoute l'entête de la fenêtre avec le profil utilisateur
         	## puis change de page
         	Header.profil(entreePseudo.text)
+
         	Core::changeTo("Menu", "pseudo": entreePseudo.text)
         	action = true
         else

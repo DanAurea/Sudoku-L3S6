@@ -23,8 +23,8 @@ class JeuLibreControleur < Controller
 		@title   = "Sudoku - Jeu Libre"
 		@content = {"grille" => nil}
 		@height   = 720
-	end
 
+	end
 
 	##
 	## Met à jour la grille de données
@@ -117,6 +117,7 @@ class JeuLibreControleur < Controller
 		@Jeu.chrono = Header.temps
 		@Jeu.score = Header.score
 		@Jeu.grille = @content["grille"]
+		@Jeu.niveau = @Score.difficulte
 
 		## Sauvegarde la partie dans un fichier yaml au nom de l'utilisateur
 		@Jeu.creerPartie (@content["pseudo"])
@@ -195,16 +196,28 @@ class JeuLibreControleur < Controller
     ##
 	def run()
 
-		if(@content.has_key?("difficulte"))
-			niveau = @content["difficulte"]
-		else
-			niveau = 1
-		end
+		if(@content.has_key?("charger"))
+			donnees = @Jeu.chargerPartie(@content["pseudo"])
 
+			niveau             = donnees["niveau"]
+			Header.score       = donnees["score"]
+			Header.temps       = donnees["chrono"]
+			@content["grille"] = donnees["grille"]
+
+		else
+
+			if(@content.has_key?("difficulte"))
+				niveau = @content["difficulte"]
+			else
+				niveau = 1
+			end
+			
+			@content["grille"] = @Grille.generer(niveau)
+		end
+		
 		@content["config"] = @Configuration.getConfiguration(@content["pseudo"])
 
 		@Score.difficulte = niveau + 1
-		@content["grille"] = @Grille.generer(niveau)
 
 		return self
 	end

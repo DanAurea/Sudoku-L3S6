@@ -11,6 +11,7 @@ module Header
 	@tempsLabel = Gtk::Label.new("Temps: 00:00")
 	@scoreLabel = Gtk::Label.new("Score: 0")
 	
+	@partie   = false	
 	@score    = 0
 	@penalite = 0
 
@@ -22,19 +23,19 @@ module Header
 	def Header.profil(pseudo)
 
 		## Création du bouton de profil
-		boutonProfil = Gtk::Button.new
+		@boutonProfil = Gtk::Button.new
 		image = Gtk::Image.new(:file => Core::ROOTPROJECT + "assets/img/user.png")
 		
 		box = Gtk::Box.new(:horizontal, 5)
 
-		boutonProfil.signal_connect("clicked")  do
+		@boutonProfil.signal_connect_after("clicked")  do
 			@pause = true
 			Core::changeTo("Reglages", :pseudo => pseudo)
 		end
 
-		boutonProfil.set_name("profil")
-		boutonProfil.add(image)
-		box.add(boutonProfil)
+		@boutonProfil.set_name("profil")
+		@boutonProfil.add(image)
+		box.add(@boutonProfil)
 
 		pseudoProfil = Gtk::Label.new(pseudo.capitalize).set_name("pseudo")
 		box.add(pseudoProfil)
@@ -67,12 +68,30 @@ module Header
 	end
 
 	##
+	## Définis un mutateur pour le temps
+	##
+	## @return     Temps
+	##
+	def Header.temps=(temps)
+		@temps = temps
+	end
+
+	##
 	## Définis un accesseur pour le score
 	##
 	## @return     Temps
 	##
 	def Header.score()
 		return @score
+	end
+
+	##
+	## Définis un mutateur pour le score
+	##
+	## @return     Temps
+	##
+	def Header.score=(score)
+		@score = score
 	end
 
 	##
