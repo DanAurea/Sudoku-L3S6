@@ -152,19 +152,7 @@ class GrilleDessin < Gtk::Grid
             end
         end
 
-        #  ## Coefficient pour éclaircir
-        # coeff = 1.3
-
-        # couleurSurlignee = @cases[x][y].couleurSurlignee
-        # rouge, vert, bleu = couleurSurlignee.red * coeff, couleurSurlignee.green * coeff, couleurSurlignee.blue * coeff
-
-        # rouge = self.verifierCouleur(rouge)
-        # vert =self.verifierCouleur(vert)
-        # bleu =self.verifierCouleur(bleu)
-
-        # couleurBloc = Gdk::Color.new(rouge, vert, bleu)
-
-        ## Colorie la région d'une couleur plus claire
+        ## Colorie la région
         for i in 0..2
             for j in 0..2
 

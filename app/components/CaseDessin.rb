@@ -108,9 +108,9 @@ class CaseDessin < Gtk::DrawingArea
     end
 
     ##
-    ## Définis l'état en prenant en compte des priorités
+    ## Définis l'état
     ##
-    ## @return     State
+    ## @return     { description_of_the_return_value }
     ##
     def set_state=(etat)
         if(@state != "equal")
@@ -215,8 +215,8 @@ class CaseDessin < Gtk::DrawingArea
         elsif(@state == "focus" || @state == "hover")
             cr.set_source_color @couleurSurlignee
         elsif(@state == "equal")
-
-            rouge, vert, bleu  = @couleurSurlignee.red * 0.7, @couleurSurlignee.green * 0.7, @couleurSurlignee.blue * 0.7
+            coeff = 0.7
+            rouge, vert, bleu  = @couleurSurlignee.red * coeff, @couleurSurlignee.green * coeff, @couleurSurlignee.blue * coeff
             composantes = [rouge, vert, bleu].join(",")
 
             cr.set_source_color @configurationModel.creerCouleur(composantes)

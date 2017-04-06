@@ -102,7 +102,7 @@ class FenetreJeuLibre < View
 			boutonChiffre.signal_connect("clicked") do |widget|
 				@valeurSelectionnee = widget.label.to_i
 				
-				@grilleDessin.reset()
+				@grilleDessin.reset
 
 				@grilleDessin.memeValeurs(@valeurSelectionnee)
 				@grilleDessin.redessiner
@@ -122,6 +122,8 @@ class FenetreJeuLibre < View
 		boutonGomme.set_always_show_image (true)
 
 		boutonGomme.signal_connect("clicked") do
+			@grilleDessin.reset
+			@grilleDessin.redessiner
 			@valeurSelectionnee = nil
 			
 			@active.set_name("")
