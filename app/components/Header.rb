@@ -81,16 +81,12 @@ module Header
 	## @return     self
 	##
 	def Header.chrono()
-        
-        Fenetre::enteteFenetre.pack_end(@tempsLabel)
-        Fenetre::enteteFenetre.pack_end(@scoreLabel)
-		
-		GLib::Timeout.add(1000) {
-
-        	Header.addSecond
-        }
-
-        return self
+		Fenetre::enteteFenetre.pack_end(@tempsLabel)
+		Fenetre::enteteFenetre.pack_end(@scoreLabel)
+		GLib::Timeout.add(1000){
+			Header.addSecond
+		}
+		return self
 	end
 	
 	##
@@ -99,24 +95,20 @@ module Header
 	## @return     True
 	##
 	def Header.addSecond()
-
 		if(@pause == false)
 			@reste += 0.5
-
 			## Prend en compte un reste car Glib::Timeout 
 			## a une granularité de 1 seconde
 			if(@reste >= 1)
 				@reste -=1
-	        	@temps += 1
+				@temps += 1
 			end
-
-	        @tempsLabel.text = "Temps: " + Header.surDeuxChiffres(@temps / 60) + ":" + Header.surDeuxChiffres(@temps % 60)
-	        @score = @scoreModel.calcul(@penalite, @temps)
-	        @scoreLabel.text = "Score: " + @score.to_s
-	    end
-
-        return true;
-    end
+			@tempsLabel.text = "Temps: " + Header.surDeuxChiffres(@temps / 60) + ":" + Header.surDeuxChiffres(@temps % 60)
+			@score = @scoreModel.calcul(@penalite, @temps)
+			@scoreLabel.text = "Score: " + @score.to_s
+		end
+		return true;
+	end
 
     
     ##
@@ -129,5 +121,4 @@ module Header
     def Header.surDeuxChiffres(temps)
     	return temps.to_s.rjust(2, "0")
     end
-
 end

@@ -420,5 +420,5 @@ module Fenetre
         @boutonRetablir_barre.set_sensitive(true)
 
         return barreMenu
-end
+    end
 end
