@@ -19,7 +19,6 @@ class ApprentissageControleur < Controller
 		#charge le modele grille
 		loadModel("Grille")
 		loadModel("Configuration")
-		loadModel("Score")
 		loadModel("Jeu")
 		#parametres fenetre
 		@title  = "Sudoku - Apprentissage"

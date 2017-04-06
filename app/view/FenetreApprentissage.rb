@@ -43,7 +43,6 @@ class FenetreApprentissage < View
 	##
 	##
 	def initialize()
-		Header::chrono
 		@grilleDessin = nil
 		@scoreLabel   = nil
 
