@@ -81,16 +81,12 @@ module Header
 	## @return     self
 	##
 	def Header.chrono()
-        
-        Fenetre::enteteFenetre.pack_end(@tempsLabel)
-        Fenetre::enteteFenetre.pack_end(@scoreLabel)
-		
-		GLib::Timeout.add(1000) {
-
-        	Header.addSecond
-        }
-
-        return self
+		Fenetre::enteteFenetre.pack_end(@tempsLabel)
+		Fenetre::enteteFenetre.pack_end(@scoreLabel)
+		GLib::Timeout.add(1000){
+			Header.addSecond
+		}
+		return self
 	end
 	
 	##
@@ -129,5 +125,4 @@ module Header
     def Header.surDeuxChiffres(temps)
     	return temps.to_s.rjust(2, "0")
     end
-
 end
