@@ -12,7 +12,7 @@ class Score < Model
 						utilisateur integer,
 						FOREIGN KEY(utilisateur) REFERENCES utilisateur(utilisateur_id)
 						);"
-		@difficulte = 0
+		@difficulte = nil
 	end
 
 	##

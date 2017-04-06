@@ -43,7 +43,7 @@ class JeuLibreControleur < Controller
 		elsif(@content["grille"][x][y]["value"] != nil && value == nil)
 			@Grille.nbVides += 1
 		end
-		
+
 		@content["grille"][x][y]["value"] = value
 
 		return self
@@ -104,7 +104,7 @@ class JeuLibreControleur < Controller
 	##
 	def partieTerminee()
 		Header.pause = true
-		@Score.creer(@content["pseudo"], @content["difficulte"], Header.score)
+		@Score.creer(@content["pseudo"], @Score.difficulte, Header.score)
 	end
 
 	##
@@ -197,37 +197,32 @@ class JeuLibreControleur < Controller
 
 		## Reprends la grille dans son état (singleton pattern) si on viens
 		## d'une fenêtre par le biais d'un bouton retour 
-		if(@Grille.grille != nil)
+		if(@Grille.grille != nil && !@content.has_key?("charger"))
 			@content["grille"] = @Grille.grille
 
 		## Reprends les configurations d'un fichier
 		elsif(@content.has_key?("charger"))
 			donnees = @Jeu.chargerPartie(@content["pseudo"])
 
-			niveau             = donnees["niveau"]
-			Header.score       = donnees["score"]
-			Header.temps       = donnees["chrono"]
-			@content["grille"] = donnees["grille"]
-			@Grille.grille 	   = donnees["grille"]
+			@content["difficulte"] = donnees["niveau"]
+			Header.score           = donnees["score"]
+			Header.temps           = donnees["chrono"]
+			@content["grille"]     = donnees["grille"]
+			@Grille.grille         = donnees["grille"]
 
 		## Reggénère une grille
 		else
-
-			if(@content.has_key?("difficulte"))
-				niveau = @content["difficulte"]
-			else
-				niveau = 1
-			end
-			
-			@content["grille"] = @Grille.generer(niveau)
+			@content["grille"] = @Grille.generer(@content["difficulte"])
 		end
 		
 		@content["config"] = @Configuration.getConfiguration(@content["pseudo"])
-
-		if(niveau)
-			@Score.difficulte = niveau + 1
-		end
 		
+		if(@Score.difficulte == nil)
+			@Score.difficulte = @content["difficulte"] + 1
+		end
+
+		@Grille.countNbVides
+
 		return self
 	end
 end

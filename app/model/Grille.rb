@@ -34,6 +34,15 @@ class Grille < Model
     
         @grille  = @gen.generer()
 
+        return @grille
+    end
+
+    ##
+    ## Compte le nombre de cases vides
+    ##
+    ## @return     Nombre de cases vides.
+    ##
+    def countNbVides()
         @nbVides = 0
 
         @grille.each do |ligne|
@@ -43,8 +52,6 @@ class Grille < Model
                 end
             end
         end
-
-        return @grille
     end
 
     ##
