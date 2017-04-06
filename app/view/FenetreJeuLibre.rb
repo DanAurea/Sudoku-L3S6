@@ -29,10 +29,16 @@ class FenetreJeuLibre < View
 		Header::chrono
 
 		@menuBarre=Fenetre::creerBarreMenu()
+		
 		@boxMilieu = Gtk::Box.new(:horizontal, 0)
-		@boxGrille = Gtk::Box.new(:horizontal, 0)
+		@boxTechnique = Gtk::Box.new(:vertical, 0)
+		@boxGrille = Gtk::Box.new(:vertical, 0)
+		@boxChiffres = Gtk::Box.new(:horizontal, 5)
+
+		@boxChiffres.set_margin_top(10) 
+		@boxChiffres.set_margin_left(10) 
+
 		@grilleDessin = nil
-		@scoreLabel   = nil
 	end
 
 	def update(x, y, value)
@@ -45,7 +51,7 @@ class FenetreJeuLibre < View
 	## @return     Self
 	##
 	def creerGrille()
-		@grilleDessin = GrilleDessin.new(@grille)
+		@grilleDessin = GrilleDessin.new(@grille, @config)
 		@grilleDessin.add_observer(self)
 
 		return self
@@ -59,14 +65,56 @@ class FenetreJeuLibre < View
 		#barre de menu
 		gestionBarreMenu()
 
+		ligne   = 0
+		colonne = 0
+		
+		## Dessine les boutons chiffres
+		for i in 1..9
+			boutonChiffre = Gtk::Button.new(:label => i.to_s, :expand => false, :fill => false)
+
+			boutonChiffre.signal_connect("clicked") do |widget|
+				valeur = widget.label.to_i
+				coords = possibilites(valeur)
+
+				## Parcours les coordonnées des cases possibles
+				for coord in coords
+					x, y = coord[0], coord[1]
+					@grilleDessin.cases[x][y].nombre = valeur
+				end
+
+				@grilleDessin.redessiner
+			end
+
+			@boxChiffres.add(boutonChiffre)
+		end
+
 		#box grille
 		@boxGrille.add(@grilleDessin)
+		@boxGrille.add(@boxChiffres)
 
 		@boxMilieu.add(@boxGrille)
+		@boxMilieu.add(@boxTechnique)
 
 		#add a la box
 		Fenetre::box.add(@menuBarre)
 		Fenetre::box.add(@boxMilieu)
+	end
+
+
+	##
+	## Réinitialise la grille
+	##
+	## @return     self
+	##
+	def reinitialiser
+		for i in 0..8
+			for j in 0..8
+				if (@grilleDessin.cases[i][j].editable)
+					@grilleDessin.cases[i][j].nombre = nil
+					@grilleDessin.cases[i][j].indices = {"1" => false, "2" => false, "3" => false, "4" => false, "5" => false, "6" => false, "7" => false, "8" => false, "9" => false}
+				end
+			end
+		end
 	end
 
 	##
@@ -91,7 +139,11 @@ class FenetreJeuLibre < View
 			sauvegarder()
 		}
 		Fenetre::boutonReinit_barre.signal_connect('clicked'){
-			
+			# Réinitialise la grille (données)
+			@controller.reinitialiser
+			## Réinitialise la grille (affichage)
+			self.reinitialiser
+			@grilleDessin.redessiner
 		}
 		Fenetre::boutonQuitter_barre.signal_connect('clicked'){
 			messageQuestion = Fenetre::creerPopup("1/2: Voulez-vous vraiment abandonner la partie et quitter l'application?", "YES_NO")

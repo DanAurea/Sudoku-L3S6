@@ -4,7 +4,9 @@ require "observer"
 class GrilleDessin < Gtk::Grid
     include Observable
     
-    def initialize valeurs
+    attr_accessor :cases
+
+    def initialize valeurs, config
         
         super() 
 
@@ -21,7 +23,7 @@ class GrilleDessin < Gtk::Grid
             @cases[ligneIndex] = Array.new()
 
             ligne.each_with_index do |valeur, colonneIndex|
-                c = CaseDessin.new valeur
+                c = CaseDessin.new valeur, config
                 c.add_observer(self)
                 c.size = @size
                 
@@ -58,26 +60,18 @@ class GrilleDessin < Gtk::Grid
     end
 
     ##
-    ## Redessine la grille en mettant à jour les couleurs
+    ## Redessine la grille en mettant à jour les informations
     ##
-    ## @param      x     position x de la case sélectionnée
-    ## @param      y     position y de la case sélectionnée
-    ## @param      etat  L'état de la case
     ##
-    ## @return self
+    ## @return     self
     ##
-    def redessiner(x,y, etat)
+    def redessiner()
 
-        for i in 0..@nbCases - 1
-            for j in 0..@nbCases - 1
-                    @cases[x][j].state = etat
-                    @cases[x][j].redessiner
-                    @cases[i][y].state = etat
-                    @cases[i][y].redessiner
+        for i in 0..8
+            for j in 0..8
+                @cases[i][j].redessiner
             end
         end
-
-        self.colorierBloc(x, y, etat)
 
         return self
     end
@@ -141,7 +135,18 @@ class GrilleDessin < Gtk::Grid
     ## @return self
     ##
     def update(x, y, etat)
-        self.redessiner x,y, etat
+
+        for i in 0..@nbCases - 1
+            for j in 0..@nbCases - 1
+                    @cases[x][j].state = etat
+                    @cases[x][j].redessiner
+                    @cases[i][y].state = etat
+                    @cases[i][y].redessiner
+            end
+        end
+
+        self.colorierBloc(x, y, etat)
+
         return self
     end
 

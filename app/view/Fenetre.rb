@@ -339,7 +339,7 @@ module Fenetre
         
         @boutonRetour=Gtk::Button.new(:label => "Retour")
         @boutonRetour.set_margin(40)
-        @boutonRetour.signal_connect('clicked'){
+        @boutonRetour.signal_connect_after('clicked'){
             Core::back()
         }
 

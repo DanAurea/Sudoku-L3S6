@@ -1,38 +1,42 @@
 require "observer"
+require Core::ROOT + "model/Configuration.rb"
 
 class CaseDessin < Gtk::DrawingArea
     include Observable
 
-    attr_accessor :x, :y, :size, :taillePolice, :nombre, :indices, :indice, :state, :couleurCase, :couleurCaseFixe, :couleurIndices, :couleurPolice, :couleurSurlignee
+    attr_accessor :x, :y, :size, :taillePolice, :nombre, :editable, :indices, :indice, :state, :couleurCase, :couleurCaseFixe, :couleurIndices, :couleurPolice, :couleurSurlignee
 
-    def initialize valeur
+    def initialize valeur, config
 
         super()
         
+        @x = 0
+        @y = 0
+
         @nombre   = valeur["value"]
         @editable = valeur["editable"]
         @state    = ""
 
-        @indices  = nil
+        @indices  = {"1" => false, "2" => false, "3" => false, "4" => false, "5" => false, "6" => false, "7" => false, "8" => false, "9" => false}
         @indice   = false
 
-        ## Crée la zone de dessin au signal draw
-        signal_connect "draw" do  |_, cr|
-            dessiner cr
-        end
-
-        @x = 0
-        @y = 0
+        config = config
+        configurationModel = Configuration.instance()
 
         @taillePolice = 20
         @tailleIndices = @taillePolice / 2
 
         # Prend en compte la configuration utilisateur
-        @couleurCase       = Gdk::Color.new(65535, 65535, 65535)
-        @couleurCaseFixe   = Gdk::Color.new(61500, 61500, 61500)
-        @couleurIndices    = Gdk::Color.new(0, 0, 65535)
-        @couleurPolice     = Gdk::Color.new(0, 0, 0)
-        @couleurSurlignee  = Gdk::Color.new(0, 50000, 50000)
+        @couleurCase       = configurationModel.creerCouleur(config["caseBase"])
+        @couleurCaseFixe   = configurationModel.creerCouleur(config["caseFixe"])
+        @couleurIndices    = configurationModel.creerCouleur(config["couleurIndices"])
+        @couleurPolice     = configurationModel.creerCouleur(config["couleurTexte"])
+        @couleurSurlignee  = configurationModel.creerCouleur(config["caseSelectionne"])
+
+        ## Crée la zone de dessin au signal draw
+        signal_connect "draw" do  |_, cr|
+            dessiner cr
+        end
 
         if(@editable == true)
             ## Ajoute les évènement de survol et de clics

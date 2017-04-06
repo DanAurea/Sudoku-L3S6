@@ -12,7 +12,7 @@
 class Configuration < Model
 	
 	CL_CASE_BASE        = "65535, 65535, 65535"
-	CL_CASE_FIXE        = "61500, 61500, 61500"
+	CL_CASE_FIXE        = "55000, 55000, 55000"
 	CL_CASE_SELECTIONNE = "0, 50000, 50000"
 	CL_INDICES          = "0, 32000, 65535"
 	CL_TEXTE			= "0, 0, 0"
@@ -81,6 +81,39 @@ class Configuration < Model
 
 		return self.to_h(req)[0]
 	end
+
+	##
+    ## Convertis un gdk color en composantes
+    ##              sous forme d'une chaîne séparée par une virgule
+    ##
+    ## @param      gdkColor GDK::Color
+    ##
+    ## @return     Les composantes sous forme de chaîne
+    ##
+    def couleur(gdkColor)
+        red = gdkColor.red
+        green = gdkColor.green
+        blue = gdkColor.blue
+
+        return "#{red},#{green},#{blue}"
+    end
+
+	##
+    ## Crée unn gdk color à partir d'une chaîne
+    ##
+    ## @param      composantes  Composantes ("r,g,b")
+    ##
+    ## @return     Gdk::Color
+    ##
+    def creerCouleur(composantes)
+    	rgb = composantes.split(",")
+    	
+    	red = rgb[0].to_i
+    	green = rgb[1].to_i
+    	blue = rgb[2].to_i
+
+    	return Gdk::Color.new(red, green, blue)
+    end
 
 	##
 	##  Crée une configuration par défaut pour l'utilisateur

@@ -48,11 +48,7 @@ class ReglagesControleur < Controller
     ## @return     Les composantes sous forme de chaîne
     ##
     def couleur(gdkColor)
-        red = gdkColor.red
-        green = gdkColor.green
-        blue = gdkColor.blue
-
-        return "#{red},#{green},#{blue}"
+        return @Configuration.couleur(gdkColor)
     end
 
 
@@ -64,13 +60,7 @@ class ReglagesControleur < Controller
     ## @return     Gdk::Color
     ##
     def creerCouleur(composantes)
-    	rgb = composantes.split(",")
-    	
-    	red = rgb[0].to_i
-    	green = rgb[1].to_i
-    	blue = rgb[2].to_i
-
-    	return Gdk::Color.new(red, green, blue)
+    	return @Configuration.creerCouleur(composantes)
     end
 
 	##
