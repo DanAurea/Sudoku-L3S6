@@ -109,6 +109,6 @@ class Utilisateur < Model
 	## @return     Retourne true si une partie est en cours
 	##
 	def partieUtilisateur?(pseudo)
-		return File.exist?("assets/save"+pseudo)
+		return File.exist?(Core::ROOTPROJECT + "assets/save/" + pseudo + ".yml")
 	end
 end
