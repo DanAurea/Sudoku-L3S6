@@ -409,6 +409,16 @@ module Fenetre
         barreMenu.insert(@boutonAnnuler_barre,8)
         barreMenu.insert(@boutonRetablir_barre,9)
 
+        #enabled
+        @boutonMenu_barre.set_sensitive(true)
+        @boutonSauvegarder_barre.set_sensitive(true)
+        @boutonReinit_barre.set_sensitive(true)
+        @boutonQuitter_barre.set_sensitive(true)
+        @boutonPauseChrono_barre.set_sensitive(true)
+        @boutonPlayChrono_barre.set_sensitive(true)
+        @boutonAnnuler_barre.set_sensitive(true)
+        @boutonRetablir_barre.set_sensitive(true)
+
         return barreMenu
 end
 end

@@ -164,6 +164,7 @@ class FenetreJeuLibre < View
 		colonne = 0
 
 		boutonIndices = Gtk::Button.new(:label => "Désactiver indices")
+		boutonIndices.override_color(:normal, Fenetre::COULEUR_BLANC)
 
 		boutonIndices.signal_connect("clicked"){
 			if(@grilleDessin.indices? == true)
@@ -173,6 +174,7 @@ class FenetreJeuLibre < View
 			 	@grilleDessin.indices = true
 			 	boutonIndices.label = "Désactiver indices"
 			end
+			boutonIndices.override_color(:normal, Fenetre::COULEUR_BLANC)
 
 			@grilleDessin.redessiner
 		}
@@ -254,11 +256,12 @@ class FenetreJeuLibre < View
 			Header::pause = false
 		}
 		Fenetre::boutonAnnuler_barre.signal_connect('clicked'){
-
 		}
 		Fenetre::boutonRetablir_barre.signal_connect('clicked'){
-
 		}
+		#disabled
+		Fenetre::boutonAnnuler_barre.set_sensitive(false)
+		Fenetre::boutonRetablir_barre.set_sensitive(false)
 	end
 
 	##

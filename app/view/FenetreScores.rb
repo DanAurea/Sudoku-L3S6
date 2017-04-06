@@ -12,6 +12,7 @@ class FenetreScores < View
     # VI box
     @boxTop
     @boxBottom  
+    @tableScore
     # VI label
     @titreLabel
     @labelPosition
@@ -27,6 +28,7 @@ class FenetreScores < View
         # VI box
         @boxTop = Gtk::Box.new(:vertical,0)
         @boxBottom = Fenetre::creerBoxBottom()
+        @tableScore=Gtk::Table.new(3,11,false)
         # VI label
         @titreLabel = Fenetre::creerLabelType("<u>Meilleurs Scores</u>", Fenetre::SIZE_TITRE)
         @labelPosition = Fenetre::creerLabelType("<u>Position</u>", Fenetre::SIZE_TITRE_SCORE)
@@ -54,12 +56,17 @@ class FenetreScores < View
     def creerBoxTop()
 		#Action des boutons
         #Conteneur box
-        tableScore=Gtk::Table.new(3,11,false)
-        tableScore.attach(@labelPosition,0,1,0,1)
-        tableScore.attach(@labelNom,1,2,0,1)
-        tableScore.attach(@labelPoint,2,3,0,1)
+        @tableScore.attach(@labelPosition,0,1,0,1)
+        @tableScore.attach(@labelNom,1,2,0,1)
+        @tableScore.attach(@labelPoint,2,3,0,1)
 
         @tabScore = @meilleursScores
+        if @tabScore.size() < 10
+            nbAjout= @tabScore.size()+1
+            (nbAjout..10).each{ |i|
+                @tabScore<<["---","0"]
+            }
+        end
 
         @tabScore.each_with_index{|tab,index|
             id=index+1
@@ -72,14 +79,15 @@ class FenetreScores < View
             pts=Fenetre::creerLabelType("#{tab[1]}", Fenetre::SIZE_CONTENU_SCORE)
             pts.override_color(:normal, Fenetre::COULEUR_BLANC)
             pts.set_margin_top(10)
-            tableScore.attach(pos,0,1,id,id+1)
-            tableScore.attach(nom,1,2,id,id+1)
-            tableScore.attach(pts,2,3,id,id+1)
+            @tableScore.attach(pos,0,1,id,id+1)
+            @tableScore.attach(nom,1,2,id,id+1)
+            @tableScore.attach(pts,2,3,id,id+1)
         }
+
 
         #add des boutons à la box
         @boxTop.add(@titreLabel)
-        @boxTop.add(tableScore)
+        @boxTop.add(@tableScore)
     end
 
     ##

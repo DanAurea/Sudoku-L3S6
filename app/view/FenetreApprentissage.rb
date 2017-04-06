@@ -43,7 +43,6 @@ class FenetreApprentissage < View
 	##
 	##
 	def initialize()
-		Header::chrono
 		@grilleDessin = nil
 		@scoreLabel   = nil
 
@@ -148,6 +147,12 @@ class FenetreApprentissage < View
 		}
 		Fenetre::boutonRetablir_barre.signal_connect('clicked'){
 		}
+
+		#disabled
+		Fenetre::boutonSauvegarder_barre.set_sensitive(false)
+		Fenetre::boutonReinit_barre.set_sensitive(false)
+		Fenetre::boutonAnnuler_barre.set_sensitive(false)
+		Fenetre::boutonRetablir_barre.set_sensitive(false)
 	end
 
 	##

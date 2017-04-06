@@ -39,7 +39,7 @@ class SCell < Technique
 
 
 	##
-	## Retourne le nombre d'étape pour faire la téchnique
+	## Retourne le nombre d'étape pour faire la technique
 	##
 	## @return     Le nombre d'étape(s)
 	##
@@ -48,9 +48,9 @@ class SCell < Technique
 	end
 
 	##
-	## Retourne les étapes pour faire la téchnique
+	## Retourne les étapes pour faire la technique
 	##
-	## @param      n     Le numéro de la tachnique
+	## @param      n     Le numéro de la technique
 	##
 	## @return     Un text expliquant l'étape sinon
 	##
