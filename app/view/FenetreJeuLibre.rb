@@ -252,11 +252,12 @@ class FenetreJeuLibre < View
 			Header::pause = false
 		}
 		Fenetre::boutonAnnuler_barre.signal_connect('clicked'){
-
 		}
 		Fenetre::boutonRetablir_barre.signal_connect('clicked'){
-
 		}
+		#disabled
+		Fenetre::boutonAnnuler_barre.set_sensitive(false)
+		Fenetre::boutonRetablir_barre.set_sensitive(false)
 	end
 
 	##
