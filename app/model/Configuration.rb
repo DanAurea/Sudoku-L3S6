@@ -61,7 +61,7 @@ class Configuration < Model
 		params[:utilisateur]     = utilisateur_id[0][0]
 
 		if(req.length > 0)
-			@@db.execute "DELETE FROM configuration WHERE utilisateur = ?", utilisateur_id
+			@@db.execute "DELETE FROM configuration WHERE utilisateur = ?", utilisateur_id[0][0]
 		end
 		
 		insert(params)
@@ -78,6 +78,13 @@ class Configuration < Model
 		utilisateur_id =  @@db.execute "SELECT utilisateur_id FROM utilisateur WHERE pseudo=?", pseudo
 
 		req = @@db.execute2 "SELECT caseBase, caseFixe, caseSelectionne, couleurTexte, couleurIndices, taillePolice, police FROM configuration WHERE utilisateur=?", utilisateur_id
+
+		## Pas de configuration trouvé donc on en
+		## crée une
+		if(req .length== 1)
+			self.creerConfiguration(pseudo)
+			req = @@db.execute2 "SELECT caseBase, caseFixe, caseSelectionne, couleurTexte, couleurIndices, taillePolice, police FROM configuration WHERE utilisateur=?", utilisateur_id
+		end
 
 		return self.to_h(req)[0]
 	end

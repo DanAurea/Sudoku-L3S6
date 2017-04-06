@@ -76,9 +76,17 @@ class JeuLibreControleur < Controller
 	## @return
 	##
 	def finPartie?()
-		return @Grille.nbVides == 0  && self.grilleCorrecte()
+		return self.getNbVides == 0  && self.grilleCorrecte()
 	end
 
+	##
+	## Récupère le nombre de cases encore vides
+	##
+	## @return     Nombre de cases vides
+	##
+	def getNbVides()
+		return @Grille.nbVides
+	end
 
 	##
 	## Récupère seulement les valeurs de la grille

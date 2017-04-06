@@ -74,7 +74,25 @@ class Utilisateur < Model
 	def supprimerUtilisateur(pseudo)
 		@@db.execute "DELETE FROM utilisateur WHERE pseudo = ?;", pseudo
 	end
-	
+
+	##
+	## Supprime tout les scores de l'utilisateur
+	##
+	## @param      pseudo  Pseudo de l'utilisateur
+	##
+	##
+	def reinitialiserUtilisateur(pseudo)
+		## Récupère id utilisateur
+		req = @@db.execute "SELECT utilisateur_id FROM utilisateur WHERE pseudo= ?", pseudo
+
+		utilisateur_id = req[0][0][0]
+
+		if(req.length > 0)
+			@@db.execute "DELETE FROM score WHERE utilisateur= ?", utilisateur_id
+			@@db.execute "DELETE FROM configuration WHERE utilisateur = ?", utilisateur_id
+			@configuration.creerConfiguration(pseudo)
+		end
+	end
 
 	##
 	## @brief      Recherche un utilisateur dans la bdd

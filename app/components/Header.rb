@@ -67,6 +67,17 @@ module Header
 		return @temps
 	end
 
+
+	##
+	## Ajoute une pénalité
+	##
+	## @return     self
+	##
+	def Header.penalite()
+		@penalite += 1
+		return self
+	end
+
 	##
 	## Définis un mutateur pour le temps
 	##

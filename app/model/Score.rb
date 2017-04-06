@@ -44,6 +44,8 @@ class Score < Model
 	## Crée un score dans la table score pour l'utilisateur
 	##
 	## @param      pseudo  Le pseudo utilisateur
+	## @param      niveau  Niveau de difficulté de la partie
+	## @param      score   Score
 	##
 	## @return     Self
 	##
@@ -59,7 +61,9 @@ class Score < Model
 	##
 	## Met à jour le score d'un utilisateur
 	##
-	## @return     { description_of_the_return_value }
+	## @param      score_id  Id du score
+	## @param      score     Score
+	##
 	##
 	def mettreAJour(score_id, score)
 		@@db.execute "UPDATE score SET score= ? WHERE score_id = ?", score, score_id

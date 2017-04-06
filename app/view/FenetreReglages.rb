@@ -113,7 +113,8 @@ class FenetreReglages < View
 
         #Action des boutons
         @boutonReset.signal_connect('clicked'){
-           puts "000"
+           resetUtilisateur()
+           Core::back()
         }
 
         #add des boutons

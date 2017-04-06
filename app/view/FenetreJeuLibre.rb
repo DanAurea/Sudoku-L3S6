@@ -43,7 +43,6 @@ class FenetreJeuLibre < View
 		@grilleDessin = nil
 	end
 
-
 	##
 	## Met à jour suite à la notification de la grille
 	##
@@ -63,6 +62,21 @@ class FenetreJeuLibre < View
 
 		if(finPartie?())
 			partieTerminee()
+
+			mess = Fenetre::creerPopup("Bravo partie terminée !", "CLOSE")
+			
+			if(mess.run() == Gtk::ResponseType::CLOSE)
+				Core::changeTo("Menu", :pseudo => @pseudo)
+			end
+
+			mess.destroy()
+		elsif(getNbVides == 0)
+			
+			Header.penalite()
+
+			mess = Fenetre::creerPopup("Erreur sur la grille !", "CLOSE")
+			mess.run()
+			mess.destroy()
 		end
 
 		return self
@@ -216,7 +230,7 @@ class FenetreJeuLibre < View
 	##
 	def gestionBarreMenu()
 		Fenetre::boutonMenu_barre.signal_connect('clicked'){
-			messageQuestion = Fenetre::creerPopup("1/2: Voulez-vous vraiment abandonner la partie et revenir au menu principal?", "YES_NO")
+			messageQuestion = Fenetre::creerPopup("1/2: Voulez-vous vraiment abandonner la partie et revenir au menu principal ?", "YES_NO")
 		    if(messageQuestion.run() == Gtk::ResponseType::YES)
 		    	messageQuestion2 = Fenetre::creerPopup("2/2: Voulez-vous sauvegarder la partie actuelle?", "YES_NO")
 		    	if(messageQuestion2.run() == Gtk::ResponseType::YES)
@@ -253,10 +267,12 @@ class FenetreJeuLibre < View
 		}
 		Fenetre::boutonPauseChrono_barre.signal_connect('clicked'){
 			Header::pause = true
+
 		}
 		Fenetre::boutonPlayChrono_barre.signal_connect('clicked'){
 			Header::pause = false
 		}
+		
 		Fenetre::boutonAnnuler_barre.signal_connect('clicked'){
 		}
 		Fenetre::boutonRetablir_barre.signal_connect('clicked'){

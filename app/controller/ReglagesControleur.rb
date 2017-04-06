@@ -40,6 +40,16 @@ class ReglagesControleur < Controller
 		return self
 	end
 
+
+	##
+	## Réinitialise l'utilisateur avec les configurations par défaut
+	##
+	## @return     { description_of_the_return_value }
+	##
+	def resetUtilisateur()
+		@Utilisateur.reinitialiserUtilisateur(@content["pseudo"])
+	end
+
 	##
     ## @brief      Convertis un gdk color en composantes
     ##              sous forme d'une chaîne séparée par une virgule
