@@ -13,7 +13,7 @@ require Core::ROOT + "utils/Generateur.rb"
 
 class Grille < Model
 
-    attr_accessor :nbVides
+    attr_accessor :nbVides, :grille
 
     def initialize()
         @grille = nil

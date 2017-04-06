@@ -94,7 +94,6 @@ class JeuLibreControleur < Controller
 			end
 		end
 
-		puts grille
 	end
 
 	##
@@ -196,14 +195,22 @@ class JeuLibreControleur < Controller
     ##
 	def run()
 
-		if(@content.has_key?("charger"))
+		## Reprends la grille dans son état (singleton pattern) si on viens
+		## d'une fenêtre par le biais d'un bouton retour 
+		if(@Grille.grille != nil)
+			@content["grille"] = @Grille.grille
+
+		## Reprends les configurations d'un fichier
+		elsif(@content.has_key?("charger"))
 			donnees = @Jeu.chargerPartie(@content["pseudo"])
 
 			niveau             = donnees["niveau"]
 			Header.score       = donnees["score"]
 			Header.temps       = donnees["chrono"]
 			@content["grille"] = donnees["grille"]
+			@Grille.grille 	   = donnees["grille"]
 
+		## Reggénère une grille
 		else
 
 			if(@content.has_key?("difficulte"))
@@ -217,8 +224,10 @@ class JeuLibreControleur < Controller
 		
 		@content["config"] = @Configuration.getConfiguration(@content["pseudo"])
 
-		@Score.difficulte = niveau + 1
-
+		if(niveau)
+			@Score.difficulte = niveau + 1
+		end
+		
 		return self
 	end
 end

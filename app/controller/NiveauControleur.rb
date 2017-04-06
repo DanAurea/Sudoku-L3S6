@@ -16,6 +16,7 @@ class NiveauControleur < Controller
 		#charge le modele utilisateur
 		loadModel("Utilisateur")
 		loadModel("Jeu")
+		loadModel("Grille")
 
 		#parametres fenetre
 		@title = "Sudoku - Choix difficulté"
@@ -37,6 +38,7 @@ class NiveauControleur < Controller
 		if(@Utilisateur.partieUtilisateur?(pseudo))
 			@Jeu.supprimerPartie(pseudo)
 		end
+		@Grille.grille = nil
 
 		return self
 	end

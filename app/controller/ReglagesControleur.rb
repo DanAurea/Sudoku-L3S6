@@ -71,7 +71,6 @@ class ReglagesControleur < Controller
     ##
 	def run()
 		@content["config"] = @Configuration.getConfiguration(@content["pseudo"])
-		puts @content
 
 		return self
 	end
