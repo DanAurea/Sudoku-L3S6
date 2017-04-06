@@ -23,7 +23,8 @@ class CaseDessin < Gtk::DrawingArea
         config = config
         configurationModel = Configuration.instance()
 
-        @taillePolice = 20
+        @police        = config["police"]
+        @taillePolice  = config["taillePolice"]
         @tailleIndices = @taillePolice / 2
 
         # Prend en compte la configuration utilisateur
@@ -332,7 +333,7 @@ class CaseDessin < Gtk::DrawingArea
     ##
     def dessinerChiffre cr
         ## Définis les caractéristiques du texte
-        cr.select_font_face "Arial", 
+        cr.select_font_face @police, 
             Cairo::FONT_SLANT_NORMAL, Cairo::FONT_WEIGHT_NORMAL
         cr.set_font_size @taillePolice
 
@@ -347,11 +348,7 @@ class CaseDessin < Gtk::DrawingArea
     ##
     ## 
     ##
-    def dessinerIndices cr
-        ## Définis les caractéristiques du texte
-        cr.select_font_face "Arial", 
-            Cairo::FONT_SLANT_NORMAL, Cairo::FONT_WEIGHT_NORMAL
-        
+    def dessinerIndices cr        
         cr.set_font_size @tailleIndices
 
         col = 1
