@@ -13,6 +13,9 @@ require Core::ROOT + "utils/Generateur.rb"
 
 class Grille < Model
 
+    attr_accessor :nbVides
+    attr_reader :grilleComplete
+
     def initialize()
         @grille = nil
     end
@@ -28,9 +31,20 @@ class Grille < Model
     def generer(niveau)
         # Niveau + 1 car constante de 0 à 2 passée en paramètre
         
-        @gen = Generateur.new(niveau + 1)
-        @grille = @gen.generer()
-        
+        @gen     = Generateur.new(niveau + 1)
+        @grille  = @gen.generer()
+        @grilleComplete = @gen.grilleComplete
+
+        @nbVides = 0
+
+        @grille.each do |ligne|
+            ligne.each do |c|
+                if( c["value"] == nil)
+                    @nbVides += 1
+                end
+            end
+        end
+
         return @grille
     end
 

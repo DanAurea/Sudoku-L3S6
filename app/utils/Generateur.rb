@@ -20,7 +20,7 @@ class Generateur
 	@grid
 	@difficulte
 
-	attr_reader :grid, :difficulte
+	attr_reader :grid, :grilleComplete, :difficulte
 
 	##
 	## @brief initialise grid une list de list de nombres.
@@ -62,6 +62,8 @@ class Generateur
 			switchrow(5-a, 5-b)
 			switchcol(8-a, 8-b)
 		end
+
+		@grilleComplete = @grid.clone()
 
 		complexifier()
 	end

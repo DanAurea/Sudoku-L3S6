@@ -54,12 +54,16 @@ class FenetreJeuLibre < View
 	##
 	def update(x, y)
 		updateGrille(x, y, @valeurSelectionnee)
-		
+
 		@grilleDessin.cases[x][y].nombre = @valeurSelectionnee
 		
 		self.resetIndices
 		self.candidats
 		@grilleDessin.redessiner
+
+		if(finPartie?())
+			partieTerminee()
+		end
 
 		return self
 	end
