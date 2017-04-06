@@ -14,7 +14,9 @@ class GrilleDessin < Gtk::Grid
              
         @nbCases     = 9
         @cases       = Array.new(@nbCases)
-        
+            
+        @indices = false
+
         set_margin_top(10);
         set_margin_left(10);
         
@@ -38,6 +40,34 @@ class GrilleDessin < Gtk::Grid
 
     end
 
+    ##
+    ## Définis l'état visuel des indices
+    ##
+    ## @return     self
+    ##
+    def indices= bool
+
+        @indices = bool
+        
+        for i in 0..8
+            for j in 0..8
+                @cases[i][j].indice = bool
+            end
+        end
+
+        self.redessiner
+
+        return self
+    end
+
+    ##
+    ## Renvoie l'état visuel des indices
+    ##
+    ## @return     true si affiché sinon false 
+    ##
+    def indices?
+        return @indices
+    end
 
     ##
     ## Limite le dépassement de valeur d'une couleur 16 bits

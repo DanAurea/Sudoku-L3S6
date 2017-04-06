@@ -351,7 +351,7 @@ class CaseDessin < Gtk::DrawingArea
             
             if(value == true)
                 extents = cr.text_extents key
-                cr.move_to (col * @size / 4) - extents.width / 2 , (lig * @size / 3) - extents.height
+                cr.move_to (col * @size / 4) - extents.width / 2 , (lig * @size / 3) - extents.height / 2
                 ## Déplace le curseur de texte au centre de la case
                 cr.show_text key
             end

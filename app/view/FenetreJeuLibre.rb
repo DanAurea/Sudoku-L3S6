@@ -54,6 +54,30 @@ class FenetreJeuLibre < View
 		@grilleDessin = GrilleDessin.new(@grille, @config)
 		@grilleDessin.add_observer(self)
 
+		self.candidats
+		@grilleDessin.indices = true
+
+		return self
+	end
+
+	##
+	## Récupére les candidats et les définis pour l'affichage
+	##
+	## @return     self
+	##
+	def candidats
+		listeCandidats = getCandidats
+
+		## Affiche les candidats en parcourant ce qui a été calculé
+		## pour chaque chiffre.
+		listeCandidats.each do |key, candidats|
+
+			candidats.each do |value| 
+				x, y = value[0], value[1]
+				@grilleDessin.cases[x][y].indices[key.to_s] = true
+			end
+		end
+		
 		return self
 	end
 
@@ -74,23 +98,26 @@ class FenetreJeuLibre < View
 
 			boutonChiffre.signal_connect("clicked") do |widget|
 				valeur = widget.label.to_i
-				coords = possibilites(valeur)
-
-				## Parcours les coordonnées des cases possibles
-				for coord in coords
-					x, y = coord[0], coord[1]
-					@grilleDessin.cases[x][y].nombre = valeur
-				end
-
 				@grilleDessin.redessiner
 			end
 
 			@boxChiffres.add(boutonChiffre)
 		end
 
+		boutonIndices = Gtk::Button.new(:label => "Indices")
+		
+		boutonIndices.signal_connect("clicked"){
+			if(@grilleDessin.indices? == true)
+			 	@grilleDessin.indices = false
+			else
+			 	@grilleDessin.indices = true
+			end
+		}
+
 		#box grille
 		@boxGrille.add(@grilleDessin)
 		@boxGrille.add(@boxChiffres)
+		@boxGrille.add(boutonIndices)
 
 		@boxMilieu.add(@boxGrille)
 		@boxMilieu.add(@boxTechnique)
@@ -99,7 +126,6 @@ class FenetreJeuLibre < View
 		Fenetre::box.add(@menuBarre)
 		Fenetre::box.add(@boxMilieu)
 	end
-
 
 	##
 	## Réinitialise la grille

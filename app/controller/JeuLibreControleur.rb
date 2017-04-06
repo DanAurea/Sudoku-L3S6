@@ -91,6 +91,24 @@ class JeuLibreControleur < Controller
 		return self
 	end
 
+
+	##
+	## Calcule les candidats possibles pour chaque case
+	##
+	## @return     Hash de tableau avec coordonnées des possibilités 
+	## 				pour chaque chiffre
+	##
+	def getCandidats
+
+		candidats = Hash.new()
+
+		for i in 1..9
+			candidats[i.to_s] = possibilites(i)
+		end
+
+		return candidats
+	end
+
 	##
     ## Méthode à définir dans tout les cas !
     ##
