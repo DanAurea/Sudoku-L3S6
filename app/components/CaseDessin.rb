@@ -21,18 +21,18 @@ class CaseDessin < Gtk::DrawingArea
         @indice   = false
 
         config = config
-        configurationModel = Configuration.instance()
+        @configurationModel = Configuration.instance()
 
         @police        = config["police"]
         @taillePolice  = config["taillePolice"]
         @tailleIndices = @taillePolice / 2
 
         # Prend en compte la configuration utilisateur
-        @couleurCase       = configurationModel.creerCouleur(config["caseBase"])
-        @couleurCaseFixe   = configurationModel.creerCouleur(config["caseFixe"])
-        @couleurIndices    = configurationModel.creerCouleur(config["couleurIndices"])
-        @couleurPolice     = configurationModel.creerCouleur(config["couleurTexte"])
-        @couleurSurlignee  = configurationModel.creerCouleur(config["caseSelectionne"])
+        @couleurCase       = @configurationModel.creerCouleur(config["caseBase"])
+        @couleurCaseFixe   = @configurationModel.creerCouleur(config["caseFixe"])
+        @couleurIndices    = @configurationModel.creerCouleur(config["couleurIndices"])
+        @couleurPolice     = @configurationModel.creerCouleur(config["couleurTexte"])
+        @couleurSurlignee  = @configurationModel.creerCouleur(config["caseSelectionne"])
 
         ## Crée la zone de dessin au signal draw
         signal_connect "draw" do  |_, cr|
@@ -107,6 +107,16 @@ class CaseDessin < Gtk::DrawingArea
         return self
     end
 
+    ##
+    ## Définis l'état en prenant en compte des priorités
+    ##
+    ## @return     State
+    ##
+    def set_state=(etat)
+        if(@state != "equal")
+            @state = etat
+        end
+    end
 
     ##
     ## Action lors de la sortie du curseur de la case
@@ -204,6 +214,13 @@ class CaseDessin < Gtk::DrawingArea
             cr.set_source_color @couleurCase
         elsif(@state == "focus" || @state == "hover")
             cr.set_source_color @couleurSurlignee
+        elsif(@state == "equal")
+
+            rouge, vert, bleu  = @couleurSurlignee.red * 0.7, @couleurSurlignee.green * 0.7, @couleurSurlignee.blue * 0.7
+            composantes = [rouge, vert, bleu].join(",")
+
+            cr.set_source_color @configurationModel.creerCouleur(composantes)
+
         else
             cr.set_source_color @couleurCaseFixe
         end
@@ -218,7 +235,7 @@ class CaseDessin < Gtk::DrawingArea
     ## @return self
     ##
     def couleurPolice cr
-        if(@indice == false || !@editable || @nombre != nil) 
+        if((@indice == false || !@editable || @nombre != nil)) 
             cr.set_source_color @couleurPolice
         else
             cr.set_source_color @couleurIndices
@@ -226,13 +243,6 @@ class CaseDessin < Gtk::DrawingArea
 
         return self
     end
-
-    # def mettreAJour(valeur)
-    #     changed
-    #     @nombre = valeur
-
-    #     notify_observers(self)
-    # end
 
     def redessiner()
         self.queue_draw

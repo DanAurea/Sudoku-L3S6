@@ -52,6 +52,7 @@ class FenetreJeuLibre < View
 	## @return     self
 	##
 	def update(x, y)
+		@grilleDessin.reset()
 		updateGrille(x, y, @valeurSelectionnee)
 
 		@grilleDessin.cases[x][y].nombre = @valeurSelectionnee
@@ -100,6 +101,12 @@ class FenetreJeuLibre < View
 
 			boutonChiffre.signal_connect("clicked") do |widget|
 				@valeurSelectionnee = widget.label.to_i
+				
+				@grilleDessin.reset()
+
+				@grilleDessin.memeValeurs(@valeurSelectionnee)
+				@grilleDessin.redessiner
+				
 				@active.set_name("")
 				@active = widget
 				@active.set_name("active")
@@ -107,7 +114,6 @@ class FenetreJeuLibre < View
 
 			@boxChiffres.add(boutonChiffre)
 		end
-
 
 		img = Gtk::Image.new(:file => Core::ROOTPROJECT + "assets/img/eraser.png")
 		boutonGomme = Gtk::Button.new(:label => "")

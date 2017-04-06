@@ -48,6 +48,17 @@ module Header
 	end
 
 	##
+	## Définis accesseur sur l'état du jeu
+	##
+	## @param      Booléen de l'état
+	##
+	## @return     L'état de la pause
+	##
+	def Header.pause() 
+		return @pause
+	end
+
+	##
 	## Définis l'état de la pause
 	##
 	## @param      Booléen de l'état
@@ -66,7 +77,6 @@ module Header
 	def Header.temps()
 		return @temps
 	end
-
 
 	##
 	## Ajoute une pénalité

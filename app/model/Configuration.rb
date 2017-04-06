@@ -88,6 +88,26 @@ class Configuration < Model
 
 		return self.to_h(req)[0]
 	end
+	
+	##
+    ## Limite le dépassement de valeur d'une couleur 16 bits
+    ##
+    ## @param      couleur  La couleur à vérifier
+    ##
+    ## @return     La couleur limitée à la borne si dépassement sinon la couleur elle même
+    ##
+    def verifierCouleur(couleur)
+        max = 65535
+        min = 0
+
+        if(couleur >  max)
+            couleur = max
+        elsif(couleur < 0)
+            couleur = min
+        end
+
+        return couleur
+    end
 
 	##
     ## Convertis un gdk color en composantes
@@ -106,7 +126,7 @@ class Configuration < Model
     end
 
 	##
-    ## Crée unn gdk color à partir d'une chaîne
+    ## Crée un gdk color à partir d'une chaîne
     ##
     ## @param      composantes  Composantes ("r,g,b")
     ##
@@ -115,9 +135,9 @@ class Configuration < Model
     def creerCouleur(composantes)
     	rgb = composantes.split(",")
     	
-    	red = rgb[0].to_i
-    	green = rgb[1].to_i
-    	blue = rgb[2].to_i
+    	red = self.verifierCouleur(rgb[0].to_i)
+    	green = self.verifierCouleur(rgb[1].to_i)
+    	blue = self.verifierCouleur(rgb[2].to_i)
 
     	return Gdk::Color.new(red, green, blue)
     end

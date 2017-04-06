@@ -50,7 +50,6 @@ class JeuLibreControleur < Controller
 		return self
 	end
 
-
 	##
 	## Vérifie que la grille est correcte
 	##

@@ -81,26 +81,6 @@ class GrilleDessin < Gtk::Grid
     end
 
     ##
-    ## Limite le dépassement de valeur d'une couleur 16 bits
-    ##
-    ## @param      couleur  La couleur à vérifier
-    ##
-    ## @return     La couleur limitée à la borne si dépassement sinon la couleur elle même
-    ##
-    def verifierCouleur(couleur)
-        max = 65535
-        min = 0
-
-        if(couleur >  max)
-            couleur = max
-        elsif(couleur < 0)
-            couleur = min
-        end
-
-        return couleur
-    end
-
-    ##
     ## Redessine la grille en mettant à jour les informations
     ##
     ##
@@ -115,6 +95,36 @@ class GrilleDessin < Gtk::Grid
         end
 
         return self
+    end
+
+    ##
+    ## Réinitialisé l'état de toutes les cases
+    ##
+    ## @return     self
+    ##
+    def reset()
+        for i in 0..8
+            for j in 0..8
+                @cases[i][j].state = ""
+            end
+        end
+    end
+
+    ##
+    ## Affiche les valeurs identiques en une couleur différentes
+    ##
+    ## @param      valeur  La valeur à comparer
+    ##
+    ## @return     self
+    ##
+    def memeValeurs(valeur)
+        for i in 0..8
+            for j in 0..8
+                if(@cases[i][j].nombre == valeur)
+                    @cases[i][j].state = "equal"
+                end
+            end
+        end
     end
 
     ##
@@ -142,23 +152,23 @@ class GrilleDessin < Gtk::Grid
             end
         end
 
-         ## Coefficient pour éclaircir
-        coeff = 1.3
+        #  ## Coefficient pour éclaircir
+        # coeff = 1.3
 
-        couleurSurlignee = @cases[x][y].couleurSurlignee
-        rouge, vert, bleu = couleurSurlignee.red * coeff, couleurSurlignee.green * coeff, couleurSurlignee.blue * coeff
+        # couleurSurlignee = @cases[x][y].couleurSurlignee
+        # rouge, vert, bleu = couleurSurlignee.red * coeff, couleurSurlignee.green * coeff, couleurSurlignee.blue * coeff
 
-        rouge = self.verifierCouleur(rouge)
-        vert =self.verifierCouleur(vert)
-        bleu =self.verifierCouleur(bleu)
+        # rouge = self.verifierCouleur(rouge)
+        # vert =self.verifierCouleur(vert)
+        # bleu =self.verifierCouleur(bleu)
 
-        couleurBloc = Gdk::Color.new(rouge, vert, bleu)
+        # couleurBloc = Gdk::Color.new(rouge, vert, bleu)
 
         ## Colorie la région d'une couleur plus claire
         for i in 0..2
             for j in 0..2
 
-                @cases[rX + i][rY + j].state = etat
+                @cases[rX + i][rY + j].set_state = etat
                 @cases[rX + i][rY + j].redessiner
             end
         end
@@ -179,16 +189,16 @@ class GrilleDessin < Gtk::Grid
         
         for i in 0..@nbCases - 1
             for j in 0..@nbCases - 1
-                    @cases[x][j].state = etat
+                    @cases[x][j].set_state = etat
                     @cases[x][j].redessiner
-                    @cases[i][y].state = etat
+                    @cases[i][y].set_state = etat
                     @cases[i][y].redessiner
             end
         end
 
         self.colorierBloc(x, y, etat)
         
-        if(etat == "clicked")
+        if(etat == "clicked" && Header.pause == false)
             changed
             notify_observers(x, y)
         end
