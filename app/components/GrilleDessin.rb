@@ -41,21 +41,32 @@ class GrilleDessin < Gtk::Grid
     end
 
     ##
+    ## Réinitialise les indices de toutes les cases
+    ##
+    ## @return     self
+    ##
+    def resetIndices()
+        @cases.each do |ligne|
+            ligne.each do |c|
+                c.resetIndices
+            end
+        end
+    end
+
+    ##
     ## Définis l'état visuel des indices
     ##
     ## @return     self
     ##
-    def indices= bool
+    def indices=(bool)
 
         @indices = bool
-        
+
         for i in 0..8
             for j in 0..8
                 @cases[i][j].indice = bool
             end
         end
-
-        self.redessiner
 
         return self
     end
@@ -165,7 +176,7 @@ class GrilleDessin < Gtk::Grid
     ## @return self
     ##
     def update(x, y, etat)
-
+        
         for i in 0..@nbCases - 1
             for j in 0..@nbCases - 1
                     @cases[x][j].state = etat
@@ -176,6 +187,11 @@ class GrilleDessin < Gtk::Grid
         end
 
         self.colorierBloc(x, y, etat)
+        
+        if(etat == "clicked")
+            changed
+            notify_observers(x, y)
+        end
 
         return self
     end

@@ -45,6 +45,7 @@ class FenetreReglages < View
 
         Fenetre::boutonRetour.signal_connect('clicked'){
             enregistrerReglages(@pseudo, @config)
+            
         }
 
         # VI label

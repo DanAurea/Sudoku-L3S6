@@ -25,8 +25,20 @@ class JeuLibreControleur < Controller
 		@height   = 720
 	end
 
+
+	##
+	## Met à jour la grille de données
+	##
+	## @param      x      Position x de la case
+	## @param      y      Position y de la case
+	## @param      value  La valeur
+	##
+	## @return     self
+	##
 	def updateGrille(x, y, value)
-		puts "updated"
+		@content["grille"][x][y]["value"] = value
+
+		return self
 	end
 
 	##
@@ -103,7 +115,7 @@ class JeuLibreControleur < Controller
 		candidats = Hash.new()
 
 		for i in 1..9
-			candidats[i.to_s] = possibilites(i)
+			candidats[i.to_s] = self.possibilites(i)
 		end
 
 		return candidats

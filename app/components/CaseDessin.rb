@@ -46,7 +46,6 @@ class CaseDessin < Gtk::DrawingArea
 
             ## Lie un callback sur la souris
             signal_connect "button_press_event" do |_, evenement|
-                @focus = true
                 focused evenement
             end
 
@@ -65,6 +64,15 @@ class CaseDessin < Gtk::DrawingArea
     end
 
     ##
+    ## Réinitialise les indices de la cases
+    ##
+    ## @return     self
+    ##
+    def resetIndices
+        @indices = {"1" => false, "2" => false, "3" => false, "4" => false, "5" => false, "6" => false, "7" => false, "8" => false, "9" => false}
+    end
+
+    ##
     ## Callback sur l'appui sur la souris (évènement ajouté à la main)
     ##
     ## @return     Self
@@ -72,12 +80,13 @@ class CaseDessin < Gtk::DrawingArea
     def focused evenement
         changed
 
+        ## Clic gauche
         if evenement.button == 1
             @state = "clicked"
         end
 
         notify_observers(@x, @y, @state)
-
+        
         return self
     end
 
@@ -208,7 +217,7 @@ class CaseDessin < Gtk::DrawingArea
     ## @return self
     ##
     def couleurPolice cr
-        if(@indice == false || !@editable)
+        if(@indice == false || !@editable || @nombre != nil) 
             cr.set_source_color @couleurPolice
         else
             cr.set_source_color @couleurIndices
@@ -251,7 +260,7 @@ class CaseDessin < Gtk::DrawingArea
         ## Définis la couleur du texte
         self.couleurPolice cr
 
-        if(@indice == false || !@editable)
+        if(@indice == false || !@editable || @nombre != nil)
             dessinerChiffre cr
         else
             dessinerIndices cr
@@ -351,7 +360,7 @@ class CaseDessin < Gtk::DrawingArea
             
             if(value == true)
                 extents = cr.text_extents key
-                cr.move_to (col * @size / 4) - extents.width / 2 , (lig * @size / 3) - extents.height / 2
+                cr.move_to (col * @size / 4) - extents.width / 2 , (lig * @size / 4).floor + (extents.height / 2).floor
                 ## Déplace le curseur de texte au centre de la case
                 cr.show_text key
             end

@@ -36,13 +36,32 @@ class FenetreJeuLibre < View
 		@boxChiffres = Gtk::Box.new(:horizontal, 5)
 
 		@boxChiffres.set_margin_top(10) 
-		@boxChiffres.set_margin_left(10) 
+		@boxChiffres.set_margin_left(10)
+
+		@valeurSelectionnee = nil
 
 		@grilleDessin = nil
 	end
 
-	def update(x, y, value)
-		updateGrille(x, y, value)
+
+	##
+	## Met à jour suite à la notification de la grille
+	##
+	## @param      x     Position x qui a subit une modification
+	## @param      y     Position y qui a subit une modification
+	##
+	## @return     self
+	##
+	def update(x, y)
+		updateGrille(x, y, @valeurSelectionnee)
+		
+		@grilleDessin.cases[x][y].nombre = @valeurSelectionnee
+		
+		self.resetIndices
+		self.candidats
+		@grilleDessin.redessiner
+
+		return self
 	end
 
 	##
@@ -56,6 +75,41 @@ class FenetreJeuLibre < View
 
 		self.candidats
 		@grilleDessin.indices = true
+
+		## Dessine les boutons chiffres
+		for i in 1..9
+			boutonChiffre = Gtk::Button.new(:label => i.to_s, :expand => false, :fill => false)
+
+			boutonChiffre.signal_connect("clicked") do |widget|
+				@valeurSelectionnee = widget.label.to_i
+			end
+
+			@boxChiffres.add(boutonChiffre)
+		end
+
+		img = Gtk::Image.new(:file => Core::ROOTPROJECT + "assets/img/eraser.png")
+		boutonGomme = Gtk::Button.new(:label => "")
+
+		boutonGomme.set_image(img)
+		boutonGomme.set_always_show_image (true)
+
+		boutonGomme.signal_connect("clicked") do
+			@valeurSelectionnee = nil
+		end
+
+		@boxChiffres.add(boutonGomme)
+
+		return self
+	end
+
+	##
+	## Réinitialise les indices à false
+	##
+	## @return     self
+	##
+	def resetIndices()
+
+		@grilleDessin.resetIndices()
 
 		return self
 	end
@@ -76,6 +130,7 @@ class FenetreJeuLibre < View
 				x, y = value[0], value[1]
 				@grilleDessin.cases[x][y].indices[key.to_s] = true
 			end
+
 		end
 		
 		return self
@@ -91,27 +146,19 @@ class FenetreJeuLibre < View
 
 		ligne   = 0
 		colonne = 0
-		
-		## Dessine les boutons chiffres
-		for i in 1..9
-			boutonChiffre = Gtk::Button.new(:label => i.to_s, :expand => false, :fill => false)
-
-			boutonChiffre.signal_connect("clicked") do |widget|
-				valeur = widget.label.to_i
-				@grilleDessin.redessiner
-			end
-
-			@boxChiffres.add(boutonChiffre)
-		end
 
 		boutonIndices = Gtk::Button.new(:label => "Indices")
-		
+		boutonIndices.set_margin_top 10
+		boutonIndices.set_margin_left 10
+
 		boutonIndices.signal_connect("clicked"){
 			if(@grilleDessin.indices? == true)
 			 	@grilleDessin.indices = false
 			else
 			 	@grilleDessin.indices = true
 			end
+
+			@grilleDessin.redessiner
 		}
 
 		#box grille
