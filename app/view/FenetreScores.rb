@@ -64,7 +64,7 @@ class FenetreScores < View
         if @tabScore.size() < 10
             nbAjout= @tabScore.size()+1
             (nbAjout..10).each{ |i|
-                @tabScore<<["----","0"]
+                @tabScore<<["---","0"]
             }
         end
 
