@@ -37,15 +37,14 @@ button:hover label{
     color: white;
 }
 
-button:active{
+button:active, #active{
     background: rgb(40,116,166);
     box-shadow: none;
 }
 
-button:active label{
+button:active label, #active label{
     color: #2B2A29;
 }
-
 
 #profil{
     background: rgb(200, 200, 200);

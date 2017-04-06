@@ -38,7 +38,7 @@ class FenetreJeuLibre < View
 		@boxChiffres.set_margin_top(10) 
 		@boxChiffres.set_margin_left(10)
 
-		@valeurSelectionnee = nil
+		@valeurSelectionnee = 1
 
 		@grilleDessin = nil
 	end
@@ -80,12 +80,21 @@ class FenetreJeuLibre < View
 		for i in 1..9
 			boutonChiffre = Gtk::Button.new(:label => i.to_s, :expand => false, :fill => false)
 
+			if(i == 1)
+				@active = boutonChiffre
+				@active.set_name("active")
+			end
+
 			boutonChiffre.signal_connect("clicked") do |widget|
 				@valeurSelectionnee = widget.label.to_i
+				@active.set_name("")
+				@active = widget
+				@active.set_name("active")
 			end
 
 			@boxChiffres.add(boutonChiffre)
 		end
+
 
 		img = Gtk::Image.new(:file => Core::ROOTPROJECT + "assets/img/eraser.png")
 		boutonGomme = Gtk::Button.new(:label => "")
@@ -95,6 +104,10 @@ class FenetreJeuLibre < View
 
 		boutonGomme.signal_connect("clicked") do
 			@valeurSelectionnee = nil
+			
+			@active.set_name("")
+			@active = boutonGomme
+			@active.set_name("active")
 		end
 
 		@boxChiffres.add(boutonGomme)
@@ -188,6 +201,7 @@ class FenetreJeuLibre < View
 				end
 			end
 		end
+		self.candidats
 	end
 
 	##
