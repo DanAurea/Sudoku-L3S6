@@ -22,7 +22,7 @@ class DSubset < Technique
 	##
 	def solution(grille)
 		grilleIndice = indice(grille)
-
+		
 		res = Array.new()
 		[0,1,2,3,4,5,6,7,8].each { |x|
 			col = colonne(grilleIndice,x)
@@ -41,7 +41,7 @@ class DSubset < Technique
 				res = Array.new()
 			}
 		}
-
+		
 		[0,1,2,3,4,5,6,7,8].each { |y|
 			lig = ligne(grilleIndice,y)
 			lig.each_with_index{ |c,x|
