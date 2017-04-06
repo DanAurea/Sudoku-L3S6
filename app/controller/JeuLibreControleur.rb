@@ -49,6 +49,25 @@ class JeuLibreControleur < Controller
 		return self
 	end
 
+
+	##
+	## Vérifie que la grille est correcte
+	##
+	## @return     True si correcte sinon false
+	##
+	def grilleCorrecte()
+		
+		@content["grille"].each_with_index do | ligne, ligneIndex |
+			ligne.each_with_index do | colonne, colonneIndex |
+				if(!@Grille.valeurUnique(colonne["value"], ligneIndex, colonneIndex))
+					return false
+				end
+			end
+		end
+
+		return true
+	end
+
 	##
 	## Vérifie si la partie est terminée c'est à dire
 	## grille complète et correcte.
@@ -56,9 +75,27 @@ class JeuLibreControleur < Controller
 	## @return
 	##
 	def finPartie?()
-		return @Grille.nbVides == 0  && @content["grille"] == @Grille.grilleComplete
+		return @Grille.nbVides == 0  && self.grilleCorrecte()
 	end
 
+
+	##
+	## Récupère seulement les valeurs de la grille
+	##
+	## @return     La grille que sous forme de valeur
+	##
+	def valeursGrille()
+		grille = Array.new()
+
+		@content["grille"].each_with_index do |ligne, index|
+			grille << Array.new()
+			ligne.each do |c|
+				grille[index] << c["value"]
+			end
+		end
+
+		puts grille
+	end
 
 	##
 	## Action lorsque la partie est terminée,
@@ -67,6 +104,7 @@ class JeuLibreControleur < Controller
 	## @return     self
 	##
 	def partieTerminee()
+		Header.pause = true
 		@Score.creer(@content["pseudo"], @content["difficulte"], Header.score)
 	end
 
