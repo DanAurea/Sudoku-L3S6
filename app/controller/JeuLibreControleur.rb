@@ -18,6 +18,7 @@ class JeuLibreControleur < Controller
 		loadModel("Grille")
 		loadModel("Score")
 		loadModel("Jeu")
+		loadModel("Utilisateur")
 
 		#parametres fenetre
 		@title   = "Sudoku - Jeu Libre"
@@ -105,6 +106,10 @@ class JeuLibreControleur < Controller
 	def partieTerminee()
 		Header.pause = true
 		@Score.creer(@content["pseudo"], @Score.difficulte, Header.score)
+
+		if(@Utilisateur.partieUtilisateur?(@content["pseudo"]))
+			@Jeu.supprimerPartie(@content["pseudo"])
+		end
 	end
 
 	##

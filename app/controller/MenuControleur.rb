@@ -52,7 +52,6 @@ class MenuControleur < Controller
     ## @return self
     ##
 	def run
-		puts @content
 		return self
 	end
 end
