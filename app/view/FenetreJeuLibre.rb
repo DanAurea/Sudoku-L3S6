@@ -38,7 +38,7 @@ class FenetreJeuLibre < View
 		@boxChiffres.set_margin_top(10) 
 		@boxChiffres.set_margin_left(10)
 
-		@valeurSelectionnee = 1
+		@valeurSelectionnee = nil
 
 		@grilleDessin = nil
 	end
@@ -80,11 +80,6 @@ class FenetreJeuLibre < View
 		for i in 1..9
 			boutonChiffre = Gtk::Button.new(:label => i.to_s, :expand => false, :fill => false)
 
-			if(i == 1)
-				@active = boutonChiffre
-				@active.set_name("active")
-			end
-
 			boutonChiffre.signal_connect("clicked") do |widget|
 				@valeurSelectionnee = widget.label.to_i
 				@active.set_name("")
@@ -108,8 +103,11 @@ class FenetreJeuLibre < View
 			@active.set_name("")
 			@active = boutonGomme
 			@active.set_name("active")
-			
+
 		end
+
+		@active = boutonGomme
+		@active.set_name("active")
 
 		@boxChiffres.add(boutonGomme)
 
@@ -161,15 +159,15 @@ class FenetreJeuLibre < View
 		ligne   = 0
 		colonne = 0
 
-		boutonIndices = Gtk::Button.new(:label => "Indices")
-		boutonIndices.set_margin_top 10
-		boutonIndices.set_margin_left 10
+		boutonIndices = Gtk::Button.new(:label => "Désactiver indices")
 
 		boutonIndices.signal_connect("clicked"){
 			if(@grilleDessin.indices? == true)
 			 	@grilleDessin.indices = false
+			 	boutonIndices.label = "Activer indices"
 			else
 			 	@grilleDessin.indices = true
+			 	boutonIndices.label = "Désactiver indices"
 			end
 
 			@grilleDessin.redessiner
@@ -177,8 +175,8 @@ class FenetreJeuLibre < View
 
 		#box grille
 		@boxGrille.add(@grilleDessin)
+		@boxChiffres.add(boutonIndices)
 		@boxGrille.add(@boxChiffres)
-		@boxGrille.add(boutonIndices)
 
 		@boxMilieu.add(@boxGrille)
 		@boxMilieu.add(@boxTechnique)

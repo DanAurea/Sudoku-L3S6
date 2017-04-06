@@ -86,7 +86,7 @@ class FenetreApprentissage < View
 	## @return     Self
 	##
 	def creerGrille()
-		@grilleDessin = GrilleDessin.new(@grille)
+		@grilleDessin = GrilleDessin.new(@grille, @config)
 		return self
 	end
 

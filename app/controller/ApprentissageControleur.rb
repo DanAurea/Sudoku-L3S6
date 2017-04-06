@@ -18,6 +18,7 @@ class ApprentissageControleur < Controller
 	def initialize()
 		#charge le modele grille
 		loadModel("Grille")
+		loadModel("Configuration")
 		loadModel("Score")
 		loadModel("Jeu")
 		#parametres fenetre
@@ -45,6 +46,7 @@ class ApprentissageControleur < Controller
 
 		@content["grille"] = @Grille.generer(niveau)
 		@content["Techniques"] = TechniqueUsine.new()		
+		@content["config"] = @Configuration.getConfiguration(@content["pseudo"])
 
 
 		return self
