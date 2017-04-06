@@ -23,7 +23,7 @@ require_relative '../../app/model/Utilisateur'
 
 def checkCreation(usr)
 	usr.creerUtilisateur("toto")
-	return rechercherUtilisateur("toto")
+	return usr.rechercherUtilisateur("toto")
 end
 
 
@@ -36,8 +36,8 @@ end
 ##
 
 def checkSupression(usr)
-	supprimerUtilisateur
-	return !rechercherUtilisateur("toto")
+	usr.supprimerUtilisateur("toto")
+	return !usr.rechercherUtilisateur("toto")
 end
 
 ##
@@ -49,7 +49,7 @@ end
 def utilisateurCorrecte()
 	
 
-	usr = Utilisateur.new()
+	usr = Utilisateur.instance()
 
 
 	if(!checkCreation(usr))

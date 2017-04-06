@@ -10,12 +10,12 @@
 # 	Class description
 # 	Classe de test unitaire des différents modules.
 
-#require_relative "../app/core/Core.rb"
-#require_relative "../app/core/Model.rb"
+require_relative "../app/core/Core.rb"
+require_relative "../app/core/Model.rb"
 require_relative 'Generateur/grilleCorrecte'
-#require_relative 'Model/utilisateurCorrecte'
-#require_relative 'Model/scoreCorrecte'
-#require 'rspec'
+require_relative 'Model/utilisateurCorrecte'
+require_relative 'Model/scoreCorrecte'
+require 'rspec'
 
 
 class UnitTest
@@ -64,11 +64,11 @@ class UnitTest
 	##
 
 	def UnitTest.testerScoreCorrecte()
-		if(utilisateurCorrecte())
-			scoreCorrecte()
-		else
-			return false
-		end
+		# if(utilisateurCorrecte())
+		# 	scoreCorrecte()
+		# else
+		# 	return false
+		# end
 	end
 
 
@@ -78,8 +78,3 @@ end
 puts UnitTest.testerGrilleCorrecte()
 puts UnitTest.testerUtilisateurCorrecte()
 puts UnitTest.testerScoreCorrecte()
-
-
-
-
-
