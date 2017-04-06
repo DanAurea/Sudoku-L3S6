@@ -27,7 +27,7 @@ class Technique
 	end
 
 	##
-	## Retourne le nombre d'étape pour faire la téchnique
+	## Retourne le nombre d'étape pour faire la technique
 	##
 	## @return     Le nombre d'étape(s)
 	##
@@ -37,9 +37,9 @@ class Technique
 
 
 	##
-	## Retourne les étapes pour faire la téchnique
+	## Retourne les étapes pour faire la technique
 	##
-	## @param      n     
+	## @param      n     Le numéro de la technique
 	##
 	## @return     Le nombre d'étape si n=0, un text expliquant l'étape sinon
 	##
