@@ -36,9 +36,38 @@ class JeuLibreControleur < Controller
 	## @return     self
 	##
 	def updateGrille(x, y, value)
+			
+		## Mets à jours le compteur
+		if(@content["grille"][x][y]["value"] == nil && value != nil)
+			@Grille.nbVides -= 1
+		elsif(@content["grille"][x][y]["value"] != nil && value == nil)
+			@Grille.nbVides += 1
+		end
+		
 		@content["grille"][x][y]["value"] = value
 
 		return self
+	end
+
+	##
+	## Vérifie si la partie est terminée c'est à dire
+	## grille complète et correcte.
+	##
+	## @return
+	##
+	def finPartie?()
+		return @Grille.nbVides == 0  && @content["grille"] == @Grille.grilleComplete
+	end
+
+
+	##
+	## Action lorsque la partie est terminée,
+	## sauvegarde du score de l'utilisateur.
+	##
+	## @return     self
+	##
+	def partieTerminee()
+		@Score.creer(@content["pseudo"], @content["difficulte"], Header.score)
 	end
 
 	##
