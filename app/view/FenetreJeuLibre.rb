@@ -279,8 +279,10 @@ class FenetreJeuLibre < View
 
 		}
 		Fenetre::boutonPlayChrono_barre.signal_connect('clicked'){
-			Header::pause = false
-			Header::chrono
+			if(Header::pause == true)
+				Header::pause = false
+				Header::chrono
+			end
 		}
 		
 		Fenetre::boutonAnnuler_barre.signal_connect('clicked'){
