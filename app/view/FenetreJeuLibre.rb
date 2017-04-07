@@ -68,7 +68,7 @@ class FenetreJeuLibre < View
 		@boxGrille = Gtk::Box.new(:vertical, 0)
 		@boxChiffres = Gtk::Box.new(:horizontal, 5)
 		@boxChiffres.set_margin_top(10) 
-		@boxChiffres.set_margin_left(10)
+		@boxChiffres.set_margin_left(3)
 		@boxInfo = Gtk::Box.new(:vertical, 40)
 		@boxEtape = Gtk::Box.new(:horizontal, 30)
 		@boxExplication = Gtk::Box.new(:horizontal, 0)
@@ -256,7 +256,7 @@ class FenetreJeuLibre < View
 		#box grille
 		@boxGrille.add(@grilleDessin)
 		@boxChiffres.add(boutonIndices)
-		@boxMilieu.add(@boxChiffres)
+		@boxGrille.add(@boxChiffres)
 
 		@boxMilieu.add(@boxGrille)
 		@boxMilieu.add(@boxInfo)
