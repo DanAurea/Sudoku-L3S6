@@ -184,7 +184,7 @@ class FenetreJeuLibre < View
 		@active = boutonGomme
 		@active.set_name("active")
 
-		@boxGrille.add(boutonGomme)
+		@boxChiffres.add(boutonGomme)
 
 		return self
 	end
@@ -255,7 +255,7 @@ class FenetreJeuLibre < View
 
 		#box grille
 		@boxGrille.add(@grilleDessin)
-		@boxChiffres.add(boutonIndices)
+		@boxGrille.add(boutonIndices)
 		@boxGrille.add(@boxChiffres)
 
 		@boxMilieu.add(@boxGrille)
