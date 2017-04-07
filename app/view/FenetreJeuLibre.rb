@@ -184,7 +184,7 @@ class FenetreJeuLibre < View
 		@active = boutonGomme
 		@active.set_name("active")
 
-		@boxChiffres.add(boutonGomme)
+		@boxGrille.add(boutonGomme)
 
 		return self
 	end
