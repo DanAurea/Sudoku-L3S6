@@ -6,14 +6,31 @@ module Header
 
 	@temps = 0
 	@pause = false
-	@reste = 0
 	
 	@tempsLabel = Gtk::Label.new("Temps: 00:00")
 	@scoreLabel = Gtk::Label.new("Score: 0")
 	
-	@partie   = false	
 	@score    = 0
 	@penalite = 0
+	@pseudo   = ""
+
+
+	##
+	## Vide la header bar
+	##
+	## @return     self
+	##
+	def Header.reset()
+		
+		@temps = 0
+		@score = 0
+
+		Fenetre::enteteFenetre.children.each do |child|
+			Fenetre::enteteFenetre.remove(child)
+		end
+
+		return self
+	end
 
 	##
 	## Définis le contenu de l'entête de la fenêtre
@@ -21,6 +38,8 @@ module Header
 	## @return     Module
 	##
 	def Header.profil(pseudo)
+
+		self.reset()
 
 		## Création du bouton de profil
 		@boutonProfil = Gtk::Button.new
@@ -36,6 +55,8 @@ module Header
 		@boutonProfil.set_name("profil")
 		@boutonProfil.add(image)
 		box.add(@boutonProfil)
+
+		@pseudo = pseudo
 
 		pseudoProfil = Gtk::Label.new(pseudo.capitalize).set_name("pseudo")
 		box.add(pseudoProfil)
@@ -121,6 +142,13 @@ module Header
 	## @return     self
 	##
 	def Header.chrono()
+		
+		Fenetre::enteteFenetre.children.each do |child|
+			if(child == @tempsLabel || child == @scoreLabel)
+				Fenetre::enteteFenetre.remove(child)
+			end
+		end
+
 		Fenetre::enteteFenetre.pack_end(@tempsLabel)
 		Fenetre::enteteFenetre.pack_end(@scoreLabel)
 		
@@ -130,7 +158,7 @@ module Header
 
 		return self
 	end
-	
+
 	##
 	## Ajoute une seconde au chrono
 	##
@@ -138,18 +166,16 @@ module Header
 	##
 	def Header.addSecond()
 		if(@pause == false)
-			@reste += 0.5
-			## Prend en compte un reste car Glib::Timeout 
-			## a une granularité de 1 seconde
-			if(@reste >= 1)
-				@reste -=1
-				@temps += 1
-			end
+			@temps += 1
+
 			@tempsLabel.text = "Temps: " + Header.surDeuxChiffres(@temps / 60) + ":" + Header.surDeuxChiffres(@temps % 60)
 			@score = @scoreModel.calcul(@penalite, @temps)
 			@scoreLabel.text = "Score: " + @score.to_s
+			
+			return true
 		end
-		return true;
+
+		return false
 	end
     
     ##

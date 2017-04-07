@@ -234,7 +234,7 @@ class JeuLibreControleur < Controller
 		end
 
 		@Grille.countNbVides
-
+		
 		return self
 	end
 end

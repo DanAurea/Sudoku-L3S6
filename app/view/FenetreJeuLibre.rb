@@ -26,7 +26,6 @@ class FenetreJeuLibre < View
 	##
 	##
 	def initialize()
-		Header::chrono
 
 		@menuBarre=Fenetre::creerBarreMenu()
 		
@@ -39,7 +38,6 @@ class FenetreJeuLibre < View
 		@boxChiffres.set_margin_left(10)
 
 		@valeurSelectionnee = nil
-
 		@grilleDessin = nil
 	end
 
@@ -67,6 +65,7 @@ class FenetreJeuLibre < View
 			mess = Fenetre::creerPopup("Bravo partie terminée !", "CLOSE")
 			
 			if(mess.run() == Gtk::ResponseType::CLOSE)
+				Header.profil(@pseudo)
 				Core::changeTo("Menu", :pseudo => @pseudo)
 			end
 
@@ -244,6 +243,8 @@ class FenetreJeuLibre < View
 		    	if(messageQuestion2.run() == Gtk::ResponseType::YES)
 		    		sauvegarder()
 		    	end
+
+		    	Header.profil(@pseudo)
 		    	Core::changeTo("Menu", "pseudo": @pseudo)
 		    	messageQuestion2.destroy()
 		    end
@@ -279,6 +280,7 @@ class FenetreJeuLibre < View
 		}
 		Fenetre::boutonPlayChrono_barre.signal_connect('clicked'){
 			Header::pause = false
+			Header::chrono
 		}
 		
 		Fenetre::boutonAnnuler_barre.signal_connect('clicked'){
@@ -298,6 +300,9 @@ class FenetreJeuLibre < View
 	def run()
 		self.creerGrille()
 		self.miseEnPlace()
+		
+		Header::chrono
+
 		return self
 	end
 end
