@@ -40,7 +40,6 @@ class Utilisateur < Model
 	def creerUtilisateur(pseudo)
 		insert(:pseudo => pseudo)
 
-		utilisateur_id = @@db.last_insert_row_id
 		@configuration.creerConfiguration(pseudo)
 
 		## Crée un score par défaut si mode débug

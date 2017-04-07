@@ -232,7 +232,7 @@ class JeuLibreControleur < Controller
 		@content["config"] = @Configuration.getConfiguration(@content["pseudo"])
 		
 		if(@Score.difficulte == nil)
-			@Score.difficulte = @content["difficulte"] + 1
+			@Score.difficulte = @content["difficulte"]
 		end
 
 		@Grille.countNbVides
