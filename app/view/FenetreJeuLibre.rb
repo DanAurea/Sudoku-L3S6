@@ -255,8 +255,9 @@ class FenetreJeuLibre < View
 
 		#box grille
 		@boxGrille.add(@grilleDessin)
-		@boxGrille.add(boutonIndices)
 		@boxGrille.add(@boxChiffres)
+		@boxGrille.add(boutonIndices)
+		boutonIndices.set_margin(20)
 
 		@boxMilieu.add(@boxGrille)
 		@boxMilieu.add(@boxInfo)
