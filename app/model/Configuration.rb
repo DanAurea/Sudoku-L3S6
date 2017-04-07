@@ -14,7 +14,7 @@ class Configuration < Model
 	#Définit la couleur de la case de base
 	CL_CASE_BASE        = "65535, 65535, 65535"
 	#Définit la couleur de la case fixe
-	CL_CASE_FIXE        = "61500, 61500, 61500"
+	CL_CASE_FIXE        = "55000, 55000, 55000"
 	#Définit la couleur de la case sélectionnée
 	CL_CASE_SELECTIONNE = "0, 50000, 50000"
 	#Définit la couleur des indices
@@ -24,7 +24,7 @@ class Configuration < Model
 	#Définit la police du texte
 	POLICE              = "Sans Regular"
 	#Définit la taille de la police
-	TAILLE_POLICE		= 12
+	TAILLE_POLICE		= 25
 
 	##
 	## Initialisation
@@ -68,7 +68,7 @@ class Configuration < Model
 		params[:utilisateur]     = utilisateur_id[0][0]
 
 		if(req.length > 0)
-			@@db.execute "DELETE FROM configuration WHERE utilisateur = ?", utilisateur_id
+			@@db.execute "DELETE FROM configuration WHERE utilisateur = ?", utilisateur_id[0][0]
 		end
 		
 		insert(params)
@@ -86,8 +86,68 @@ class Configuration < Model
 
 		req = @@db.execute2 "SELECT caseBase, caseFixe, caseSelectionne, couleurTexte, couleurIndices, taillePolice, police FROM configuration WHERE utilisateur=?", utilisateur_id
 
+		## Pas de configuration trouvé donc on en
+		## crée une
+		if(req .length== 1)
+			self.creerConfiguration(pseudo)
+			req = @@db.execute2 "SELECT caseBase, caseFixe, caseSelectionne, couleurTexte, couleurIndices, taillePolice, police FROM configuration WHERE utilisateur=?", utilisateur_id
+		end
+
 		return self.to_h(req)[0]
 	end
+	
+	##
+    ## Limite le dépassement de valeur d'une couleur 16 bits
+    ##
+    ## @param      couleur  La couleur à vérifier
+    ##
+    ## @return     La couleur limitée à la borne si dépassement sinon la couleur elle même
+    ##
+    def verifierCouleur(couleur)
+        max = 65535
+        min = 0
+
+        if(couleur >  max)
+            couleur = max
+        elsif(couleur < 0)
+            couleur = min
+        end
+
+        return couleur
+    end
+
+	##
+    ## Convertis un gdk color en composantes
+    ##              sous forme d'une chaîne séparée par une virgule
+    ##
+    ## @param      gdkColor GDK::Color
+    ##
+    ## @return     Les composantes sous forme de chaîne
+    ##
+    def couleur(gdkColor)
+        red = gdkColor.red
+        green = gdkColor.green
+        blue = gdkColor.blue
+
+        return "#{red},#{green},#{blue}"
+    end
+
+	##
+    ## Crée un gdk color à partir d'une chaîne
+    ##
+    ## @param      composantes  Composantes ("r,g,b")
+    ##
+    ## @return     Gdk::Color
+    ##
+    def creerCouleur(composantes)
+    	rgb = composantes.split(",")
+    	
+    	red = self.verifierCouleur(rgb[0].to_i)
+    	green = self.verifierCouleur(rgb[1].to_i)
+    	blue = self.verifierCouleur(rgb[2].to_i)
+
+    	return Gdk::Color.new(red, green, blue)
+    end
 
 	##
 	## Crée une configuration par défaut pour l'utilisateur

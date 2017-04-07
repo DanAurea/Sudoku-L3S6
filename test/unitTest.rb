@@ -15,7 +15,7 @@ require_relative "../app/core/Model.rb"
 require_relative 'Generateur/grilleCorrecte'
 require_relative 'Model/utilisateurCorrecte'
 require_relative 'Model/scoreCorrecte'
-#require 'rspec'
+require 'rspec'
 
 
 class UnitTest
@@ -36,13 +36,13 @@ class UnitTest
 
 		grilleCorrecte()
 
-		#RSpec.describe Generateur, "#grille" do
-		#	context "test" do
-		#		it "Generation d'une grille aleatoire" do
-		#			expect(grilleCorrecte()).to eq false
-		#		end
-		#	end
-		#end
+		RSpec.describe Generateur, "#grille" do
+			context "test" do
+				it "Generation d'une grille aleatoire" do
+					expect(grilleCorrecte()).to eq false
+				end
+			end
+		end
 	end
 
 
@@ -64,11 +64,11 @@ class UnitTest
 	##
 
 	def UnitTest.testerScoreCorrecte()
-		if(utilisateurCorrecte())
-			scoreCorrecte()
-		else
-			return false
-		end
+		# if(utilisateurCorrecte())
+		# 	scoreCorrecte()
+		# else
+		# 	return false
+		# end
 	end
 
 
@@ -78,8 +78,3 @@ end
 puts UnitTest.testerGrilleCorrecte()
 puts UnitTest.testerUtilisateurCorrecte()
 puts UnitTest.testerScoreCorrecte()
-
-
-
-
-

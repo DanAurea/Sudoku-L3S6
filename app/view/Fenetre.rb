@@ -349,7 +349,7 @@ module Fenetre
         
         @boutonRetour=Gtk::Button.new(:label => "Retour")
         @boutonRetour.set_margin(40)
-        @boutonRetour.signal_connect('clicked'){
+        @boutonRetour.signal_connect_after('clicked'){
             Core::back()
         }
 
@@ -418,6 +418,16 @@ module Fenetre
         barreMenu.insert(Gtk::SeparatorToolItem.new(),7)
         barreMenu.insert(@boutonAnnuler_barre,8)
         barreMenu.insert(@boutonRetablir_barre,9)
+
+        #enabled
+        @boutonMenu_barre.set_sensitive(true)
+        @boutonSauvegarder_barre.set_sensitive(true)
+        @boutonReinit_barre.set_sensitive(true)
+        @boutonQuitter_barre.set_sensitive(true)
+        @boutonPauseChrono_barre.set_sensitive(true)
+        @boutonPlayChrono_barre.set_sensitive(true)
+        @boutonAnnuler_barre.set_sensitive(true)
+        @boutonRetablir_barre.set_sensitive(true)
 
         return barreMenu
     end

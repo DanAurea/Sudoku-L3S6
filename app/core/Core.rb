@@ -18,7 +18,7 @@ module Core
 	## Définit la vue
 	VIEW                  = "Fenetre"
 	## Définit le mode debug
-	DEBUG                 = true
+	DEBUG                 = false
 	## Définit le log de la base de données
 	DEFAULT_DATABASE_LOG  = "log/main.log"
 	## Définit la base de données

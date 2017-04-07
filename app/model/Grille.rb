@@ -10,6 +10,11 @@ require Core::ROOT + "utils/Generateur.rb"
 ##
 class Grille < Model
 
+    attr_accessor :nbVides, :grille
+
+    ##
+    ## Initialisation
+    ##
     def initialize()
         @grille = nil
     end
@@ -20,15 +25,32 @@ class Grille < Model
     ##
     ## @param      niveau  Le niveau souhaité
     ##
-    ## @return     La grille generée
+    ## @return     La grille génerée
     ##
     def generer(niveau)
         # Niveau + 1 car constante de 0 à 2 passée en paramètre
         
         @gen = Generateur.new(niveau + 1)
         @grille = @gen.generer()
-        
+
         return @grille
+    end
+
+    ##
+    ## Compte le nombre de cases vides
+    ##
+    ## @return     Nombre de cases vides.
+    ##
+    def countNbVides()
+        @nbVides = 0
+
+        @grille.each do |ligne|
+            ligne.each do |c|
+                if( c["value"] == nil)
+                    @nbVides += 1
+                end
+            end
+        end
     end
 
     ##
@@ -61,79 +83,97 @@ class Grille < Model
     end
 
     ##
-    ## Supprime la partie d'un joueur
+    ## Récupère la valeur de la case de la grille
     ## 
-    ## @param       _pseudo     Le pseudo dont on supprime la partie
+    ## @param       x       Abscisse de la grille
+    ## @param       y       Ordonnée de la grille
+    ##
+    ## @return  la valeur
     ## 
-    ## @return true 
-    def supprimer(_pseudo)
-        return true
+    def getValue(x, y)
+        return @grille[x][y]["value"]
     end
 
-    ## Vérifie à partir de coordonnées que la valeur est valide
+    ## Vérifie à partir de coordonnées que la valeur est unique
     ##
-    ## @param      x     Abscisse de la case
-    ## @param      y     Ordonnée de la case
+    ## @param      valeur   Valeur de la case
+    ## @param      x        Abscisse de la case
+    ## @param      y        Ordonnée de la case
     ##
     ## @return     true si la cellule est bien unique false sinon
     ##
     def valeurUnique(x ,y)
-        ## Le compte rendu de l'inspection
-        cr = true
+        ligneUnique = self.valeurUniqueLigne(valeur, x, y, "ligne")
+        colonneUnique =self.valeurUniqueLigne(valeur, x, y, "colonne")
 
-        ## Initialisation pour le parcours du bloc
-        block = Array.new()
-        x = ((num-1)*3)%9
-        y = num/3*3
-        grille[x..x+2].each{ |col|
-            block << col[y..y+2]
-        }
-        
+        if(ligneUnique == false || colonneUnique == false)
+            return false
+        end
 
-        ## Parcours dans [0,8]
-        for i in 0..8
+        # Position x et y de la région
+        rX = x
+        rY = y
 
-            cr = self.VerificationLineaire(x,i,x,y)
+        ## Récupère les cordonnées de la première case de la région
+        while(rX % 3 != 0 || rY % 3 != 0)
+            if(rX % 3 != 0)
+                rX -= 1
+            end
+            if(rY % 3 != 0)
+                rY -=1
+            end
+        end
 
-            cr = self.VerificationLineaire(i,y,x,y)
-
-            ## le bloc est plus petit que la grille
-            if(i<3)
-                # Vérification du bloc
-                for j in 0..2
-                    if(block[i][j]["value"] == @grille[x][y]["value"])
-                        ## La valeur unique s'errone
-                        @grille[i][j]["unique"] = false
-                        ## La case verifiée aussi
-                        @grille[x][y]["unique"] = false
-                        cr = false
+        ## Parcourt la région et vérifie l'unicité
+        for i in 0..2
+            for j in 0..2
+                ## Case vérifiée exclue
+                if(rX + i != x || rY + j != y)
+                    if(valeur == self.getValue(rX+i,  rY+j))
+                        return false
                     end
                 end
             end
         end
 
-        return cr
-
+        return true
     end
 
     ## Vérifie les valeurs d'une ligne en se basant sur des coordonées initiales
     ##
-    ## @param      x      Ordonnée de la case vérifiée
-    ## @param      y      Abscisse de la case vérifiée
-    ## @param      xBase  Ordonnée de référence
-    ## @param      yBase  Abscisse de référence
+    ## @param      valeur   Valeur de la case 
+    ## @param      x        Ordonnée de la case à vérifier
+    ## @param      y        Abscisse de la case à vérifier
+    ## @param      type     Type de la recherche
     ##
-    ## @return     true si la vérification est reussie, false si les cases sont égales
+    ## @return     True si valeur unique sinon false
     ##
-    def VerificationLineaire(x,y,xBase,yBase)
-        ## Verification horizontale
-        if(@grille[x][y]["value"] == @grille[xBase][yBase]["value"])
-            ## La valeur unique s'errone
-            @grille[x][y]["unique"] = false
-            ## La case vérifiée aussi
-            @grille[xBase][yBase]["unique"] = false
-            return false
+    def valeurUniqueLigne(valeur, x, y, type)
+        ## Parcours ligne ou colonne à la recherche de valeur unique
+        if(type == "ligne")
+
+            for i in 0..8
+                # On exclue la case vérifiée
+                if(i != y)
+                    if(valeur == @grille[x][i]["value"])
+                        return false
+                    end
+                end
+            end
+
+        else
+            
+            for i in 0..8
+                ## On exclue la case vérifiée
+                if(i != x)
+                    if(valeur == @grille[i][y]["value"])
+                        return false
+                    end
+                end
+            end
+
         end
+        
         return true
     end
 

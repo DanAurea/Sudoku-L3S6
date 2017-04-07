@@ -191,34 +191,9 @@ end
 
 def grilleCorrecte()
 
-	gen = Generateur.new()
+	gen = Generateur.new(0)
 
-
-	if(!checkValues(gen.grid))
-		return false
-	end
-
-	if(!checkLine(gen.grid))
-		return false
-	end
-
-	if(!checkCol(gen.grid))
-		return false
-	end
-
-	if(!checkBloc(gen.grid))
-		return false
-	end
-
-	gen.complexifier(1)
-
-	if(!checkAllVal(gen.grid))
-		return false
-	end
-
-	gen.convert()
-
-	if(!checkAllValConverted(gen.convert()))
+	if(!checkAllValConverted(gen.generer()))
 		return false
 	end
 

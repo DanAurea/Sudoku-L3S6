@@ -31,13 +31,13 @@ class SCandidate < Technique
 			grilleIndice.sort_by{rand}.each_with_index { |col,x|
 				cpt=0
 				ytmp=0
-				col.sort_by{rand}.each_with_index { |c,y|
-					if c[numero.to_s] then
-						cpt +=1
-						ytmp = y
-					end
-				}
-				if cpt == 1 then return [x,ytmp,numero.to_s] end
+					col.sort_by{rand}.each_with_index { |c,y|
+						if c[numero.to_s] then
+							cpt +=1
+							ytmp = y
+						end
+					}
+					if cpt == 1 then return [x,ytmp,numero.to_s] end
 			}
 
 			[0,1,2,3,4,5,6,7,8].sort_by{rand}.each { |y|

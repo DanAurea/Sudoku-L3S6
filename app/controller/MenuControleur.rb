@@ -13,15 +13,26 @@ class MenuControleur < Controller
     ## Initialize
     ##
 	def initialize
-		#charge le modèle utilisateur
+		#charge le modele utilisateur
 		loadModel("Utilisateur")
-		
+		loadModel("Jeu")
+
 		#paramètres fenêtre
 		@title = "Sudoku - Menu"
 		@width = 600
 		@height = 550
 		@resizable = false
 		@position= "CENTER_ALWAYS"
+	end
+
+
+	##
+	## Charge la dernière partie utilisateur
+	##
+	## @return     self
+	##
+	def charger
+		Core::changeTo("JeuLibre", :pseudo => @content["pseudo"], :charger => true)
 	end
 
 	##

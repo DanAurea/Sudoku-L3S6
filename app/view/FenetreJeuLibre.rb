@@ -26,17 +26,60 @@ class FenetreJeuLibre < View
 	##
 	##
 	def initialize()
-		Header::chrono
 
 		@menuBarre=Fenetre::creerBarreMenu()
+		
 		@boxMilieu = Gtk::Box.new(:horizontal, 0)
-		@boxGrille = Gtk::Box.new(:horizontal, 0)
+		@boxTechnique = Gtk::Box.new(:vertical, 0)
+		@boxGrille = Gtk::Box.new(:vertical, 0)
+		@boxChiffres = Gtk::Box.new(:horizontal, 5)
+
+		@boxChiffres.set_margin_top(10) 
+		@boxChiffres.set_margin_left(10)
+
+		@valeurSelectionnee = nil
 		@grilleDessin = nil
-		@scoreLabel   = nil
 	end
 
-	def update(x, y, value)
-		updateGrille(x, y, value)
+	##
+	## Met à jour suite à la notification de la grille
+	##
+	## @param      x     Position x qui a subit une modification
+	## @param      y     Position y qui a subit une modification
+	##
+	## @return     self
+	##
+	def update(x, y)
+		@grilleDessin.reset()
+		updateGrille(x, y, @valeurSelectionnee)
+
+		@grilleDessin.cases[x][y].nombre = @valeurSelectionnee
+		
+		self.resetIndices
+		self.candidats
+		@grilleDessin.redessiner
+
+		if(finPartie?())
+			partieTerminee()
+
+			mess = Fenetre::creerPopup("Bravo partie terminée !", "CLOSE")
+			
+			if(mess.run() == Gtk::ResponseType::CLOSE)
+				Header.profil(@pseudo)
+				Core::changeTo("Menu", :pseudo => @pseudo)
+			end
+
+			mess.destroy()
+		elsif(getNbVides == 0)
+			
+			Header.penalite()
+
+			mess = Fenetre::creerPopup("Erreur sur la grille !", "CLOSE")
+			mess.run()
+			mess.destroy()
+		end
+
+		return self
 	end
 
 	##
@@ -45,9 +88,88 @@ class FenetreJeuLibre < View
 	## @return     Self
 	##
 	def creerGrille()
-		@grilleDessin = GrilleDessin.new(@grille)
+		@grilleDessin = GrilleDessin.new(@grille, @config)
 		@grilleDessin.add_observer(self)
 
+		self.candidats
+		@grilleDessin.indices = true
+
+		## Dessine les boutons chiffres
+		for i in 1..9
+			boutonChiffre = Gtk::Button.new(:label => i.to_s, :expand => false, :fill => false)
+
+			boutonChiffre.signal_connect("clicked") do |widget|
+				@valeurSelectionnee = widget.label.to_i
+				
+				@grilleDessin.reset
+
+				@grilleDessin.memeValeurs(@valeurSelectionnee)
+				@grilleDessin.redessiner
+				
+				@active.set_name("")
+				@active = widget
+				@active.set_name("active")
+			end
+
+			@boxChiffres.add(boutonChiffre)
+		end
+
+		img = Gtk::Image.new(:file => Core::ROOTPROJECT + "assets/img/eraser.png")
+		boutonGomme = Gtk::Button.new(:label => "")
+
+		boutonGomme.set_image(img)
+		boutonGomme.set_always_show_image (true)
+
+		boutonGomme.signal_connect("clicked") do
+			@grilleDessin.reset
+			@grilleDessin.redessiner
+			@valeurSelectionnee = nil
+			
+			@active.set_name("")
+			@active = boutonGomme
+			@active.set_name("active")
+
+		end
+
+		@active = boutonGomme
+		@active.set_name("active")
+
+		@boxChiffres.add(boutonGomme)
+
+		return self
+	end
+
+	##
+	## Réinitialise les indices à false
+	##
+	## @return     self
+	##
+	def resetIndices()
+
+		@grilleDessin.resetIndices()
+
+		return self
+	end
+
+	##
+	## Récupére les candidats et les définis pour l'affichage
+	##
+	## @return     self
+	##
+	def candidats
+		listeCandidats = getCandidats
+
+		## Affiche les candidats en parcourant ce qui a été calculé
+		## pour chaque chiffre.
+		listeCandidats.each do |key, candidats|
+
+			candidats.each do |value| 
+				x, y = value[0], value[1]
+				@grilleDessin.cases[x][y].indices[key.to_s] = true
+			end
+
+		end
+		
 		return self
 	end
 
@@ -59,14 +181,53 @@ class FenetreJeuLibre < View
 		#barre de menu
 		gestionBarreMenu()
 
+		ligne   = 0
+		colonne = 0
+
+		boutonIndices = Gtk::Button.new(:label => "Désactiver indices")
+		boutonIndices.override_color(:normal, Fenetre::COULEUR_BLANC)
+
+		boutonIndices.signal_connect("clicked"){
+			if(@grilleDessin.indices? == true)
+			 	@grilleDessin.indices = false
+			 	boutonIndices.label = "Activer indices"
+			else
+			 	@grilleDessin.indices = true
+			 	boutonIndices.label = "Désactiver indices"
+			end
+			boutonIndices.override_color(:normal, Fenetre::COULEUR_BLANC)
+
+			@grilleDessin.redessiner
+		}
+
 		#box grille
 		@boxGrille.add(@grilleDessin)
+		@boxChiffres.add(boutonIndices)
+		@boxGrille.add(@boxChiffres)
 
 		@boxMilieu.add(@boxGrille)
+		@boxMilieu.add(@boxTechnique)
 
 		#add a la box
 		Fenetre::box.add(@menuBarre)
 		Fenetre::box.add(@boxMilieu)
+	end
+
+	##
+	## Réinitialise la grille
+	##
+	## @return     self
+	##
+	def reinitialiser
+		for i in 0..8
+			for j in 0..8
+				if (@grilleDessin.cases[i][j].editable)
+					@grilleDessin.cases[i][j].nombre = nil
+					@grilleDessin.cases[i][j].indices = {"1" => false, "2" => false, "3" => false, "4" => false, "5" => false, "6" => false, "7" => false, "8" => false, "9" => false}
+				end
+			end
+		end
+		self.candidats
 	end
 
 	##
@@ -76,12 +237,14 @@ class FenetreJeuLibre < View
 	##
 	def gestionBarreMenu()
 		Fenetre::boutonMenu_barre.signal_connect('clicked'){
-			messageQuestion = Fenetre::creerPopup("1/2: Voulez-vous vraiment abandonner la partie et revenir au menu principal?", "YES_NO")
+			messageQuestion = Fenetre::creerPopup("1/2: Voulez-vous vraiment abandonner la partie et revenir au menu principal ?", "YES_NO")
 		    if(messageQuestion.run() == Gtk::ResponseType::YES)
 		    	messageQuestion2 = Fenetre::creerPopup("2/2: Voulez-vous sauvegarder la partie actuelle?", "YES_NO")
 		    	if(messageQuestion2.run() == Gtk::ResponseType::YES)
 		    		sauvegarder()
 		    	end
+
+		    	Header.profil(@pseudo)
 		    	Core::changeTo("Menu", "pseudo": @pseudo)
 		    	messageQuestion2.destroy()
 		    end
@@ -91,10 +254,15 @@ class FenetreJeuLibre < View
 			sauvegarder()
 		}
 		Fenetre::boutonReinit_barre.signal_connect('clicked'){
-			
+			# Réinitialise la grille (données)
+			@controller.reinitialiser
+			## Réinitialise la grille (affichage)
+			self.reinitialiser
+			@grilleDessin.redessiner
 		}
 		Fenetre::boutonQuitter_barre.signal_connect('clicked'){
 			messageQuestion = Fenetre::creerPopup("1/2: Voulez-vous vraiment abandonner la partie et quitter l'application?", "YES_NO")
+
 		    if(messageQuestion.run() == Gtk::ResponseType::YES)
 		    	messageQuestion2 = Fenetre::creerPopup("2/2: Voulez-vous sauvegarder la partie actuelle?", "YES_NO")
 		    	if(messageQuestion2.run() == Gtk::ResponseType::YES)
@@ -102,21 +270,26 @@ class FenetreJeuLibre < View
 		    	end
 		    	Fenetre::detruire()
 		    	messageQuestion2.destroy()
+
 		    end
 		    messageQuestion.destroy()
 		}
 		Fenetre::boutonPauseChrono_barre.signal_connect('clicked'){
 			Header::pause = true
+
 		}
 		Fenetre::boutonPlayChrono_barre.signal_connect('clicked'){
 			Header::pause = false
+			Header::chrono
 		}
+		
 		Fenetre::boutonAnnuler_barre.signal_connect('clicked'){
-
 		}
 		Fenetre::boutonRetablir_barre.signal_connect('clicked'){
-
 		}
+		#disabled
+		Fenetre::boutonAnnuler_barre.set_sensitive(false)
+		Fenetre::boutonRetablir_barre.set_sensitive(false)
 	end
 
 	##
@@ -127,6 +300,9 @@ class FenetreJeuLibre < View
 	def run()
 		self.creerGrille()
 		self.miseEnPlace()
+		
+		Header::chrono
+
 		return self
 	end
 end

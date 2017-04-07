@@ -42,9 +42,11 @@ class FenetreReglages < View
         @boutonCouleurTexte = Gtk::ColorButton.new()
         @boutonCouleurIndices = Gtk::ColorButton.new()
         @boutonPolice = Gtk::FontButton.new()
+        @boutonReset = Gtk::Button.new(:label => "Réinitialiser profil")
 
         Fenetre::boutonRetour.signal_connect('clicked'){
             enregistrerReglages(@pseudo, @config)
+            
         }
 
         # VI label
@@ -109,10 +111,17 @@ class FenetreReglages < View
         table.attach(@labelPolice,0,1,4,5)
         table.attach(@boutonPolice,1,2,4,5)
 
+        #Action des boutons
+        @boutonReset.signal_connect('clicked'){
+           resetUtilisateur()
+           Core::back()
+        }
+
         #add des boutons
         @boxTop.add(@titreLabel)
         @boxTop.add(@tmp)
         @boxTop.add(table)
+        @boxTop.add(@boutonReset)
 
         paramCouleurPolice()
     end
@@ -151,6 +160,8 @@ class FenetreReglages < View
         @boutonCouleurIndices.set_margin_bottom(0)
         @boutonPolice.set_margin(10)
         @boutonPolice.set_margin_bottom(0)
+        @boutonReset.set_margin(30)
+        @boutonReset.set_margin_bottom(0)
     end
 
     ##

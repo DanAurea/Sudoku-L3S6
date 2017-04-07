@@ -12,127 +12,183 @@ require "observer"
 class GrilleDessin < Gtk::Grid
     include Observable
     
-    def initialize valeurs
+    attr_accessor :cases
+
+    def initialize valeurs, config
         
         super() 
 
-        ## TODO: Lire largeur et hauteur dans un fichier de config
-        @largeurCase = 40 
-        @hauteurCase = 40
-        
-        @valeurs     = valeurs     
-        @cases       = Array.new()
+        @size = 40
+             
         @nbCases     = 9
+        @cases       = Array.new(@nbCases)
+            
+        @indices = false
 
-        signal_connect "draw" do |widget, cr|
-            dessiner cr
+        set_margin_top(10);
+        set_margin_left(10);
+        
+        valeurs.each_with_index do |ligne, ligneIndex|
+            
+            @cases[ligneIndex] = Array.new()
+
+            ligne.each_with_index do |valeur, colonneIndex|
+                c = CaseDessin.new valeur, config
+                c.add_observer(self)
+                c.size = @size
+                
+                c.x = ligneIndex
+                c.y = colonneIndex
+
+                @cases[ligneIndex] << c
+
+                attach c, colonneIndex, ligneIndex , 1, 1
+            end
         end
 
-        colonne = 0
-        ligne   = 0
+    ##
+    ## Réinitialise les indices de toutes les cases
+    ##
+    def resetIndices()
+        @cases.each do |ligne|
+            ligne.each do |c|
+                c.resetIndices
+            end
+        end
+    end
 
-        largeurCol = 1
-        hauteurLig = 1
+    ##
+    ## Définit l'état visuel des indices
+    ##
+    ## @return     self
+    ##
+    def indices=(bool)
 
-        @valeurs.each do | section |
-        
-            section.each do | valeur |
-                c = CaseDessin.new valeur
-                c.add_observer(self)
+        @indices = bool
 
-                @cases << c
+        for i in 0..8
+            for j in 0..8
+                @cases[i][j].indice = bool
+            end
+        end
 
-                attach c, colonne, ligne , largeurCol, hauteurLig
+        return self
+    end
 
-                if colonne == 8
-                    colonne  = 0
-                    ligne   += 1 
-                else
-                    colonne += 1
+    ##
+    ## Renvoie l'état visuel des indices
+    ##
+    ## @return     true si affiché sinon false 
+    ##
+    def indices?
+        return @indices
+    end
+
+    ##
+    ## Redessine la grille en mettant à jour les informations
+    ##
+    ## @return     self
+    ##
+    def redessiner()
+
+        for i in 0..8
+            for j in 0..8
+                @cases[i][j].redessiner
+            end
+        end
+
+        return self
+    end
+
+    ##
+    ## Réinitialise l'état de toutes les cases
+    ##
+    def reset()
+        for i in 0..8
+            for j in 0..8
+                @cases[i][j].state = ""
+            end
+        end
+    end
+
+    ##
+    ## Affiche les valeurs identiques en une couleur différente
+    ##
+    ## @param      valeur  La valeur à comparer
+    ##
+    def memeValeurs(valeur)
+        for i in 0..8
+            for j in 0..8
+                if(@cases[i][j].nombre == valeur)
+                    @cases[i][j].state = "equal"
                 end
             end
-
         end
     end
 
     ##
-    ## Permet d'actualiser
+    ## Met en surbillance la région
     ##
-    ## @param   caseObj  la case
+    ## @param      x     Position x d'une case
+    ## @param      y     Position y d'une case
+    ## @param      etat  Etat
     ##
-    def update(caseObj)
-        x = @cases.index(caseObj) / 9
-        y = @cases.index(caseObj) % 9
-    end
-
+    ## @return     self
     ##
-    ## Permet de dessiner la grille
-    ## 
-    ## @param   cr  
-    ##
-    ## @return  itself
-    ##
-    def dessiner cr
+    def colorierBloc(x, y, etat)
 
-        ## TODO: Définir une largeur de case et fenêtre par défaut chargé
-        ## à partir d'un fichier de config en variables d'instances
-        @largeurCase = (25 * toplevel.allocated_width  / 600).round
-        @hauteurCase = @largeurCase
+        # Position x et y de la région
+        rX = x
+        rY = y
 
-        colonne = 0
-        ligne   = 0
-
-        @cases.each do | c |
-
-            c.largeur = @largeurCase
-            c.hauteur = @hauteurCase
-            c.taillePolice = @largeurCase / 3
-
-            c.x = colonne * @largeurCase
-            c.y = ligne * @hauteurCase
-            c.dessiner cr
-
-            if colonne == 8
-                colonne  = 0
-                ligne   += 1 
-            else
-                colonne += 1
+        ## Récupère les cordonnées de la première case de la région
+        while(rX % 3 != 0 || rY % 3 != 0)
+            if(rX % 3 != 0)
+                rX -= 1
+            end
+            if(rY % 3 != 0)
+                rY -=1
             end
         end
 
-        largeurLigne = @nbCases * @largeurCase
-        hauteurLigne = @nbCases * @hauteurCase
+        ## Colorie la région
+        for i in 0..2
+            for j in 0..2
+
+                @cases[rX + i][rY + j].set_state = etat
+                @cases[rX + i][rY + j].redessiner
+            end
+        end
+
+        return self
+    end
+
+    ##
+    ## Mise à jour observateur
+    ##
+    ## @param      x     position x de la case sélectionnée
+    ## @param      y     position y de la case sélectionnée
+    ## @param      etat  L'état
+    ##
+    ## @return self
+    ##
+    def update(x, y, etat)
         
-        set_size_request largeurLigne , hauteurLigne
+        for i in 0..@nbCases - 1
+            for j in 0..@nbCases - 1
+                    @cases[x][j].set_state = etat
+                    @cases[x][j].redessiner
+                    @cases[i][y].set_state = etat
+                    @cases[i][y].redessiner
+            end
+        end
 
-        largeurBordureExt = 4
-
-        cr.set_source_rgb 0.0 , 0.0, 0.0
-
-        ## Calcule le chemin du contour
-        cr.move_to 0, 0
-        cr.set_line_width largeurBordureExt
-
-        cr.rel_line_to largeurLigne, 0
-        cr.rel_line_to 0, hauteurLigne
-        cr.rel_line_to -largeurLigne, 0
-        cr.rel_line_to 0, -hauteurLigne
-
-        ## Calcule le chemin des délimitations
-        cr.move_to 3 * @largeurCase, 0
-        cr.rel_line_to 0, hauteurLigne
-
-        cr.move_to 6 * @largeurCase, 0
-        cr.rel_line_to 0, hauteurLigne
-
-        cr.move_to 0, 3 * @hauteurCase
-        cr.rel_line_to largeurLigne, 0
-
-        cr.move_to 0, 6 * @hauteurCase
-        cr.rel_line_to largeurLigne, 0
-
-        ## Dessine les lignes à partir des chemins calculés précédemment
-        cr.stroke
+        self.colorierBloc(x, y, etat)
+        
+        if(etat == "clicked" && Header.pause == false)
+            changed
+            notify_observers(x, y)
+        end
 
         return self
     end

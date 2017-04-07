@@ -23,7 +23,7 @@ class Score < Model
 						utilisateur integer,
 						FOREIGN KEY(utilisateur) REFERENCES utilisateur(utilisateur_id)
 						);"
-		@difficulte = 0
+		@difficulte = nil
 	end
 
 	##
@@ -55,6 +55,8 @@ class Score < Model
 	## Crée un score dans la table score pour l'utilisateur
 	##
 	## @param      pseudo  Le pseudo utilisateur
+	## @param      niveau  Niveau de difficulté de la partie
+	## @param      score   Score
 	##
 	## @return     Self
 	##
@@ -69,6 +71,9 @@ class Score < Model
 
 	##
 	## Met à jour le score d'un utilisateur
+	##
+	## @param      score_id  Id du score
+	## @param      score     Score
 	##
 	def mettreAJour(score_id, score)
 		@@db.execute "UPDATE score SET score= ? WHERE score_id = ?", score, score_id

@@ -15,12 +15,32 @@ class NiveauControleur < Controller
 	def initialize()
 		#charge le modèle utilisateur
 		loadModel("Utilisateur")
+		loadModel("Jeu")
+		loadModel("Grille")
+
 		#paramètres fenêtre
 		@title = "Sudoku - Choix difficulté"
 		@width = 600
 		@height = 550
 		@resizable = false
 		@position= "CENTER_ALWAYS"
+	end
+
+	##
+	## Supprime toute partie existante pour le joueur
+	##
+	## @param      pseudo  Pseudo utilisateur
+	##
+	## @return     self
+	##
+	def supprimerPartieExistante(pseudo)
+		
+		if(@Utilisateur.partieUtilisateur?(pseudo))
+			@Jeu.supprimerPartie(pseudo)
+		end
+		@Grille.grille = nil
+
+		return self
 	end
 
 	##

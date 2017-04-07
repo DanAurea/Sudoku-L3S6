@@ -17,7 +17,7 @@ class ApprentissageControleur < Controller
 	def initialize()
 		#charge le modele grille
 		loadModel("Grille")
-		loadModel("Score")
+		loadModel("Configuration")
 		loadModel("Jeu")
 		#paramètres fenêtre
 		@title  = "Sudoku - Apprentissage"
@@ -67,6 +67,7 @@ class ApprentissageControleur < Controller
 
 		@content["grille"] = @Grille.generer(niveau)
 		@content["Techniques"] = TechniqueUsine.new()		
+		@content["config"] = @Configuration.getConfiguration(@content["pseudo"])
 
 
 		return self

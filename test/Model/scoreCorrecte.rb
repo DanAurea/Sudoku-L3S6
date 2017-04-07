@@ -23,8 +23,9 @@ require_relative '../../app/model/Score'
 ##
 
 def checkCreaScore(usr, sco)
+	sco.difficulte = 1
 	score = sco.calcul(2, 120)
-	creerScore(1, 0, score)
+	sco.creerScore(1, 0, score)
 	if (!meilleursScores(1))
 		return false
 	end
@@ -40,8 +41,8 @@ end
 def scoreCorrecte()
 	
 
-	usr = Utilisateur.new()
-	sco = Score.new()
+	usr = Utilisateur.instance()
+	sco = Score.instance()
 	usr.creerUtilisateur("toto")
 
 

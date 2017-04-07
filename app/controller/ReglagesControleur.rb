@@ -23,6 +23,7 @@ class ReglagesControleur < Controller
 		@height    = 550
 		@resizable = false
 		@position  = "CENTER_ALWAYS"
+
 	end
 
 
@@ -39,6 +40,16 @@ class ReglagesControleur < Controller
 		return self
 	end
 
+
+	##
+	## Réinitialise l'utilisateur avec les configurations par défaut
+	##
+	## @return     { description_of_the_return_value }
+	##
+	def resetUtilisateur()
+		@Utilisateur.reinitialiserUtilisateur(@content["pseudo"])
+	end
+
 	##
     ## Convertit un gdk color en composantes sous forme d'une chaîne séparée par une virgule
     ##
@@ -47,11 +58,7 @@ class ReglagesControleur < Controller
     ## @return  Les composantes sous forme de chaîne
     ##
     def couleur(gdkColor)
-        red = gdkColor.red
-        green = gdkColor.green
-        blue = gdkColor.blue
-
-        return "#{red},#{green},#{blue}"
+        return @Configuration.couleur(gdkColor)
     end
 
 
@@ -63,13 +70,7 @@ class ReglagesControleur < Controller
     ## @return  Gdk::Color
     ##
     def creerCouleur(composantes)
-    	rgb = composantes.split(",")
-    	
-    	red = rgb[0].to_i
-    	green = rgb[1].to_i
-    	blue = rgb[2].to_i
-
-    	return Gdk::Color.new(red, green, blue)
+    	return @Configuration.creerCouleur(composantes)
     end
 
 	##
