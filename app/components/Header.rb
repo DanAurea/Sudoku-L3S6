@@ -123,9 +123,11 @@ module Header
 	def Header.chrono()
 		Fenetre::enteteFenetre.pack_end(@tempsLabel)
 		Fenetre::enteteFenetre.pack_end(@scoreLabel)
-		GLib::Timeout.add(1000){
-			Header.addSecond
+		
+		GLib::Timeout.add_seconds(1){
+				Header.addSecond
 		}
+
 		return self
 	end
 	
@@ -149,7 +151,6 @@ module Header
 		end
 		return true;
 	end
-
     
     ##
     ## Convertis le temps sur deux chiffres

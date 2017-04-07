@@ -5,7 +5,7 @@ module Core
 	ROOTPROJECT           = File.dirname(ROOT) + "/"
 	CONTROLLER            = "Controleur"
 	VIEW                  = "Fenetre"
-	DEBUG                 = true
+	DEBUG                 = false
 	DEFAULT_DATABASE_LOG  = "log/main.log"
 	DEFAULT_ADAPTER       = "sqlite3"
 	DEFAULT_DATABASE_DIR  = "db/"

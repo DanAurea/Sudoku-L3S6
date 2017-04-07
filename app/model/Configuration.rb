@@ -17,7 +17,7 @@ class Configuration < Model
 	CL_INDICES          = "0, 32000, 65535"
 	CL_TEXTE			= "0, 0, 0"
 	POLICE              = "Sans Regular"
-	TAILLE_POLICE		= 12
+	TAILLE_POLICE		= 25
 
 	def initialize()
 		

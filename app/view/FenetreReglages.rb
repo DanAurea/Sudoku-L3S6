@@ -42,7 +42,7 @@ class FenetreReglages < View
         @boutonCouleurTexte = Gtk::ColorButton.new()
         @boutonCouleurIndices = Gtk::ColorButton.new()
         @boutonPolice = Gtk::FontButton.new()
-        @boutonReset = Gtk::Button.new(:label => "Réinitialiser profils")
+        @boutonReset = Gtk::Button.new(:label => "Réinitialiser profil")
 
         Fenetre::boutonRetour.signal_connect('clicked'){
             enregistrerReglages(@pseudo, @config)
