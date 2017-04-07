@@ -7,6 +7,8 @@
  	
 # 	Class JeuLibreControleur
 
+require Core::ROOT + "utils/TechniqueUsine.rb"
+
 class JeuLibreControleur < Controller
 
 	##
@@ -234,6 +236,7 @@ class JeuLibreControleur < Controller
 		end
 
 		@Grille.countNbVides
+		@content["Techniques"] = TechniqueUsine.new()
 		
 		return self
 	end

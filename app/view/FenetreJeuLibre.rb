@@ -30,12 +30,40 @@ class FenetreJeuLibre < View
 		@menuBarre=Fenetre::creerBarreMenu()
 		
 		@boxMilieu = Gtk::Box.new(:horizontal, 0)
-		@boxTechnique = Gtk::Box.new(:vertical, 0)
 		@boxGrille = Gtk::Box.new(:vertical, 0)
 		@boxChiffres = Gtk::Box.new(:horizontal, 5)
 
+		@etapeEnCours=0
+		@nbEtape=0
+		@techniqueChoisie=""
+		@texteContenu = Fenetre::creerLabelType("Bonjour, si vous choisissez une technique, une pénalité sera décompté du score !",Fenetre::SIZE_AUTRE_JEU)
+
 		@boxChiffres.set_margin_top(10) 
 		@boxChiffres.set_margin_left(10)
+		@boxInfo = Gtk::Box.new(:vertical, 40)
+		@boxEtape = Gtk::Box.new(:horizontal, 30)
+		@boxExplication = Gtk::Box.new(:horizontal, 0)
+		@boxContour = Gtk::Box.new(:horizontal,0)
+        @boxTexte = Gtk::Box.new(:vertical,10)
+        @boxInvisible = Gtk::Label.new("")
+        @boxInvisible.set_size_request(50, 150)
+
+		#Choix technique
+		@labelChoix = Fenetre::creerLabelType("<u>Choisir une aide</u>", Fenetre::SIZE_TITRE_JEU)
+		@list = Gtk::ComboBoxText.new()
+
+		#liste technique
+		@tabTechnique=[
+						"SCandidate",
+						"DSubset",
+						"SCell"
+					]
+
+		#information de la technique
+		@labelChoix2 = Fenetre::creerLabelType("Choississez une technique...", Fenetre::SIZE_AUTRE_JEU)
+		@boutonEtapePrec = Gtk::Button.new(:label => "Precedente")
+		@boutonEtapeSuiv = Gtk::Button.new(:label => " Suivante ")
+		@labelEtape = Fenetre::creerLabelType("Etape #{@etapeEnCours}/#{@nbEtape}", Fenetre::SIZE_AUTRE_JEU)
 
 		@valeurSelectionnee = nil
 		@grilleDessin = nil
@@ -200,17 +228,121 @@ class FenetreJeuLibre < View
 			@grilleDessin.redessiner
 		}
 
+		gestionDroite()
+
 		#box grille
 		@boxGrille.add(@grilleDessin)
 		@boxChiffres.add(boutonIndices)
 		@boxGrille.add(@boxChiffres)
 
 		@boxMilieu.add(@boxGrille)
-		@boxMilieu.add(@boxTechnique)
+		@boxMilieu.add(@boxInfo)
+		@boxInfo.add(@boxInvisible)
+
+		ajoutCss
 
 		#add a la box
 		Fenetre::box.add(@menuBarre)
 		Fenetre::box.add(@boxMilieu)
+	end
+
+	##
+	## actualisation informations
+	##
+	def actualisation()
+		@labelChoix2.set_text("Explication de #{@techniqueChoisie}")
+		@labelEtape.set_text("Etape #{@etapeEnCours}/#{@nbEtape}")
+		recuperationEtape()
+	end
+
+	##
+	## Recuperatuon du nombre d'etapes pour le tutoriel
+	##
+	##
+	def recuperationNbEtape()
+		@nbEtape=@techniqueObjet.combienEtape()
+	end
+
+	##
+	## Recuperatuon du texte de l'etape en cours
+	##
+	##
+	def recuperationEtape()
+		string=@techniqueObjet.etape(@etapeEnCours)
+		@texteContenu.set_text(string)
+	end
+
+	##
+    ## Ajoute les classes css au widget
+    ##
+    def ajoutCss()
+        #css label
+        @labelChoix.override_color(:normal, Fenetre::COULEUR_BLANC)
+        @labelChoix.set_margin_top(40)
+        @list.set_hexpand(true);
+        @labelEtape.override_color(:normal, Fenetre::COULEUR_BLANC)
+        @labelEtape.set_hexpand(true);
+        @texteContenu.override_color(:normal, Fenetre::COULEUR_BLANC)
+        @texteContenu.set_margin(4)
+        @labelChoix2.override_color(:normal, Fenetre::COULEUR_BLANC)
+        #css bouton
+        @boxContour.override_background_color(:normal, Fenetre::COULEUR_BLANC)
+        @boxTexte.override_background_color(:normal, Fenetre::COULEUR_BLEU)
+        @boxTexte.set_margin(3)
+        @boutonEtapePrec.set_hexpand(true);
+        @boutonEtapeSuiv.set_hexpand(true);
+        @boxInfo.set_margin(10)
+    end
+
+	def gestionDroite()
+		#choix technique
+		@tabTechnique.each{ |t|
+			@list.append_text("#{t}")
+		}
+
+		@list.signal_connect('changed'){ |widget|
+			Header.penalite()
+			@techniqueChoisie=widget.active_text()
+			@techniqueObjet=@Techniques.creer(@techniqueChoisie)
+			@nbEtape= recuperationNbEtape()
+			@etapeEnCours=1
+			actualisation()
+		}
+
+		#etapes
+		@boutonEtapePrec.signal_connect('clicked'){
+			if @etapeEnCours-1 > 0
+				@etapeEnCours=@etapeEnCours-1
+				actualisation()
+			end
+		}
+
+		@boutonEtapeSuiv.signal_connect('clicked'){
+			if @etapeEnCours+1 <= @nbEtape
+				@etapeEnCours=@etapeEnCours+1
+				actualisation()
+			end
+		}
+
+		@boxEtape.add(@boutonEtapePrec)
+		@boxEtape.add(@labelEtape)
+		@boxEtape.add(@boutonEtapeSuiv)
+
+		#explication
+        @boxExplication.set_hexpand(true)
+        @boxExplication.set_vexpand(true)
+
+        @texteContenu.set_line_wrap(true)
+        @boxTexte.add(@texteContenu)
+        @boxContour.pack_start(@boxTexte, :expand => true, :fill => true)
+        @boxExplication.pack_start(@boxContour, :expand => true, :fill => true)
+
+		#add a la box
+		@boxInfo.add(@labelChoix)
+		@boxInfo.add(@list)
+		@boxInfo.add(@labelChoix2)
+		@boxInfo.add(@boxEtape)
+		@boxInfo.add(@boxExplication)
 	end
 
 	##

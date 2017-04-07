@@ -13,7 +13,7 @@ class Configuration < Model
 	
 	CL_CASE_BASE        = "65535, 65535, 65535"
 	CL_CASE_FIXE        = "55000, 55000, 55000"
-	CL_CASE_SELECTIONNE = "0, 50000, 50000"
+	CL_CASE_SELECTIONNE = "64764,59881,20303"
 	CL_INDICES          = "0, 32000, 65535"
 	CL_TEXTE			= "0, 0, 0"
 	POLICE              = "Sans Regular"
