@@ -142,7 +142,7 @@ class FenetreJeuLibre < View
 		@grilleDessin.add_observer(self)
 
 		self.candidats
-		@grilleDessin.indices = true
+		@grilleDessin.indices = false
 
 		## Dessine les boutons chiffres
 		for i in 1..9
@@ -234,7 +234,7 @@ class FenetreJeuLibre < View
 		ligne   = 0
 		colonne = 0
 
-		boutonIndices = Gtk::Button.new(:label => "Désactiver indices")
+		boutonIndices = Gtk::Button.new(:label => "Activer indices")
 		boutonIndices.override_color(:normal, Fenetre::COULEUR_BLANC)
 
 		boutonIndices.signal_connect("clicked"){
