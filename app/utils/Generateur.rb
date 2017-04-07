@@ -97,49 +97,46 @@ class Generateur
 
 
 	##
-	## @brief méthode qui retire des cases pour creer la difficulté.
+	## @brief méthode qui retire n fois une valeur de la grille
 	##
-	## @param d la difficulté souhaiter.
-	##
-
-
-	def complexifier()
-
-		present = Array.new
-		9.times do
-			val = 1+rand(9)
-			while(present.include? val)
-				val = 1+rand(9)
-			end
-			present.unshift(val)
-		end
-
-		1.upto(@difficulte) do
-			victime = present.pop()
-			@grid.each do |a|
-				a.each_with_index do |c, index|
-					if c == victime
-						a[index] = nil
-					end
-				end
-			end
-		end
-
-
-		nbkill = 0
-		@grid.each do |a|
-			nbkill += a.count(nil)
-		end
-		nbkill = (81-nbkill)* @difficulte *0.1
-
-		0.upto(nbkill) do
+	## @param val la valeur a retiré.
+	## @param n nombre d'occurence a retiré.
+	##	
+	
+	
+	def retirenfois(val, n)
+	
+		1.upto(n) do
 			x = rand(9)
 			y = rand(9)
-			while(@grid[x][y] == nil)
+			while(@grid[x][y] != val)
 				x = rand(9)
 				y = rand(9)
 			end
 			@grid[x][y] = nil
+		end
+	end
+	
+	
+	##
+	## @brief méthode qui retire des cases pour creer la difficulté.
+	##	
+	
+	def complexifier()
+	
+		if(@difficulte < 3)
+			1.upto(9) do |x|
+				retirenfois(x, 1)
+			end
+		end
+	
+		present = ligneuniq()
+		seed = [1,1,1,2,1,2,2,1,2]
+
+		1.upto(@difficulte) do
+			seed.each_with_index do |n, i|
+				retirenfois(i+1, n)
+			end
 		end
 
 		return @grid
