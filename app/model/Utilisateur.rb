@@ -1,19 +1,18 @@
-# 	Author:: 		Nikuto, DanAurea
-# 	Developers: 	Nikuto, DanAurea
-# 	Version:: 		0.1
-# 	Copyright:: 	© 2016
-# 	License::   	Distributes under the same terms as Ruby
-# 	
- 
-##	
-##	Classe d'administration des utilisateurs
-##	Modèle utilisateur
-##
-
 require Core::ROOT + "model/Configuration.rb"
 require Core::ROOT + "model/Score.rb"
 require Core::ROOT + "model/Jeu.rb"
 
+## 	Author:: 		Nikuto, DanAurea
+## 	Developers: 	Nikuto, DanAurea
+## 	Version:: 		0.1
+## 	Copyright:: 	© 2016
+## 	License::   	Distributes under the same terms as Ruby
+## 	
+
+##	
+##	Classe d'administration des utilisateurs
+##	Modèle utilisateur
+##
 class Utilisateur < Model
 
 	##
@@ -30,6 +29,7 @@ class Utilisateur < Model
 		## Récupère les instances des tables configuration et score (Singleton pattern)
 		@configuration = Configuration.instance()
 		@score         = Score.instance()
+		@jeu           = Jeu.instance()
 	end
 
 	##
@@ -94,6 +94,10 @@ class Utilisateur < Model
 			@@db.execute "DELETE FROM score WHERE utilisateur= ?", utilisateur_id
 			@@db.execute "DELETE FROM configuration WHERE utilisateur = ?", utilisateur_id
 			@configuration.creerConfiguration(pseudo)
+		end
+
+		if(self.partieUtilisateur?(pseudo))
+			@jeu.supprimerPartie(pseudo)
 		end
 	end
 

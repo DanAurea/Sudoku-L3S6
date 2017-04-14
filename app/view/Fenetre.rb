@@ -345,25 +345,17 @@ module Fenetre
     ## @return  boxBottom
     ##
     def Fenetre.creerBoxBottom()
-        #Création des boutons
-        
+        #Création des boutons 
         @boutonRetour=Gtk::Button.new(:label => "Retour")
         @boutonRetour.set_margin(40)
         @boutonRetour.signal_connect_after('clicked'){
             Core::back()
         }
 
-        @boutonQuitter=Gtk::Button.new(:label => "Quitter")
-        @boutonQuitter.set_margin(40)
-        @boutonQuitter.signal_connect('clicked'){
-            Fenetre::detruire()
-        }
-
         #Ajout des boutons
         boxBottom=Gtk::Box.new(:horizontal, 0)
         boxBottom.halign = :center
         boxBottom.add(@boutonRetour)
-        boxBottom.add(@boutonQuitter)
         return boxBottom
     end
 

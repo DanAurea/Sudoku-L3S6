@@ -1,14 +1,11 @@
-# 	File description
-# 	
+
 # 	Author:: 		DanAurea
 # 	Developers: 	DanAurea
 # 	Version:: 		0.1
 # 	Copyright:: 	© 2016
 # 	License::   	Distributes under the same terms as Ruby
 # 	
- 	
-# 	Class description
-# 	Classe de test unitaire des différents modules.
+
 
 require_relative "../app/core/Core.rb"
 require_relative "../app/core/Model.rb"
@@ -18,20 +15,19 @@ require_relative 'Model/scoreCorrecte'
 require 'rspec'
 
 
+## 	Classe de test unitaire des différents modules.
 class UnitTest
  
-
 	def initialize()
 		
 	end
 
 	
 	##
-	## méthode de test du générateur de grille.
+	## Méthode de test du générateur de grille.
 	##
 	## @return true si le test est positif, false sinon.
 	##
-
 	def UnitTest.testerGrilleCorrecte()
 
 		grilleCorrecte()
@@ -47,11 +43,10 @@ class UnitTest
 
 
 	##
-	## méthode de test du gestionnaire d'utilisateurs.
+	## Méthode de test du gestionnaire d'utilisateurs.
 	##
 	## @return true si le test est positif, false sinon.
 	##
-
 	def UnitTest.testerUtilisateurCorrecte()
 		return utilisateurCorrecte()
 	end
@@ -62,7 +57,6 @@ class UnitTest
 	##
 	## @return true si le test est positif, false sinon.
 	##
-
 	def UnitTest.testerScoreCorrecte()
 		# if(utilisateurCorrecte())
 		# 	scoreCorrecte()
@@ -70,8 +64,6 @@ class UnitTest
 		# 	return false
 		# end
 	end
-
-
 
 end
 

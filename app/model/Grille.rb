@@ -102,7 +102,7 @@ class Grille < Model
     ##
     ## @return     true si la cellule est bien unique false sinon
     ##
-    def valeurUnique(x ,y)
+    def valeurUnique(valeur, x ,y)
         ligneUnique = self.valeurUniqueLigne(valeur, x, y, "ligne")
         colonneUnique =self.valeurUniqueLigne(valeur, x, y, "colonne")
 

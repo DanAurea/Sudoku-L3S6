@@ -5,7 +5,7 @@
 
 
 ##
-## Classe pour la technique ddes jumeaux et triplés
+## Technique des jumeaux et triplés
 ##
 class HPTriple < Technique
 

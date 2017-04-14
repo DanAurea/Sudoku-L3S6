@@ -16,7 +16,7 @@ class Configuration < Model
 	#Définit la couleur de la case fixe
 	CL_CASE_FIXE        = "55000, 55000, 55000"
 	#Définit la couleur de la case sélectionnée
-	CL_CASE_SELECTIONNE = "0, 50000, 50000"
+	CL_CASE_SELECTIONNE = "64764, 59881, 20303"
 	#Définit la couleur des indices
 	CL_INDICES          = "0, 32000, 65535"
 	#Définit la couleur du texte

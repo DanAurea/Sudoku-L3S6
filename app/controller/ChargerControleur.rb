@@ -6,7 +6,7 @@
 # 	
 
 ##	
-## Classe permettant de créer un controlleur pour la vue cFenetreCharger
+## Classe permettant de créer un controlleur pour la vue FenetreCharger
 ##
 class ChargerControleur < Controller
 

@@ -145,7 +145,7 @@ module Header
 	## @return 	self
 	##
 	def Header.chrono()
-		
+
 		Fenetre::enteteFenetre.children.each do |child|
 			if(child == @tempsLabel || child == @scoreLabel)
 				Fenetre::enteteFenetre.remove(child)

@@ -1,5 +1,5 @@
-# 	File description
-# 	
+require_relative '../../app/utils/Generateur'
+
 # 	Author:: 		BastienMor
 # 	Developers: 	BastienMor
 # 	Version:: 		0.1
@@ -7,19 +7,18 @@
 # 	License::   	Distributes under the same terms as Ruby
 # 	
  	
-# 	Class description
-# 	Classe de test unitaire du générateur de grille.
-
-require_relative '../../app/utils/Generateur'
-
 ##
-## vérifie que chaque valeur soit correcte.
-##
-## @param grid la grille de sudoku
-##
-## @return true si les valeurs sont bonnes, false sinon.
+## Classe de test unitaire du générateur de grille.
 ##
 
+
+##
+## Vérifie que chaque valeur est correcte
+##
+## @param 	grid 		La grille du sudoku
+##
+## @return 	true si les valeurs sont bonnes, false sinon.
+##
 def checkValues(grid)
 
 	grid.each do |line|
@@ -35,13 +34,12 @@ end
 
 
 ##
-## vérifie que chaque ligne soit correcte.
+## Vérifie que chaque ligne est correcte
 ##
-## @param grid la grille de sudoku
+## @param 	grid 	La grille du sudoku
 ##
 ## @return true si la ligne est valide, false sinon.
 ##
-
 def checkLine(grid)
 
 	0.upto(8){ |x|
@@ -54,13 +52,13 @@ end
 
 
 ##
-## consulte une colone.
+## Consulte une colonne
 ##
-## @param grid la grille de sudoku et n le numéro de colone.
+## @param 	grid 	La grille de sudoku
+## @param 	n 		Le numéro de colonne
 ##
-## @return une colone sous forme de list.
+## @return une colonne sous forme d'une liste.
 ##
-
 def gridCol(grid, n)
 
 	col = Array.new()
@@ -73,11 +71,11 @@ end
 
 
 ##
-## vérifie que chaque colone soit correcte.
+## Vérifie que chaque colone est correcte
 ##
 ## @param grid la grille de sudoku
 ##
-## @return true si la colone est valide, false sinon.
+## @return true si la colonne est valide, false sinon.
 ##
 
 def checkCol(grid)
@@ -92,13 +90,14 @@ end
 
 
 ##
-## consulte un bloc de 3x3.
+## Consulte un bloc de 3x3 (=région)
 ##
-## @param grid la grille de sudoku et x,y les coordonées du bloc.
+## @param 	grid 	La grille de sudoku 
+## @param 	x 		Coordonnée x du bloc
+## @param 	y 		Coordonnée y du bloc
 ##
-## @return un bloc sous forme de list.
+## @return un bloc sous forme d'une liste.
 ##
-
 def gridBloc(grid, x, y)
 	bloc = Array.new()
 
@@ -112,13 +111,12 @@ end
 
 
 ##
-## vérifie que chaque bloc soit correcte.
+## Vérifie que chaque bloc est correcte.
 ##
 ## @param grid la grille de sudoku
 ##
-## @return true si les blocs sont valide, false sinon.
+## @return true si les blocs sont valides, false sinon.
 ##
-
 def checkBloc(grid)
 
 	0.upto(2){ |x|
@@ -133,13 +131,12 @@ end
 
 
 ##
-## vérifie que chaque valeur soit correcte.
+## vérifie que chaque valeur est correcte.
 ##
 ## @param grid la grille de sudoku
 ##
-## @return true si les valeurs sont valide, false sinon.
+## @return true si les valeurs sont valides, false sinon.
 ##
-
 def checkAllVal(grid)
 
 	grid.each do |l|
@@ -158,13 +155,12 @@ end
 
 
 ##
-## vérifie que chaque valeur soit correcte après conversion de la grille.
+## Vérifie que chaque valeur est correcte après conversion de la grille.
 ##
-## @param grid la grille de sudoku
+## @param 	grid 	La grille de sudoku
 ##
-## @return true si les valeurs sont valide, false sinon.
+## @return true si les valeurs sont valides, false sinon.
 ##
-
 def checkAllValConverted(grid)
 
 	grid.each do |l|
@@ -182,13 +178,11 @@ def checkAllValConverted(grid)
 end
 
 
-
 ##
-## méthode de test, génère une grille et test les lignes, colones et bloc de 9.
+## Méthode de test, génère une grille et teste les lignes, colonnes et régions.
 ##
 ## @return true si la grille est valide, false sinon.
 ##
-
 def grilleCorrecte()
 
 	gen = Generateur.new(0)

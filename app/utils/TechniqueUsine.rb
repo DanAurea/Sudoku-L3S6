@@ -6,7 +6,7 @@ require_relative "./Peche.rb"
 
 
 ##
-## @brief      Classe pour l'usine à technique
+## Classe pour l'usine à technique
 ##
 class TechniqueUsine
 	

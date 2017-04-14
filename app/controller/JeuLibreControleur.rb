@@ -1,8 +1,11 @@
+require Core::ROOT + "utils/TechniqueUsine.rb"
+
 # => Author::       Valentin, DanAurea
 # => Version::      0.1
 # => Copyright::    © 2016
 # => License::      Distributes under the same terms as Ruby
 # 	
+
 
 ##
 ## Classe permettant de créer un contrôleur pour la vue FenetreJeuLibre
@@ -234,6 +237,7 @@ end
 		end
 
 		@Grille.countNbVides
+		@content["Techniques"] = TechniqueUsine.new()
 		
 		return self
 	end

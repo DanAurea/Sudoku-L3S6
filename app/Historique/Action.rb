@@ -4,7 +4,7 @@
 # => License:: 		Distributes under the same terms as Ruby
 
 ##
-## Classe Action permettant de tester
+## Classe Action permettant d'initialiser et afficher une étiquette
 ##
 class Action
 	##VI

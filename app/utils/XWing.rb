@@ -7,7 +7,7 @@ require './Technique'
 
 
 ##
-## Classe pour X-wing.
+## Technique X-wing.
 ##
 class XWing < Technique
 
@@ -22,6 +22,21 @@ class XWing < Technique
 		new()
 	end
 
+	##
+	## Retourne la grille
+	##
+	## @param      grille  The grille
+	##
+	## @return     la grille
+	##
+	def rotation(grille)
+		res = Array.new()
+
+		0.upto(8) do |n|
+			res.push(ligne(grille, n))
+		end
+		return res
+	end
 
 	##
 	## Compte le nombre d'indices
@@ -51,21 +66,20 @@ class XWing < Technique
 	## @return	res une liste de 2 lignes qui remplissent les conditions pour le même indice, nil sinon.
 	##
 
-	def findLineForIndice()
+	def findLineForIndice(i)
 
 		res = Array.new()
 
-		1.upto(9) do |i|
-			@grilleIndice.each_with_index do |line, n|
-				if (cptIndice(line, i) == 2)
-					res.push(n)
-				end
+		@grilleIndice.each_with_index do |line, n|
+			if (cptIndice(line, i) == 2)
+				res.push(n)
 			end
-			if(res.size() >= 2)
-				return [res, i]
-			end
-			res = Array.new()
 		end
+		if(res.size() >= 2)
+			puts 'res : '+res.to_s+' * * * * * '+i.to_s
+			return [res, i]
+		end
+
 		return nil
 	end
 
@@ -99,12 +113,15 @@ class XWing < Technique
 	## @return	true si cela donne un carré, nil sinon.
 	##
 
-	def isSquare(lingnea, ligneb, indice)
+	def isSquare(lignea, ligneb, indice)
 		couplea = indexIndice(lignea, indice)
 		coupleb = indexIndice(ligneb, indice)
 		
-		if (couplea == coupeb)
-			retrun couplea
+		puts "aie aie aie"
+		puts "couple a : "+couplea.to_s+"   ****"
+		puts coupleb
+		if (couplea == coupleb)
+			return couplea
 		end
 		return nil
 	end
@@ -123,21 +140,36 @@ class XWing < Technique
 
 		@grilleIndice = indice(grille)
 
-		#col = Array.new()
-		#ligne = Array.new()
+		col = Array.new()
+		line = Array.new()
+		candidat = Array.new()
 
-		#ligne = findLineForIndice(grilleIndice)
 
-		#if(!candidat == nil)
-		#	indice = ligne[1]
-		#	ligne = ligne[0]
-		#	col = isSquare(ligne[0], ligne[1], indice)
-		#end
+		1.upto(9) do |i|
+			candidat = findLineForIndice(i)
 
-		#puts ligne
-		#puts col
+
+			if(candidat != nil)
+				
+puts candidat
+				col = isSquare(candidat[0][0], candidat[0][1], candidat[1])
+
+				if(col != nil)
+					puts "col : "+col.to_s
+					puts "IT IS SQUARE !!!!"
+					return true
+				end
+			end
+		end
+
+
+		puts line
+		puts '*******'
+		puts col
+		puts '*******'
+		
 		0.upto(8){ |x|
-			puts @grilleIndice[x].to_s.gsub('nil', ' ')
+			#puts @grilleIndice[x].to_s.gsub('nil', ' ')
 		}
 
 		
@@ -151,28 +183,21 @@ end
 xwing = XWing.creer()
 
 grille = [
-[4,3,nil,2,5,8,7,1,nil],
-[nil,nil,1,7,6,3,5,nil,4],
-[nil,5,nil,1,4,9,3,nil,nil],
+['4','3',nil,'2','5','8','7','1',nil],
+[nil,nil,'1','7','6','3','5',nil,'4'],
+[nil,'5',nil,'1','4','9','3',nil,nil],
 
-[nil,nil,4,nil,3,7,9,6,1],
-[nil,7,nil,nil,1,2,8,4,3],
-[1,nil,3,nil,9,4,2,7,5],
+[nil,nil,'4',nil,'3','7','9','6','1'],
+[nil,'7',nil,nil,'1','2','8','4','3'],
+['1',nil,'3',nil,'9','4','2','7','5'],
 
-[nil,1,8,3,7,6,4,5,nil],
-[nil,nil,nil,4,2,5,1,nil,nil],
-[nil,4,nil,9,8,1,6,nil,7]]
+[nil,'1','8','3','7','6','4','5',nil],
+[nil,nil,nil,'4','2','5','1',nil,nil],
+[nil,'4',nil,'9','8','1','6',nil,'7']]
 
 xwing.solution(grille)
 
+grillerot = xwing.rotation(grille)
 
-
-
-
-
-
-
-
-
-
+xwing.solution(grillerot)
 

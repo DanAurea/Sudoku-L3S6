@@ -6,7 +6,7 @@ require "yaml"
 # => License::      Distributes under the same terms as Ruby
 
 ##
-## Classe permettant de ...
+## Classe permettant de gérer le core (configuration unique)
 ##
 
 class Conf

@@ -4,7 +4,7 @@
 # => License:: 		Distributes under the same terms as Ruby
 
  ##
- ## Module permettant de 
+ ## Module permettant de gérer les liens entre les vues et les contrôleurs suivant des modèles particuliers
  ##
 
 module Core
