@@ -46,6 +46,8 @@ class GrilleDessin < Gtk::Grid
             end
         end
 
+    end
+
     ##
     ## Réinitialise les indices de toutes les cases
     ##
@@ -87,6 +89,7 @@ class GrilleDessin < Gtk::Grid
     ##
     ## Redessine la grille en mettant à jour les informations
     ##
+    ##
     ## @return     self
     ##
     def redessiner()
@@ -103,6 +106,8 @@ class GrilleDessin < Gtk::Grid
     ##
     ## Réinitialise l'état de toutes les cases
     ##
+    ## @return     self
+    ##
     def reset()
         for i in 0..8
             for j in 0..8
@@ -115,6 +120,8 @@ class GrilleDessin < Gtk::Grid
     ## Affiche les valeurs identiques en une couleur différente
     ##
     ## @param      valeur  La valeur à comparer
+    ##
+    ## @return     self
     ##
     def memeValeurs(valeur)
         for i in 0..8
@@ -164,7 +171,7 @@ class GrilleDessin < Gtk::Grid
     end
 
     ##
-    ## Mise à jour observateur
+    ## Mise à jour de l'observateur
     ##
     ## @param      x     position x de la case sélectionnée
     ## @param      y     position y de la case sélectionnée

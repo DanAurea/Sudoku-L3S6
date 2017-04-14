@@ -79,7 +79,6 @@ module Fenetre
     ## Création de la header bar
     @enteteFenetre                   = Gtk::HeaderBar.new()
     @enteteFenetre.show_close_button = true
-    #@enteteFenetre.has_subtitle      = false
 
     ## Crée un conteneur pour le contenu
     @box=Gtk::Box.new(:vertical, 0)
@@ -197,10 +196,10 @@ module Fenetre
     ##
     ## Applique une feuille css sur un widget
     ## 
-    ## @param   widget          Widget sur lequel appliquer
-    ## @param   chemin          Chemin du fichier css
-    ## @param   fournisseur     Gtk provider pour le css
-    ## @param   priorite        Priorité du style par rapport au système
+    ## widget          Widget sur lequel appliquer
+    ## chemin          Chemin du fichier css
+    ## fournisseur     Gtk provider pour le css
+    ## priorite        Priorité du style par rapport au système
     ## 
     ## @return  Style appliqué
     ##
@@ -309,7 +308,6 @@ module Fenetre
     ##
     ## @param   unNomDeLabel    String représentant le texte du label
     ## @param   uneTaille       Taille de la police
-    ## @param   une couleur     Couleur du texte
     ##
     ## @return  label
     ##

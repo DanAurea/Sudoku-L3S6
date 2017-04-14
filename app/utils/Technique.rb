@@ -128,7 +128,7 @@ class Technique
 	## @param 	grille 			La grille
 	## @param 	x 				La colonne
 	##
-	## @return     grille[x], la colonne
+	## @return  la colonne x
 	##
 	def colonne(grille, x)
 		return grille[x]

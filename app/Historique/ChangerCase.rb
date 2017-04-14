@@ -16,11 +16,11 @@ class ChangerCase < Action
 
 	## Initialise
 	##
-	## @param 	case 			Case à initialiser
+	## @param 	cas 			Case à initialiser
 	## @param 	entier			Valeur à affecter à la case
 	## 
-	def initialize(case,entier)
-		@case=case
+	def initialize(cas, entier)
+		@case=cas
 		@valeur=entier
 		@ancienneValeur=nil
 	end

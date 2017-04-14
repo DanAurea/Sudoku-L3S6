@@ -14,7 +14,6 @@ class CaseDessin < Gtk::DrawingArea
 
     attr_accessor :x, :y, :size, :taillePolice, :nombre, :editable, :indices, :indice, :state, :couleurCase, :couleurCaseFixe, :couleurIndices, :couleurPolice, :couleurSurlignee
 
-<<<<<<< HEAD
     ##
     ## Initialisation
     ##

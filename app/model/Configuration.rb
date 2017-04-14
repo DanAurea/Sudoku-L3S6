@@ -152,7 +152,7 @@ class Configuration < Model
 	##
 	## Crée une configuration par défaut pour l'utilisateur
 	##
-	## @param      utilisateurId  L'identifiant utilisateur
+	## @param      pseudo  L'identifiant de l'utilisateur
 	##
 	## @return     self
 	##
