@@ -1,3 +1,19 @@
 #!/usr/bin/env ruby
 
-puts "Check out our beautiful Dogeku !"
+$LOAD_PATH << '.'
+
+require_relative '../app/core/Core'
+require_relative '../app/core/Controller.rb'
+require_relative '../app/core/Model.rb'
+require 'gtk3'
+
+Gtk::init()
+
+require_relative '../app/view/Fenetre.rb'
+require_relative '../app/core/View.rb'
+require_relative '../app/components/Header.rb'
+
+## Charge la page principale du jeu
+Core::changeTo("Principale")
+
+Gtk::main()

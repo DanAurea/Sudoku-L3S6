@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.homepage    = 'http://rubygems.org/gems/Dogeku'
   
 
-  s.files       = Dir.glob("{bin,app}/**/*") + %w(LICENSE README.md)
+  s.files       = Dir.glob("{bin,app,assets,doc,test}/**/*") + %w(LICENSE README.md)
   s.executables = ['dogeku']
 
   s.licenses = ['MIT', 'GPL-2.0']

@@ -98,7 +98,7 @@ class Controller
 			@content[key.to_s] = value
 		}
 
-		self.set_properties(view)
+		self.setProperties(view)
 
 		## Collect content from controller and send it to view
 		view.controller = self
@@ -128,7 +128,7 @@ class Controller
 	##
 	## Sets the properties of window
 	##
-	def set_properties(view)
+	def setProperties(view)
 		## Set window properties
     	
     	view.headerBar.title = @title
