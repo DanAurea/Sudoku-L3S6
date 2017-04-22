@@ -25,12 +25,15 @@ Cette application a été réalisé par 8 étudiants de l'Université du Maine e
 
 
 # Installation
-Pour satisfaire toutes les dépendances liées à cette application, installez simplement bundler puis installez le bundle associé:
+Pour installer l'application rien de plus simple:
 
-> gem install bundler
+> gem install Dogeku
 >
-> bundler install
 
-Il est possible de générer une nouvelle gem et de l'installer à partir du Rakefile:
+Assurez-vous d'avoir SQLite3 et GTK3 d'installé sur votre machine pour utiliser l'application.
 
-> rake install
+# Exécution
+Pour lancer l'application lancer simplement la commande shell suivante:
+
+> dogeku
+>
