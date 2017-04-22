@@ -1,6 +1,6 @@
 
 ##
-## Classe pour disjoint subset.
+## Technique Disjoint Subset.
 ##
 class DSubset < Technique
 

@@ -1,7 +1,18 @@
+#   Author::        AlexTAB
+#   Version::       0.1
+#   Copyright::     © 2017
+#   License::       Distributes under the same terms as Ruby
+
+##
+## Modèle pour le score
+##
 class Score < Model
 
 	attr_accessor :difficulte
 
+	##
+	## Initialisation
+	## 
 	def initialize()
 		
 		## Crée la table Score
@@ -63,7 +74,6 @@ class Score < Model
 	##
 	## @param      score_id  Id du score
 	## @param      score     Score
-	##
 	##
 	def mettreAJour(score_id, score)
 		@@db.execute "UPDATE score SET score= ? WHERE score_id = ?", score, score_id

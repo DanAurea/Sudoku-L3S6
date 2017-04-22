@@ -1,6 +1,10 @@
+# => Author:: 		yguenver
+# => Version:: 		0.1
+# => Copyright:: 	© 2016
+# => License:: 		Distributes under the same terms as Ruby
 
 ##
-## Classe pour peche à la ligne.
+## Classe pour la technique 'Pêche à la ligne'.
 ##
 class Peche < Technique
 
@@ -13,7 +17,13 @@ class Peche < Technique
 		new()
 	end
 	
-
+	##
+	## Recherche une solution pour la technique utilisée
+	##
+	## @param 	grille 			La grille
+	##
+	## @return 	res, les informations pour aider l'utilisateur ou nil si la méthode ne trouve rien
+	##
 	def solution(grille)
 	
 		# res = Array.new()

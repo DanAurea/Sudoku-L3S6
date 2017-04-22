@@ -1,29 +1,30 @@
-# => Controlleur vue chargement d'une partie
+# =>
 # => Author::       Valentin, DanAurea
 # => Version::      0.1
 # => Copyright::    © 2016
 # => License::      Distributes under the same terms as Ruby
 # 	
- 	
-# 	Class ChargerControleur
-#
+
+##	
+## Classe permettant de créer un controlleur pour la vue FenetreCharger
+##
 class ChargerControleur < Controller
 
 	##
     ## Initialize
     ##
 	def initialize()
-		#charge le modele grille
+		#charge le modèle grille
 		loadModel("Grille")
-		#parametres fenetre
+		#paramètres fenêtre
 		@title  = "Sudoku - Partie chargée"
 		@content = {"grille" => nil}
 	end
 
 	##
-    ## Méthode à définir dans tout les cas !
+    ## Méthode à définir dans tous les cas !
     ##
-    ## @return self
+    ## @return 	self
     ##
 	def run()
 

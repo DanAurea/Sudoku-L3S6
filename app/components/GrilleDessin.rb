@@ -1,6 +1,14 @@
 require_relative "CaseDessin.rb"
 require "observer"
 
+## => Author::      DanAurea
+## => version::     0.1
+## => copyright::   © 2016
+## => license::     Distributes under the same terms as Ruby
+
+##
+## Classe permettant de dessiner la grille
+## 
 class GrilleDessin < Gtk::Grid
     include Observable
     
@@ -43,8 +51,6 @@ class GrilleDessin < Gtk::Grid
     ##
     ## Réinitialise les indices de toutes les cases
     ##
-    ## @return     self
-    ##
     def resetIndices()
         @cases.each do |ligne|
             ligne.each do |c|
@@ -54,7 +60,7 @@ class GrilleDessin < Gtk::Grid
     end
 
     ##
-    ## Définis l'état visuel des indices
+    ## Définit l'état visuel des indices
     ##
     ## @return     self
     ##
@@ -98,7 +104,7 @@ class GrilleDessin < Gtk::Grid
     end
 
     ##
-    ## Réinitialisé l'état de toutes les cases
+    ## Réinitialise l'état de toutes les cases
     ##
     ## @return     self
     ##
@@ -111,7 +117,7 @@ class GrilleDessin < Gtk::Grid
     end
 
     ##
-    ## Affiche les valeurs identiques en une couleur différentes
+    ## Affiche les valeurs identiques en une couleur différente
     ##
     ## @param      valeur  La valeur à comparer
     ##
@@ -165,9 +171,9 @@ class GrilleDessin < Gtk::Grid
     end
 
     ##
-    ## Mise à jour observateur
+    ## Mise à jour de l'observateur
     ##
-    ## @param      x     postion x de la case sélectionnée
+    ## @param      x     position x de la case sélectionnée
     ## @param      y     position y de la case sélectionnée
     ## @param      etat  L'état
     ##

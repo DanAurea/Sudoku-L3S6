@@ -1,24 +1,24 @@
-# => Controlleur vue choix des niveaux
 # => Author::       Valentin, DanAurea
 # => Version::      0.1
 # => Copyright::    © 2016
 # => License::      Distributes under the same terms as Ruby
 # 	
- 	
-# 	Class NiveauControleur
-#
+
+##	
+## Classe permettant de créer un contrôleur pour la vue FenetreNiveau
+##
 class NiveauControleur < Controller
 
 	##
     ## Initialize
     ##
 	def initialize()
-		#charge le modele utilisateur
+		#charge le modèle utilisateur
 		loadModel("Utilisateur")
 		loadModel("Jeu")
 		loadModel("Grille")
 
-		#parametres fenetre
+		#paramètres fenêtre
 		@title = "Sudoku - Choix difficulté"
 		@width = 600
 		@height = 550
@@ -44,9 +44,9 @@ class NiveauControleur < Controller
 	end
 
 	##
-    ## Méthode à définir dans tout les cas !
+    ## Méthode à définir dans tous les cas !
     ##
-    ## @return self
+    ## @return 	self
     ##
 	def run()
 		return self

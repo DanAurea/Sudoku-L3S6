@@ -1,38 +1,37 @@
-#   Modele de la grille
-#   
+require Core::ROOT + "utils/Generateur.rb"  
 #   Author::        Nikuto
-#   Developers:     Nikuto
 #   Version::       0.1
 #   Copyright::     © 2017
 #   License::       Distributes under the same terms as Ruby
-#   
-    
-#   Methodes permettant de manager la grille et de faire des verification
-#   de la validité d'une valeurs
-require Core::ROOT + "utils/Generateur.rb"
 
+##  
+##   Méthodes permettant de manager la grille et de faire des vérifications de la validité d'une valeur
+##   Modèle de la grille
+##
 class Grille < Model
 
     attr_accessor :nbVides, :grille
 
+    ##
+    ## Initialisation
+    ##
     def initialize()
         @grille = nil
     end
 
     
     ##
-    ## @brief      Genere une grille avec un niveau donné
+    ## Génère une grille avec un niveau donné
     ##
     ## @param      niveau  Le niveau souhaité
     ##
-    ## @return     La grille generée
+    ## @return     La grille génerée
     ##
     def generer(niveau)
         # Niveau + 1 car constante de 0 à 2 passée en paramètre
         
-        @gen                = Generateur.new(niveau + 1)
-    
-        @grille  = @gen.generer()
+        @gen = Generateur.new(niveau + 1)
+        @grille = @gen.generer()
 
         return @grille
     end
@@ -55,7 +54,7 @@ class Grille < Model
     end
 
     ##
-    ## @brief      Charge la partie du pseudo donnée
+    ## Charge la partie du pseudo donnée
     ##
     ## @param      pseudo  Le pseudo du joueur qui charge
     ##
@@ -67,11 +66,11 @@ class Grille < Model
     end
 
     ##
-    ## @brief      Sauvegarde la partie du joueur
+    ## Sauvegarde la partie du joueur
     ##
     ## @param      pseudo  Le pseudo du joueur qui sauvegarde
     ##
-    ## @return     Retourne vrai quand la sauvegarde s'est fait
+    ## @return     Retourne vrai quand la sauvegarde s'est faite
     ##
     def sauvegarder(pseudo)
         donnees=Hash.new()
@@ -83,20 +82,27 @@ class Grille < Model
         return true
     end
 
+    ##
+    ## Récupère la valeur de la case de la grille
+    ## 
+    ## @param       x       Abscisse de la grille
+    ## @param       y       Ordonnée de la grille
+    ##
+    ## @return  la valeur
+    ## 
     def getValue(x, y)
         return @grille[x][y]["value"]
     end
 
-    #---------------------------------------------------------------------------
     ## Vérifie à partir de coordonnées que la valeur est unique
     ##
-    ## @param      x     Abscisse de la case
-    ## @param      y     Ordonnée de la case
+    ## @param      valeur   Valeur de la case
+    ## @param      x        Abscisse de la case
+    ## @param      y        Ordonnée de la case
     ##
     ## @return     true si la cellule est bien unique false sinon
     ##
     def valeurUnique(valeur, x ,y)
-        
         ligneUnique = self.valeurUniqueLigne(valeur, x, y, "ligne")
         colonneUnique =self.valeurUniqueLigne(valeur, x, y, "colonne")
 
@@ -118,7 +124,7 @@ class Grille < Model
             end
         end
 
-        ## Parcours la région et vérifie unicité
+        ## Parcourt la région et vérifie l'unicité
         for i in 0..2
             for j in 0..2
                 ## Case vérifiée exclue
@@ -132,16 +138,17 @@ class Grille < Model
 
         return true
     end
-    #-------------------------------------------------------------------------------
-    ## Vérifie les valeur d'une ligne en se basant sur des coordonées initial
+
+    ## Vérifie les valeurs d'une ligne en se basant sur des coordonées initiales
     ##
-    ## @param      x      Ordonnée de la case à verifiée
-    ## @param      y      Abscisse de la case à verifiée
+    ## @param      valeur   Valeur de la case 
+    ## @param      x        Ordonnée de la case à vérifier
+    ## @param      y        Abscisse de la case à vérifier
+    ## @param      type     Type de la recherche
     ##
     ## @return     True si valeur unique sinon false
     ##
     def valeurUniqueLigne(valeur, x, y, type)
-
         ## Parcours ligne ou colonne à la recherche de valeur unique
         if(type == "ligne")
 

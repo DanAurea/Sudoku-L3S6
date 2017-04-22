@@ -1,5 +1,3 @@
-# => Contient la classe abstraite Fenetre regroupant les informations de base de chaque fenêtre
-#
 # => Author::       Valentin, DanAurea
 # => Version::      0.1
 # => Copyright::    © 2016
@@ -9,29 +7,47 @@ require "optparse"
 require "fileutils"
 
 ##
-## classe abstraite Fenetre regroupant les informations de base et méthodes de chaque fenêtre
+## Module regroupant les informations de base de chaque fenêtre
 ##
 module Fenetre
 
-    #Constante couleur, taille
+    ## Définit la couleur blanche
     COULEUR_BLANC = Gdk::RGBA.new(1,1,1,1)
+    ## Définit la couleur verte
     COULEUR_VERT = Gdk::RGBA.new(0, 1, 0, 1)
+    ## Définit la couleur jaune
     COULEUR_JAUNE = Gdk::RGBA.new(1, 1, 0, 1)
+    ## Définit la couleur rouge
     COULEUR_ROUGE = Gdk::RGBA.new(1, 0, 0, 1)
+    ## Définit la couleur orange
     COULEUR_ORANGE = Gdk::RGBA.new(1, 0.6, 0, 1)
+    ## Définit la couleur bleue
     COULEUR_BLEU = Gdk::RGBA.new(0.2, 0.59, 0.86, 1)
+    ## Définit la taille du pseudo
     SIZE_PSEUDO = 20
+    ## Définit la taille du titre 'Statistiques'
     SIZE_TITRE_STAT = 18
+    ## Définit la taille du contenu des statistiques
     SIZE_CONTENU_STAT = 15
+    ## Définit la taille du titre 'Score'
     SIZE_TITRE_SCORE = 18
+    ## Définit la taille du contenu du score
     SIZE_CONTENU_SCORE = 15
+    ## Définit la taille du titre 'Règles'
     SIZE_TITRE_REGLE = 15
+    ## Définit la taille du contenu des règles
     SIZE_CONTENU_REGLE = 14
+    ## Définit la taille du titre 'Règlages'
     SIZE_TITRE_REGLAGE = 15
+    ## Définit la taille du titre
     SIZE_TITRE = 40
+    ## Définit la taille des labels des boutons
     SIZE_LABEL_BOUTON = 20
+    ## Définit la taille du titre du jeu
     SIZE_TITRE_JEU = 18
+    ## Définit la taille du titre de l'autre jeu
     SIZE_AUTRE_JEU = 12
+    ## Définit le menu
     FONT_MENU = "Monospace"
 
     ## VI
@@ -63,14 +79,13 @@ module Fenetre
     ## Création de la header bar
     @enteteFenetre                   = Gtk::HeaderBar.new()
     @enteteFenetre.show_close_button = true
-    @enteteFenetre.has_subtitle      = false
 
     ## Crée un conteneur pour le contenu
     @box=Gtk::Box.new(:vertical, 0)
     @fenetre.add(@box)
 
     ##
-    ## Définis un accesseur pour le contexte de la fenêtre Gtk
+    ## Définit un accesseur pour le contexte de la fenêtre Gtk
     ##
     ## @return  fenetre
     ##
@@ -80,63 +95,63 @@ module Fenetre
 
 
     ##
-    ## Définis un accesseur pour le contexte de l'entête de la fenêtre Gtk
+    ## Définit un accesseur pour le contexte de l'entête de la fenêtre Gtk
     ##
-    ## @return     L'entête de la fenêtre
+    ## @return  enteteFenetre
     ##
     def Fenetre.enteteFenetre()
         return @enteteFenetre
     end
     
     ##
-    ## Définis un accesseur pour le contexte de style de la fenêtre Gtk
+    ## Définit un accesseur pour le contexte de style de la fenêtre Gtk
     ##
-    ## @return fenetreStyle
+    ## @return  fenetreStyle
     ##
     def Fenetre.fenetreStyle()
         return @fenetreStyle
     end
     
     ##
-    ## Définis un accesseur pour le bouton de retour
+    ## Définit un accesseur pour le bouton de retour
     ##
-    ## @return boutonRetour
+    ## @return  boutonRetour
     ##
     def Fenetre.boutonRetour()
         return @boutonRetour
     end
 
     ##
-    ## Définis un accesseur pour le bouton boutonMenu_barre
+    ## Définit un accesseur pour le bouton boutonMenu_barre
     ##
-    ## @return boutonMenu_barre
+    ## @return  boutonMenu_barre
     ##
     def Fenetre.boutonMenu_barre()
         return @boutonMenu_barre
     end
 
     ##
-    ## Définis un accesseur pour le bouton boutonSauvegarder_barre
+    ## Définit un accesseur pour le bouton boutonSauvegarder_barre
     ##
-    ## @return boutonSauvegarder_barre
+    ## @return  boutonSauvegarder_barre
     ##
     def Fenetre.boutonSauvegarder_barre()
         return @boutonSauvegarder_barre
     end
 
     ##
-    ## Définis un accesseur pour le bouton boutonReinit_barre
+    ## Définit un accesseur pour le bouton boutonReinit_barre
     ##
-    ## @return boutonReinit_barre
+    ## @return  boutonReinit_barre
     ##
     def Fenetre.boutonReinit_barre()
         return @boutonReinit_barre
     end
 
     ##
-    ## Définis un accesseur pour le bouton boutonQuitter_barre
+    ## Définit un accesseur pour le bouton boutonQuitter_barre
     ##
-    ## @return boutonQuitter_barre
+    ## @return  boutonQuitter_barre
     ##
     def Fenetre.boutonQuitter_barre()
         return @boutonQuitter_barre
@@ -145,7 +160,7 @@ module Fenetre
     ##
     ## Définis un accesseur pour le bouton boutonPauseChrono_barre
     ##
-    ## @return boutonPauseChrono_barre
+    ## @return  boutonPauseChrono_barre
     ##
     def Fenetre.boutonPauseChrono_barre()
         return @boutonPauseChrono_barre
@@ -154,25 +169,25 @@ module Fenetre
     ##
     ## Définis un accesseur pour le bouton boutonPlayChrono_barre
     ##
-    ## @return boutonPlayChrono_barre
+    ## @return  boutonPlayChrono_barre
     ##
     def Fenetre.boutonPlayChrono_barre()
         return @boutonPlayChrono_barre
     end
 
     ##
-    ## Définis un accesseur pour le bouton boutonAnnuler_barre
+    ## Définit un accesseur pour le bouton boutonAnnuler_barre
     ##
-    ## @return boutonAnnuler_barre
+    ## @return  boutonAnnuler_barre
     ##
     def Fenetre.boutonAnnuler_barre()
         return @boutonAnnuler_barre
     end
 
     ##
-    ## Définis un accesseur pour le bouton boutonRetablir_barre
+    ## Définit un accesseur pour le bouton boutonRetablir_barre
     ##
-    ## @return boutonRetablir_barre
+    ## @return  boutonRetablir_barre
     ##
     def Fenetre.boutonRetablir_barre()
         return @boutonRetablir_barre
@@ -181,10 +196,10 @@ module Fenetre
     ##
     ## Applique une feuille css sur un widget
     ## 
-    ## @param   widget     Widget sur lequel appliquer
-    ## @param   chemin     Chemin du fichier css
-    ## @param   fournisseur Gtk provider pour le css
-    ## @param   priorite   Priorité du style par rapport au système
+    ## widget          Widget sur lequel appliquer
+    ## chemin          Chemin du fichier css
+    ## fournisseur     Gtk provider pour le css
+    ## priorite        Priorité du style par rapport au système
     ## 
     ## @return  Style appliqué
     ##
@@ -226,7 +241,6 @@ module Fenetre
     ##
     ## Montre la fenêtre précédente
     ##
-    ##
     def Fenetre.fenetrePrecedente()
         viderFenetre()
 
@@ -238,10 +252,9 @@ module Fenetre
     end
 
     ##
-    ## Définis la fenêtre précédente
+    ## Définit la fenêtre précédente
     ##
-    ## @param   fenetre
-    ##
+    ## @param   fenetre         Fenêtre précédente
     ##
     def Fenetre.fenetrePrecedente=(fenetre)
         @fenetrePrecedente = fenetre
@@ -250,14 +263,12 @@ module Fenetre
     ##
     ## Accesseur sur le layout
     ##
-    ##
     def Fenetre.box()
         return @box
     end
 
     ##
     ## Vide la fenêtre pour préparer la mise à jour
-    ##
     ##
     def Fenetre.viderFenetre()
         @fenetre.hide
@@ -271,8 +282,7 @@ module Fenetre
     end
 
     ##
-    ## Permet de quitter l'application et de detruire la fenetre
-    ##
+    ## Permet de quitter l'application et de détruire la fenêtre
     ##
     def Fenetre.detruire()
         Gtk.main_quit()
@@ -281,9 +291,8 @@ module Fenetre
     ##
     ## Applique un style css sur le widget
     ##
-    ## @param   widget Widget sur lequel appliquer un style
-    ## @param   provider  
-    ##
+    ## @param   widget          Widget sur lequel appliquer un style
+    ## @param   provider        
     ##
     def Fenetre.appliquerStyle(widget, provider)
         style_context = widget.style_context
@@ -297,11 +306,10 @@ module Fenetre
     ##
     ## Créer un label type à partir d'un string
     ##
-    ## @param   unNomDeLabel string représentant le texte du label
-    ## @param   uneTaille taille de la police
-    ## @param   une couleur couleur du texte
+    ## @param   unNomDeLabel    String représentant le texte du label
+    ## @param   uneTaille       Taille de la police
     ##
-    ## @return  Label
+    ## @return  label
     ##
     def Fenetre.creerLabelType(unNomDeLabel, uneTaille)
         #Creation du Label
@@ -314,10 +322,10 @@ module Fenetre
     ##
     ## Crée un popup du type demandé
     ##
-    ## @param      unTexte  Le texte à afficher
-    ## @param      type     Le type de popup
+    ## @param   unTexte         Le texte à afficher
+    ## @param   type            Le type de popup
     ##
-    ## @return    L'objet dialog gtk
+    ## @return  L'objet dialog gtk
     ##
     def Fenetre.creerPopup(unTexte, type)
         messageErreur = Gtk::MessageDialog.new(
@@ -330,29 +338,28 @@ module Fenetre
     end
 
     ##
-    ## Créer la box horizontale contenant les boutons retour et quitter des fenêtres du menu
+    ## Crée la box horizontale contenant les boutons Retour et Quitter des fenêtres du menu
     ##
-    ## @return Box
+    ## @return  boxBottom
     ##
     def Fenetre.creerBoxBottom()
-        #Creation des Boutons
-        
+        #Création des boutons 
         @boutonRetour=Gtk::Button.new(:label => "Retour")
         @boutonRetour.set_margin(40)
         @boutonRetour.signal_connect_after('clicked'){
             Core::back()
         }
 
-        #add des boutons
+        #Ajout des boutons
         boxBottom=Gtk::Box.new(:horizontal, 0)
         boxBottom.halign = :center
         boxBottom.add(@boutonRetour)
         return boxBottom
     end
 
-    ## Permet de creer la barre de menu
+    ## Permet de créer la barre de menu du haut
     ##
-    ## @return barreMenu barre de menu du haut
+    ## @return  barreMenu
     ##
     def Fenetre.creerBarreMenu()
         barreMenu = Gtk::Toolbar.new()

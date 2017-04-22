@@ -1,13 +1,17 @@
+# => Author:: 		yguenver
+# => Version:: 		0.1
+# => Copyright:: 	© 2016
+# => License:: 		Distributes under the same terms as Ruby
 
 ##
-## Classe pour single cell.
+## Classe pour la technique 'Single Cell'.
 ##
 class SCell < Technique
 
 	##
 	## Constructeur de la classe SCell
 	##
-	## @return     Une instance de la classe SCell
+	## @return 	Une instance de la classe SCell
 	##
 	def SCell.creer()
 		new()
@@ -16,9 +20,9 @@ class SCell < Technique
 	##
 	## Recherche une solution pour la technique utilisée
 	##
-	## @param      grille  La grille
+	## @param 	grille 			La grille
 	##
-	## @return     Les informations pour aider l'utilisateur, ou nul si la méthode ne trouve rien
+	## @return 	res, les informations pour aider l'utilisateur ou nil si la méthode ne trouve rien
 	##
 	def solution(grille)
 		grilleIndice = indice(grille)
@@ -39,9 +43,9 @@ class SCell < Technique
 
 
 	##
-	## Retourne le nombre d'étape pour faire la technique
+	## Retourne le nombre d'étapes pour faire la technique
 	##
-	## @return     Le nombre d'étape(s)
+	## @return     Le nombre d'étapes
 	##
 	def combienEtape()
 		return 2
@@ -52,7 +56,7 @@ class SCell < Technique
 	##
 	## @param      n     Le numéro de la technique
 	##
-	## @return     Un text expliquant l'étape sinon
+	## @return     Un texte expliquant l'étape sinon nil
 	##
 	def etape(n)
 

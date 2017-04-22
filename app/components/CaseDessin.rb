@@ -1,11 +1,22 @@
 require "observer"
 require Core::ROOT + "model/Configuration.rb"
 
+## => Author::      DanAurea
+## => version::     0.1
+## => copyright::   © 2016
+## => license::     Distributes under the same terms as Ruby
+
+##
+## Classe permettant de dessiner les cases d'une grille de Sudoku 
+##
 class CaseDessin < Gtk::DrawingArea
     include Observable
 
     attr_accessor :x, :y, :size, :taillePolice, :nombre, :editable, :indices, :indice, :state, :couleurCase, :couleurCaseFixe, :couleurIndices, :couleurPolice, :couleurSurlignee
 
+    ##
+    ## Initialisation
+    ##
     def initialize valeur, config
 
         super()
@@ -40,7 +51,7 @@ class CaseDessin < Gtk::DrawingArea
         end
 
         if(@editable == true)
-            ## Ajoute les évènement de survol et de clics
+            ## Ajoute les évènements de survol et de clics
             add_events(Gdk::EventMask::ENTER_NOTIFY_MASK)
             add_events(Gdk::EventMask::BUTTON_PRESS_MASK)
             add_events(Gdk::EventMask::LEAVE_NOTIFY_MASK)
@@ -67,8 +78,6 @@ class CaseDessin < Gtk::DrawingArea
     ##
     ## Réinitialise les indices de la cases
     ##
-    ## @return     self
-    ##
     def resetIndices
         @indices = {"1" => false, "2" => false, "3" => false, "4" => false, "5" => false, "6" => false, "7" => false, "8" => false, "9" => false}
     end
@@ -76,7 +85,7 @@ class CaseDessin < Gtk::DrawingArea
     ##
     ## Callback sur l'appui sur la souris (évènement ajouté à la main)
     ##
-    ## @return     Self
+    ## @return  self
     ##
     def focused evenement
         changed
@@ -95,7 +104,7 @@ class CaseDessin < Gtk::DrawingArea
     ##
     ## Action lors du survol de la case
     ##
-    ## @return     Self
+    ## @return     self
     ##
     def hover
         changed
@@ -108,9 +117,7 @@ class CaseDessin < Gtk::DrawingArea
     end
 
     ##
-    ## Définis l'état
-    ##
-    ## @return     { description_of_the_return_value }
+    ## Définit l'état
     ##
     def set_state=(etat)
         if(@state != "equal")
@@ -121,7 +128,7 @@ class CaseDessin < Gtk::DrawingArea
     ##
     ## Action lors de la sortie du curseur de la case
     ##
-    ## @return     Self
+    ## @return     self
     ##
     def leave
         changed
@@ -135,11 +142,9 @@ class CaseDessin < Gtk::DrawingArea
 
 
     ##
-    ## @brief      Affiche les chiffres au dessus de la case
-    ##              pour changer la valeur de la case.
+    ## Affiche les chiffres au dessus de la case pour changer la valeur de la case.
     ##
-    ##
-    ## @return     
+    ## @return  self
     ##
     # def afficherChiffres()
     #     popover = Gtk::Popover.new(self)
@@ -173,6 +178,11 @@ class CaseDessin < Gtk::DrawingArea
     #     return self  
     # end
 
+    ##
+    ## Permet d'ajouter des chiffres sur les cases vides de la grille
+    ## 
+    ## @param   grillePopover   Grille
+    ## 
     # def ajouterChiffres(grillePopover)
 
     #     chiffres = Hash.new()
@@ -203,12 +213,13 @@ class CaseDessin < Gtk::DrawingArea
     #     end 
     # end
 
-
     ##
-    ## Définis la couleur de la case
-    ##
-    ## @return self
-    ##
+    ## Edite la couleur de la case
+    ## 
+    ## @param   cr      case
+    ## 
+    ## @return  self
+    ## 
     def couleurCase cr
         if(@editable && @state != "focus" && @state != "hover")
             cr.set_source_color @couleurCase
@@ -228,9 +239,10 @@ class CaseDessin < Gtk::DrawingArea
         return self
     end
 
-
     ##
-    ## Définis la couleur de la police dans la case
+    ## Définit la couleur de la police dans la case
+    ## 
+    ## @param cr    case
     ##
     ## @return self
     ##
@@ -244,13 +256,19 @@ class CaseDessin < Gtk::DrawingArea
         return self
     end
 
+    ##
+    ## Redessine la case avec les nouvelles valeurs si modifiées
+    ## 
     def redessiner()
         self.queue_draw
     end
 
     ##
     ## Dessine une case
-    ##
+    ## 
+    ## @param   cr  case à dessiner
+    ## 
+    ## @return  self
     ##
     def dessiner cr
 
@@ -258,17 +276,17 @@ class CaseDessin < Gtk::DrawingArea
         ## pour les boutons
         @size = Fenetre::fenetre.size[1] / 12
 
-        ## Définis la largeur et la hauteur de la case (obligatoire pour gestion des évènements)
+        ## Définit la largeur et la hauteur de la case (obligatoire pour gestion des évènements)
         set_size_request(@size, @size )
 
-        ## Définis la couleur pour le dessin en fonction du type de case
+        ## Définit la couleur pour le dessin en fonction du type de case
         self.couleurCase cr
 
         ## Dessine un rectangle
         cr.rectangle 0, 0, @size, @size
         cr.fill
 
-        ## Définis la couleur du texte
+        ## Définit la couleur du texte
         self.couleurPolice cr
 
         if(@indice == false || !@editable || @nombre != nil)
@@ -283,12 +301,13 @@ class CaseDessin < Gtk::DrawingArea
 
         return self
 
-    end
+end
 
 
     ##
     ## Dessine le contour de la case
     ##
+    ## @param   cr      case
     ##
     def dessinerContour cr
         cr.set_source_rgb 0, 0, 0
@@ -339,8 +358,6 @@ class CaseDessin < Gtk::DrawingArea
     ##
     ## Dessine le chiffre
     ##
-    ## @return     { description_of_the_return_value }
-    ##
     def dessinerChiffre cr
         ## Définis les caractéristiques du texte
         cr.select_font_face @police, 
@@ -355,8 +372,6 @@ class CaseDessin < Gtk::DrawingArea
 
     ##
     ## Dessine les indices
-    ##
-    ## 
     ##
     def dessinerIndices cr        
         cr.set_font_size @tailleIndices

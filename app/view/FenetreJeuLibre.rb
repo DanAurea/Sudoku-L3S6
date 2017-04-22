@@ -1,17 +1,14 @@
-# => Contient la classe FenetreJeuLibre
-#
 # => Author::       Valentin, DanAurea
 # => Version::      0.1
 # => Copyright::    © 2016
 # => License::      Distributes under the same terms as Ruby
 
-##
-## classe FenetreJeuLibre
-##
-
 require Core::ROOT + "components/GrilleDessin.rb"
 require "observer"
 
+##
+## classe FenetreJeuLibre
+##
 class FenetreJeuLibre < View
 	include Observable
 	## VI box

@@ -1,5 +1,3 @@
-# => Contient la classe FenetreApprentissage pour la fenêtre du menu apprentissage
-#
 # => Author::       Valentin, DanAurea
 # => Version::      0.1
 # => Copyright::    © 2016
@@ -7,6 +5,9 @@
 
 require Core::ROOT + "components/GrilleDessin.rb"
 
+##
+## Classe FenetreApprentissage 
+##
 class FenetreApprentissage < View
 	## VI box
 	@menuBarre

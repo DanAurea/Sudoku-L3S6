@@ -1,41 +1,15 @@
-
-##
-## Classe pour X-wing.
-##
-
 require './Technique'
 
+# => Author:: 		yguenver
+# => Version:: 		0.1
+# => Copyright:: 	© 2016
+# => License:: 		Distributes under the same terms as Ruby
 
 
+##
+## Technique X-wing.
+##
 class XWing < Technique
-
-
-
-
-
-	def rotation(grille)
-		res = Array.new()
-
-		0.upto(8) do |n|
-			res.push(ligne(grille, n))
-		end
-		return res
-	end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	@grilleIndice
 
@@ -48,8 +22,30 @@ class XWing < Technique
 		new()
 	end
 
+	##
+	## Retourne la grille
+	##
+	## @param      grille  The grille
+	##
+	## @return     la grille
+	##
+	def rotation(grille)
+		res = Array.new()
 
+		0.upto(8) do |n|
+			res.push(ligne(grille, n))
+		end
+		return res
+	end
 
+	##
+	## Compte le nombre d'indices
+	##
+	## @param      lincol  The lincol
+	## @param      i 
+	##
+	## @return   compteurS
+	##
 	def cptIndice(lincol, i)
 		
 		cpt = 0
@@ -64,10 +60,10 @@ class XWing < Technique
 
 
 	##
-	## recherche une ligne qui rempli la condition suivante : 
-	## que seulement 2 cases sur les 9 ai un indice commun que les autres n'ont pas.
+	## Recherche une ligne qui remplit la condition suivante : 
+	## que seulement 2 cases sur les 9 aient un indice commun que les autres n'ont pas.
 	##
-	## @return	res une liste de 2 lignes qui remplissent les conditions pour le meme indice, nil sinon.
+	## @return	res une liste de 2 lignes qui remplissent les conditions pour le même indice, nil sinon.
 	##
 
 	def findLineForIndice(i)
@@ -89,9 +85,9 @@ class XWing < Technique
 
 
 	##
-	## cherche les emplacements d'un meme indice dans une ligne (numero de colone)
+	## Cherche les emplacements d'un même indice dans une ligne (numéro de colone)
 	##
-	## @return	index une liste des numero de colone
+	## @return	index une liste des numéros de colone
 	##
 
 	def indexIndice(ligne, indice)
@@ -109,9 +105,10 @@ class XWing < Technique
 
 
 	##
-	## verifi que les indice au ligne trouvé forme un rectangle.
+	## Vérifie que les indices aux lignes trouvées forment un rectangle.
 	##
-	## @param	lignea et ligneb des numero de ligne et indice le nombre recherché.
+	## @param	lignea et ligneb des numero de ligne et 
+	## @param   indice 		Le nombre recherché.
 	##
 	## @return	true si cela donne un carré, nil sinon.
 	##
@@ -203,10 +200,4 @@ xwing.solution(grille)
 grillerot = xwing.rotation(grille)
 
 xwing.solution(grillerot)
-
-
-
-
-
-
 

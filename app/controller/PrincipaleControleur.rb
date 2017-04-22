@@ -5,23 +5,24 @@
 # => License::      Distributes under the same terms as Ruby
 # 	
  	
-# 	Class PrincipaleControleur
-#
+##
+## Classe permettant de créer un contrôleur pour la vue FenetrePrincipale
+##
 class PrincipaleControleur < Controller
 	
 	##
     ## Initialize
     ##
 	def initialize ()
-		#parametres fenetre
+		#paramètres fenêtre
 		@title = "Sudoku"
 		@resizable = false
 	end
 
 	##
-    ## Méthode à définir dans tout les cas !
+    ## Méthode à définir dans tous les cas !
     ##
-    ## @return self
+    ## @return 	self
     ##
 	def run()
 		return self

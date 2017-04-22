@@ -1,27 +1,36 @@
+##   Author::        Nikuto
+##   Version::       0.1
+##   Copyright::     © 2017
+##   License::       Distributes under the same terms as Ruby
+
+
+##
+## Modèle du jeu
+##
 class Jeu < Model
 
 	attr_accessor :grille, :chrono, :score, :niveau
-	# @joueur
-	# @score
-	# @temps
-	# @mode
 
+	#Définit le niveau Facile à 0
 	FACILE=0
+	#Définit le niveau Moyen à 1
 	MOYEN=1
+	#Définit le niveau Difficile à 2
 	DIFFICILE=2
 
+	##Initialisation
 	def initialize
-		@grille   =nil
-		@score    =0
+		@grille   = nil
+		@score    = 0
 		@score_id = 0
-		@chrono   =0
+		@chrono   = 0
 		@niveau   = 1
 	end
 
 	##
-	## Crée une partie au format YAML pour la partie
+	## Crée une partie appartenant à un pseudo donné au format YAML
 	##
-	## @param      pseudo  Pseudo utilisateur
+	## @param      pseudo  Pseudo de l'utilisateur
 	##
 	## @return     self
 	##
@@ -41,7 +50,7 @@ class Jeu < Model
 	end
 
 	##
-	## Charge une partie d'un utilisateur précis.
+	## Charge la partie liée au pseudo de l'utilisateur
 	##
 	## @param      pseudo  Pseudo de l'utilisateur
 	##

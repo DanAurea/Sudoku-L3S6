@@ -1,23 +1,23 @@
-# => Controlleur vue reglages
 # => Author::       Valentin, DanAurea
 # => Version::      0.1
 # => Copyright::    © 2016
 # => License::      Distributes under the same terms as Ruby
 # 	
  	
-# 	Class ReglagesControleur
-#
+##
+## Classe permettant de créer un contrôleur pour la vue FenetreReglages
+##
 class ReglagesControleur < Controller
 
 	##
     ## Initialize
     ##
 	def initialize()
-		#charge le modele utilisateur
+		#charge le modèle utilisateur
 		loadModel("Utilisateur")
 		loadModel("Configuration")
 
-		#parametres fenetre
+		#paramètres fenêtre
 		@title     = "Sudoku - Réglages"
 		@width     = 600
 		@height    = 550
@@ -28,10 +28,10 @@ class ReglagesControleur < Controller
 
 
 	##
-	## @brief      Enregistre les paramètres en base de données
+	## Enregistre les paramètres en base de données
 	##
-	## @param      pseudo  Pseudo de l'utilisateur
-	## @param      config  Configuration de l'utilisateur
+	## @param      pseudo      Pseudo de l'utilisateur
+	## @param      config      Configuration de l'utilisateur
 	##
 	## @return     self
 	##
@@ -51,12 +51,11 @@ class ReglagesControleur < Controller
 	end
 
 	##
-    ## @brief      Convertis un gdk color en composantes
-    ##              sous forme d'une chaîne séparée par une virgule
+    ## Convertit un gdk color en composantes sous forme d'une chaîne séparée par une virgule
     ##
-    ## @param      gdkColor GDK::Color
+    ## @param   gdkColor        GDK::Color
     ##
-    ## @return     Les composantes sous forme de chaîne
+    ## @return  Les composantes sous forme de chaîne
     ##
     def couleur(gdkColor)
         return @Configuration.couleur(gdkColor)
@@ -64,20 +63,20 @@ class ReglagesControleur < Controller
 
 
     ##
-    ## @brief      Crée unn gdk color à partir d'une chaîne
+    ## Crée un Gdk::Color à partir d'une chaîne
     ##
-    ## @param      composantes  Composantes ("r,g,b")
+    ## @param   composantes     Composantes ("r,g,b")
     ##
-    ## @return     Gdk::Color
+    ## @return  Gdk::Color
     ##
     def creerCouleur(composantes)
     	return @Configuration.creerCouleur(composantes)
     end
 
 	##
-    ## Méthode à définir dans tout les cas !
+    ## Méthode à définir dans tous les cas !
     ##
-    ## @return self
+    ## @return  self
     ##
 	def run()
 		@content["config"] = @Configuration.getConfiguration(@content["pseudo"])

@@ -1,35 +1,36 @@
-# => Controlleur vue jeu libre
+require Core::ROOT + "utils/TechniqueUsine.rb"
+
 # => Author::       Valentin, DanAurea
 # => Version::      0.1
 # => Copyright::    © 2016
 # => License::      Distributes under the same terms as Ruby
 # 	
- 	
-# 	Class JeuLibreControleur
 
-require Core::ROOT + "utils/TechniqueUsine.rb"
 
+##
+## Classe permettant de créer un contrôleur pour la vue FenetreJeuLibre
+##
 class JeuLibreControleur < Controller
 
 	##
     ## Initialize
     ##
 	def initialize()
-		#charge le modele grille
+		#charge le modèle grille
 		loadModel("Configuration")
 		loadModel("Grille")
 		loadModel("Score")
 		loadModel("Jeu")
 		loadModel("Utilisateur")
 
-		#parametres fenetre
-		@title   = "Sudoku - Jeu Libre"
+		#paramètres fenêtre
+		@title  = "Sudoku - Jeu Libre"
 		@content = {"grille" => nil}
 		@height   = 720
 
 	end
 
-	##
+
 	## Met à jour la grille de données
 	##
 	## @param      x      Position x de la case
@@ -40,7 +41,7 @@ class JeuLibreControleur < Controller
 	##
 	def updateGrille(x, y, value)
 			
-		## Mets à jours le compteur
+		## Met à jour le compteur
 		if(@content["grille"][x][y]["value"] == nil && value != nil)
 			@Grille.nbVides -= 1
 		elsif(@content["grille"][x][y]["value"] != nil && value == nil)
@@ -50,7 +51,7 @@ class JeuLibreControleur < Controller
 		@content["grille"][x][y]["value"] = value
 
 		return self
-	end
+end
 
 	##
 	## Vérifie que la grille est correcte
@@ -124,7 +125,7 @@ class JeuLibreControleur < Controller
 	##
 	## Sauvegarde la partie dans un fichier yaml
 	##
-	## @return     Self
+	## @return 	self
 	##
 	def sauvegarder()
 		@Jeu.chrono = Header.temps
@@ -203,9 +204,9 @@ class JeuLibreControleur < Controller
 	end
 
 	##
-    ## Méthode à définir dans tout les cas !
+    ## Méthode à définir dans tous les cas !
     ##
-    ## @return self
+    ## @return 	self
     ##
 	def run()
 

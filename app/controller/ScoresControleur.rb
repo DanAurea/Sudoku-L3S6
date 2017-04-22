@@ -1,21 +1,21 @@
-# => Controlleur vue scores
 # => Author::       Valentin, DanAurea
 # => Version::      0.1
 # => Copyright::    © 2016
 # => License::      Distributes under the same terms as Ruby
 # 	
  	
-# 	Class ScoresControleur
-#
+##
+## Classe permettant de créer un contrôleur pour la vue FenetreScores
+##
 class ScoresControleur < Controller
 
 	##
     ## Initialize
     ##
 	def initialize()
-		#charge le modele utilisateur
+		#charge le modèle utilisateur
 		loadModel('Score')
-		#parametres fenetre
+		#paramètres fenêtre
 		@title = "Sudoku - Scores"
 		@width = 600
 		@height = 550
@@ -24,9 +24,9 @@ class ScoresControleur < Controller
 	end
 
 	##
-    ## Méthode à définir dans tout les cas !
+    ## Méthode à définir dans tous les cas !
     ##
-    ## @return self
+    ## @return 	self
     ##
 	def run()
 		meilleursScores = @Score.meilleursScores(10)

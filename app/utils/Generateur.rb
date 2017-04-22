@@ -1,20 +1,13 @@
-# 	File description
-# 	
-# 	Author:: 		BastienMor
-# 	Developers: 	BastienMor
-# 	Version:: 		0.1
-# 	Copyright:: 	© 2017
-# 	License::   	Distributes under the same terms as Ruby
-# 	
- 	
-# 	Class description
-# 	Generation de grille de sudoku (création de difficulté).
+## 	Author:: 		BastienMor
+## 	Developers: 	BastienMor
+## 	Version:: 		0.1
+## 	Copyright:: 	© 2017
+## 	License:: 		Distributes under the same terms as Ruby
+## 	
 
-# gen = Generateur.new()
-
-# g1 = gen.generer(1)
-# g2 = gen.generer(1)
-
+##
+## Génération de grille de Sudoku (création de difficulté)
+##
 class Generateur
 
 	@grid
@@ -23,9 +16,10 @@ class Generateur
 	attr_reader :grid, :difficulte
 
 	##
-	## @brief initialise grid une list de list de nombres.
+	## Initialisation
+	## 
+	## @param difficulte	Difficulté à prendre en compte
 	##
-
 	def initialize(difficulte)
 		@grid = Array.new()
 		ligne = Array.new()
@@ -68,41 +62,37 @@ class Generateur
 
 
 	##
-	## @brief      Génère une grille avec difficulté variable
-	##
-	## @param      d   Niveau de difficulté (1,2,3 pour respectivement facile, moyen, difficile)
-	##
-	## @return
+	## Génère une grille avec une difficulté variable
 	##
 	def generer()
 		self.convert()
 	end
 
 	##
-	## @brief échange la place de 2 lignes.
+	## Echange la place de 2 lignes.
 	##
-
+	## @param 	a 	Première ligne
+	## @param 	b 	Deuxième ligne
+	##
 	def switchrow(a, b)
 		@grid[a], @grid[b] = @grid[b], @grid[a]
 	end
 
 	##
-	## @brief échange la place de 2 colones.
+	## Echange la place de 2 colonnes.
+	## 
+	## @param 	a 	Première colonne
+	## @param 	b 	Deuxième colonne
 	##
-
 	def switchcol(a, b)
-
 		@grid.map {|e| e[a], e[b] = e[b], e[a]}
 	end
 
 
 	##
-	## @brief méthode qui retire des cases pour creer la difficulté.
+	## Retire des cases pour créer la difficulté.
 	##
-	## @param d la difficulté souhaiter.
-	##
-
-
+	## @return la grille
 	def complexifier()
 
 		present = Array.new
@@ -147,11 +137,10 @@ class Generateur
 
 
 	##
-	## @brief converti la grille de list{ list{int}} -> list{ list{ hash[value, unique]}}.
+	## Convertit la grille de list
 	##
-	## @return la grille converti.
+	## @return la grille convertie.
 	##
-
 	def convert()
 
 		res = Array.new()
@@ -177,3 +166,6 @@ class Generateur
 	end
 end
 
+# gen = Generateur.new()
+# g1 = gen.generer(1)
+# g2 = gen.generer(1)

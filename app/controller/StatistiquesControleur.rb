@@ -1,22 +1,22 @@
-# => Controlleur vue statistiques
 # => Author::       Valentin, DanAurea
 # => Version::      0.1
 # => Copyright::    © 2016
 # => License::      Distributes under the same terms as Ruby
-# 	
+	
  	
-# 	Class ScoresControleur
-#
+##
+## Classe permettant de créer un contrôleur pour la vue FenetreStatistiques
+##
 class StatistiquesControleur < Controller
 
 	##
     ## Initialize
     ##
 	def initialize()
-		#charge le modele utilisateur
+		#charge le modèle utilisateur
 		loadModel("Score")
 		loadModel("Jeu")
-		#parametres fenetre
+		#paramètres fenêtre
 		@title = "Sudoku - Statistiques"
 		@width = 600
 		@height = 550
@@ -25,9 +25,9 @@ class StatistiquesControleur < Controller
 	end
 
 	##
-    ## Méthode à définir dans tout les cas !
+    ## Méthode à définir dans tous les cas !
     ##
-    ## @return self
+    ## @return 	self
     ##
 	def run()
 		scores = @Score.scoreUtilisateur(@content["pseudo"])

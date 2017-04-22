@@ -2,11 +2,22 @@ require 'sqlite3'
 require 'singleton'
 require_relative 'Conf.rb'
 
+# => Author::       DanAurea
+# => Version::      0.1
+# => Copyright::    © 2016
+# => License::      Distributes under the same terms as Ruby
+
+##
+## Classe permettant de gérer la base de données sqlite3
+##
 class Model
 	include Singleton
 
 	attr_accessor :db
 
+	##
+	## Initialisation
+	##
 	def initialize
 		## Retrieving configuration from yaml files
 		@conf = Conf.instance()
@@ -25,7 +36,7 @@ class Model
 	end
 
 	##
-	## @brief      Create a new database directory
+	## Create a new database directory
 	##
 	## @param      dbPath  The database path
 	##
@@ -45,7 +56,7 @@ class Model
 
 
 	##
-	## @brief      Connect to a database
+	## Connect to a database
 	##
 	## @param      database  The database
 	##
@@ -71,7 +82,7 @@ class Model
 	end
 
 	##
-	## @brief      Invoke methods when inherited
+	## Invoke methods when inherited
 	##
 	## @param      subclass  The subclass
 	##
@@ -85,7 +96,7 @@ class Model
 	end
 
 	##
-	## @brief      Insert datas in database
+	## Insert datas in database
 	##
 	## @param      options  Hash with columns and values
 	##
@@ -125,7 +136,7 @@ class Model
 	end
 
 	##
-	## @brief      Convert an array reques to a hash with columns => values
+	## Convert an array reques to a hash with columns => values
 	##
 	## @param      req   The request
 	##
