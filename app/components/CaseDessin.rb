@@ -12,7 +12,7 @@ require Core::ROOT + "model/Configuration.rb"
 class CaseDessin < Gtk::DrawingArea
     include Observable
 
-    attr_accessor :x, :y, :size, :taillePolice, :nombre, :editable, :indices, :indice, :state, :couleurCase, :couleurCaseFixe, :couleurIndices, :couleurPolice, :couleurSurlignee
+    attr_accessor :x, :y, :size, :taillePolice, :nombre, :editable, :indices, :indice, :state
 
     ##
     ## Initialisation
@@ -139,80 +139,7 @@ class CaseDessin < Gtk::DrawingArea
 
         return self
     end
-
-
-    ##
-    ## Affiche les chiffres au dessus de la case pour changer la valeur de la case.
-    ##
-    ## @return  self
-    ##
-    # def afficherChiffres()
-    #     popover = Gtk::Popover.new(self)
-
-    #     popover.position = :bottom
-        
-
-
-    #     ## Ajoute le contenu du popover
-    #     child = Gtk::Grid.new()
-
-    #     ## Ajoute les chiffres à la grille du popover
-    #     self.ajouterChiffres(child)
-        
-    #     ## Définis les espaces entre les chiffres
-    #     child.row_spacing = 5
-    #     child.column_spacing = 5
-
-    #     popover.add(child)
-        
-    #     popover.show_all
-
-
-    #     ## Cache le popover quand un clic est détecté 
-    #     ## A corriger: ne cacher que si clic en dehors de la zone
-    #     popover.signal_connect "button_press_event" do
-    #         popover.hide()
-    #         @focus = false
-    #     end
-
-    #     return self  
-    # end
-
-    ##
-    ## Permet d'ajouter des chiffres sur les cases vides de la grille
-    ## 
-    ## @param   grillePopover   Grille
-    ## 
-    # def ajouterChiffres(grillePopover)
-
-    #     chiffres = Hash.new()
-        
-    #     (1..9).each do |value|
-    #         chiffres[value.to_s] = Gtk::Button.new(:label => value.to_s)
-    #     end
-
-    #     row = 0
-    #     col = 0
-    #     parLigne = 2
-
-    #     ## Place les chiffres dans le layout grille
-    #     chiffres.each do |_, bouton|
-    #         grillePopover.attach bouton, col, row , 1, 1
-
-    #         col += 1
-    #         if(col > parLigne)
-    #             row += 1
-    #             col  = 0
-    #         end
-
-    #         ## Change la valeur de la case si appui détecté
-    #         bouton.signal_connect "button_press_event" do |widget|
-    #             mettreAJour(widget.label.to_i)
-    #             redessiner()
-    #         end
-    #     end 
-    # end
-
+   
     ##
     ## Edite la couleur de la case
     ## 
@@ -301,7 +228,7 @@ class CaseDessin < Gtk::DrawingArea
 
         return self
 
-end
+    end
 
 
     ##
