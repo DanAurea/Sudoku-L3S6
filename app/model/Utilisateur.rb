@@ -53,18 +53,6 @@ class Utilisateur < Model
 	end
 
 	##
-	## @brief      Mise a jour d'un utilisateur dans la base donnée
-	##
-	## @param      args  Les paramètres a mettre à jour
-	##
-	## @return     Retourne l'utilisateur modifié
-	##
-	def majUtilisateur(**args)
-		## Faire une jointure sur score etc puis update
-	end
-
-
-	##
 	## @brief      Supprime un utilisateur de la base de donnée
 	##
 	## @param      pseudo  Le pseudo de l'utilisateur a supprimé
@@ -109,19 +97,6 @@ class Utilisateur < Model
 		resultat = @@db.execute "SELECT pseudo FROM utilisateur WHERE pseudo = ? LIMIT 1;", pseudo
 		return resultat.length >= 1 ? true : false;
 	end
-
-
-	##
-	## @brief      Cherche les utilisateur repondant au filtre
-	##
-	## @param      args  Le filtre à appliquer
-	##
-	## @return     Les utilisateurs respectant le filtre
-	##
-	def filtreUtilisateur(**args)
-		return self.where(**args)
-	end	
-
 
 	##
 	## @brief      Vérifie si un utilisateur a une partie en cours

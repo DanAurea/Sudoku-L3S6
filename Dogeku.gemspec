@@ -1,18 +1,18 @@
 Gem::Specification.new do |s|
   s.name        = 'Dogeku'
-  s.version     = '0.0.1'
-  s.date        = '2017-01-12'
+  s.version     = '1.0.0'
+  s.date        = '2017-04-22'
 
   s.summary     = "Sudoku helper"
   s.description = "Help you to resolve a sudoku and learn how to resolve them."
   
-  s.authors     = ["DanAurea","Nikuto","Flambii","gaduran","AlexTAB","yguenver","keryann"]
+  s.authors     = ["DanAurea","Nikuto","Flambii","gaduran","AlexTAB","yguenver","keryann", "BastienMor"]
   s.email       = 'laochi.bc@gmail.com'
   s.homepage    = 'http://rubygems.org/gems/Dogeku'
   
 
-  s.files       = []
-  #s.executables << 'dogeku'
+  s.files       = Dir.glob("{bin,app}/**/*") + %w(LICENSE README.md)
+  s.executables = ['dogeku']
 
   s.licenses = ['MIT', 'GPL-2.0']
 

@@ -2,13 +2,13 @@ source 'https://rubygems.org'
  
 gemspec
 
-# group :production, :development do
-# 	gem 'gtk3'
-# end
+group :production, :development do
+	gem 'gtk3'
+end
 
-# group :development do
-# 	gem 'faker'	
-# end
+group :development do
+	gem 'faker'	
+end
 
 group :test, :travis do
 	gem 'sqlite3'
