@@ -133,6 +133,53 @@ class GrilleDessin < Gtk::Grid
         end
     end
 
+
+    ##
+    ## Colorie la région aux cordonnéees rX et rY
+    ##
+    ## @param      rX    Coordonnée x de la région
+    ## @param      rY    Coordonnée y de la région
+    ## @param      etat  Etat à afficher
+    ##
+    ## @return     self
+    ##
+    def colorierRegion(rX, rY, etat)
+        ## Colorie la région
+        for i in 0..2
+            for j in 0..2
+
+                @cases[rX + i][rY + j].set_state = etat
+                @cases[rX + i][rY + j].redessiner
+            end
+        end
+
+        return self
+    end
+
+
+    ##
+    ## Modifie les coordonnées pour donner les coordonnées de la première case
+    ## du bloc.
+    ##
+    ## @param      rX    Coordonnée x
+    ## @param      rY    Coordonnée y
+    ##
+    ## @return     Retourne coordonnées mises à jour
+    ##
+    def premiereCaseBloc!(rX, rY)
+        ## Récupère les cordonnées de la première case de la région
+        while(rX % 3 != 0 || rY % 3 != 0)
+            if(rX % 3 != 0)
+                rX -= 1
+            end
+            if(rY % 3 != 0)
+                rY -=1
+            end
+        end
+
+        return rX, rY
+    end
+
     ##
     ## Met en surbillance la région
     ##
@@ -148,24 +195,9 @@ class GrilleDessin < Gtk::Grid
         rX = x
         rY = y
 
-        ## Récupère les cordonnées de la première case de la région
-        while(rX % 3 != 0 || rY % 3 != 0)
-            if(rX % 3 != 0)
-                rX -= 1
-            end
-            if(rY % 3 != 0)
-                rY -=1
-            end
-        end
+        rX, rY = self.premiereCaseBloc!(rX, rY)
 
-        ## Colorie la région
-        for i in 0..2
-            for j in 0..2
-
-                @cases[rX + i][rY + j].set_state = etat
-                @cases[rX + i][rY + j].redessiner
-            end
-        end
+        self.colorierRegion(rX, rY, etat)
 
         return self
     end

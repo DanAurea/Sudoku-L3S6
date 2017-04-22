@@ -12,7 +12,7 @@ require Core::ROOT + "model/Configuration.rb"
 class CaseDessin < Gtk::DrawingArea
     include Observable
 
-    attr_accessor :x, :y, :size, :taillePolice, :nombre, :editable, :indices, :indice, :state
+    attr_accessor :x, :y, :size, :nombre, :editable, :indices, :indice, :state
 
     ##
     ## Initialisation
