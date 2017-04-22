@@ -199,9 +199,9 @@ class CaseDessin < Gtk::DrawingArea
     ##
     def dessiner cr
 
-        ## On définit la taille comme 1/12 de la fenêtre pour garder de l'espace
+        ## On définit la taille comme 1/15 de l'écran pour garder de l'espace
         ## pour les boutons
-        @size = Fenetre::fenetre.size[1] / 12
+        @size = Gdk::Screen.height / 15
 
         ## Définit la largeur et la hauteur de la case (obligatoire pour gestion des évènements)
         set_size_request(@size, @size )
