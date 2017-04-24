@@ -92,7 +92,7 @@ class Score < Model
 		tempsResoluMoy = 3*60
 
 		evolutionScore = (tempsResoluMoy - tempsChrono) + ((tempsResoluMoy/10)*(20 - penalite))
-		scoreCourant = (@difficulte)*evolutionScore
+		scoreCourant = (@difficulte + 1)*evolutionScore
 		
 		return scoreCourant
 	end
