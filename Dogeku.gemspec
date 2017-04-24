@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'Dogeku'
-  s.version     = '1.0.2'
+  s.version     = '1.0.4'
   s.date        = '2017-04-22'
 
   s.summary     = "Sudoku helper"
